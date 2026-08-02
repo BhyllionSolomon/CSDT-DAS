@@ -1,0 +1,2 @@
+n_pairs,wilcoxon_stat,p_value,median_delta_uniform_minus_learned,conclusion
+147,5593.0,0.3829276154314953,0.0036554932594299316,does NOT reach significance -- learned gate has not been shown to beat uniform fusion on this data

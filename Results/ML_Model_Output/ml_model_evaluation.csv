@@ -1,0 +1,5 @@
+Model,MAE,RMSE,R2,MAPE%
+Random Forest,94.82,201.92,0.6242,247.93
+Gradient Boosting,103.1,240.86,0.4653,193.75
+Neural Network (MLP),117.72,227.97,0.521,207.0
+Ridge Regression,164.04,264.75,0.3539,797.26

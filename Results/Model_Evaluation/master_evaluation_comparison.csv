@@ -1,0 +1,8 @@
+Category,Model,MAE,RMSE,R2,MAPE%
+Machine Learning,Random Forest,94.82,201.92,0.6242,247.93
+Machine Learning,Gradient Boosting,103.1,240.86,0.4653,193.75
+Machine Learning,Neural Network (MLP),117.72,227.97,0.521,207.0
+Machine Learning,Ridge Regression,164.04,264.75,0.3539,797.26
+Statistical,Linear Trend,886.02,1465.14,0.0041,
+Statistical,Polynomial (deg 3),821.54,1421.0,0.0632,
+Statistical,Log-Linear (NB approx),703.9,1554.8,-0.1215,

@@ -1,0 +1,7 @@
+variant,n_pairs,wilcoxon_stat,p_value,median_delta_full_minus_variant,verdict
+tcn_only,147,3615.0,0.0004199815079925408,-0.03858214616775513,tcn_only SIGNIFICANTLY WORSE than full_uniform
+bilstm_only,147,5407.0,0.9506578544226684,0.0011920928955078125,no significant difference -- equivalent to full_uniform
+transformer_only,147,4874.0,0.2745779282466767,-0.0084877610206604,no significant difference -- equivalent to full_uniform
+no_tcn,147,4764.0,0.19179222548922625,0.00412711501121521,no significant difference -- equivalent to full_uniform
+no_bilstm,147,5262.0,0.7321420647878667,0.0068354010581970215,no significant difference -- equivalent to full_uniform
+no_transformer,147,4455.0,0.0570626190097354,0.011272072792053223,no significant difference -- equivalent to full_uniform

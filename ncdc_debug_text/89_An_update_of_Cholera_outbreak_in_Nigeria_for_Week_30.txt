@@ -1,0 +1,88 @@
+CHOLERA OUTBREAK IN NIGERIA
+TITLE:
+SERIAL NUMBER: 09
+EPI-WEEK: 29
+DATE: 24 July 2018
+HIGHLIGHTS
+ The multi-agency cholera emergency operations centre (EOC) at NCDC continues to coordinate
+the response.
+ There is a general decline in the number of cases reported. However, cases are still being
+reported from seven States; Adamawa, Bauchi, Kaduna, Katsina, Niger, Kano and Zamfara.
+ No cases reported in the following states in the last two weeks: Gombe, FCT, Jigawa, Kogi,
+Yobe, Borno, Anambra and Nasarawa.
+EPI-Summary
+ In week 29 (16-22 July); 377 new suspected cases were reported from seven states- Adamawa
+(19), Bauchi (10), Kaduna (32), Kano (1), Katsina (81), Niger (6) and Zamfara (228) including nine
+deaths in four States Bauchi (1), Kaduna (4), Katsina (1), Zamfara (3).
+ As at 24th July 2018, a total of 17,897 suspected cases including 223 deaths (CFR: 1.25%) have
+been reported from 17 States (Adamawa, Anambra, Bauchi, Borno, Ebonyi, FCT, Gombe, Jigawa,
+Kaduna, Kano, Katsina, Kogi, Nasarawa, Niger, Plateau, Yobe and Zamfara) since the beginning of
+2018.
+ Increasing number of cases reported in Zamfara, Kaduna and Katsina states.
+ 51.9 % of the cases are aged 1-14 years; 1-4years (27.1%) and 5-14years (24.8%)
+ 49.8% male and 50.2% female affected
+…PROTECTING THE HEALTH OF NIGERIANS
+Table 1: Reported suspected Cholera cases by State as at Epi week 29, 2018
+S/N State LGAs LGAs ever Cases Total Deaths Total CFR Total Lab
+reporting reported in cases in week Deaths (%) positive
+in week in 2018 week reported 29 (n) (n)
+29 (n) cases (n) 29 (n)
+1 Bauchi 2 10 10 9331 1 34 0.36 57
+2 Adamawa 3 4 19 1718 0 27 1.57 65
+3 Zamfara 8 10 228 1896 3 23 1.21 8
+4 Borno 0 3 0 1543 0 0 0.00 3
+5 Kano 1 26 1 759 0 26 3.43 17
+6 Yobe 0 7 0 449 0 17 3.79 22
+7 Niger 3 17 6 547 0 28 5.12 10
+8 Plateau 0 2 0 313 0 6 1.92 22
+9 Kaduna 1 9 32 371 4 21 5.66 4
+10 Katsina 9 18 81 549 1 18 3.28 29
+11 Ebonyi 0 2 0 168 0 4 2.38 0
+12 Kogi 0 4 0 102 0 8 7.84 15
+13 FCT 0 2 0 59 0 5 8.47 1
+14 Gombe 0 1 0 46 0 4 8.70 10
+15 Anambra 0 1 0 23 0 1 4.35 0
+16 Jigawa 0 1 0 15 0 1 6.67 3
+17 Nasarawa 0 1 0 8 0 0 0.00 2
+Total 27 118 377 17,897 9 223 1.25 288
+Nigeria: States/LGAs affected by Cholera, Wk01-29, 2018
+…PROTECTING THE HEALTH OF NIGERIANS
+RESPONSE ACTIVITIES
+Coordination
+ Response is being coordinated by NCDC through an EOC in collaboration with NPHCDA, Federal
+Ministry of Water Resources (FMWR), WHO, UNICEF, MSF, AFENET, UMB and US-CDC
+ EOC meetings hold in most affected states to coordinate the outbreak response
+ National cholera stakeholders’ consensus meeting held to discuss cholera hotspot LGAs and
+review of preventive OCV campaign implementation schedule on Thursday 19th July, 2018
+Surveillance
+ Clinician sensitization for early detection and reporting conducted
+ Active case search is ongoing in affected States
+…PROTECTING THE HEALTH OF NIGERIANS
+ Cases are included in the line-list daily with intensified surveillance in high risk states
+Case management
+ Cases are being treated at designated health facilities or Cholera Treatment Centres (CTCs) in the
+affected States supported by partners
+WaSH
+ Hygiene promotion and community sensitization ongoing
+Laboratory Surveillance
+ Samples are being tested with Rapid Diagnostic Test kits (RDTs) in the field and confirmed by stool
+culture.
+ Assessment and mapping of two labs per states ongoing in Plateau, Katsina, Kano and Kaduna states
+ Total number of positive laboratory results: 288
+Risk communications
+ Radio jingles in English, Hausa and pidgin ongoing in affected states
+ IEC materials distribution to 10 states and NPHCDA
+Logistics and Vaccination
+ First round of OCV campaign completed in Maiha, Mubi North and Mubi South LGAs of Adamawa
+State vaccinating 377,935 persons with an administrative coverage of 112%
+ Second round scheduled for 11-15 August, 2018
+CHALLENGES
+ Delay in submission of line-list for national update by some states
+ Inadequate number of trained health care workers for case management
+ Low proportion of samples tested by culture
+ Poor IPC practices in health facilities
+NEXT STEPS
+ Deploy national RRTs to states with increasing number of cases
+ Conduct laboratory needs assessment for cholera diagnosis in all the cholera active states
+ Deploy risk communications team to Zamfara states for care givers sensitization
+…PROTECTING THE HEALTH OF NIGERIANS

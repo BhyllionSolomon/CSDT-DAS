@@ -1,0 +1,125 @@
+CHOLERASITUATIONREPORT
+WEEKLYEPIDEMIOLOGICALREPORT04
+EpiWeek27:5thJuly–11thJuly2021
+DATAASREPORTEDANDASCCTUARTATEEOBYFNTCDHCEASNAATTMIIODNIGHT11THJULY2021
+HIGHLIGHTS
+ EighteenstatesandFCThavereportedsuspectedcholeracasesin2021.TheseareBenue,
+Delta,Zamfara,Gombe,Bayelsa,Kogi,Sokoto,Bauchi,Kano,Kaduna,Plateau,Kebbi,Cross
+River,Nasarawa,Niger,Jigawa,Yobe,KwaraandFCT
+ Inthereportingweek,eightstatesandFCTreported1,885suspectedcases-Bauchi(1,364),
+Kano,(231),Jigawa(99),Niger(70),Plateau(42),Zamfara(35),Kaduna(17),Kwara(14)and
+FCT(13).Ofthis,therewereseventeenRDTconfirmedcasesfromKwara(12),Plateau(3)
+andKaduna(2)States
+ Therewere31deathsfromfourstateswithCFR1.6%
+ Onenewstate–Kwara-reportedcasesinepiweek27
+ Atotalof1,885suspectedcaseswerereportedthisweekrepresentinga1.1% increase
+comparedtothenumberofsuspectedcasesrecordedinweek26
+ Atotalof31deathswererecordedinthelastoneweek,withnoincreasecomparedtothe
+previousweek
+ Thenationalmulti-sectoralEOCactivatedatlevel02continuestocoordinatethenational
+response
+Epi-Summary
+ AsatJuly11,2021,atotalof19,305suspectedcasesincluding479deaths(CFR
+2.5%)havebeenreportedfrom18statesandFCT(Benue,Delta,Zamfara,Gombe,
+Bayelsa,Kogi,Sokoto,Bauchi,Kano,Kaduna,Plateau,Kebbi,CrossRiver,Niger,
+Nasarawa,Jigawa,Yobe,KwaraandFCT)sincethebeginningof2021
+ Ofthereportedcasessincethebeginningoftheyear,11.0%areaged5-14years
+ Ofallsuspectedcases,52%aremalesand48%arefemales
+ Therehasbeenanincreaseinthenumberofnewcasesinthelasttwoweeks.
+Bauchi(2660),Kano(441),Jigawa(321)andKwara(143)accountfor92%of
+3,878casesreportedinthelasttwoweeks(26and27)
+ Sincethebeginningoftheyear,atotalof515sampleshavebeencollectedwith
+positivecasesasfollows-182RDTpositiveonly;55culturepositive;237RDTand
+culturepositive.Thetestpositivityrate(TPR)forlaboratoryconfirmationbyculture
+is32.2%
+NCDCCholeraSituationReport|www.ncdc.gov.ng 1
+GENERALFACTSHEET–DATAASAT11THJULY2021
+Table1:ReportedsuspectedcholeracasesbystateWeek01–27,2021
+Reportingweek27 Cumulative Confirmation
+Suspecte Deaths CFR(%) RDT Culture Suspected Deaths CFR RDT Culture
+State
+dcases cases (%)
+Tested Positive Tested Positive
+1 Bayelsa 0 0 0 0 0 258 15 5.8 8 3 0 0
+2 Benue 0 0 0 0 0 602 12 2.0 23 19 4 4
+3 Kogi 0 0 0 0 0 12 4 33.3 0 0 0 0
+4 Sokoto 0 0 0 0 0 2,178 86 4.0 5 0 5 4
+5 Gombe 0 0 0 0 0 190 1 0.5 8 5 0 0
+6 Delta 0 0 0 0 0 583 32 5.5 0 0 7 2
+7 CrossRiver 0 0 0 0 0 31 0 0.0 0 0 2 2
+8 Kebbi 0 0 0 0 0 35 1 2.9 0 0 0 0
+9 Nasarawa 0 0 0 0 0 411 17 4.1 0 0 4 4
+10 Plateau 42 0 0 3 0 942 11 1.2 44 35 0 0
+11 Bauchi 1,364 13 1.0 0 0 6271 66 1.1 10 7 0 0
+12 Kaduna 17 0 0 2 0 543 50 9.2 39 17 1 1
+13 Zamfara 35 0 0 0 0 2,209 11 0.5 60 32 7 7
+14 Kano 231 12 5.2 0 0 3,953 119 3.0 55 40 35 31
+15 Niger 70 2 2.8 0 0 213 13 6.1 12 3 0 0
+16 FCT 13 0 0 0 0 225 12 5.3 16 5 0 0
+17 Jigawa 99 4 4.0 0 0 482 10 2.1 3 3 0 0
+18 Yobe 0 0 0 0 0 24 3 12.5 1 1 0 0
+19 Kwara 14 0 0 0 0 143 16 11.2 112 12 0 0
+Total 1,885 31 1.6 5 0 19,305 479 2.5 396 182 65 55
+NCDCCholeraSituationReport|www.ncdc.gov.ng 2
+Figure1:MapofNigeriashowingstateswithreportedcholeracases,Week01–27,2021
+Figure2:NationalEpi-Curve
+NCDCCholeraSituationReport|www.ncdc.gov.ng 3
+Figure3:StatesEpi-Curve
+NCDCCholeraSituationReport|www.ncdc.gov.ng 4
+Figure4:Age-SexDistribution,Wk01–Wk27
+RESPONSEACTIVITIES
+Coordination
+Responseisbeingcoordinatedbythenationalmulti-sectoralEOChostedatNCDC,in
+collaborationwithFederalMinistryofWaterResources(FMWR),NationalPrimary
+HealthcareDevelopmentAgency(NPHCDA)andpartners
+Currently,Zamfara,Kaduna,Bauchi,Plateau,FCTandKanoState-levelEOCsarein
+responsemode
+NationalRapidResponseTeams(RRTs)withresponsecommoditiesweredeployedby
+NCDCtosupporttheresponseinsixstates-Benue,Kano,Kaduna,Zamfara,Bauchi
+andPlateauStates
+NCDCCholeraSituationReport|www.ncdc.gov.ng 5
+ReactiveOCVcampaigninBauchiLGA,BauchiStateplannedfor26thto29thJuly,2021
+Surveillance
+OngoingsurveillanceinallstatesthroughtheroutineIntegratedDiseaseSurveillance
+andResponse(IDSR)andEventBasedSurveillance(EBS)
+WASH
+Hygienepromotion,provisionofsafewaterandsensitisationondangersofopen
+defecationongoinginhigh-riskcommunitiesbyWASHsectorpartnersandCommunity
+HealthVolunteersintheaffectedstates
+Three(3)LGAsattainedOpenDefecationFree(ODF)status:GanjuwaLGA,Bauchi
+State;GiwaandKauraLGAsinKadunaState
+Laboratorysurveillance
+Supportedtestingofsamplesreceivedfrom Benue,Niger,Plateau,Bauchi,Jigawa,
+Kaduna,Kano,KwaraandFCTatNCDCNationalReferenceLaboratory(NRL),Abuja
+PlannedtrainingofStateLaboratoryScientistsonsamplecollectionandanalysis
+Riskcommunications
+CholerajinglesarebeingairedinEnglishandlocallanguages
+Community socialmobilisation,distribution ofInformation,Education and
+Communication(IEC)materialsandawarenesscampaignsongoinginaffected
+communities
+Continuedfollow-upwithstatesforupdateonriskcommunication
+Logisticsandvaccination
+ Essentialresponsecommoditiesarebeingprocuredforpre-positioningincholera
+hotspots
+ EpidemiologicaltrendisbeingmonitoredtoguideICGrequestforplannedvaccination
+campaigns
+Challenges
+ Difficultyinaccessingsomecommunitiesduetosecurityconcerns
+ Opendefecationinaffectedcommunities
+ Lackofpotabledrinkingwaterinsomeruralareasandurbanslums
+ InadequatevaccinestocoverallLGAs,wardsandsettlementswithcholeraoutbreaks
+ Inadequatehealthfacilityinfrastructureandcholeracommoditiesformanagementof
+patients
+NEXTSTEPS
+Conducttrainingoncholerasurveillance,hotspotsmappinganddevelopedstatelevel
+preparednessandresponseplans
+NCDCCholeraSituationReport|www.ncdc.gov.ng 6
+Maintaincommunicationwithstatesfordatareportingandresponsesupport
+DevelopandsubmitcholeravaccinationrequesttoInternationalCoordinatingGroup
+(ICG)forreactiveandpreventivecholeracampaign
+ContinueadvocacytoStateGovernmentstoincreasefundinginWASHinfrastructures
+Procureandpre-positionresponsecommodities
+Buildcapacityforsamplecollection,transportationandlaboratorydiagnosis
+PlanneddeploymentofRRTstomoreaffectedstates
+Scaleupriskcommunications
+NCDCCholeraSituationReport|www.ncdc.gov.ng 7

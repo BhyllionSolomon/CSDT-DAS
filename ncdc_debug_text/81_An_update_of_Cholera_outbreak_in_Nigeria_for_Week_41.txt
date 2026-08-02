@@ -1,0 +1,237 @@
+B TITLE: YELLOW FEVER OUTBREAK IN NIGERIA
+SERIAL 034
+NUMBER:
+EPI-WEEK: 40
+DATE: 1st October – 7th October, 2018
+HIGHLIGHTS
+In this reporting week 1st October – 7th October, 2018:
+o There were 43 suspected cases reported
+o Six presumptive positive cases and two inconclusive cases were reported from three of the
+diagnostic laboratories as outlined below:
+ The NCDC Central Public Health Laboratory (CPHL) reported one presumptive
+from [Edo –1 (Uhunmwonde LGA); two inconclusive cases from [Anambra, -1
+(Dukunofia LGA), Imo -1 (Mbatoli LGA)]
+ Maitama District Hospital (MDH) laboratory reported two presumptive positive
+cases from Kogi (Kogi LGA).
+ Kaduna Yusuf Dansoho Memorial Hospital (YDMH) reported three presumptive
+positive cases; from [Kebbi -2 (Bagudo and Gwandu LGAs) and Katsina – 1 Mani
+LGA)].
+o The last Institut Pasteur Dakar (IP Dakar) confirmed case from Nigeria was on 6th June, 2018 from
+Rivers State
+o A three year (2019-2021) Yellow fever (YF) Preventive Mass Vaccination Campaign (PMVC)
+proposal plan developed
+SUMMARY OF OUTBREAK
+ A yellow fever outbreak is currently active in Nigeria. Confirmed cases have been recorded in
+eleven States (Kwara, Kogi, Kano, Zamfara, Kebbi, Nasarawa, Niger, Katsina, Edo, Ekiti and Rivers
+States): in 22 Local Government areas (LGAs) [Table 1]
+ Since the beginning of the outbreak, 145 samples (presumptive positive -125 and inconclusive -20)
+in 73 LGAs have been sent to IP Dakar for re-confirmation [Figure 1]
+ Since the beginning of the outbreak, all Nigerian states have reported suspected cases in 564
+(72.9%) LGAs
+ From the onset of this outbreak in September 12, 2017, a total of 3,162 suspected yellow fever
+cases have been reported as at week 40 [1st October – 7th October, 2018 (Table 1)].
+ Of the 3,162 suspected cases, 2,907 (91.9%), had blood samples collected and sent to the
+Nigerian testing laboratories for confirmation
+ Of the 2,864 samples collected, 125 (4.3%) tested positive for yellow fever (presumptive
+positive cases) and 20 (0.6%) inconclusive results in six Nigerian laboratories (Table 1)
+…PROTECTING THE HEALTH OF NIGERIANS
+ Of the 145 (presumptive positive and inconclusive) samples in Nigeria, 47 (32.4%) samples
+have been confirmed positive by IP, Dakar. 77 samples were negative. Awaiting results of 21
+samples from IP Dakar [Table 1].
+ Of all suspected, probable and confirmed cases, 54 deaths have been recorded while 11 deaths
+have been recorded among confirmed cases only. The case fatality ratio (CFR) for all cases
+(suspected, probable and confirmed) is 1.7%, and 23.4% for confirmed cases.
+ Predominant age groups affected among the suspected cases is 20 years and below (children
+and younger adults) accounting for 1968 (62.2%) [Male 1,199 (37.9.0%): Female 769 (24.3%)],
+However, age groups 1 -5 years have the highest peak
+o Median age is 15 years (range 1 – 92 years)
+o Male to female ratio is 1.4 to 1 [Male 1,825 (57.7%), Female 1,337 (42.3%)]
+o Among the confirmed cases, male to female ratio is 1.8:1 (male 63.8%, female 36.2%)
+ Yellow fever vaccination campaigns have been successfully completed in six states
+o Nasarawa, Cross River, Akwa Ibom; Kogi, Kwara and Zamfara and in fifty-eight political wards
+in 25 LGAs in Borno State
+o 2018 phase 2b November PMVC to be implemented from 22nd November – 1st December,
+2018 in Sokoto, Kebbi, Niger, FCT, Plateau and some LGAs in Borno States. Target population 9
+months to 44 years, (85% of the total population).
+EPI- SUMMARY
+Table 1: Showing all affected states and cases with Yellow fever as at week 40 (1st October – 7th
+October), 2018
+D e s cri pti o
+n
+A bi a B or n o K o gi K w ar a Pl at e a u Z a mf ar a K e b bi E n u g u O y o A n a m br a E d o L a g os K a n o N as ar a w a K atsi n a Ni g er B a y el s a Cr os s Ri v
+er
+K a d u n a Ri v ers S o k ot o I m o D elt a Ji g a w a A k w a I b o
+m
+E b o n yi E kiti F C T O g u n O n d o Os u n B e n u e A d a m a w a B a u c hi G o m b e T ar a b a Y o b e T o t al
+Total Number of cases in the linelist 114212102116 69153526141 40203131 46117109221 27 25 17 30 42 47 78 52 13 58 51 37 22 36 43 38112 25 30 14 30 353162
+Attack Rate Per 100,000 population 2.9 3.4 2.1 3.4 1.6 3.2 11 3 0.5 3.5 3 0.3 0.8 4.1 2.7 0.5 1 0.4 0.3 0.5 0.9 1.4 0.9 0.2 1 1.7 1.1 0.5 0.6 0.9 0.8 1.9 0.5 0.4 0.4 0.9 1 1.5
+Number of LGAs with suspected cases 18 21 20 12 17 13 22 15 18 18 18 9 28 14 27 9 8 7 12 18 15 23 21 10 20 13 14 4 12 14 19 20 13 11 9 12 10 564
+Number of LGAs with Presumptive
+/inonclusive cases 1 3 8 2 1 1 7 2 1 6 6 2 1 1 3 1 0 0 0 3 0 4 6 1 1 1 3 3 1 2 1 0 1 0 0 0 0 73
+Number of LGAs with confirmed
+cases from IP Dakar 0 0 4 2 0 4 5 0 0 0 1 0 1 1 1 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 22
+Number suspected cases with Blood sample
+collected in Nigeria 113210 94 77 67 63488141 40203131 46112 69196 27 25 17 29 42 47 78 52 12 58 51 34 22 36 43 38112 25 30 14 30 352907
+Number of Presumptive Positives in Nigeria 1 5 21 12 6 25 19 1 1 5 4 1 1 1 4 2 0 0 0 2 0 1 2 1 0 0 3 4 1 0 1 1 0 0 0 0 0 125
+Number with inconclusive results in Nigeria 0 1 0 1 0 0 0 0 0 3 2 1 0 0 0 0 0 0 0 1 0 3 4 0 1 1 0 0 0 2 0 0 0 0 0 0 0 20
+Total number of samples sent to Dakar 1 6 21 13 6 25 19 1 1 8 6 2 1 1 4 2 0 0 0 3 0 4 6 1 1 1 3 4 1 2 1 1 0 0 0 0 0 145
+Number positive cases from IP Dakar 0 0 10 7 0 18 5 0 0 0 1 0 1 1 1 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 47
+Total number negative in Dakar 1 6 7 6 6 6 12 1 1 4 4 2 0 0 3 1 0 0 0 2 0 3 5 1 1 1 2 1 1 2 0 0 0 0 0 0 0 79
+Number awaiting result from Dakar 0 0 4 0 0 1 2 0 0 4 1 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 3 0 0 1 1 0 0 0 0 0 19
+Number of deaths from all cases 0 1 4 16 2 26 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 2 0 2 0 0 0 0 0 0 0 0 0 54
+Number of deaths among presumptive positives 0 0 4 1 0 9 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 17
+Number of deaths from IP Dakar confirmed 0 0 3 0 0 7 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11
+States with presumptive/inconclusive cases
+States with confirmed cases
+States with only suspected cases
+CFR for all cases = 1.7%, among the Presumptive/inconclusive cases 11.7% and among IP
+Dakar confirmed cases 23.4%
+2 | P a ge
+Figure 1: Attack rate of YF in Nigeria by State as at week 40 (1st October –7th October), 2018
+Figure 2: Epidemic curve of suspected / confirmed cases of yellow fever in Nigeria as at week 40 (1st
+October –7th October), 2018
+Figure 3: Epidemic curve of presumptive / confirmed cases of yellow fever in Nigeria as at week 40
+(1st October –7th October), 2018
+3 | P a ge
+reveF
+wolleY
+fo
+sesac
+fo
+rebmuN
+fo
+revef
+wolley
+fo
+etar
+kcattA
+noitalupop
+000,001/sesac
+150
+140
+130
+120
+110
+100
+90
+80
+70
+60
+50
+40
+30
+20
+10
+0
+A t t a c k r a t e o f Y e l l o w f e v e r p e r 1 0
+1 5
+1 0
+5
+0
+N C D C R R T 1 st Y F R V C , 1 1 th - 2 0 th O ct,
+D e p lo ye d 2 0 1 7 in K w a ra a n d K o gi
+1 8 th Se p t,
+2 0 1 7
+262728293031323334353637383940414243444546474849505152 1 2 3 4 5 6 7
+2017
+E p id w e e k o f o n s
+0
+8
+e
+, 0 0 0 p o p u l a t i o n a s a t 7 t h O c t o b e r , 2
+S t a t e
+2 n d Y F R V C , 1 st - 1 0 th
+D e c, 2 0 1 7 in Za m fa ra,
+3 rd Y F R V C , 8 th - 1 7 th
+D e c, 2 0 1 7 in K w a ra
+a n d K o gi
+9 101112131415161718192021222324252627282930313233343536373839
+2018
+t
+0 1
+N u
+N u
+N u
+N u
+8
+m
+m
+m
+m
+b
+b
+b
+b
+er o
+er o
+er o
+er o
+f D eath s
+f co n firm ed cases
+f P resum p tive cases
+f Su pected cases
+50 Epicurve of Presumptive/inconclusive and confirmed cases of Yellow fever from July 2017 - October
+re v 45 2018
+e
+f
+w
+40
+o lle 35
+Y
+fo
+30
+se 25
+sa
+c fo
+re
+2
+1
+0
+5
+N
+Nu
+u
+m
+m
+b
+be
+e
+r
+r o
+of
+f
+c
+P
+o
+re
+n
+s
+f
+u
+ir
+m
+m
+p
+e
+t
+d
+iv
+c
+e
+a s
+c
+e
+a
+s
+ses
+b10
+m
+u N 5
+0
+2627282930313233343536373839404142434445464748495051521 2 3 4 56 7 8 910111213141516171819202122232425262728293031323334353637
+2017 2018
+Epid week of onset
+F igure 5: Map of Nigeria showing states with suspected/presumptive/confirmed as at week 40 (1st
+O ctober –7th October), 2018
+positive and confirmed cases of Yellow fever, as at week 15 (9th - 15th) April, 2018
+4 | P a ge

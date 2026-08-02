@@ -1,0 +1,250 @@
+CholeraSituationReport EpiWeek:462021
+NigeriaCentreforDiseaseControl
+ProtectingthehealthofNigerians
+PLOT801EBITUUKIWESTREET,JABIABUJA,NIGERIA.
+www.ncdc.gov.ng @NCDCgov
+TOLLFREECALL:6232.Email:info@ncdc.gov.ng
+CholeraSituationReport
+WEEKLYEPIDEMIOLOGICALREPORT23
+Epidemiologicalweek46:(15Novemberto21November2021)
+KeyPoints
+Table1:Summaryofcurrentweek(Epiweek46,2021)
+Deaths
+Suspected (Suspected CaseFatality States LGAs
+Cases cases) Ratio(%) ReportingCases Reportingcases
+53 2 3.8% 6 10
+Table2:CumulativesummaryfromEpiweek1-46,2021
+Deaths
+Suspected (Suspected CaseFatality States LGAs
+Cases cases) Ratio(%) ReportingCases Reportingcases
+103,589 3,566 3.4% 33 401
+Week46Highlights
+ Thirty-twostatesandFCThavereportedsuspectedcholeracasesin2021.TheseareAbia,
+Adamawa,Bauchi,Bayelsa,Benue,Borno,CrossRiver,Delta,Ebonyi,Ekiti,Enugu,FCT,Gombe,
+Jigawa,Kaduna,Kano,Katsina,Kebbi,Kogi,Kwara,Lagos,Nasarawa,Niger,Ogun,Ondo,Osun,
+Oyo,Plateau,Sokoto,Taraba,Yobe,RiversandZamfara
+ Inthereportingweek,6statesreported53suspectedcases-Nasarawa(28),Zamfara(15),Lagos
+(3),Adamawa(3),Kaduna(2)andKebbi(2)
+ Therewas64%decreaseinthenumberofnewsuspectedcasesinweek46(53)compared
+withweek45(148)
+ Nasarawa(28)andZamfara(15)accountfor81%of53suspectedcasesreportedinweek46
+ Duringthereportingweek,1CholeraRapidDiagnosticTest(RDT)wasconducted.RDTconducted
+wasfromKebbi(1).Ofthis,atotalof1(100%)waspositive
+ Nostoolculturewasdone
+ Ofthecasesreported,thereweretwodeathsfromonestatereportingwithaweeklycasefatality
+ratio(CFR)of3.8%
+ Nonewstatereportedcasesinweek46
+ Thenationalmulti-sectoralEOCactivatedatlevel02continuestocoordinatethenational
+response
+1|Page
+CholeraSituationReport EpiWeek:462021
+CumulativeEpi-Summary
+ Asof21stNovember2021,atotalof103,589suspectedcasesincluding3,566deaths(CFR
+3.4%)havebeenreportedfrom32statesandFCTin2021
+ Ofthesuspectedcasessincethebeginningoftheyear,agegroup5-14yearsisthemost
+affectedagegroupformaleandfemale
+ Ofallsuspectedcases,50%aremalesand50%arefemales
+ Fourstates-Bauchi(19,470cases),Jigawa(13,293cases)Kano(12,116cases),and
+Zamfara(11,918cases)accountfor55%ofallcumulativecases
+ TwelveLGAsacrossfivestatesBauchi(4),Zamfara(4),Jigawa(2),Kano(1)andKatsina(1)
+havereportedmorethan1,000caseseachthisyear
+Figure1:NationalEpidemiccurveofweeklyreportedCholeracases,week1toweek46,2021
+Fig2:Kebbiepidemiccurve,week1toweek46,
+2021 Fig3:Kadunaepidemiccurve,week1toweek46,
+2021
+2|Page
+CholeraSituationReport EpiWeek:462021
+Fig4:Lagosepidemiccurve,week1toweek46, Fig5:Adamawaepidemiccurve,week1toweek46,
+Fig6:Zamfaraepidemiccurve,week1toweek46, Fig7:Nasarawaepidemiccurve,week1toweek46,
+2021 2021
+Table3:Top10statesincumulativecases
+Percentof
+cumulative Cumulative%
+No State Cases cases oftotalcases
+1 Bauchi 19,470 19% 19%
+2 Jigawa 13,366 13% 32%
+3 Kano 12,116 12% 43%
+4 Zamfara 11,918 12% 55%
+5 Katsina 8,602 8% 63%
+6 Sokoto 8,477 8% 71%
+7 Kebbi 5,949 6% 77%
+8 Borno 4,604 4% 82%
+9 Yobe 3,893 4% 85%
+10 Niger 2,821 3% 88%
+3|Page
+CholeraSituationReport EpiWeek:462021
+Total 91,216 88%
+Table4:Top15LocalGovernmentAreas(LGAs)incumulativecases
+%of
+cumulative Cumulative
+No LGA State Cases cases %
+1 Bauchi Bauchi 9336 9% 9%
+2 Dutse Jigawa 3073 3% 12%
+3 Hadejia Jigawa 3060 3% 15%
+4 Zurmi Zamfara 2886 3% 18%
+5 Anka Zamfara 2637 3% 20%
+6 Shinkafi Zamfara 2342 2% 23%
+7 Gusau Zamfara 2012 2% 24%
+8 Funtua Katsina 1959 2% 26%
+9 Sumaila Kano 1923 2% 28%
+10 Toro Bauchi 1911 2% 30%
+11 Ganjuwa Bauchi 1311 1% 31%
+12 TafawaBalewa Bauchi 1081 1% 32%
+13 BirninKudu Jigawa 970 1% 33%
+14 Gwadabawa Sokoto 969 1% 34%
+15 Dange-Shuni Sokoto 958 1% 35%
+Total 36,428 35%
+Figure8:Percentagecontributionofweeklycasesbystateinrecent10weeks,week37-46,2021
+4|Page
+CholeraSituationReport EpiWeek:462021
+Figure11:Numberofcumulativecholeracaseswithcasefatalityratio(CFR)bystate,week1-46,
+2021
+5|Page
+CholeraSituationReport EpiWeek:462021
+Figure12.MapofNigeriashowingstateswithRDT+Cultureconfirmationandsuspectedcases,week1-46,
+2021
+Figure13:TrendsinDeaths,week1-46,2021,Nigeria
+6|Page
+CholeraSituationReport EpiWeek:462021
+Table5.SummarytableforWeekly&CumulativenumberofCholeraCases,for2021
+7|Page
+CholeraSituationReport EpiWeek:462021
+Table6:Responseactivities
+Pillar Activitiestodate Nextsteps
+Coordination Responseisbeingcoordinatedbythenational Thenationalmulti-sectoral
+multi-sectoralEOChostedatNCDC,in EOCactivatedatlevel02
+collaborationwithFederalMinistryofHealth
+continuestocoordinatethe
+(FMOH),FederalMinistryofWaterResources
+nationalresponse
+(FMWR),FederalMinistryofEnvironment
+ Continue zonal level
+(FMEnvrt),andpartners
+NationalRapidResponseTeams(RRTs)with trainings on cholera
+responsecommoditiesdeployedbyNCDCto detection, reporting and
+supporttheresponseinsixteenstates-Benue, casemanagement
+Kano,Kaduna,Zamfara,Bauchi,Plateau,
+ Planned After Action
+Jigawa,Katsina,Niger,Gombe,Sokoto,Kebbi,
+Review(AAR)
+Oyo,Yobe,Adamawa,Borno,Ogun,CrossRiver
+andtheFCT
+Surveillance  Ongoingsurveillanceinallstatesthrough ● Continuedatacollation
+the routine Integrated Disease andharmonisation
+● Continuezonallevel
+Surveillanceand Response(IDSR)and
+trainingsondata
+EventBasedSurveillance(EBS)
+analysis
+ Providingoffsite/onsitesupporttostates
+andfollow upfordailyreportingand
+progresswithresponseactivities
+CaseManagement  Providedtechnicalsupportandresponse  Continueproviding
+&IPC commoditiestoaffectedstates technicalsupporton
+casemanagementand
+IPCtostates
+ Continuetrainingof
+HealthCareWorkers
+(HCW)onmanagement
+ofcholera
+ Continuousfollowup
+withstatesforupdates
+andsupport
+Laboratory  Supportedtestingofsamplesreceived  Plannedsub-national
+from Benue,Niger,Plateau,Bauchi, leveltrainingof
+LaboratoryScientistson
+Jigawa,Kaduna,Kano,Kwara,Katsina,
+samplecollectionand
+Enugu,Bayelsa,Adamawa,Nasarawa,
+analysis
+Gombe,Yobe,Borno,Oyo,Kebbi,Sokoto,
+Ebonyi,AbiaandFCTatNCDCNational
+ReferenceLaboratory(NRL),Abuja
+ Ongoing testing across state-level
+laboratories
+WASH  Hygiene promotion,provision ofsafe Continuedistributionof
+water, water chlorination, household hygienekitstoaffected
+states
+disinfectionandsensitisationondangers
+ofopendefecationongoinginhigh-risk
+communitiesbyWASH sectorpartners
+andCommunityHealthVolunteersinthe
+affectedstates
+8|Page
+CholeraSituationReport EpiWeek:462021
+ Continuousconstructionofsanitationand
+hygiene facilities with boreholes in
+cholerahotspots
+Logistics  Essentialresponsecommoditiesarebeing  Continuesupporting
+distributedtoallcholeraaffectedstates affectedstateswith
+essentialresponse
+commodities
+Vaccination(ledby  Epidemiologicaltrendisbeingmonitored  Continuemonitoring
+NPHCDA) to guide ICG request for planned epidemiologicaltrend
+toguideICGrequestfor
+vaccinationcampaigns
+plannedvaccination
+ ReactiveOCVcampaignswereconducted
+campaigns
+inMarchatAgatuLGA,BenueState;July
+ PlannedOCV
+atBauchiLGA,BauchiState;Octoberat campaignsin:Zamfara
+Dutse,Birnin-KuduandHadejiaLGAsof State(LGAs:Shinkafi,
+Jigawastate,DamaturuLGA ofYobe Zurmi)
+state
+Risk  Cholerajinglesarebeing aired in  Continueairingof
+communication Englishandlocallanguages cholera jingles
+ Community social mobilisation, anddistributionof
+media interviews, distribution of IECmaterials
+Information, Education and  Continuemedia
+Communication(IEC)materialsand engagementmeetings
+awareness campaigns ongoing in andtrainingofjournalist,
+affectedcommunities othermedia
+ ConductedMinisterialpressbriefings professionals
+ Continuedfollow-upwith
+statesforupdateonrisk
+communication
+StateResponse Multi-sectoralState-levelEOCscurrently Continuesupportingstate
+activatedinZamfara,Kaduna,Bauchi,Plateau, responseactivities
+Kano,Enugu,Jigawa,Niger,Gombe,Sokoto,
+Katsina,Adamawa,Borno,Oyo,Lagos,Kebbi,
+Yobe,Ogun,CrossRiverandtheFCT
+9|Page
+CholeraSituationReport EpiWeek:462021
+Challenges
+ Difficultyinaccessingsomecommunitiesduetosecurityconcerns
+ Opendefecationinaffectedcommunities
+ Lackofpotabledrinkingwaterinsomeruralareasandurbanslums
+ InadequatevaccinestocoverallLGAs,wardsandsettlementswithcholeraoutbreaks
+ Inadequatehealthfacilityinfrastructureandcholeracommoditiesformanagementofpatients
+(Ringer’slactateandORS)
+ Inadequatetrainedpersonnelinstatesforcasemanagement
+ Poorandinconsistentreportingfromstates
+NextSteps
+ Conducttrainingoncholerasurveillance,hotspotmappinganddevelopstatelevelpreparedness
+andresponseplans
+ Maintaincommunicationwithandsupporttostatesfordatareportingandresponse
+ ConductOCVcampaignsinZamfaraState
+ DevelopandsubmitcholeravaccinationrequesttoInternationalCoordinatingGroup(ICG)and
+theGlobalTaskForceforCholeraControl(GTFCC)forreactiveandpreventivecholeracampaign
+withNPHCDA
+ ContinueadvocacytoStateGovernmentstoincreasefundinginWASHinfrastructure
+ Pre-positionresponsecommoditiesacrossstates
+ Buildcapacityforsamplecollection,transportationandlaboratorydiagnosis
+ PlanneddeploymentofRRTstomoreaffectedstates
+ PlannedAfterActionReview(AAR)
+ Scaleupriskcommunications
+Notesonthisreport
+DataSource
+InformationforthisdiseasewascasebaseddataretrievedfromtheNationalCholeraEmergency
+OperationsCentre.
+Casedefinitions
+SuspectedCase:
+ Anypatientaged≥2yearswithacutewaterydiarrhoeaandseveredehydrationordyingfrom
+acutewaterydiarrhoeawithorwithoutvomiting
+ InareaswhereaCholeraoutbreakisdeclared,anypersonpresentingwithordyingfromacute
+waterydiarrhoeawithorwithoutvomiting
+ConfirmedCase:AsuspectedcaseinwhichVibriocholeraeO1orO139hasbeenisolatedinthestool
+byculture
+DATAASREPORTEDANDACCURATEBYNCDCASATMIDNIGHT21stNOVEMBER2021
+10|Page

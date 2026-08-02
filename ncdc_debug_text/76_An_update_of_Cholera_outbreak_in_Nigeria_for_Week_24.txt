@@ -1,0 +1,107 @@
+TITLE: WEEKLYSITUATIONREPORTFORCHOLERA
+SERIAL 01
+NUMBER:
+Month: June2021(Epiweek24)
+DATE: 16June,2021
+HIGHLIGHTS
+ Fourteenstateshavereportedsuspectedcholeracasesin2021.TheseareBenue,Delta,
+Zamfara,Gombe,Bayelsa,Kogi,Sokoto,Bauchi,Kano,Kaduna,Plateau,Kebbi,CrossRiver
+andNasarawa
+ Inthereportingweek,fivestatesreportedsuspectedcases–Bauchi(900),Kano,(575),
+Kaduna(70),Plateau(98)andZamfara(114)
+ Asatweek24,thereareactiveoutbreaksinsixstates-Sokoto,Zamfara,Bauchi,Kano,
+Gombe,Plateau,KadunaandNiger
+ Thenationalmulti-sectoralEOCatlevel02hasbeenactivatedattheNigeriaCentrefor
+DiseaseControl(NCDC)tocoordinatetheresponse
+Epi-Summary
+ AsatJune16th,2021,atotalof10,833suspectedcasesincluding289deaths(CFR=
+2.7%)havebeenreportedfrom14states(Benue,Delta,Zamfara,Gombe,Bayelsa,Kogi,
+Sokoto,Bauchi,Kano,Kaduna,Plateau,Kebbi,CrossRiverandNasarawa)sincethe
+beginningof2021
+ Oftheconfirmedcases,25.9%areaged5-14years
+ Ofallsuspectedcases,50%arefemalesand50%aremales
+ Therehasbeenanincreaseinthenumberofnewcasesinthelasttwoweeks.Zamfara
+(158),Bauchi(1268)andKano(590)Statesaccountfor95%of2,117casesreportedin
+thelasttwoweeks(23and24)
+ Atotalof210sampleswerecollectedwithpositivecasesasfollows-96RDTpositive
+only;23culturepositive;112RDTandculturepositive).Thetestpositivityrate(TPR)for
+laboratoryconfirmationbycultureis13.3%
+…PROTECTINGTHEHEALTHOFNIGERIANS
+Table1:ReportedsuspectedcholeracasesbystateWeek01–24,2021
+S/N State Totalcases Totaldeaths CFR(%) TotalRDT Totalculture
+reported positive positive
+1 Bayelsa 258 15 5.8 3 0
+2 Benue 602 12 2.0 19 4
+3 Kogi 12 4 33.3 0 0
+4 Sokoto 2,141 86 4.0 0 4
+5 Gombe 190 1 0.5 5 0
+6 Delta 583 32 5.5 0 2
+7 CrossRiver 31 0 0.0 0 2
+8 Kebbi 35 1 2.9 0 0
+9 Nasarawa 411 17 4.1 0 4
+10 Plateau 324 4 1.2 33 0
+11 Bauchi 2,315 36 1.6 7 0
+12 Kaduna 38 5 13.2 0 0
+13 Zamfara 1,961 10 0.5 29 7
+14 Kano 1,932 66 3.4 0 0
+10,833 289 2.7 112 23
+Figure1:MapofNigeriashowingstatesaffectedbycholera,Week01–24,2021
+…PROTECTINGTHEHEALTHOFNIGERIANS
+…PROTECTINGTHEHEALTHOFNIGERIANS
+RESPONSEACTIVITIES
+…PROTECTINGTHEHEALTHOFNIGERIANS
+Coordination
+ Responseisbeingcoordinatedbythenationalmulti-sectoralEOChostedatNCDC,in
+collaborationwithFederalMinistryofWaterResources(FMWR),NationalPrimary
+HealthcareDevelopmentAgency(NPHCDA)andpartners
+ StatelevelEOCswereactivatedinNasarawa,BenueandGombe.Currently,Zamfara,
+Kaduna,Bauchi,Plateau,FCTandKanoStateEOCsareinresponsemode
+ NationalRapidResponseTeams(RRTs)withresponsecommoditiesweredeployedto
+supporttheresponseinfourstates-Benue,Kano,KadunaandZamfaraStates
+ Developedthe2021AnnualCholeraPreparednessandResponseWorkplan
+ DevelopeddraftCholeraIncidentActionPlan(IAP)for2021
+ Finalisedplantoconductcholerahotspotmappinginall36States+FCT
+ Participatedvirtuallyinthe8thAnnualGeneralMeetingoftheGTFCC
+Surveillance
+ OngoingsurveillanceinallstatesthroughtheroutineIntegratedDiseaseSurveillanceand
+Response(IDSR)andEventBasedSurveillance(EBS)
+WASH
+ Hygienepromotion,provisionofsafewaterandsensitisationondangersofopen
+defecationongoinginhigh-riskcommunitiesbyWASHsectorpartnersandCommunity
+HealthVolunteersintheaffectedstates
+Laboratorysurveillance
+ 160packsofCrystalVCRDTKitssupportedthroughWHOdeployedtotwostates
+ JHUhasdonatedcrystalVC-01dipstickscontainedin10packsof100quantitytosupport
+theongoingresponse
+Riskcommunications
+ CholerajinglesarebeingairedinEnglishandlocallanguages
+ Communitysocialmobilisation,distributionofInformation,EducationandCommunication
+(IEC)materialsandawarenesscampaignsongoinginaffectedcommunities
+LogisticsandVaccination
+ Essentialresponsecommoditiesarebeingprocuredforpre-positioningincholera
+hotspots
+ EpidemiologicaltrendisbeingmonitoredtoguideICGrequestforplannedvaccination
+campaigns
+CHALLENGES
+ Difficultyinaccessingsomecommunitiesduetosecurityconcerns
+…PROTECTINGTHEHEALTHOFNIGERIANS
+ Opendefecationintheaffectedcommunities
+ Lackofpotabledrinkingwaterinsomeruralareasandurbanslums
+ InadequatevaccinestocoverallLGAs,wardsandsettlementswithcholeraoutbreaks
+ Inadequatehealthfacilityinfrastructureandcholeracommoditiesformanagementof
+patients
+NEXTSTEPS
+ Conducttrainingoncholerasurveillance,hotspotsmappinganddevelopedstatelevel
+preparednessandresponseplans
+ Maintaincommunicationwithstatesfordatareporting
+ ReviewtheexistingLGAcholerahotspotsmappingdevelopedin2018
+ Follow-upwiththeoutcomeofthe2021cholerariskassessmentreport
+ MakecholeravaccinationrequesttoInternationalCoordinatingGroup(ICG)forreactive
+choleravaccinationandGlobalTaskForceonCholeraControl(GTFCC)forpreventive
+choleravaccination
+ AdvocatetoStateGovernmentstoincreasefundinginWASHinfrastructures
+ Procureandpre-positionresponsecommodities
+ Buildcapacityforsamplecollection,transportationandlaboratorydiagnosis
+ PlanneddeploymentofRRTstoaffectedstates
+ Scaleupriskcommunications
+…PROTECTINGTHEHEALTHOFNIGERIANS

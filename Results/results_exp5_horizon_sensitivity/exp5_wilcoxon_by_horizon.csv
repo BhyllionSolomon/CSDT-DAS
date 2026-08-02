@@ -1,0 +1,4 @@
+horizon,n_pairs,wilcoxon_stat,p_value,median_delta_uniform_minus_learned,verdict
+1,147,4362.0,0.9813594152470332,-0.020410478115081787,not significant
+4,147,6128.0,0.09136958749579749,0.011317074298858643,not significant
+8,147,5122.0,0.7300636386344017,-0.004406392574310303,not significant

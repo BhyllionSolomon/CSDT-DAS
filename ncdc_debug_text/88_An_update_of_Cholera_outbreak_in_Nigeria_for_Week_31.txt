@@ -1,0 +1,115 @@
+TITLE: CHOLERA OUTBREAK IN NIGERIA
+SERIAL NUMBER: 10
+EPI-WEEK: 30
+DATE: 29th July 2018
+HIGHLIGHTS
+ The multi-agency cholera Emergency Operations Centre (EOC) at NCDC continues to coordinate
+the response.
+ There is a general decline in the number of cases reported at the national level. However, cases
+are still being reported from five States; Adamawa, Borno, Katsina, Yobe and Zamfara
+ New suspected cases reported in Borno and Yobe states, after cessation of cases in weeks 3 and
+10 respectively
+ No cases reported in the following states in the last two (2) or more weeks: Anambra, Nasarawa,
+FCT, Gombe, Kogi, Plateau and Jigawa States
+EPI-Summary
+ In week 30 (23-29, July); 154 new suspected cases were reported from five states- Adamawa
+(5), Borno (20), Katsina (1), Yobe (9) and Zamfara (119) including two new deaths in two
+States, Borno (1) and Katsina (1).
+ Of the suspected cases, 18 samples were collected, five were tested by RDT and three of these
+five were positive
+ As at 29th July 2018, a total of 18,205 suspected cases including (CFR: 1.30%) have been reported
+from 17 States (Adamawa, Anambra, Bauchi, Borno, Eboniyi, FCT, Gombe, Jigawa, Kaduna, Kano,
+Katsina, Kogi, Nasarawa, Niger, Plateau, Yobe and Zamfara) since the beginning of 2018.
+ 51.9 % of the cases are aged 1 -14 years; 1-4years (27.1%) and 5-14years (24.9%)
+ 49.9% male and 50.1% female affected
+…PROTECTING THE HEALTH OF NIGERIANS
+Table 1: Reported suspected Cholera cases by State as at Epi week 30, 2018
+S/N State LGAs LGAs ever Cases Total Deaths Total CFR Total
+reporting reported in cases in week Deaths (%) Lab
+in week in 2018 week reported 30 (n) positive
+30 (n) cases (n) 30 (n) (n)
+1 Bauchi 0 10 0 9331 0 34 0.36 57
+2 Adamawa 2 4 5 1727 0 27 1.57 65
+3 Zamfara 5 10 119 2129 0 23 1.21 8
+4 Borno 1 3 20 1591 1 0 0.00 3
+5 Kano 0 26 0 760 0 26 3.43 17
+6 Katsina 1 18 1 550 1 18 3.28 29
+7 Niger 0 17 0 547 0 28 5.12 10
+8 Yobe 1 7 9 466 0 17 3.79 22
+9 Plateau 0 2 0 313 0 6 1.92 22
+10 Kaduna 0 9 0 371 0 21 5.66 4
+11 Ebonyi 0 2 0 169 0 4 2.38 0
+12 Kogi 0 4 0 102 0 8 7.84 15
+13 FCT 0 2 0 59 0 5 8.47 1
+14 Gombe 0 1 0 46 0 4 8.70 10
+15 Anambra 0 1 0 23 0 1 4.35 0
+16 Jigawa 0 1 0 15 0 1 6.67 3
+17 Nasarawa 0 1 0 8 0 0 0.00 2
+Total 10 127 154 18,205 2 235 1.30 292
+Nigeria: States/LGAs affected by Cholera, Wk01-30 2018
+No Cholera Cases Reported
+1-200 Suspected Cholera Cases Reported, 117 LGAs (17 States)
+> 200 Suspected Cholera Cases Reported: 10 LGAs (8 States)
+New LGAs in WK 30 (3 States)
+Deaths = 235
+Lab-Preliminary/Confirmation Results = 292
+…PROTECTING THE HEALTH OF NIGERIANS # Affected: States = 17; LGAs = 127; Total Suspected Cholera Cases = 18205; Total Deaths = 235
+Katsina: Reported Cholera Cases by Week, WK01-30 2018
+300
+Alive Dead
+250
+s
+e 200
+s
+a
+C
+fo 150
+re
+b 100
+m
+u
+N 50
+0
+W01W02W03W04W05W06W07W08W09W10W11W12W13W14W15W16W17W18W19W20W21W22W23W24W25W26W27W28W29W30
+Week
+RESPONSE ACTIVITIES
+Coordination
+ Response is being coordinated by NCDC through an EOC in collaboration with NPHCDA, Federal
+Ministry of Water Resources (FMWR), WHO, UNICEF, MSF, AFENET, UMB and US-CDC
+ EOC meetings hold in most affected states to coordinate the outbreak response
+ Identification of teams to support outbreak response in Kaduna, Zamfara and Katsina states
+Surveillance
+ Clinician sensitization for early detection and reporting conducted
+ Active case search is ongoing in affected States
+ Cases are included in the line-list daily with intensified surveillance in high risk states
+…PROTECTING THE HEALTH OF NIGERIANS
+Case management
+ Cases are being treated at designated health facilities or Cholera Treatment Centers (CTCs) in the
+affected States supported by partners
+WaSH
+ Hygiene promotion and community sensitization ongoing
+ Open Defecation Free (ODF) campaign planned in affected states
+ Laboratory assessment for isolation of V. Cholerae in water samples is ongoing
+Laboratory Surveillance
+ Samples are being tested with Rapid Diagnostic Test kits (RDTs) in the field and confirmed by stool
+culture.
+ Laboratory assessment concluded in Bauchi, Kano, and Katsina States with orientation on sample
+management, institutionalization of testing algorithm, distribution of job aids and SOPs, and identification
+of lab focal persons completed.
+ Total number of positive laboratory results: 292
+Risk communications
+ Radio jingles in English, Hausa and pidgin ongoing in affected states
+ Social media campaign ongoing and Health Education messages
+Logistics and Vaccination
+ Cary Blair media, 1 pack of RDT kits, 17 pieces APW, 20 Skimmed milk media, and 20 swab sticks
+supplied to Bauchi, Kano and Katsina states
+ OCV vaccines for second round vaccination campaign in Adamawa State scheduled for 11-15
+August, 2018 have been received from ICG
+CHALLENGES
+ Delay in submission of line-list for national update by some states
+ Inadequate trained health care workers for case management
+ Inadequate capacity for culture in the states
+NEXT STEPS
+ Deploy national RRTs to states with increasing number of cases
+ Continue laboratory needs assessment for cholera diagnosis in the remaining cholera active states
+…PROTECTING THE HEALTH OF NIGERIANS

@@ -1,0 +1,217 @@
+CholeraSituationReport EpiWeek:042022
+NigeriaCentreforDiseaseControl
+ProtectingthehealthofNigerians
+PLOT801EBITUUKIWESTREET,JABIABUJA,NIGERIA.
+www.ncdc.gov.ng @NCDCgov
+TOLLFREECALL:6232.Email:info@ncdc.gov.ng
+CholeraSituationReport
+MONTHLYEPIDEMIOLOGICALREPORT01
+Epidemiologicalweek1-4:(03Januaryto30January2022)
+KeyPoints
+Table1:Summaryofcurrentweek(Epiweek4,2022)
+Deaths
+Suspected (Suspected CaseFatality States LGAs
+Cases cases) Ratio(%) ReportingCases Reportingcases
+50 2 4.0% 2 4
+Table2:CumulativesummaryfromEpiweek1-4,2022
+Deaths
+Suspected (Suspected CaseFatality States LGAs
+Cases cases) Ratio(%) ReportingCases Reportingcases
+470 9 1.9% 10 26
+Week04Highlights
+ Tenstateshavereportedsuspectedcholeracasesin2022.TheseareAbia,Adamawa,Bauchi,
+Bayelsa,Borno,CrossRiver,Kwara,Lagos,TarabaandZamfara
+ Inthereportingweek,2statesreported50suspectedcases–Taraba(35)andBayelsa(15)
+ Therewas49%decreaseinthenumberofnewsuspectedcasesinweek03(98)compared
+withweek04(50)
+ Tarabastatewith35accountfor70%of50suspectedcasesreportedinweek04
+ Duringthereportingweek,7CholeraRapidDiagnosticTest(RDT)wasconducted.RDTconducted
+wasfromTaraba(6)andBayelsa(1).Ofthis,atotalof3(43%)werepositive
+ 1stoolculturewasconducted.StoolcultureconductedwasfromBayelsa(1).Ofthis,none(0%)
+waspositive
+ Ofthecasesreported,therewas2deathsfromonestatereportingwithaweeklycasefatality
+ratio(CFR)of4.0%
+ Onenewstatereportedcasesinweek04
+ NationalMulti-sectoralCholeraTWGcontinuestomonitorresponseacrossstates
+CumulativeEpi-Summary
+ Asof30thJanuary2022,atotalof470suspectedcasesincluding9deaths(CFR1.9%)
+havebeenreportedfrom10statesin2022
+ Ofthesuspectedcasessincethebeginningoftheyear,agegroup<5yearsisthemost
+affectedagegroupformaleandfemale
+ Ofallsuspectedcases,45%aremalesand55%arefemales
+ Threestates-Taraba(201cases),Borno(88cases)andAdamawa(56cases)accountfor
+73%ofallcumulativecases
+1|Page
+CholeraSituationReport EpiWeek:042022
+ TenLGAsacrossfivestatesBorno(3),Adamawa(2),Taraba(1),Bayelsa(1)andKwara(1)
+reportedmorethan10caseseachthisyear
+Figure1:NationalEpidemiccurveofweeklyreportedCholeracases,week1toweek04,2022
+Fig2:Tarabaepidemiccurve,week1toweek4,2022 Fig3:Bayelsaepidemiccurve,week1toweek4,2022
+2|Page
+CholeraSituationReport EpiWeek:042022
+Table3:Top10statesincumulativecases
+Percentof
+cumulative Cumulative%
+No State Cases cases oftotalcases
+Table4:
+1 Taraba 201 43% 43%
+Top15
+2 Borno 88 19% 61%
+Local
+3 Adamawa 56 12% 73%
+4 Bayelsa 34 7% 81%
+5 Kwara 30 6% 87%
+6 Zamfara 28 6% 93%
+7 Lagos 24 5% 98%
+9 Bauchi 4 1% 100%
+10 CrossRiver 1 0% 100%
+Total 470 100%
+GovernmentAreas(LGAs)incumulativecases
+%of
+cumulative Cumulative
+No LGA State Cases cases %
+1 Gassol Taraba 188 40% 40%
+2 Edu Kwara 30 6% 46%
+3 Mafa Borno 30 6% 53%
+4 Maiduguri Borno 29 6% 59%
+5 YolaNorth Adamawa 24 5% 64%
+6 Jere Borno 22 5% 69%
+7 Southern/Ijaw Bayelsa 18 4% 73%
+9 Ogbia Bayelsa 16 3% 80%
+10 Ikorodu Lagos 16 3% 83%
+11 Wukari Taraba 13 3% 86%
+12 Gummi Zamfara 8 2% 88%
+13 Ngala Borno 7 1% 89%
+14 Bukkuyum Zamfara 7 1% 91%
+15 Girei Adamawa 7 1% 92%
+Total 433 92%
+3|Page
+CholeraSituationReport EpiWeek:042022
+Figure8:Percentagecontributionofweeklycasesbystateinrecent5weeks,week1-4,2022
+Figure11:Numberofcumulativecholeracaseswithcasefatalityratio(CFR)bystate,week1-4,
+2022
+4|Page
+CholeraSituationReport EpiWeek:042022
+Figure12.MapofNigeriashowingstateswithRDT+Cultureandsuspectedcases,week1-4,2022
+Figure13:TrendsinDeaths,week1-4,2022,Nigeria
+5|Page
+CholeraSituationReport EpiWeek:042022
+Table5.SummarytableforWeekly&CumulativenumberofCholeraCases,for2022
+6|Page
+CholeraSituationReport EpiWeek:042022
+Table6:Responseactivities
+Pillar Activitiestodate Nextsteps
+Coordination Responseisbeingcoordinatedbythenational Thenationalmulti-sectoral
+multi-sectoralTWGhostedatNCDC,in TWG will continue to
+collaborationwithFederalMinistryofHealth
+coordinate the national
+(FMOH),FederalMinistryofWaterResources
+response
+(FMWR),FederalMinistryofEnvironment
+ Continuesub-nationallevel
+(FMEnvrt),andpartners
+ANationalRapidResponseTeam(NRRT)with trainings on cholera
+responsecommoditiesdeployedbyNCDCto detection, reporting and
+supporttheongoingoutbreakresponsein casemanagement
+Tarabastate
+ Planned After Action
+Review(AAR)
+Surveillance  Ongoingsurveillanceinallstatesthrough ● Continuedatacollation
+the routine Integrated Disease andharmonisation
+Surveillanceand Response(IDSR)and
+EventBasedSurveillance(EBS)
+ Providingoffsite/onsitesupporttostates
+andfollow upfordailyreportingand
+progresswithresponseactivities
+CaseManagement  Providedtechnicalsupportandresponse  Continueproviding
+&IPC commoditiestoaffectedstates technicalsupporton
+casemanagementand
+ Finalization workshop held on cholera
+IPCtostates
+casemanagementguideline,treatment
+ Continuetrainingof
+protocolandSOPharmonization
+HealthCareWorkers
+(HCW)onmanagement
+ofcholera
+ Continuousfollowup
+withstatesforupdates
+andsupport
+Laboratory  Supportedongoingtestingacrossstate-  Plannedsub-national
+level laboratories at NCDC National leveltrainingof
+LaboratoryScientistson
+ReferenceLaboratory(NRL),Abuja
+samplecollectionand
+analysis
+WASH  Hygiene promotion,provision ofsafe Continuedistributionof
+water, water chlorination, household hygienekitstoaffected
+states
+disinfectionandsensitisationondangers
+ofopendefecationongoinginhigh-risk
+communitiesbyWASH sectorpartners
+andCommunityHealthVolunteersinthe
+affectedstates
+ Continuousconstructionofsanitationand
+hygiene facilities with boreholes in
+cholerahotspots
+ OngoingtrainingofWASHOfficersacross
+7|Page
+CholeraSituationReport EpiWeek:042022
+states
+Logistics  Essentialresponsecommoditiesarebeing  Continuesupporting
+distributedtoallcholeraaffectedstates affectedstateswith
+essentialresponse
+commodities
+Vaccination(ledby  Epidemiologicaltrendisbeingmonitored  Continuemonitoring
+NPHCDA) to guide ICG request for planned epidemiologicaltrend
+toguideICGrequestfor
+vaccinationcampaigns
+plannedvaccination
+campaigns
+Risk  Cholerajinglesarebeing aired in  Continueairingof
+communication Englishandlocallanguages cholera jingles
+ Community social mobilisation, anddistributionof
+media interviews, distribution of IECmaterials
+Information, Education and  Continuemedia
+Communication(IEC)materialsand engagementmeetings
+awareness campaigns ongoing in andtrainingofjournalist,
+affectedcommunities othermedia
+ ConductedMinisterialpressbriefings professionals
+ Continuedfollow-upwith
+statesforupdateonrisk
+communication
+StateResponse Multi-sectoralState-levelEOCscurrently Continuesupportingstate
+activatedinTaraba responseactivities
+8|Page
+CholeraSituationReport EpiWeek:042022
+Challenges
+ Difficultyinaccessingsomecommunitiesduetosecurityconcerns
+ Opendefecationinaffectedcommunities
+ Lackofpotabledrinkingwaterinsomeruralareasandurbanslums
+ Inadequatehealthfacilityinfrastructureandcholeracommoditiesformanagementofpatients
+(Ringer’slactateandORS)
+ Inadequatetrainedpersonnelinstatesforcasemanagement
+ Poorandinconsistentreportingfromstates
+NextSteps
+ Continuetrainingoncholerasurveillance,hotspotmappinganddevelopstatelevelpreparedness
+andresponseplans
+ Maintaincommunicationwithandsupporttostatesfordatareportingandresponse
+ ContinueadvocacytoStateGovernmentstoincreasefundinginWASHinfrastructure
+ Pre-positionresponsecommoditiesacrossstates
+ Buildcapacityforsamplecollection,transportationandlaboratorydiagnosis
+ PlannedAfterActionReview(AAR)
+ Scaleupriskcommunications
+Notesonthisreport
+DataSource
+Informationforthisdiseasewasfromroutinecase-baseddataandoutbreakline-listsretrievedbythe
+NationalCholeraTechnicalWorkingGroup
+Casedefinitions
+SuspectedCase:
+ Anypatientaged≥2yearswithacutewaterydiarrhoeaandseveredehydrationordyingfrom
+acutewaterydiarrhoeawithorwithoutvomiting
+ InareaswhereaCholeraoutbreakisdeclared,anypersonpresentingwithordyingfromacute
+waterydiarrhoeawithorwithoutvomiting
+ConfirmedCase:AsuspectedcaseinwhichVibriocholeraeO1orO139hasbeenisolatedinthestool
+byculture
+DATAASREPORTEDANDACCURATEBYNCDCASATMIDNIGHT30thJanuary2022
+10|Page

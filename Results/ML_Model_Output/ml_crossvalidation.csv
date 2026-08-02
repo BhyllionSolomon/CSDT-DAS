@@ -1,0 +1,5 @@
+Model,CV_RMSE_mean,CV_RMSE_std
+Random Forest,311.06,85.06
+Gradient Boosting,364.07,95.83
+Neural Network (MLP),373.7,124.08
+Ridge Regression,318.56,76.79

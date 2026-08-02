@@ -1,0 +1,43 @@
+source,target,pcc,granger_p,granger_best_lag_weeks,granger_significant,rf_shap_importance,rf_shap_significant,transfer_entropy,transfer_entropy_significant,dbn_p,dbn_significant,n_methods_agree
+Lassa Fever,CSM,0.4165,0.0046,1,True,0.2207,True,0.0569,True,0.0158,True,4
+Mpox,Cholera,0.3593,0.004,1,True,0.3276,True,0.0822,True,0.0,True,4
+Mpox,Lassa Fever,0.4637,0.0147,1,True,0.3565,True,0.083,True,0.0117,True,4
+AFP,Measles,0.3104,0.0001,1,True,0.2573,True,0.0413,False,0.0001,True,3
+CSM,Measles,0.4645,0.0699,1,False,0.1895,True,0.0958,True,0.039,True,3
+Yellow Fever,AFP,0.3842,0.0009,1,True,0.1394,False,0.08,True,0.0017,True,3
+Cholera,AFP,0.1381,0.0157,3,True,0.0883,False,0.0352,False,0.0266,True,2
+CSM,AFP,0.1521,0.3708,1,False,0.2335,True,0.0804,True,0.1494,False,2
+Mpox,AFP,-0.1012,0.0598,4,False,0.1313,False,0.0573,True,0.0469,True,2
+AFP,Lassa Fever,-0.0273,0.0007,3,True,0.1427,False,0.0648,True,0.2068,False,2
+CSM,Yellow Fever,0.152,0.0244,3,True,0.1652,False,0.0799,True,0.2467,False,2
+Cholera,Yellow Fever,0.1034,0.2876,1,False,0.194,True,0.0583,True,0.8941,False,2
+Cholera,Mpox,0.3593,0.1285,1,False,0.2823,True,0.0228,False,0.0432,True,2
+Mpox,Yellow Fever,-0.0771,0.0053,3,True,0.1897,True,0.0233,False,0.2515,False,2
+Mpox,Measles,-0.2541,0.183,1,False,0.086,False,0.0531,True,0.0242,True,2
+Yellow Fever,CSM,0.152,0.8155,1,False,0.2768,True,0.0515,True,0.8114,False,2
+Measles,Cholera,-0.0458,0.1616,4,False,0.1847,True,0.0722,True,0.0932,False,2
+AFP,Cholera,0.1381,0.1165,2,False,0.1685,True,0.0629,True,0.6653,False,2
+Measles,CSM,0.4645,0.7014,1,False,0.2027,True,0.0425,False,0.4175,False,1
+Cholera,CSM,-0.1464,0.1394,3,False,0.0781,False,0.0525,True,0.7157,False,1
+AFP,CSM,0.1521,0.224,2,False,0.1021,False,0.0565,True,0.7834,False,1
+Lassa Fever,AFP,-0.0273,0.6488,3,False,0.0524,False,0.0703,True,0.5362,False,1
+Measles,AFP,0.3104,0.5269,1,False,0.3551,True,0.0453,False,0.1787,False,1
+Measles,Lassa Fever,0.1138,0.022,3,True,0.1313,False,0.0485,False,0.2944,False,1
+CSM,Cholera,-0.1464,0.0986,3,False,0.0915,False,0.0508,False,0.0143,True,1
+Yellow Fever,Lassa Fever,0.022,0.2554,4,False,0.1696,True,0.0308,False,0.3422,False,1
+AFP,Yellow Fever,0.3842,0.1864,1,False,0.1853,True,0.0302,False,0.1636,False,1
+Measles,Mpox,-0.2541,0.5402,1,False,0.1353,False,0.0546,True,0.0754,False,1
+Yellow Fever,Measles,0.3604,0.1936,4,False,0.162,False,0.0549,True,0.5767,False,1
+Lassa Fever,Measles,0.1138,0.3897,4,False,0.1607,False,0.0625,True,0.2936,False,1
+Yellow Fever,Cholera,0.1034,0.4771,3,False,0.0888,False,0.0572,True,0.4328,False,1
+CSM,Mpox,0.1613,0.3913,2,False,0.2668,True,0.0348,False,0.2566,False,1
+Mpox,CSM,0.1613,0.196,3,False,0.1196,False,0.0427,False,0.6949,False,0
+Lassa Fever,Cholera,-0.0253,0.3744,2,False,0.1389,False,0.0417,False,0.0712,False,0
+CSM,Lassa Fever,0.4165,0.249,3,False,0.0651,False,0.036,False,0.4902,False,0
+Cholera,Lassa Fever,-0.0253,0.7174,2,False,0.1348,False,0.0274,False,0.4969,False,0
+Cholera,Measles,-0.0458,0.1309,1,False,0.1445,False,0.027,False,0.6959,False,0
+AFP,Mpox,-0.1012,0.1701,4,False,0.1378,False,0.0269,False,0.4735,False,0
+Lassa Fever,Mpox,0.4637,0.1533,1,False,0.0742,False,0.0244,False,0.0872,False,0
+Yellow Fever,Mpox,-0.0771,0.1584,3,False,0.1037,False,0.035,False,0.957,False,0
+Lassa Fever,Yellow Fever,0.022,0.8313,2,False,0.1082,False,0.0176,False,0.977,False,0
+Measles,Yellow Fever,0.3604,0.1149,4,False,0.1577,False,0.0479,False,0.4917,False,0

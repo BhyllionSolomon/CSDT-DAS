@@ -1,0 +1,9 @@
+DISEASE-TO-DISEASE RELATIONSHIPS -- 4-METHOD CONSENSUS REPORT
+======================================================================
+
+Lassa Fever appears to influence CSM, about 1 week(s) later (agreed on by 4 of 4 methods; PCC=0.4165, Granger p=0.0046, RF-SHAP share=0.2207, transfer entropy=0.0569, DBN p=0.0158).
+Mpox appears to influence Cholera, about 1 week(s) later (agreed on by 4 of 4 methods; PCC=0.3593, Granger p=0.004, RF-SHAP share=0.3276, transfer entropy=0.0822, DBN p=0.0).
+Mpox appears to influence Lassa Fever, about 1 week(s) later (agreed on by 4 of 4 methods; PCC=0.4637, Granger p=0.0147, RF-SHAP share=0.3565, transfer entropy=0.083, DBN p=0.0117).
+AFP appears to influence Measles, about 1 week(s) later (agreed on by 3 of 4 methods; PCC=0.3104, Granger p=0.0001, RF-SHAP share=0.2573, transfer entropy=0.0413, DBN p=0.0001).
+CSM appears to influence Measles, about 1 week(s) later (agreed on by 3 of 4 methods; PCC=0.4645, Granger p=0.0699, RF-SHAP share=0.1895, transfer entropy=0.0958, DBN p=0.039).
+Yellow Fever appears to influence AFP, about 1 week(s) later (agreed on by 3 of 4 methods; PCC=0.3842, Granger p=0.0009, RF-SHAP share=0.1394, transfer entropy=0.08, DBN p=0.0017).

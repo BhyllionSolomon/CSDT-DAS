@@ -1,0 +1,1485 @@
+year,month,epi_week,disease,suspected_cases,confirmed_cases,deaths,states_affected,lgas_affected,cfr_pct,report_url
+2016,10,40,Lassa Fever,227,,,28,135,,https://ncdc.gov.ng/reports/weekly/2016/10/40
+2016,10,40,Measles,20005,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/10/40
+2016,10,40,Cholera,3,,,2,2,,https://ncdc.gov.ng/reports/weekly/2016/10/40
+2016,10,40,CSM,2655,,,29,139,,https://ncdc.gov.ng/reports/weekly/2016/10/40
+2016,10,41,Lassa Fever,3,,,3,3,,https://ncdc.gov.ng/reports/weekly/2016/10/41
+2016,10,41,Measles,20250,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/10/41
+2016,10,41,Cholera,13,,,2,2,,https://ncdc.gov.ng/reports/weekly/2016/10/41
+2016,10,41,CSM,2656,,,29,140,,https://ncdc.gov.ng/reports/weekly/2016/10/41
+2016,10,42,Lassa Fever,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2016/10/42
+2016,10,42,Measles,20504,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/10/42
+2016,10,42,Cholera,6,,,4,11,,https://ncdc.gov.ng/reports/weekly/2016/10/42
+2016,10,42,CSM,2663,,,30,142,,https://ncdc.gov.ng/reports/weekly/2016/10/42
+2016,10,43,Lassa Fever,1,,,,,,https://ncdc.gov.ng/reports/weekly/2016/10/43
+2016,10,43,Measles,20983,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/10/43
+2016,10,43,Cholera,0,,,3,5,,https://ncdc.gov.ng/reports/weekly/2016/10/43
+2016,10,43,CSM,2667,,,31,144,,https://ncdc.gov.ng/reports/weekly/2016/10/43
+2016,11,44,Lassa Fever,1,,,,,,https://ncdc.gov.ng/reports/weekly/2016/11/44
+2016,11,44,Measles,21519,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/11/44
+2016,11,44,Cholera,0,,,2,2,,https://ncdc.gov.ng/reports/weekly/2016/11/44
+2016,11,44,CSM,2670,,,31,144,,https://ncdc.gov.ng/reports/weekly/2016/11/44
+2016,11,45,Lassa Fever,5,,,4,4,,https://ncdc.gov.ng/reports/weekly/2016/11/45
+2016,11,45,Measles,21852,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/11/45
+2016,11,45,Cholera,2,,,,3,,https://ncdc.gov.ng/reports/weekly/2016/11/45
+2016,11,45,CSM,2672,,,31,147,,https://ncdc.gov.ng/reports/weekly/2016/11/45
+2016,11,46,Lassa Fever,4,,,3,3,,https://ncdc.gov.ng/reports/weekly/2016/11/46
+2016,11,46,Measles,22222,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/11/46
+2016,11,46,CSM,2676,,,31,148,,https://ncdc.gov.ng/reports/weekly/2016/11/46
+2016,11,47,Lassa Fever,6,,,3,4,,https://ncdc.gov.ng/reports/weekly/2016/11/47
+2016,11,47,Measles,22567,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/11/47
+2016,11,47,Cholera,1,,,,,,https://ncdc.gov.ng/reports/weekly/2016/11/47
+2016,11,47,CSM,14,,,8,10,,https://ncdc.gov.ng/reports/weekly/2016/11/47
+2016,12,51,Lassa Fever,2,,,5,10,,https://ncdc.gov.ng/reports/weekly/2016/12/51
+2016,12,51,Measles,23970,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/12/51
+2016,12,51,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2016/12/51
+2016,12,51,CSM,2706,,,31,154,,https://ncdc.gov.ng/reports/weekly/2016/12/51
+2016,12,52,Lassa Fever,2,,,4,7,,https://ncdc.gov.ng/reports/weekly/2016/12/52
+2016,12,52,Measles,24203,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/12/52
+2016,12,52,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2016/12/52
+2016,12,52,CSM,2709,,,31,154,,https://ncdc.gov.ng/reports/weekly/2016/12/52
+2016,9,37,Lassa Fever,7,,,,,,https://ncdc.gov.ng/reports/weekly/2016/9/37
+2016,9,37,Measles,19082,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/9/37
+2016,9,37,Cholera,14,,,2,2,,https://ncdc.gov.ng/reports/weekly/2016/9/37
+2016,9,37,CSM,2648,,,27,135,,https://ncdc.gov.ng/reports/weekly/2016/9/37
+2016,9,39,Lassa Fever,227,,,28,135,,https://ncdc.gov.ng/reports/weekly/2016/9/39
+2016,9,39,Measles,19834,,,36,,,https://ncdc.gov.ng/reports/weekly/2016/9/39
+2016,9,39,Cholera,36,,,3,13,,https://ncdc.gov.ng/reports/weekly/2016/9/39
+2016,9,39,CSM,2653,,,28,137,,https://ncdc.gov.ng/reports/weekly/2016/9/39
+2017,1,1,Lassa Fever,3,,,,,,https://ncdc.gov.ng/reports/weekly/2017/1/1
+2017,1,1,Measles,24317,,,36,,,https://ncdc.gov.ng/reports/weekly/2017/1/1
+2017,1,1,Cholera,0,,,,2,,https://ncdc.gov.ng/reports/weekly/2017/1/1
+2017,1,1,CSM,2709,,,31,154,,https://ncdc.gov.ng/reports/weekly/2017/1/1
+2017,10,40,Mpox,50,,,4,4,,https://ncdc.gov.ng/reports/weekly/2017/10/40
+2017,10,40,Lassa Fever,11,,,8,8,,https://ncdc.gov.ng/reports/weekly/2017/10/40
+2017,10,40,Measles,244,,,34,,,https://ncdc.gov.ng/reports/weekly/2017/10/40
+2017,10,40,Cholera,50,,,8,8,,https://ncdc.gov.ng/reports/weekly/2017/10/40
+2017,10,40,CSM,11,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/10/40
+2017,10,40,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/10/40
+2017,10,41,Lassa Fever,11,,,6,6,,https://ncdc.gov.ng/reports/weekly/2017/10/41
+2017,10,41,Measles,397,,,32,,,https://ncdc.gov.ng/reports/weekly/2017/10/41
+2017,10,41,Cholera,19,,,,2,,https://ncdc.gov.ng/reports/weekly/2017/10/41
+2017,10,41,CSM,11,,,6,7,,https://ncdc.gov.ng/reports/weekly/2017/10/41
+2017,10,41,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/10/41
+2017,10,42,Lassa Fever,21,,,6,11,,https://ncdc.gov.ng/reports/weekly/2017/10/42
+2017,10,42,Measles,294,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/10/42
+2017,10,42,Cholera,79,,,,,,https://ncdc.gov.ng/reports/weekly/2017/10/42
+2017,10,42,CSM,5,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/10/42
+2017,10,42,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/10/42
+2017,10,43,Lassa Fever,8,,,4,5,,https://ncdc.gov.ng/reports/weekly/2017/10/43
+2017,10,43,Measles,321,,,34,,,https://ncdc.gov.ng/reports/weekly/2017/10/43
+2017,10,43,Cholera,108,,,4,6,,https://ncdc.gov.ng/reports/weekly/2017/10/43
+2017,10,43,CSM,11,,,6,6,,https://ncdc.gov.ng/reports/weekly/2017/10/43
+2017,10,43,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/10/43
+2017,10,44,Lassa Fever,4,,,2,4,,https://ncdc.gov.ng/reports/weekly/2017/10/44
+2017,10,44,Measles,362,,,34,,,https://ncdc.gov.ng/reports/weekly/2017/10/44
+2017,10,44,Cholera,14,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/10/44
+2017,10,44,CSM,13,,,8,8,,https://ncdc.gov.ng/reports/weekly/2017/10/44
+2017,10,44,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/10/44
+2017,11,45,Lassa Fever,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/11/45
+2017,11,45,Measles,309,,,36,,,https://ncdc.gov.ng/reports/weekly/2017/11/45
+2017,11,45,Cholera,22,,,4,8,,https://ncdc.gov.ng/reports/weekly/2017/11/45
+2017,11,45,CSM,10,,,6,6,,https://ncdc.gov.ng/reports/weekly/2017/11/45
+2017,11,46,Lassa Fever,10,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2017/11/46
+2017,11,46,Lassa Fever,24,,,5,8,,https://ncdc.gov.ng/reports/weekly/2017/11/46
+2017,11,46,Measles,265,,,33,,,https://ncdc.gov.ng/reports/weekly/2017/11/46
+2017,11,46,Cholera,10,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/11/46
+2017,11,46,CSM,10,,,8,11,,https://ncdc.gov.ng/reports/weekly/2017/11/46
+2017,11,47,Lassa Fever,25,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/11/47
+2017,11,47,Measles,282,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/11/47
+2017,11,47,Cholera,7,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/11/47
+2017,11,47,CSM,10,,,5,9,,https://ncdc.gov.ng/reports/weekly/2017/11/47
+2017,11,48,Lassa Fever,16,,,2,7,,https://ncdc.gov.ng/reports/weekly/2017/11/48
+2017,11,48,Measles,278,,,33,,,https://ncdc.gov.ng/reports/weekly/2017/11/48
+2017,11,48,Cholera,8,,,5,6,,https://ncdc.gov.ng/reports/weekly/2017/11/48
+2017,11,48,CSM,7,,,6,8,,https://ncdc.gov.ng/reports/weekly/2017/11/48
+2017,12,49,Lassa Fever,18,,,4,6,,https://ncdc.gov.ng/reports/weekly/2017/12/49
+2017,12,49,Measles,238,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/12/49
+2017,12,49,Cholera,11,,,2,3,,https://ncdc.gov.ng/reports/weekly/2017/12/49
+2017,12,49,CSM,9,,,5,9,,https://ncdc.gov.ng/reports/weekly/2017/12/49
+2017,12,50,Lassa Fever,6,,,4,4,,https://ncdc.gov.ng/reports/weekly/2017/12/50
+2017,12,50,Measles,298,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/12/50
+2017,12,50,Cholera,165,,,2,14,,https://ncdc.gov.ng/reports/weekly/2017/12/50
+2017,12,50,CSM,4,,,4,13,,https://ncdc.gov.ng/reports/weekly/2017/12/50
+2017,12,51,Cholera,172,,,2,16,,https://ncdc.gov.ng/reports/weekly/2017/12/51
+2017,12,51,Lassa Fever,8,,,6,7,,https://ncdc.gov.ng/reports/weekly/2017/12/51
+2017,12,51,Measles,183,,,23,,,https://ncdc.gov.ng/reports/weekly/2017/12/51
+2017,12,51,Cholera,172,,,2,16,,https://ncdc.gov.ng/reports/weekly/2017/12/51
+2017,12,51,CSM,3,,,5,13,,https://ncdc.gov.ng/reports/weekly/2017/12/51
+2017,12,52,Lassa Fever,5,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/12/52
+2017,12,52,Measles,90,,,21,,,https://ncdc.gov.ng/reports/weekly/2017/12/52
+2017,12,52,Cholera,121,,,,18,,https://ncdc.gov.ng/reports/weekly/2017/12/52
+2017,12,52,CSM,2,,,4,18,,https://ncdc.gov.ng/reports/weekly/2017/12/52
+2017,2,6,Lassa Fever,22,,,7,7,,https://ncdc.gov.ng/reports/weekly/2017/2/6
+2017,2,6,Measles,2515,,,34,,,https://ncdc.gov.ng/reports/weekly/2017/2/6
+2017,2,6,Cholera,5,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/2/6
+2017,2,6,CSM,39,,,18,36,,https://ncdc.gov.ng/reports/weekly/2017/2/6
+2017,2,7,Cholera,71,,10,11,18,14.09,https://ncdc.gov.ng/reports/weekly/2017/2/7
+2017,2,7,Lassa Fever,30,,,7,7,,https://ncdc.gov.ng/reports/weekly/2017/2/7
+2017,2,7,Measles,3461,,,35,,,https://ncdc.gov.ng/reports/weekly/2017/2/7
+2017,2,7,Cholera,94,,,5,5,,https://ncdc.gov.ng/reports/weekly/2017/2/7
+2017,2,7,CSM,71,,,21,49,,https://ncdc.gov.ng/reports/weekly/2017/2/7
+2017,2,8,Lassa Fever,8,,,6,6,,https://ncdc.gov.ng/reports/weekly/2017/2/8
+2017,2,8,Measles,4503,,,36,,,https://ncdc.gov.ng/reports/weekly/2017/2/8
+2017,2,8,Measles,4503,,,36,,,https://ncdc.gov.ng/reports/weekly/2017/2/8
+2017,2,8,Cholera,1,,,,,,https://ncdc.gov.ng/reports/weekly/2017/2/8
+2017,2,8,CSM,102,,,21,56,,https://ncdc.gov.ng/reports/weekly/2017/2/8
+2017,3,10,Lassa Fever,8,,,4,4,,https://ncdc.gov.ng/reports/weekly/2017/3/10
+2017,3,10,Measles,619,,,32,,,https://ncdc.gov.ng/reports/weekly/2017/3/10
+2017,3,10,Cholera,7,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/3/10
+2017,3,10,CSM,153,,,22,83,,https://ncdc.gov.ng/reports/weekly/2017/3/10
+2017,3,11,Lassa Fever,173,,17,12,32,9.83,https://ncdc.gov.ng/reports/weekly/2017/3/11
+2017,3,11,Lassa Fever,6,,,4,5,,https://ncdc.gov.ng/reports/weekly/2017/3/11
+2017,3,11,Measles,631,,,34,,,https://ncdc.gov.ng/reports/weekly/2017/3/11
+2017,3,11,Cholera,1,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/3/11
+2017,3,11,CSM,218,21,,22,98,,https://ncdc.gov.ng/reports/weekly/2017/3/11
+2017,3,11,Cholera,254,,26,12,38,10.24,https://ncdc.gov.ng/reports/weekly/2017/3/11
+2017,3,12,Cholera,254,,26,12,38,10.24,https://ncdc.gov.ng/reports/weekly/2017/3/12
+2017,3,12,Lassa Fever,27,,,6,10,,https://ncdc.gov.ng/reports/weekly/2017/3/12
+2017,3,12,Measles,594,,,32,,,https://ncdc.gov.ng/reports/weekly/2017/3/12
+2017,3,12,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2017/3/12
+2017,3,12,CSM,274,25,,24,108,,https://ncdc.gov.ng/reports/weekly/2017/3/12
+2017,3,9,CSM,444,,,,5,,https://ncdc.gov.ng/reports/weekly/2017/3/9
+2017,3,9,Cholera,89,,14,10,22,15.73,https://ncdc.gov.ng/reports/weekly/2017/3/9
+2017,3,9,Lassa Fever,6,,,5,5,,https://ncdc.gov.ng/reports/weekly/2017/3/9
+2017,3,9,Measles,629,,,29,,,https://ncdc.gov.ng/reports/weekly/2017/3/9
+2017,3,9,Cholera,0,,,3,7,,https://ncdc.gov.ng/reports/weekly/2017/3/9
+2017,3,9,CSM,129,,,21,70,,https://ncdc.gov.ng/reports/weekly/2017/3/9
+2017,4,16,Cholera,1517,,114,23,113,7.51,https://ncdc.gov.ng/reports/weekly/2017/4/16
+2017,4,16,Lassa Fever,4,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/4/16
+2017,4,16,Measles,623,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/4/16
+2017,4,16,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2017/4/16
+2017,4,16,CSM,29,16,,23,113,,https://ncdc.gov.ng/reports/weekly/2017/4/16
+2017,4,17,CSM,3,,,,,,https://ncdc.gov.ng/reports/weekly/2017/4/17
+2017,4,17,Lassa Fever,3,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/4/17
+2017,4,17,Measles,425,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/4/17
+2017,4,17,Cholera,7,,,,2,,https://ncdc.gov.ng/reports/weekly/2017/4/17
+2017,4,17,CSM,25,19,,21,116,,https://ncdc.gov.ng/reports/weekly/2017/4/17
+2017,5,18,Lassa Fever,2,,,4,4,,https://ncdc.gov.ng/reports/weekly/2017/5/18
+2017,5,18,Measles,556,,,33,,,https://ncdc.gov.ng/reports/weekly/2017/5/18
+2017,5,18,Cholera,1,,,,2,,https://ncdc.gov.ng/reports/weekly/2017/5/18
+2017,5,18,CSM,3,,,21,89,,https://ncdc.gov.ng/reports/weekly/2017/5/18
+2017,5,19,Cholera,1041,,50,16,88,4.8,https://ncdc.gov.ng/reports/weekly/2017/5/19
+2017,5,19,Lassa Fever,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/5/19
+2017,5,19,Measles,628,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/5/19
+2017,5,19,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2017/5/19
+2017,5,19,CSM,11,,,16,88,,https://ncdc.gov.ng/reports/weekly/2017/5/19
+2017,5,20,Cholera,631,,27,13,66,4.28,https://ncdc.gov.ng/reports/weekly/2017/5/20
+2017,5,20,Lassa Fever,11,,,2,3,,https://ncdc.gov.ng/reports/weekly/2017/5/20
+2017,5,20,Measles,418,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/5/20
+2017,5,20,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2017/5/20
+2017,5,20,CSM,4,,,13,66,,https://ncdc.gov.ng/reports/weekly/2017/5/20
+2017,5,21,Lassa Fever,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/5/21
+2017,5,21,Measles,406,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/5/21
+2017,5,21,Cholera,5,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/5/21
+2017,5,21,CSM,9,,,15,58,,https://ncdc.gov.ng/reports/weekly/2017/5/21
+2017,6,22,Lassa Fever,4,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/6/22
+2017,6,22,Measles,422,,,27,,,https://ncdc.gov.ng/reports/weekly/2017/6/22
+2017,6,22,Cholera,3,,,,,,https://ncdc.gov.ng/reports/weekly/2017/6/22
+2017,6,22,CSM,3,,,12,45,,https://ncdc.gov.ng/reports/weekly/2017/6/22
+2017,6,23,CSM,2,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2017/6/23
+2017,6,23,Lassa Fever,1,,,,,,https://ncdc.gov.ng/reports/weekly/2017/6/23
+2017,6,23,Measles,386,,,27,,,https://ncdc.gov.ng/reports/weekly/2017/6/23
+2017,6,23,Cholera,2,,,,,,https://ncdc.gov.ng/reports/weekly/2017/6/23
+2017,6,23,CSM,5,,,13,23,,https://ncdc.gov.ng/reports/weekly/2017/6/23
+2017,6,24,Cholera,77,,,2,4,,https://ncdc.gov.ng/reports/weekly/2017/6/24
+2017,6,24,Lassa Fever,10,,,5,8,,https://ncdc.gov.ng/reports/weekly/2017/6/24
+2017,6,24,Measles,361,,,33,,,https://ncdc.gov.ng/reports/weekly/2017/6/24
+2017,6,24,Cholera,77,,,2,4,,https://ncdc.gov.ng/reports/weekly/2017/6/24
+2017,6,24,CSM,1,,,10,22,,https://ncdc.gov.ng/reports/weekly/2017/6/24
+2017,6,25,Cholera,83,,,,6,,https://ncdc.gov.ng/reports/weekly/2017/6/25
+2017,6,25,Lassa Fever,9,,,4,5,,https://ncdc.gov.ng/reports/weekly/2017/6/25
+2017,6,25,Measles,338,,,27,,,https://ncdc.gov.ng/reports/weekly/2017/6/25
+2017,6,25,Cholera,82,,,,6,,https://ncdc.gov.ng/reports/weekly/2017/6/25
+2017,6,25,CSM,8,,,5,5,,https://ncdc.gov.ng/reports/weekly/2017/6/25
+2017,6,26,Cholera,1617,,17,,,1.05,https://ncdc.gov.ng/reports/weekly/2017/6/26
+2017,6,26,Lassa Fever,3,,,,,,https://ncdc.gov.ng/reports/weekly/2017/6/26
+2017,6,26,Measles,377,,,28,,,https://ncdc.gov.ng/reports/weekly/2017/6/26
+2017,6,26,Cholera,186,,,,6,,https://ncdc.gov.ng/reports/weekly/2017/6/26
+2017,6,26,CSM,3,,,5,7,,https://ncdc.gov.ng/reports/weekly/2017/6/26
+2017,7,27,Cholera,1617,,17,,,1.05,https://ncdc.gov.ng/reports/weekly/2017/7/27
+2017,7,27,Lassa Fever,12,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/7/27
+2017,7,27,Measles,409,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/7/27
+2017,7,27,Cholera,109,,,3,10,,https://ncdc.gov.ng/reports/weekly/2017/7/27
+2017,7,27,CSM,4,,,4,7,,https://ncdc.gov.ng/reports/weekly/2017/7/27
+2017,7,28,Lassa Fever,6,,,3,5,,https://ncdc.gov.ng/reports/weekly/2017/7/28
+2017,7,28,Measles,399,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/7/28
+2017,7,28,Cholera,36,,,2,3,,https://ncdc.gov.ng/reports/weekly/2017/7/28
+2017,7,28,CSM,8,,,8,10,,https://ncdc.gov.ng/reports/weekly/2017/7/28
+2017,7,29,Lassa Fever,5,,,,5,,https://ncdc.gov.ng/reports/weekly/2017/7/29
+2017,7,29,Measles,281,,,33,,,https://ncdc.gov.ng/reports/weekly/2017/7/29
+2017,7,29,Cholera,81,,,5,8,,https://ncdc.gov.ng/reports/weekly/2017/7/29
+2017,7,29,CSM,13,,,10,10,,https://ncdc.gov.ng/reports/weekly/2017/7/29
+2017,7,30,Lassa Fever,12,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/7/30
+2017,7,30,Measles,449,,,33,,,https://ncdc.gov.ng/reports/weekly/2017/7/30
+2017,7,30,Cholera,2,,,,,,https://ncdc.gov.ng/reports/weekly/2017/7/30
+2017,7,30,CSM,14,,,8,10,,https://ncdc.gov.ng/reports/weekly/2017/7/30
+2017,7,30,CSM,23,,,,,,https://ncdc.gov.ng/reports/weekly/2017/7/30
+2017,8,31,Lassa Fever,5,,,4,5,,https://ncdc.gov.ng/reports/weekly/2017/8/31
+2017,8,31,Measles,315,,,32,,,https://ncdc.gov.ng/reports/weekly/2017/8/31
+2017,8,31,Cholera,23,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/8/31
+2017,8,31,CSM,8,,,8,9,,https://ncdc.gov.ng/reports/weekly/2017/8/31
+2017,8,32,Lassa Fever,764,,,19,,,https://ncdc.gov.ng/reports/weekly/2017/8/32
+2017,8,32,Lassa Fever,19,,,9,7,,https://ncdc.gov.ng/reports/weekly/2017/8/32
+2017,8,32,Measles,375,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/8/32
+2017,8,32,Cholera,92,,,4,8,,https://ncdc.gov.ng/reports/weekly/2017/8/32
+2017,8,32,CSM,20,,,6,6,,https://ncdc.gov.ng/reports/weekly/2017/8/32
+2017,8,33,Lassa Fever,39,,,8,11,,https://ncdc.gov.ng/reports/weekly/2017/8/33
+2017,8,33,Measles,485,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/8/33
+2017,8,33,Cholera,24,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/8/33
+2017,8,33,CSM,9,,,3,4,,https://ncdc.gov.ng/reports/weekly/2017/8/33
+2017,8,34,Lassa Fever,54,,,5,7,,https://ncdc.gov.ng/reports/weekly/2017/8/34
+2017,8,34,Measles,344,,,30,,,https://ncdc.gov.ng/reports/weekly/2017/8/34
+2017,8,34,Cholera,106,,,2,6,,https://ncdc.gov.ng/reports/weekly/2017/8/34
+2017,8,34,CSM,3,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/8/34
+2017,8,35,Lassa Fever,16,,,7,8,,https://ncdc.gov.ng/reports/weekly/2017/8/35
+2017,8,35,Measles,155,,,24,,,https://ncdc.gov.ng/reports/weekly/2017/8/35
+2017,8,35,Cholera,424,,,3,7,,https://ncdc.gov.ng/reports/weekly/2017/8/35
+2017,8,35,CSM,12,,,4,4,,https://ncdc.gov.ng/reports/weekly/2017/8/35
+2017,9,36,Yellow Fever,708,,18,6,10,2.54,https://ncdc.gov.ng/reports/weekly/2017/9/36
+2017,9,36,Lassa Fever,21,,,6,7,,https://ncdc.gov.ng/reports/weekly/2017/9/36
+2017,9,36,Measles,206,,,31,,,https://ncdc.gov.ng/reports/weekly/2017/9/36
+2017,9,36,Cholera,708,,,6,10,,https://ncdc.gov.ng/reports/weekly/2017/9/36
+2017,9,36,CSM,26,,,6,7,,https://ncdc.gov.ng/reports/weekly/2017/9/36
+2017,9,37,Lassa Fever,8,,,4,5,,https://ncdc.gov.ng/reports/weekly/2017/9/37
+2017,9,37,Measles,209,,,29,,,https://ncdc.gov.ng/reports/weekly/2017/9/37
+2017,9,37,Cholera,907,,,6,8,,https://ncdc.gov.ng/reports/weekly/2017/9/37
+2017,9,37,CSM,16,,,2,2,,https://ncdc.gov.ng/reports/weekly/2017/9/37
+2017,9,38,Yellow Fever,107,,2,5,6,1.87,https://ncdc.gov.ng/reports/weekly/2017/9/38
+2017,9,38,Lassa Fever,15,,,3,3,,https://ncdc.gov.ng/reports/weekly/2017/9/38
+2017,9,38,Measles,265,,,26,,,https://ncdc.gov.ng/reports/weekly/2017/9/38
+2017,9,38,Cholera,107,,,5,6,,https://ncdc.gov.ng/reports/weekly/2017/9/38
+2017,9,38,CSM,30,,,6,7,,https://ncdc.gov.ng/reports/weekly/2017/9/38
+2017,9,38,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/9/38
+2017,9,39,Mpox,20,,0,5,7,0.0,https://ncdc.gov.ng/reports/weekly/2017/9/39
+2017,9,39,Lassa Fever,1,,,,,,https://ncdc.gov.ng/reports/weekly/2017/9/39
+2017,9,39,Measles,244,,,28,,,https://ncdc.gov.ng/reports/weekly/2017/9/39
+2017,9,39,Cholera,20,,,5,7,,https://ncdc.gov.ng/reports/weekly/2017/9/39
+2017,9,39,CSM,15,,,4,5,,https://ncdc.gov.ng/reports/weekly/2017/9/39
+2017,9,39,CSM,103,,,,,,https://ncdc.gov.ng/reports/weekly/2017/9/39
+2018,1,1,CSM,22,,,6,20,,https://ncdc.gov.ng/reports/weekly/2018/1/1
+2018,1,1,Cholera,84,,,4,13,,https://ncdc.gov.ng/reports/weekly/2018/1/1
+2018,1,1,Lassa Fever,4,,,4,4,,https://ncdc.gov.ng/reports/weekly/2018/1/1
+2018,1,1,Measles,144,,,23,,,https://ncdc.gov.ng/reports/weekly/2018/1/1
+2018,1,2,Lassa Fever,107,53,,7,,,https://ncdc.gov.ng/reports/weekly/2018/1/2
+2018,1,2,Lassa Fever,40,,,3,11,,https://ncdc.gov.ng/reports/weekly/2018/1/2
+2018,1,2,CSM,33,,,6,20,,https://ncdc.gov.ng/reports/weekly/2018/1/2
+2018,1,2,Cholera,40,,,3,11,,https://ncdc.gov.ng/reports/weekly/2018/1/2
+2018,1,2,Lassa Fever,23,,,6,8,,https://ncdc.gov.ng/reports/weekly/2018/1/2
+2018,1,2,Measles,212,,,33,,,https://ncdc.gov.ng/reports/weekly/2018/1/2
+2018,1,3,CSM,21,,,11,31,,https://ncdc.gov.ng/reports/weekly/2018/1/3
+2018,1,3,Cholera,25,,,,10,,https://ncdc.gov.ng/reports/weekly/2018/1/3
+2018,1,3,Lassa Fever,53,,,13,27,,https://ncdc.gov.ng/reports/weekly/2018/1/3
+2018,1,3,Measles,331,,,34,,,https://ncdc.gov.ng/reports/weekly/2018/1/3
+2018,1,4,CSM,13,,,8,21,,https://ncdc.gov.ng/reports/weekly/2018/1/4
+2018,1,4,Cholera,8,,,3,3,,https://ncdc.gov.ng/reports/weekly/2018/1/4
+2018,1,4,Lassa Fever,116,,,19,44,,https://ncdc.gov.ng/reports/weekly/2018/1/4
+2018,1,4,Measles,357,,,35,,,https://ncdc.gov.ng/reports/weekly/2018/1/4
+2018,10,39,AFP,6509,,,37,748,,https://ncdc.gov.ng/reports/weekly/2018/10/39
+2018,10,39,CSM,5,,,5,5,,https://ncdc.gov.ng/reports/weekly/2018/10/39
+2018,10,39,Cholera,2052,,,7,42,,https://ncdc.gov.ng/reports/weekly/2018/10/39
+2018,10,39,Measles,124,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/10/39
+2018,10,39,Yellow Fever,18,,,,,,https://ncdc.gov.ng/reports/weekly/2018/10/39
+2018,10,41,AFP,6679,,,37,750,,https://ncdc.gov.ng/reports/weekly/2018/10/41
+2018,10,41,CSM,2,,,6,7,,https://ncdc.gov.ng/reports/weekly/2018/10/41
+2018,10,41,Cholera,2042,,,10,54,,https://ncdc.gov.ng/reports/weekly/2018/10/41
+2018,10,41,Measles,232,,,29,,,https://ncdc.gov.ng/reports/weekly/2018/10/41
+2018,10,41,Yellow Fever,43,,,,,,https://ncdc.gov.ng/reports/weekly/2018/10/41
+2018,10,42,AFP,7036,,,37,750,,https://ncdc.gov.ng/reports/weekly/2018/10/42
+2018,10,42,CSM,1,,,8,9,,https://ncdc.gov.ng/reports/weekly/2018/10/42
+2018,10,42,Cholera,954,,,8,38,,https://ncdc.gov.ng/reports/weekly/2018/10/42
+2018,10,42,Measles,215,,,28,,,https://ncdc.gov.ng/reports/weekly/2018/10/42
+2018,10,42,Yellow Fever,18,,,,,,https://ncdc.gov.ng/reports/weekly/2018/10/42
+2018,10,43,AFP,7245,,,37,750,,https://ncdc.gov.ng/reports/weekly/2018/10/43
+2018,10,43,CSM,8,,,8,9,,https://ncdc.gov.ng/reports/weekly/2018/10/43
+2018,10,43,Cholera,454,,,8,29,,https://ncdc.gov.ng/reports/weekly/2018/10/43
+2018,10,43,Measles,178,,,27,,,https://ncdc.gov.ng/reports/weekly/2018/10/43
+2018,10,43,Yellow Fever,89,,,,,,https://ncdc.gov.ng/reports/weekly/2018/10/43
+2018,11,44,AFP,7443,,,37,750,,https://ncdc.gov.ng/reports/weekly/2018/11/44
+2018,11,44,CSM,16,,,8,11,,https://ncdc.gov.ng/reports/weekly/2018/11/44
+2018,11,44,Cholera,14,,,13,34,,https://ncdc.gov.ng/reports/weekly/2018/11/44
+2018,11,44,Measles,233,,,31,,,https://ncdc.gov.ng/reports/weekly/2018/11/44
+2018,11,45,AFP,7660,,,37,750,,https://ncdc.gov.ng/reports/weekly/2018/11/45
+2018,11,45,CSM,13,,,4,7,,https://ncdc.gov.ng/reports/weekly/2018/11/45
+2018,11,45,Cholera,175,,,8,19,,https://ncdc.gov.ng/reports/weekly/2018/11/45
+2018,11,45,Lassa Fever,3016,,,22,,,https://ncdc.gov.ng/reports/weekly/2018/11/45
+2018,11,45,Measles,205,,,28,,,https://ncdc.gov.ng/reports/weekly/2018/11/45
+2018,11,45,Yellow Fever,85,,,,,,https://ncdc.gov.ng/reports/weekly/2018/11/45
+2018,11,46,AFP,7841,,,37,751,,https://ncdc.gov.ng/reports/weekly/2018/11/46
+2018,11,46,CSM,22,,,6,8,,https://ncdc.gov.ng/reports/weekly/2018/11/46
+2018,11,46,Cholera,47,,,7,11,,https://ncdc.gov.ng/reports/weekly/2018/11/46
+2018,11,46,Measles,214,,,26,,,https://ncdc.gov.ng/reports/weekly/2018/11/46
+2018,11,46,Yellow Fever,85,,,20,31,,https://ncdc.gov.ng/reports/weekly/2018/11/46
+2018,11,47,AFP,7992,,,37,752,,https://ncdc.gov.ng/reports/weekly/2018/11/47
+2018,11,47,CSM,23,,,6,11,,https://ncdc.gov.ng/reports/weekly/2018/11/47
+2018,11,47,Cholera,61,,,8,13,,https://ncdc.gov.ng/reports/weekly/2018/11/47
+2018,11,47,Measles,216,,,33,,,https://ncdc.gov.ng/reports/weekly/2018/11/47
+2018,12,48,AFP,145,,,35,114,,https://ncdc.gov.ng/reports/weekly/2018/12/48
+2018,12,48,CSM,16,,,8,13,,https://ncdc.gov.ng/reports/weekly/2018/12/48
+2018,12,48,Cholera,62,,,6,10,,https://ncdc.gov.ng/reports/weekly/2018/12/48
+2018,12,48,Measles,240,,,31,,,https://ncdc.gov.ng/reports/weekly/2018/12/48
+2018,12,49,AFP,116,,,32,103,,https://ncdc.gov.ng/reports/weekly/2018/12/49
+2018,12,49,CSM,11,,,5,10,,https://ncdc.gov.ng/reports/weekly/2018/12/49
+2018,12,49,Cholera,37,,,6,7,,https://ncdc.gov.ng/reports/weekly/2018/12/49
+2018,12,49,Lassa Fever,3276,,,23,,,https://ncdc.gov.ng/reports/weekly/2018/12/49
+2018,12,49,Measles,227,,,29,,,https://ncdc.gov.ng/reports/weekly/2018/12/49
+2018,12,51,AFP,94,,,31,82,,https://ncdc.gov.ng/reports/weekly/2018/12/51
+2018,12,51,CSM,17,,,4,8,,https://ncdc.gov.ng/reports/weekly/2018/12/51
+2018,12,51,Cholera,6,,,2,3,,https://ncdc.gov.ng/reports/weekly/2018/12/51
+2018,12,51,Measles,230,,,25,,,https://ncdc.gov.ng/reports/weekly/2018/12/51
+2018,12,51,Yellow Fever,387,,,,,,https://ncdc.gov.ng/reports/weekly/2018/12/51
+2018,12,52,Yellow Fever,8,,,,,,https://ncdc.gov.ng/reports/weekly/2018/12/52
+2018,12,52,AFP,60,,,28,54,,https://ncdc.gov.ng/reports/weekly/2018/12/52
+2018,12,52,CSM,33,,,6,7,,https://ncdc.gov.ng/reports/weekly/2018/12/52
+2018,12,52,Cholera,8,,,,18,,https://ncdc.gov.ng/reports/weekly/2018/12/52
+2018,12,52,Measles,250,,,26,,,https://ncdc.gov.ng/reports/weekly/2018/12/52
+2018,12,52,Yellow Fever,396,,,,,,https://ncdc.gov.ng/reports/weekly/2018/12/52
+2018,2,5,Lassa Fever,615,,43,17,,6.99,https://ncdc.gov.ng/reports/weekly/2018/2/5
+2018,2,5,CSM,51,,,12,27,,https://ncdc.gov.ng/reports/weekly/2018/2/5
+2018,2,5,Cholera,15,,,2,2,,https://ncdc.gov.ng/reports/weekly/2018/2/5
+2018,2,5,Lassa Fever,168,,,21,46,,https://ncdc.gov.ng/reports/weekly/2018/2/5
+2018,2,5,Measles,460,,,33,,,https://ncdc.gov.ng/reports/weekly/2018/2/5
+2018,2,6,CSM,71,,,16,41,,https://ncdc.gov.ng/reports/weekly/2018/2/6
+2018,2,6,Cholera,12,,,3,5,,https://ncdc.gov.ng/reports/weekly/2018/2/6
+2018,2,6,Lassa Fever,87,,,12,35,,https://ncdc.gov.ng/reports/weekly/2018/2/6
+2018,2,6,Measles,434,,,35,,,https://ncdc.gov.ng/reports/weekly/2018/2/6
+2018,2,7,CSM,26,,,14,45,,https://ncdc.gov.ng/reports/weekly/2018/2/7
+2018,2,7,Cholera,3,,,,,,https://ncdc.gov.ng/reports/weekly/2018/2/7
+2018,2,7,Lassa Fever,55,,,11,21,,https://ncdc.gov.ng/reports/weekly/2018/2/7
+2018,2,7,Measles,507,,,34,,,https://ncdc.gov.ng/reports/weekly/2018/2/7
+2018,2,8,Lassa Fever,1121,353,,,,,https://ncdc.gov.ng/reports/weekly/2018/2/8
+2018,2,8,CSM,89,,,14,58,,https://ncdc.gov.ng/reports/weekly/2018/2/8
+2018,2,8,Cholera,11,,,3,3,,https://ncdc.gov.ng/reports/weekly/2018/2/8
+2018,2,8,Lassa Fever,44,,,10,22,,https://ncdc.gov.ng/reports/weekly/2018/2/8
+2018,2,8,Lassa Fever,44,,,10,22,,https://ncdc.gov.ng/reports/weekly/2018/2/8
+2018,2,8,Measles,517,,,36,,,https://ncdc.gov.ng/reports/weekly/2018/2/8
+2018,3,10,Lassa Fever,189,,,4,5,,https://ncdc.gov.ng/reports/weekly/2018/3/10
+2018,3,10,CSM,173,,,14,62,,https://ncdc.gov.ng/reports/weekly/2018/3/10
+2018,3,10,Cholera,189,,,4,5,,https://ncdc.gov.ng/reports/weekly/2018/3/10
+2018,3,10,Lassa Fever,38,,,11,14,,https://ncdc.gov.ng/reports/weekly/2018/3/10
+2018,3,10,Measles,623,,,34,,,https://ncdc.gov.ng/reports/weekly/2018/3/10
+2018,3,11,CSM,254,,,16,59,,https://ncdc.gov.ng/reports/weekly/2018/3/11
+2018,3,11,Cholera,175,,,4,6,,https://ncdc.gov.ng/reports/weekly/2018/3/11
+2018,3,11,Lassa Fever,18,,,7,10,,https://ncdc.gov.ng/reports/weekly/2018/3/11
+2018,3,11,Measles,605,,,36,,,https://ncdc.gov.ng/reports/weekly/2018/3/11
+2018,3,12,CSM,499,,,14,65,,https://ncdc.gov.ng/reports/weekly/2018/3/12
+2018,3,12,Cholera,351,,,7,9,,https://ncdc.gov.ng/reports/weekly/2018/3/12
+2018,3,12,Lassa Fever,27,,,9,12,,https://ncdc.gov.ng/reports/weekly/2018/3/12
+2018,3,12,Measles,782,,,34,,,https://ncdc.gov.ng/reports/weekly/2018/3/12
+2018,3,9,Lassa Fever,12,,,3,3,,https://ncdc.gov.ng/reports/weekly/2018/3/9
+2018,3,9,CSM,153,,,15,75,,https://ncdc.gov.ng/reports/weekly/2018/3/9
+2018,3,9,Cholera,12,,,3,3,,https://ncdc.gov.ng/reports/weekly/2018/3/9
+2018,3,9,Lassa Fever,32,,,13,17,,https://ncdc.gov.ng/reports/weekly/2018/3/9
+2018,3,9,Measles,534,,,34,,,https://ncdc.gov.ng/reports/weekly/2018/3/9
+2018,4,13,CSM,1343,,,15,73,,https://ncdc.gov.ng/reports/weekly/2018/4/13
+2018,4,13,Cholera,337,,,7,8,,https://ncdc.gov.ng/reports/weekly/2018/4/13
+2018,4,13,Lassa Fever,19,,,8,10,,https://ncdc.gov.ng/reports/weekly/2018/4/13
+2018,4,13,Measles,542,,,36,,,https://ncdc.gov.ng/reports/weekly/2018/4/13
+2018,4,14,CSM,1517,,,15,66,,https://ncdc.gov.ng/reports/weekly/2018/4/14
+2018,4,14,Cholera,602,,,9,11,,https://ncdc.gov.ng/reports/weekly/2018/4/14
+2018,4,14,Lassa Fever,19,,,8,10,,https://ncdc.gov.ng/reports/weekly/2018/4/14
+2018,4,14,Measles,730,,,35,,,https://ncdc.gov.ng/reports/weekly/2018/4/14
+2018,4,15,Lassa Fever,615,,,8,10,,https://ncdc.gov.ng/reports/weekly/2018/4/15
+2018,4,15,CSM,2048,,,13,72,,https://ncdc.gov.ng/reports/weekly/2018/4/15
+2018,4,15,Cholera,615,,,8,10,,https://ncdc.gov.ng/reports/weekly/2018/4/15
+2018,4,15,Lassa Fever,21,,,9,15,,https://ncdc.gov.ng/reports/weekly/2018/4/15
+2018,4,15,Measles,723,,,37,,,https://ncdc.gov.ng/reports/weekly/2018/4/15
+2018,4,16,CSM,660,,,13,57,,https://ncdc.gov.ng/reports/weekly/2018/4/16
+2018,4,16,Cholera,599,,,7,10,,https://ncdc.gov.ng/reports/weekly/2018/4/16
+2018,4,16,Lassa Fever,9,,,7,8,,https://ncdc.gov.ng/reports/weekly/2018/4/16
+2018,4,16,Measles,561,,,33,,,https://ncdc.gov.ng/reports/weekly/2018/4/16
+2018,5,17,Lassa Fever,527,,,6,7,,https://ncdc.gov.ng/reports/weekly/2018/5/17
+2018,5,17,CSM,1041,,,11,26,,https://ncdc.gov.ng/reports/weekly/2018/5/17
+2018,5,17,Cholera,527,,,6,7,,https://ncdc.gov.ng/reports/weekly/2018/5/17
+2018,5,17,Lassa Fever,11,,,7,10,,https://ncdc.gov.ng/reports/weekly/2018/5/17
+2018,5,17,Measles,508,,,32,,,https://ncdc.gov.ng/reports/weekly/2018/5/17
+2018,5,18,CSM,631,,,9,39,,https://ncdc.gov.ng/reports/weekly/2018/5/18
+2018,5,18,Cholera,297,,,6,8,,https://ncdc.gov.ng/reports/weekly/2018/5/18
+2018,5,18,Lassa Fever,7,,,5,6,,https://ncdc.gov.ng/reports/weekly/2018/5/18
+2018,5,18,Measles,411,,,33,,,https://ncdc.gov.ng/reports/weekly/2018/5/18
+2018,5,19,Cholera,733,,0,4,8,0.0,https://ncdc.gov.ng/reports/weekly/2018/5/19
+2018,5,19,CSM,343,,,5,8,,https://ncdc.gov.ng/reports/weekly/2018/5/19
+2018,5,19,Cholera,733,,,4,8,,https://ncdc.gov.ng/reports/weekly/2018/5/19
+2018,5,19,Lassa Fever,13,,,7,10,,https://ncdc.gov.ng/reports/weekly/2018/5/19
+2018,5,19,Measles,320,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/5/19
+2018,5,20,CSM,128,,,5,12,,https://ncdc.gov.ng/reports/weekly/2018/5/20
+2018,5,20,Cholera,190,,,7,11,,https://ncdc.gov.ng/reports/weekly/2018/5/20
+2018,5,20,Lassa Fever,11,,,6,10,,https://ncdc.gov.ng/reports/weekly/2018/5/20
+2018,5,20,Measles,284,,,29,,,https://ncdc.gov.ng/reports/weekly/2018/5/20
+2018,5,21,CSM,128,,,9,13,,https://ncdc.gov.ng/reports/weekly/2018/5/21
+2018,5,21,Cholera,832,,,6,16,,https://ncdc.gov.ng/reports/weekly/2018/5/21
+2018,5,21,Lassa Fever,0,,,,,,https://ncdc.gov.ng/reports/weekly/2018/5/21
+2018,5,21,Measles,284,,,29,,,https://ncdc.gov.ng/reports/weekly/2018/5/21
+2018,6,22,Cholera,910,,,6,16,,https://ncdc.gov.ng/reports/weekly/2018/6/22
+2018,6,22,CSM,42,,,10,18,,https://ncdc.gov.ng/reports/weekly/2018/6/22
+2018,6,22,Cholera,910,12,,6,16,,https://ncdc.gov.ng/reports/weekly/2018/6/22
+2018,6,22,Lassa Fever,5,,,2,2,,https://ncdc.gov.ng/reports/weekly/2018/6/22
+2018,6,22,Measles,306,,,31,,,https://ncdc.gov.ng/reports/weekly/2018/6/22
+2018,6,23,Cholera,11696,,,10,,,https://ncdc.gov.ng/reports/weekly/2018/6/23
+2018,6,23,CSM,50,,,6,7,,https://ncdc.gov.ng/reports/weekly/2018/6/23
+2018,6,23,Cholera,800,22,,6,12,,https://ncdc.gov.ng/reports/weekly/2018/6/23
+2018,6,23,Lassa Fever,4,,,4,4,,https://ncdc.gov.ng/reports/weekly/2018/6/23
+2018,6,23,Measles,245,,,28,,,https://ncdc.gov.ng/reports/weekly/2018/6/23
+2018,6,24,CSM,41,,,4,10,,https://ncdc.gov.ng/reports/weekly/2018/6/24
+2018,6,24,Cholera,725,,,8,19,,https://ncdc.gov.ng/reports/weekly/2018/6/24
+2018,6,24,Lassa Fever,6,,,2,3,,https://ncdc.gov.ng/reports/weekly/2018/6/24
+2018,6,24,Measles,188,,,28,,,https://ncdc.gov.ng/reports/weekly/2018/6/24
+2018,6,24,Yellow Fever,88,,,,,,https://ncdc.gov.ng/reports/weekly/2018/6/24
+2018,6,25,CSM,7,,,8,12,,https://ncdc.gov.ng/reports/weekly/2018/6/25
+2018,6,25,Cholera,828,36,,12,34,,https://ncdc.gov.ng/reports/weekly/2018/6/25
+2018,6,25,Measles,222,,,33,,,https://ncdc.gov.ng/reports/weekly/2018/6/25
+2018,6,25,Yellow Fever,178,,,,,,https://ncdc.gov.ng/reports/weekly/2018/6/25
+2018,7,26,CSM,10,,,3,3,,https://ncdc.gov.ng/reports/weekly/2018/7/26
+2018,7,26,Cholera,744,22,,11,34,,https://ncdc.gov.ng/reports/weekly/2018/7/26
+2018,7,26,Measles,283,,,31,,,https://ncdc.gov.ng/reports/weekly/2018/7/26
+2018,7,26,Yellow Fever,56,,,,,,https://ncdc.gov.ng/reports/weekly/2018/7/26
+2018,7,27,CSM,11,,,2,4,,https://ncdc.gov.ng/reports/weekly/2018/7/27
+2018,7,27,Cholera,469,16,,11,34,,https://ncdc.gov.ng/reports/weekly/2018/7/27
+2018,7,27,Measles,226,,,27,,,https://ncdc.gov.ng/reports/weekly/2018/7/27
+2018,7,27,Yellow Fever,91,,,,,,https://ncdc.gov.ng/reports/weekly/2018/7/27
+2018,7,28,CSM,14,,,7,7,,https://ncdc.gov.ng/reports/weekly/2018/7/28
+2018,7,28,Cholera,671,,,9,40,,https://ncdc.gov.ng/reports/weekly/2018/7/28
+2018,7,28,Measles,221,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/7/28
+2018,7,28,Yellow Fever,91,,,,,,https://ncdc.gov.ng/reports/weekly/2018/7/28
+2018,7,29,AFP,4797,,,37,717,,https://ncdc.gov.ng/reports/weekly/2018/7/29
+2018,7,29,CSM,10,,,4,6,,https://ncdc.gov.ng/reports/weekly/2018/7/29
+2018,7,29,Cholera,191,17,,7,17,,https://ncdc.gov.ng/reports/weekly/2018/7/29
+2018,7,29,Measles,239,,,32,,,https://ncdc.gov.ng/reports/weekly/2018/7/29
+2018,7,29,Yellow Fever,91,,,,,,https://ncdc.gov.ng/reports/weekly/2018/7/29
+2018,7,30,AFP,4995,,,37,718,,https://ncdc.gov.ng/reports/weekly/2018/7/30
+2018,7,30,CSM,17,,,5,7,,https://ncdc.gov.ng/reports/weekly/2018/7/30
+2018,7,30,Cholera,534,23,,11,37,,https://ncdc.gov.ng/reports/weekly/2018/7/30
+2018,7,30,Measles,246,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/7/30
+2018,7,30,Yellow Fever,18,,,,,,https://ncdc.gov.ng/reports/weekly/2018/7/30
+2018,8,31,AFP,5159,,,37,720,,https://ncdc.gov.ng/reports/weekly/2018/8/31
+2018,8,31,CSM,12,,,2,4,,https://ncdc.gov.ng/reports/weekly/2018/8/31
+2018,8,31,Cholera,595,,,11,38,,https://ncdc.gov.ng/reports/weekly/2018/8/31
+2018,8,31,Measles,275,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/8/31
+2018,8,31,Measles,275,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/8/31
+2018,8,31,Yellow Fever,18,,,,,,https://ncdc.gov.ng/reports/weekly/2018/8/31
+2018,8,32,AFP,5322,,,37,725,,https://ncdc.gov.ng/reports/weekly/2018/8/32
+2018,8,32,CSM,8,,,8,10,,https://ncdc.gov.ng/reports/weekly/2018/8/32
+2018,8,32,Cholera,962,21,,10,43,,https://ncdc.gov.ng/reports/weekly/2018/8/32
+2018,8,32,Measles,172,,,30,,,https://ncdc.gov.ng/reports/weekly/2018/8/32
+2018,8,32,Yellow Fever,163,,,,,,https://ncdc.gov.ng/reports/weekly/2018/8/32
+2018,8,33,AFP,5459,,,37,728,,https://ncdc.gov.ng/reports/weekly/2018/8/33
+2018,8,33,CSM,4,,,3,5,,https://ncdc.gov.ng/reports/weekly/2018/8/33
+2018,8,33,Cholera,467,,,6,27,,https://ncdc.gov.ng/reports/weekly/2018/8/33
+2018,8,33,Measles,159,,,28,,,https://ncdc.gov.ng/reports/weekly/2018/8/33
+2018,8,33,Yellow Fever,188,,,,,,https://ncdc.gov.ng/reports/weekly/2018/8/33
+2018,8,34,AFP,5573,,,37,729,,https://ncdc.gov.ng/reports/weekly/2018/8/34
+2018,8,34,CSM,8,,,4,5,,https://ncdc.gov.ng/reports/weekly/2018/8/34
+2018,8,34,Cholera,452,,,5,34,,https://ncdc.gov.ng/reports/weekly/2018/8/34
+2018,8,34,Measles,154,,,24,,,https://ncdc.gov.ng/reports/weekly/2018/8/34
+2018,8,34,Yellow Fever,19,,,,,,https://ncdc.gov.ng/reports/weekly/2018/8/34
+2018,9,35,AFP,5737,,,37,731,,https://ncdc.gov.ng/reports/weekly/2018/9/35
+2018,9,35,CSM,5,,,3,4,,https://ncdc.gov.ng/reports/weekly/2018/9/35
+2018,9,35,Cholera,1446,,,10,54,,https://ncdc.gov.ng/reports/weekly/2018/9/35
+2018,9,35,Measles,151,,,25,,,https://ncdc.gov.ng/reports/weekly/2018/9/35
+2018,9,35,Yellow Fever,50,,,,,,https://ncdc.gov.ng/reports/weekly/2018/9/35
+2018,9,36,AFP,5938,,,37,731,,https://ncdc.gov.ng/reports/weekly/2018/9/36
+2018,9,36,CSM,9,,,5,9,,https://ncdc.gov.ng/reports/weekly/2018/9/36
+2018,9,36,Cholera,1715,,,10,48,,https://ncdc.gov.ng/reports/weekly/2018/9/36
+2018,9,36,Measles,194,,,29,,,https://ncdc.gov.ng/reports/weekly/2018/9/36
+2018,9,36,Yellow Fever,178,,,,,,https://ncdc.gov.ng/reports/weekly/2018/9/36
+2018,9,37,AFP,6095,,,37,743,,https://ncdc.gov.ng/reports/weekly/2018/9/37
+2018,9,37,CSM,2,,,9,15,,https://ncdc.gov.ng/reports/weekly/2018/9/37
+2018,9,37,Cholera,2126,,,13,52,,https://ncdc.gov.ng/reports/weekly/2018/9/37
+2018,9,37,Measles,171,,,31,,,https://ncdc.gov.ng/reports/weekly/2018/9/37
+2018,9,37,Yellow Fever,178,,,,,,https://ncdc.gov.ng/reports/weekly/2018/9/37
+2018,9,38,AFP,6336,,,37,743,,https://ncdc.gov.ng/reports/weekly/2018/9/38
+2018,9,38,CSM,7,,,8,8,,https://ncdc.gov.ng/reports/weekly/2018/9/38
+2018,9,38,Cholera,2492,,,10,58,,https://ncdc.gov.ng/reports/weekly/2018/9/38
+2018,9,38,Lassa Fever,2576,,,22,,,https://ncdc.gov.ng/reports/weekly/2018/9/38
+2018,9,38,Measles,227,,,32,,,https://ncdc.gov.ng/reports/weekly/2018/9/38
+2018,9,38,Yellow Fever,86,,,,,,https://ncdc.gov.ng/reports/weekly/2018/9/38
+2019,1,1,AFP,51,,,28,48,,https://ncdc.gov.ng/reports/weekly/2019/1/1
+2019,1,1,CSM,86,,,4,5,,https://ncdc.gov.ng/reports/weekly/2019/1/1
+2019,1,1,Cholera,1,,,6,16,,https://ncdc.gov.ng/reports/weekly/2019/1/1
+2019,1,1,Measles,181,,,27,,,https://ncdc.gov.ng/reports/weekly/2019/1/1
+2019,1,1,Yellow Fever,181,,,27,,,https://ncdc.gov.ng/reports/weekly/2019/1/1
+2019,1,2,AFP,85,,,27,80,,https://ncdc.gov.ng/reports/weekly/2019/1/2
+2019,1,2,CSM,33,,,5,14,,https://ncdc.gov.ng/reports/weekly/2019/1/2
+2019,1,2,Cholera,18,,,2,3,,https://ncdc.gov.ng/reports/weekly/2019/1/2
+2019,1,2,Measles,503,,,32,,,https://ncdc.gov.ng/reports/weekly/2019/1/2
+2019,1,2,Yellow Fever,403,,,,,,https://ncdc.gov.ng/reports/weekly/2019/1/2
+2019,1,3,AFP,110,,,33,99,,https://ncdc.gov.ng/reports/weekly/2019/1/3
+2019,1,3,CSM,72,,,10,20,,https://ncdc.gov.ng/reports/weekly/2019/1/3
+2019,1,3,Cholera,20,,,3,3,,https://ncdc.gov.ng/reports/weekly/2019/1/3
+2019,1,3,Measles,539,,,32,,,https://ncdc.gov.ng/reports/weekly/2019/1/3
+2019,1,3,Yellow Fever,403,,,,,,https://ncdc.gov.ng/reports/weekly/2019/1/3
+2019,1,4,AFP,132,,,31,114,,https://ncdc.gov.ng/reports/weekly/2019/1/4
+2019,1,4,CSM,37,,,8,20,,https://ncdc.gov.ng/reports/weekly/2019/1/4
+2019,1,4,Cholera,14,,,2,2,,https://ncdc.gov.ng/reports/weekly/2019/1/4
+2019,1,4,Measles,626,,,30,,,https://ncdc.gov.ng/reports/weekly/2019/1/4
+2019,1,4,Yellow Fever,403,,,,,,https://ncdc.gov.ng/reports/weekly/2019/1/4
+2019,10,40,Lassa Fever,88,,,10,15,,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,40,CSM,15,,0,6,8,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,40,Yellow Fever,126,,,19,75,,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,40,Cholera,24,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,40,Measles,270,,,29,121,,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,40,Mpox,2,,,1,2,,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,40,AFP,110,,0,29,91,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/40
+2019,10,41,Lassa Fever,87,,0,10,12,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,41,CSM,26,,0,6,10,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,41,Yellow Fever,98,,,19,71,,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,41,Cholera,15,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,41,Measles,272,,0,27,118,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,41,Mpox,13,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,41,AFP,110,,0,26,96,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/41
+2019,10,42,Lassa Fever,113,13,,9,12,,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,42,CSM,43,,0,11,18,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,42,Yellow Fever,118,,0,24,64,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,42,Cholera,23,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,42,Measles,378,,0,31,137,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,42,Mpox,3,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,42,AFP,113,,0,32,98,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/42
+2019,10,43,Lassa Fever,92,,,12,27,,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,10,43,CSM,19,,0,6,8,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,10,43,Yellow Fever,106,,0,20,51,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,10,43,Cholera,25,7,0,4,7,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,10,43,Measles,384,,0,30,137,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,10,43,Mpox,3,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,10,43,AFP,127,,0,27,112,0.0,https://ncdc.gov.ng/reports/weekly/2019/10/43
+2019,11,44,Lassa Fever,101,11,,11,40,,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,44,CSM,17,,,5,9,,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,44,Yellow Fever,110,,,22,56,,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,44,Cholera,5,,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,44,Measles,403,,,29,126,,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,44,Mpox,1,,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,44,AFP,104,,0,28,93,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/44
+2019,11,45,Lassa Fever,107,,,13,17,,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,45,CSM,15,,0,3,9,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,45,Yellow Fever,97,,,20,55,,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,45,Cholera,33,11,0,6,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,45,Measles,452,,,28,127,,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,45,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,45,AFP,141,,0,29,116,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/45
+2019,11,46,Lassa Fever,101,13,0,12,19,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,46,CSM,18,,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,46,Yellow Fever,71,,,17,40,,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,46,Cholera,34,,0,4,7,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,46,Measles,427,,0,27,133,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,46,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,46,AFP,119,,0,26,99,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/46
+2019,11,47,Lassa Fever,89,,0,11,16,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,11,47,CSM,18,,0,4,8,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,11,47,Yellow Fever,83,,0,20,53,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,11,47,Cholera,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,11,47,Measles,446,,,27,165,,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,11,47,Mpox,1,,,,,,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,11,47,AFP,100,,0,26,81,0.0,https://ncdc.gov.ng/reports/weekly/2019/11/47
+2019,12,48,Lassa Fever,90,,0,9,14,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,48,CSM,15,,0,3,6,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,48,Yellow Fever,61,,,18,40,,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,48,Cholera,14,,,3,5,,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,48,Measles,346,,,30,152,,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,48,Mpox,3,,,2,2,,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,48,AFP,116,,0,30,86,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/48
+2019,12,49,Lassa Fever,51,13,,11,13,,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,49,CSM,9,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,49,Yellow Fever,44,,,15,38,,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,49,Cholera,60,,11,3,4,18.33,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,49,Measles,351,,0,26,139,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,49,Mpox,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,49,AFP,89,,0,28,,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/49
+2019,12,50,Lassa Fever,79,,,7,13,,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,50,CSM,10,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,50,Yellow Fever,46,,0,14,32,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,50,Cholera,5,0,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,50,Measles,265,,0,26,117,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,50,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,50,AFP,79,,0,27,73,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/50
+2019,12,51,Lassa Fever,75,,,4,12,,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,51,CSM,8,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,51,Yellow Fever,42,,0,11,28,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,51,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,51,Measles,222,,0,25,92,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,51,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,51,AFP,97,,0,28,79,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/51
+2019,12,52,Lassa Fever,93,16,,9,16,,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,12,52,CSM,7,,0,4,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,12,52,Yellow Fever,33,,0,16,28,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,12,52,Cholera,9,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,12,52,Measles,209,,,19,72,,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,12,52,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,12,52,AFP,55,,0,21,48,0.0,https://ncdc.gov.ng/reports/weekly/2019/12/52
+2019,2,5,AFP,164,,,32,133,,https://ncdc.gov.ng/reports/weekly/2019/2/5
+2019,2,5,CSM,51,,,6,14,,https://ncdc.gov.ng/reports/weekly/2019/2/5
+2019,2,5,Cholera,7,,,2,2,,https://ncdc.gov.ng/reports/weekly/2019/2/5
+2019,2,5,Measles,766,,,33,,,https://ncdc.gov.ng/reports/weekly/2019/2/5
+2019,2,5,Yellow Fever,403,,,,,,https://ncdc.gov.ng/reports/weekly/2019/2/5
+2019,2,6,AFP,122,,,32,113,,https://ncdc.gov.ng/reports/weekly/2019/2/6
+2019,2,6,CSM,87,,,9,14,,https://ncdc.gov.ng/reports/weekly/2019/2/6
+2019,2,6,Cholera,14,,,3,2,,https://ncdc.gov.ng/reports/weekly/2019/2/6
+2019,2,6,Measles,1104,,,34,,,https://ncdc.gov.ng/reports/weekly/2019/2/6
+2019,2,7,AFP,113,,,30,103,,https://ncdc.gov.ng/reports/weekly/2019/2/7
+2019,2,7,CSM,128,,,8,15,,https://ncdc.gov.ng/reports/weekly/2019/2/7
+2019,2,7,Cholera,33,,,2,3,,https://ncdc.gov.ng/reports/weekly/2019/2/7
+2019,2,7,Measles,1115,,,32,,,https://ncdc.gov.ng/reports/weekly/2019/2/7
+2019,2,7,Yellow Fever,276,,,,134,,https://ncdc.gov.ng/reports/weekly/2019/2/7
+2019,2,8,AFP,116,,,32,105,,https://ncdc.gov.ng/reports/weekly/2019/2/8
+2019,2,8,CSM,210,,,12,22,,https://ncdc.gov.ng/reports/weekly/2019/2/8
+2019,2,8,Cholera,75,,,3,3,,https://ncdc.gov.ng/reports/weekly/2019/2/8
+2019,2,8,Lassa Fever,1279,,,21,,,https://ncdc.gov.ng/reports/weekly/2019/2/8
+2019,2,8,Measles,1160,,,34,,,https://ncdc.gov.ng/reports/weekly/2019/2/8
+2019,2,8,Yellow Fever,276,,,,134,,https://ncdc.gov.ng/reports/weekly/2019/2/8
+2019,3,10,AFP,131,,,30,114,,https://ncdc.gov.ng/reports/weekly/2019/3/10
+2019,3,10,CSM,228,,,14,40,,https://ncdc.gov.ng/reports/weekly/2019/3/10
+2019,3,10,Cholera,5,,,3,3,,https://ncdc.gov.ng/reports/weekly/2019/3/10
+2019,3,10,Measles,1921,11,,33,,,https://ncdc.gov.ng/reports/weekly/2019/3/10
+2019,3,10,Yellow Fever,364,,,,177,,https://ncdc.gov.ng/reports/weekly/2019/3/10
+2019,3,11,AFP,160,,,33,139,,https://ncdc.gov.ng/reports/weekly/2019/3/11
+2019,3,11,CSM,166,,,12,33,,https://ncdc.gov.ng/reports/weekly/2019/3/11
+2019,3,11,Cholera,11,,,4,4,,https://ncdc.gov.ng/reports/weekly/2019/3/11
+2019,3,11,Measles,2210,,,36,,,https://ncdc.gov.ng/reports/weekly/2019/3/11
+2019,3,11,Yellow Fever,364,,,,177,,https://ncdc.gov.ng/reports/weekly/2019/3/11
+2019,3,12,AFP,153,,,32,132,,https://ncdc.gov.ng/reports/weekly/2019/3/12
+2019,3,12,CSM,224,,,13,44,,https://ncdc.gov.ng/reports/weekly/2019/3/12
+2019,3,12,Cholera,25,,,3,5,,https://ncdc.gov.ng/reports/weekly/2019/3/12
+2019,3,12,Measles,2567,,,36,,,https://ncdc.gov.ng/reports/weekly/2019/3/12
+2019,3,12,Yellow Fever,364,,,,177,,https://ncdc.gov.ng/reports/weekly/2019/3/12
+2019,3,13,AFP,138,,,33,120,,https://ncdc.gov.ng/reports/weekly/2019/3/13
+2019,3,13,CSM,255,,,13,40,,https://ncdc.gov.ng/reports/weekly/2019/3/13
+2019,3,13,Cholera,12,,,4,5,,https://ncdc.gov.ng/reports/weekly/2019/3/13
+2019,3,13,Measles,2113,,,34,,,https://ncdc.gov.ng/reports/weekly/2019/3/13
+2019,3,13,Yellow Fever,364,,,,177,,https://ncdc.gov.ng/reports/weekly/2019/3/13
+2019,3,9,AFP,156,,,34,139,,https://ncdc.gov.ng/reports/weekly/2019/3/9
+2019,3,9,CSM,236,,,11,29,,https://ncdc.gov.ng/reports/weekly/2019/3/9
+2019,3,9,Cholera,34,,,2,2,,https://ncdc.gov.ng/reports/weekly/2019/3/9
+2019,3,9,Lassa Fever,1447,,,21,,,https://ncdc.gov.ng/reports/weekly/2019/3/9
+2019,3,9,Measles,1440,11,,35,,,https://ncdc.gov.ng/reports/weekly/2019/3/9
+2019,3,9,Yellow Fever,364,,,,177,,https://ncdc.gov.ng/reports/weekly/2019/3/9
+2019,4,15,Lassa Fever,48,,0,7,12,0.0,https://ncdc.gov.ng/reports/weekly/2019/4/15
+2019,4,15,CSM,44,,,15,44,,https://ncdc.gov.ng/reports/weekly/2019/4/15
+2019,4,15,Cholera,91,,,5,8,,https://ncdc.gov.ng/reports/weekly/2019/4/15
+2019,4,16,Lassa Fever,71,,0,10,19,0.0,https://ncdc.gov.ng/reports/weekly/2019/4/16
+2019,4,16,CSM,59,,,19,42,,https://ncdc.gov.ng/reports/weekly/2019/4/16
+2019,4,16,Cholera,96,,,2,4,,https://ncdc.gov.ng/reports/weekly/2019/4/16
+2019,4,16,Measles,1977,,,32,,,https://ncdc.gov.ng/reports/weekly/2019/4/16
+2019,4,16,AFP,182,,,33,145,,https://ncdc.gov.ng/reports/weekly/2019/4/16
+2019,8,34,Lassa Fever,78,,0,13,16,0.0,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,8,34,CSM,17,,0,5,9,0.0,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,8,34,Yellow Fever,50,,0,16,40,0.0,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,8,34,Cholera,49,12,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,8,34,Measles,294,,0,26,120,0.0,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,8,34,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,8,34,AFP,70,,,27,63,,https://ncdc.gov.ng/reports/weekly/2019/8/34
+2019,9,35,Lassa Fever,73,14,,10,15,,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,35,CSM,16,,0,4,6,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,35,Yellow Fever,44,0,0,13,34,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,35,Cholera,33,11,0,2,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,35,Measles,307,,0,27,123,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,35,Mpox,2,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,35,AFP,74,,,25,66,,https://ncdc.gov.ng/reports/weekly/2019/9/35
+2019,9,36,Lassa Fever,83,9,0,13,15,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,36,CSM,21,,0,7,,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,36,Yellow Fever,92,,,20,52,,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,36,Cholera,36,13,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,36,Measles,337,,0,29,139,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,36,Mpox,2,0,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,36,AFP,82,,0,25,75,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/36
+2019,9,37,Lassa Fever,63,,,11,15,,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,37,CSM,23,,0,7,12,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,37,Yellow Fever,117,,,26,73,,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,37,Cholera,21,,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,37,Measles,327,,,29,140,,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,37,Mpox,4,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,37,AFP,109,,0,31,93,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/37
+2019,9,38,Lassa Fever,100,,,10,14,,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,38,CSM,24,,0,5,12,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,38,Yellow Fever,89,,,23,52,,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,38,Cholera,32,11,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,38,Measles,314,,0,28,138,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,38,Mpox,6,,0,4,5,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,38,AFP,107,,0,30,98,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/38
+2019,9,39,Lassa Fever,108,13,,10,12,,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2019,9,39,CSM,23,,,5,11,,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2019,9,39,Yellow Fever,116,,,23,70,,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2019,9,39,Cholera,31,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2019,9,39,Measles,260,,0,27,115,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2019,9,39,Mpox,3,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2019,9,39,AFP,101,,0,31,86,0.0,https://ncdc.gov.ng/reports/weekly/2019/9/39
+2020,1,1,Lassa Fever,98,18,,9,16,,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,1,CSM,10,,,3,5,,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,1,Yellow Fever,19,,0,11,17,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,1,Cholera,33,,,2,2,,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,1,Measles,183,,,21,83,,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,1,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,1,AFP,33,,0,14,29,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/1
+2020,1,2,Lassa Fever,158,64,12,10,14,7.59,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,2,CSM,7,,0,6,7,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,2,Yellow Fever,44,,0,16,36,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,2,Cholera,19,,,3,3,,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,2,Measles,370,,0,30,132,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,2,Mpox,4,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,2,AFP,69,,0,27,64,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/2
+2020,1,3,Lassa Fever,159,81,10,6,17,6.29,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,3,CSM,9,,0,4,8,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,3,Yellow Fever,34,,0,14,30,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,3,Cholera,20,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,3,Measles,470,,,30,136,,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,3,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,3,AFP,93,,0,30,85,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/3
+2020,1,4,Lassa Fever,318,95,19,19,56,5.97,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,1,4,CSM,14,,0,6,9,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,1,4,Yellow Fever,32,,0,14,28,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,1,4,Cholera,74,,,3,4,,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,1,4,Measles,591,,,29,171,,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,1,4,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,1,4,AFP,90,,0,27,79,0.0,https://ncdc.gov.ng/reports/weekly/2020/1/4
+2020,10,42,Lassa Fever,94,,,3,6,,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,42,CSM,5,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,42,Yellow Fever,28,,0,11,23,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,42,Cholera,103,,11,4,7,10.68,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,42,Measles,119,,0,17,61,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,42,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,42,AFP,74,,0,24,63,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/42
+2020,10,43,Lassa Fever,51,,,4,14,,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,10,43,CSM,8,,,2,3,,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,10,43,Yellow Fever,27,,0,11,24,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,10,43,Cholera,48,,0,5,5,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,10,43,Measles,76,,0,12,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,10,43,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,10,43,AFP,63,,0,23,61,0.0,https://ncdc.gov.ng/reports/weekly/2020/10/43
+2020,11,44,Lassa Fever,79,,,6,28,,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,44,CSM,11,,0,4,5,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,44,Yellow Fever,44,,0,12,28,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,44,Cholera,53,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,44,Measles,89,,0,18,55,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,44,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,44,AFP,84,,0,24,74,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/44
+2020,11,45,Lassa Fever,98,,,2,2,,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,45,CSM,10,,0,4,5,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,45,Yellow Fever,48,,0,11,25,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,45,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,45,Measles,139,,0,14,52,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,45,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,45,AFP,99,,0,26,87,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/45
+2020,11,46,Lassa Fever,91,,,1,2,,https://ncdc.gov.ng/reports/weekly/2020/11/46
+2020,11,46,CSM,5,,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/46
+2020,11,46,Yellow Fever,98,,,16,37,,https://ncdc.gov.ng/reports/weekly/2020/11/46
+2020,11,46,Cholera,14,,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/46
+2020,11,46,Measles,167,,,19,64,,https://ncdc.gov.ng/reports/weekly/2020/11/46
+2020,11,46,AFP,99,,0,27,82,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/46
+2020,11,47,Lassa Fever,81,,,5,5,,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,47,CSM,12,,0,5,6,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,47,Yellow Fever,129,,0,21,56,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,47,Cholera,19,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,47,Measles,122,,0,20,63,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,47,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,47,AFP,103,,0,28,87,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/47
+2020,11,48,Lassa Fever,133,,,3,4,,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,11,48,CSM,4,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,11,48,Yellow Fever,283,,,20,54,,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,11,48,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,11,48,Measles,157,,,19,62,,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,11,48,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,11,48,AFP,104,,0,24,83,0.0,https://ncdc.gov.ng/reports/weekly/2020/11/48
+2020,12,49,Lassa Fever,69,,,2,4,,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,49,CSM,2,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,49,Yellow Fever,163,,,19,30,,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,49,Cholera,21,,,,,,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,49,Measles,97,,0,18,58,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,49,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,49,AFP,79,,0,25,70,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/49
+2020,12,50,Lassa Fever,59,,0,10,28,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,50,CSM,5,,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,50,Yellow Fever,55,,0,18,29,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,50,Cholera,4,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,50,Measles,95,,0,18,63,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,50,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,50,AFP,80,,0,24,68,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/50
+2020,12,51,Lassa Fever,78,,,2,10,,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,51,CSM,2,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,51,Yellow Fever,98,,0,14,31,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,51,Cholera,2,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,51,Measles,161,0,0,19,51,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,51,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,51,AFP,76,,0,23,59,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/51
+2020,12,52,Lassa Fever,64,,,4,4,,https://ncdc.gov.ng/reports/weekly/2020/12/52
+2020,12,52,CSM,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/52
+2020,12,52,Yellow Fever,36,,0,11,18,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/52
+2020,12,52,Measles,71,0,,15,31,,https://ncdc.gov.ng/reports/weekly/2020/12/52
+2020,12,52,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/52
+2020,12,52,AFP,49,,0,21,43,0.0,https://ncdc.gov.ng/reports/weekly/2020/12/52
+2020,2,5,Lassa Fever,531,104,,15,39,,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,5,CSM,18,,0,4,10,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,5,Yellow Fever,34,,0,19,25,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,5,Cholera,198,,,,5,,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,5,Measles,391,,,30,147,,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,5,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,5,AFP,102,,0,30,89,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/5
+2020,2,6,Lassa Fever,482,109,,19,43,,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,6,CSM,10,,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,6,Yellow Fever,37,,0,17,21,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,6,Cholera,257,,,,6,,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,6,Measles,521,17,,30,180,,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,6,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,6,AFP,74,,0,22,63,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/6
+2020,2,7,Lassa Fever,471,115,18,16,41,3.82,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,7,CSM,15,,0,6,11,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,7,Yellow Fever,42,,0,20,37,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,7,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,7,Measles,779,,,29,183,,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,7,Mpox,2,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,7,AFP,104,,0,31,88,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/7
+2020,2,8,Lassa Fever,456,102,13,18,46,2.85,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,2,8,CSM,15,,0,6,10,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,2,8,Yellow Fever,25,,0,14,23,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,2,8,Cholera,1,,,,,,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,2,8,Measles,871,,,29,186,,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,2,8,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,2,8,AFP,105,,0,28,96,0.0,https://ncdc.gov.ng/reports/weekly/2020/2/8
+2020,3,10,Lassa Fever,387,81,10,28,34,2.58,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,CSM,13,,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,CSM,13,,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,Yellow Fever,27,,0,10,22,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,Measles,921,,,26,199,,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,10,AFP,85,,0,29,78,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/10
+2020,3,11,Lassa Fever,319,51,,11,28,,https://ncdc.gov.ng/reports/weekly/2020/3/11
+2020,3,11,CSM,11,,0,6,8,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/11
+2020,3,11,Yellow Fever,35,,0,11,29,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/11
+2020,3,11,Cholera,7,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/11
+2020,3,11,Measles,1092,12,0,27,131,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/11
+2020,3,11,AFP,92,,0,29,79,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/11
+2020,3,12,Lassa Fever,279,28,,11,17,,https://ncdc.gov.ng/reports/weekly/2020/3/12
+2020,3,12,CSM,46,,,7,16,,https://ncdc.gov.ng/reports/weekly/2020/3/12
+2020,3,12,Yellow Fever,33,,0,12,28,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/12
+2020,3,12,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/3/12
+2020,3,12,Measles,1069,,0,26,206,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/12
+2020,3,12,AFP,104,,0,30,97,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/12
+2020,3,13,Lassa Fever,182,19,,7,14,,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,13,CSM,18,,,4,11,,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,13,Yellow Fever,29,,0,12,21,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,13,Cholera,6,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,13,Measles,894,,,23,149,,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,13,Mpox,2,,,,,,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,13,AFP,61,,0,24,57,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/13
+2020,3,9,Lassa Fever,443,85,11,28,107,2.48,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,3,9,CSM,8,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,3,9,Yellow Fever,48,,0,19,43,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,3,9,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,3,9,Measles,764,0,,29,180,,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,3,9,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,3,9,AFP,81,,0,28,97,0.0,https://ncdc.gov.ng/reports/weekly/2020/3/9
+2020,4,14,Lassa Fever,136,12,,14,24,,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,14,CSM,17,,0,8,11,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,14,Yellow Fever,17,,0,4,13,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,14,Cholera,7,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,14,Measles,837,,15,22,123,1.79,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,14,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,14,AFP,40,,0,22,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/14
+2020,4,15,Lassa Fever,99,,0,5,6,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,15,CSM,11,,0,4,8,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,15,Yellow Fever,24,,0,7,21,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,15,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,15,Measles,632,,,21,113,,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,15,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,15,AFP,48,,0,22,44,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/15
+2020,4,16,Lassa Fever,89,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,16,CSM,5,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,16,Yellow Fever,24,,0,9,17,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,16,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,16,Measles,606,,,21,104,,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,16,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,16,AFP,71,,0,25,63,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/16
+2020,4,17,Lassa Fever,85,,0,12,38,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,4,17,CSM,6,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,4,17,Yellow Fever,18,,0,7,15,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,4,17,Cholera,97,,14,2,2,14.43,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,4,17,Measles,313,,0,18,80,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,4,17,AFP,47,,0,23,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,4,17,AFP,47,,0,23,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/4/17
+2020,5,18,Lassa Fever,64,,,15,37,,https://ncdc.gov.ng/reports/weekly/2020/5/18
+2020,5,18,CSM,12,,0,4,6,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/18
+2020,5,18,Yellow Fever,10,,0,8,9,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/18
+2020,5,18,Measles,338,,0,17,86,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/18
+2020,5,18,AFP,57,,0,23,51,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/18
+2020,5,19,Lassa Fever,72,,,4,5,,https://ncdc.gov.ng/reports/weekly/2020/5/19
+2020,5,19,CSM,2,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/19
+2020,5,19,Yellow Fever,14,,0,6,12,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/19
+2020,5,19,Cholera,1,,,,,,https://ncdc.gov.ng/reports/weekly/2020/5/19
+2020,5,19,Measles,298,,,15,71,,https://ncdc.gov.ng/reports/weekly/2020/5/19
+2020,5,19,AFP,58,,0,23,53,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/19
+2020,5,20,Lassa Fever,68,,,3,5,,https://ncdc.gov.ng/reports/weekly/2020/5/20
+2020,5,20,CSM,8,,0,4,6,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/20
+2020,5,20,Yellow Fever,8,,0,6,7,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/20
+2020,5,20,Measles,155,,,7,41,,https://ncdc.gov.ng/reports/weekly/2020/5/20
+2020,5,20,AFP,44,,0,20,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/20
+2020,5,21,Lassa Fever,80,,,10,37,,https://ncdc.gov.ng/reports/weekly/2020/5/21
+2020,5,21,CSM,1,,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/21
+2020,5,21,Yellow Fever,10,,0,6,7,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/21
+2020,5,21,Measles,94,,0,13,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/21
+2020,5,21,AFP,66,,0,23,62,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/21
+2020,5,22,Lassa Fever,78,,0,10,35,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/22
+2020,5,22,Yellow Fever,13,,0,6,12,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/22
+2020,5,22,Measles,388,,,20,74,,https://ncdc.gov.ng/reports/weekly/2020/5/22
+2020,5,22,AFP,77,,0,25,70,0.0,https://ncdc.gov.ng/reports/weekly/2020/5/22
+2020,6,23,Lassa Fever,91,,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/23
+2020,6,23,CSM,3,,,3,3,,https://ncdc.gov.ng/reports/weekly/2020/6/23
+2020,6,23,Yellow Fever,17,,0,11,17,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/23
+2020,6,23,Measles,420,,14,20,88,3.33,https://ncdc.gov.ng/reports/weekly/2020/6/23
+2020,6,23,AFP,126,,0,26,110,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/23
+2020,6,24,Lassa Fever,74,,,2,3,,https://ncdc.gov.ng/reports/weekly/2020/6/24
+2020,6,24,Yellow Fever,12,,0,5,12,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/24
+2020,6,24,Measles,162,,0,15,44,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/24
+2020,6,24,AFP,104,,0,29,86,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/24
+2020,6,25,Lassa Fever,56,,,10,23,,https://ncdc.gov.ng/reports/weekly/2020/6/25
+2020,6,25,CSM,5,0,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/25
+2020,6,25,Yellow Fever,18,,0,12,16,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/25
+2020,6,25,Measles,155,,0,15,64,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/25
+2020,6,25,AFP,125,,0,28,108,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/25
+2020,6,26,Lassa Fever,67,,,5,9,,https://ncdc.gov.ng/reports/weekly/2020/6/26
+2020,6,26,CSM,4,0,0,4,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/26
+2020,6,26,Yellow Fever,15,,0,5,13,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/26
+2020,6,26,Cholera,9,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/26
+2020,6,26,Measles,135,,0,13,55,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/26
+2020,6,26,AFP,85,,0,24,75,0.0,https://ncdc.gov.ng/reports/weekly/2020/6/26
+2020,7,27,Lassa Fever,52,,,2,3,,https://ncdc.gov.ng/reports/weekly/2020/7/27
+2020,7,27,CSM,4,0,0,4,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/27
+2020,7,27,Yellow Fever,12,,0,6,9,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/27
+2020,7,27,Cholera,10,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/27
+2020,7,27,Measles,92,,0,13,51,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/27
+2020,7,27,AFP,131,,0,29,106,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/27
+2020,7,28,Lassa Fever,33,,,,1,,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,28,CSM,6,0,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,28,Yellow Fever,13,,0,4,11,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,28,Cholera,2,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,28,Measles,77,,0,18,46,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,28,Mpox,3,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,28,AFP,73,,0,23,66,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/28
+2020,7,29,Lassa Fever,80,,,,1,,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,29,CSM,11,0,0,6,6,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,29,Yellow Fever,16,,0,8,12,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,29,Cholera,22,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,29,Measles,92,,0,16,47,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,29,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,29,AFP,106,,0,29,94,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/29
+2020,7,30,Lassa Fever,26,,0,4,13,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,7,30,CSM,2,0,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,7,30,Yellow Fever,30,,0,11,18,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,7,30,Cholera,38,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,7,30,Measles,76,,0,11,39,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,7,30,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,7,30,AFP,94,,0,26,86,0.0,https://ncdc.gov.ng/reports/weekly/2020/7/30
+2020,8,31,Lassa Fever,46,,,,2,,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,31,CSM,3,0,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,31,Yellow Fever,22,,0,11,20,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,31,Cholera,12,,,3,3,,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,31,Measles,82,,0,13,35,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,31,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,31,AFP,64,,0,25,58,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/31
+2020,8,32,Lassa Fever,56,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,32,CSM,9,0,,5,6,,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,32,Yellow Fever,14,,0,8,11,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,32,Cholera,21,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,32,Measles,110,,0,18,59,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,32,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,32,AFP,99,,0,28,86,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/32
+2020,8,33,Lassa Fever,33,,0,3,17,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,33,CSM,6,0,,3,6,,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,33,Yellow Fever,34,,0,10,25,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,33,Cholera,10,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,33,Measles,82,,0,14,51,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,33,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,33,AFP,96,,0,26,82,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/33
+2020,8,34,Lassa Fever,47,,,10,20,,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,34,CSM,2,0,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,34,Yellow Fever,29,,0,9,21,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,34,Cholera,5,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,34,Measles,78,,0,18,47,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,34,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,34,AFP,91,,0,25,78,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/34
+2020,8,35,Lassa Fever,27,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,8,35,CSM,4,0,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,8,35,Yellow Fever,24,,0,12,20,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,8,35,Cholera,9,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,8,35,Measles,75,,0,17,45,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,8,35,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,8,35,AFP,103,,0,27,90,0.0,https://ncdc.gov.ng/reports/weekly/2020/8/35
+2020,9,36,Lassa Fever,46,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,36,CSM,4,,0,4,4,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,36,Yellow Fever,35,,0,14,29,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,36,Cholera,20,,,3,3,,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,36,Measles,84,,0,18,58,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,36,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,36,AFP,100,,0,27,84,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/36
+2020,9,37,Lassa Fever,47,,0,7,19,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,37,CSM,3,,,3,3,,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,37,Yellow Fever,26,,0,13,23,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,37,Cholera,3,,,,,,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,37,Measles,68,,0,14,48,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,37,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,37,AFP,88,,0,28,79,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/37
+2020,9,38,Lassa Fever,11,,,3,8,,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,38,CSM,5,,,4,5,,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,38,Yellow Fever,33,,0,13,27,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,38,Cholera,21,,,,2,,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,38,Measles,87,,0,16,49,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,38,Mpox,2,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,38,AFP,107,,0,28,86,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/38
+2020,9,39,Lassa Fever,41,,,2,3,,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2020,9,39,CSM,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2020,9,39,Yellow Fever,34,,0,13,27,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2020,9,39,Cholera,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2020,9,39,Measles,80,,0,18,47,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2020,9,39,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2020,9,39,AFP,92,,0,30,86,0.0,https://ncdc.gov.ng/reports/weekly/2020/9/39
+2021,1,0,Lassa Fever,59,,0,4,7,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/0
+2021,1,0,CSM,2,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/0
+2021,1,0,Yellow Fever,13,,0,3,10,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/0
+2021,1,0,Measles,44,0,,6,14,,https://ncdc.gov.ng/reports/weekly/2021/1/0
+2021,1,0,AFP,47,,0,15,32,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/0
+2021,1,1,Lassa Fever,109,,,4,,,https://ncdc.gov.ng/reports/weekly/2021/1/1
+2021,1,1,CSM,0,,,,,,https://ncdc.gov.ng/reports/weekly/2021/1/1
+2021,1,1,Yellow Fever,17,,0,10,14,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/1
+2021,1,1,Measles,131,0,0,13,42,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/1
+2021,1,1,Mpox,3,,,2,2,,https://ncdc.gov.ng/reports/weekly/2021/1/1
+2021,1,1,AFP,46,,,,,,https://ncdc.gov.ng/reports/weekly/2021/1/1
+2021,1,2,Lassa Fever,117,,,3,8,,https://ncdc.gov.ng/reports/weekly/2021/1/2
+2021,1,2,CSM,2,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/2
+2021,1,2,Yellow Fever,16,,0,10,12,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/2
+2021,1,2,Measles,207,,,15,57,,https://ncdc.gov.ng/reports/weekly/2021/1/2
+2021,1,2,Mpox,2,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/2
+2021,1,2,AFP,51,,0,23,51,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/2
+2021,1,3,Lassa Fever,129,,,3,10,,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,3,CSM,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,3,Yellow Fever,29,,0,9,24,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,3,Cholera,11,,,2,2,,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,3,Measles,165,,0,15,55,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,3,Mpox,5,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,3,AFP,52,,0,20,51,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/3
+2021,1,4,Lassa Fever,153,,,6,10,,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,1,4,CSM,9,0,0,4,6,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,1,4,Yellow Fever,24,,0,9,19,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,1,4,Cholera,2,,,2,2,,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,1,4,Measles,252,,0,15,63,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,1,4,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,1,4,AFP,55,,0,23,52,0.0,https://ncdc.gov.ng/reports/weekly/2021/1/4
+2021,2,5,Lassa Fever,107,,,3,5,,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,5,CSM,4,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,5,Yellow Fever,27,,0,9,18,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,5,Cholera,87,,,3,3,,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,5,Measles,204,,0,22,71,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,5,Mpox,5,,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,5,AFP,36,,0,17,32,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/5
+2021,2,6,Lassa Fever,91,,,3,10,,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,6,CSM,8,,0,3,6,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,6,Yellow Fever,27,,0,12,26,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,6,Cholera,12,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,6,Measles,289,,,20,81,,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,6,Mpox,3,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,6,AFP,45,,0,22,39,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/6
+2021,2,7,Lassa Fever,113,,,6,15,,https://ncdc.gov.ng/reports/weekly/2021/2/7
+2021,2,7,CSM,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/7
+2021,2,7,Yellow Fever,16,,0,11,15,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/7
+2021,2,7,Cholera,38,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/7
+2021,2,7,Measles,184,,,23,72,,https://ncdc.gov.ng/reports/weekly/2021/2/7
+2021,2,7,Mpox,2,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/7
+2021,2,8,Lassa Fever,140,,,10,23,,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,2,8,CSM,10,,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,2,8,Yellow Fever,28,,0,15,22,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,2,8,Cholera,4,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,2,8,Measles,272,,,24,100,,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,2,8,Mpox,2,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,2,8,AFP,50,,0,20,45,0.0,https://ncdc.gov.ng/reports/weekly/2021/2/8
+2021,3,10,Lassa Fever,145,,,7,15,,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,10,CSM,7,,0,2,5,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,10,Yellow Fever,55,,0,11,22,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,10,Cholera,11,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,10,Measles,540,,,17,74,,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,10,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,10,AFP,48,,0,19,44,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/10
+2021,3,11,Lassa Fever,136,,,8,16,,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,CSM,10,,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,Yellow Fever,42,,0,10,21,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,Cholera,71,,,2,3,,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,Measles,192,,0,18,74,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,AFP,52,,0,18,46,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,11,Mpox,1,,,,,,https://ncdc.gov.ng/reports/weekly/2021/3/11
+2021,3,12,Lassa Fever,84,,,2,5,,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,12,CSM,10,,0,5,6,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,12,Yellow Fever,16,,0,9,13,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,12,Cholera,19,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,12,Measles,271,,0,20,73,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,12,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,12,AFP,51,,0,24,47,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/12
+2021,3,9,Lassa Fever,107,,,6,12,,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,3,9,CSM,3,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,3,9,Yellow Fever,24,,0,10,18,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,3,9,Cholera,29,,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,3,9,Measles,434,,,20,73,,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,3,9,Mpox,3,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,3,9,AFP,46,,0,20,45,0.0,https://ncdc.gov.ng/reports/weekly/2021/3/9
+2021,4,13,Lassa Fever,78,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,13,CSM,3,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,13,Yellow Fever,19,,0,11,17,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,13,Cholera,151,,,,5,,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,13,Measles,163,,0,21,69,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,13,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,13,AFP,41,,0,18,41,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/13
+2021,4,14,Lassa Fever,43,,,4,5,,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,14,CSM,11,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,14,Yellow Fever,19,,0,7,15,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,14,Cholera,431,,,4,11,,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,14,Measles,367,,,18,68,,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,14,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,14,AFP,37,,0,17,32,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/14
+2021,4,15,Lassa Fever,43,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,15,CSM,6,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,15,Yellow Fever,34,,0,13,25,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,15,Cholera,166,,,2,10,,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,15,Measles,629,,,21,92,,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,15,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,15,AFP,56,,0,20,47,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/15
+2021,4,16,Lassa Fever,63,,0,11,24,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/16
+2021,4,16,CSM,14,,0,5,12,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/16
+2021,4,16,Yellow Fever,40,,0,10,34,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/16
+2021,4,16,Cholera,235,,,5,11,,https://ncdc.gov.ng/reports/weekly/2021/4/16
+2021,4,16,Measles,748,,,22,109,,https://ncdc.gov.ng/reports/weekly/2021/4/16
+2021,4,16,AFP,56,,0,18,49,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/16
+2021,4,17,CSM,5,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/17
+2021,4,17,Yellow Fever,19,,0,8,17,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/17
+2021,4,17,Cholera,264,,,5,13,,https://ncdc.gov.ng/reports/weekly/2021/4/17
+2021,4,17,Measles,217,,,20,81,,https://ncdc.gov.ng/reports/weekly/2021/4/17
+2021,4,17,AFP,57,,0,21,52,0.0,https://ncdc.gov.ng/reports/weekly/2021/4/17
+2021,5,18,Lassa Fever,61,,0,4,6,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/18
+2021,5,18,CSM,5,,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/18
+2021,5,18,Yellow Fever,15,,0,7,14,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/18
+2021,5,18,Cholera,34,0,,2,6,,https://ncdc.gov.ng/reports/weekly/2021/5/18
+2021,5,18,Measles,691,,,13,79,,https://ncdc.gov.ng/reports/weekly/2021/5/18
+2021,5,18,AFP,52,,0,17,44,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/18
+2021,5,19,Lassa Fever,61,,,,1,,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,19,CSM,5,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,19,Yellow Fever,19,,0,8,14,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,19,Cholera,86,,,3,9,,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,19,Measles,518,,,16,65,,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,19,Mpox,3,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,19,AFP,38,,0,16,35,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/19
+2021,5,20,Lassa Fever,83,,0,2,5,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,20,CSM,4,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,20,Yellow Fever,19,,0,11,18,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,20,Cholera,212,,,5,19,,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,20,Measles,575,,,17,82,,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,20,Mpox,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,20,AFP,77,,0,20,70,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/20
+2021,5,21,Lassa Fever,56,,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,5,21,CSM,9,,,4,6,,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,5,21,Yellow Fever,31,,0,11,27,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,5,21,Cholera,616,,,4,29,,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,5,21,Measles,593,,,19,84,,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,5,21,Mpox,3,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,5,21,AFP,75,,0,22,70,0.0,https://ncdc.gov.ng/reports/weekly/2021/5/21
+2021,6,22,Lassa Fever,52,,,2,5,,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,22,CSM,6,,0,5,6,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,22,Yellow Fever,15,,0,7,14,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,22,Cholera,204,,,3,27,,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,22,Measles,614,,,20,93,,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,22,Mpox,6,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,22,AFP,74,,0,21,67,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/22
+2021,6,23,Lassa Fever,60,,,2,3,,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,23,CSM,1,,0,,,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,23,Yellow Fever,24,,0,14,21,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,23,Cholera,376,,,4,29,,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,23,Measles,552,,,20,82,,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,23,Mpox,3,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,23,AFP,93,,0,22,77,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/23
+2021,6,24,Lassa Fever,70,,,2,6,,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,24,CSM,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,24,Yellow Fever,22,,0,9,15,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,24,Cholera,2008,,15,5,49,0.75,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,24,Measles,480,,,18,67,,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,24,Mpox,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,24,AFP,84,,0,19,70,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/24
+2021,6,25,Lassa Fever,65,,,2,5,,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,6,25,CSM,6,,0,4,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,6,25,Yellow Fever,49,,,16,37,,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,6,25,Cholera,939,,18,4,59,1.92,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,6,25,Measles,591,,,21,87,,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,6,25,Mpox,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,6,25,AFP,123,,0,23,101,0.0,https://ncdc.gov.ng/reports/weekly/2021/6/25
+2021,7,27,Lassa Fever,69,,,2,4,,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,27,CSM,5,,0,3,5,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,27,Yellow Fever,22,,,11,16,,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,27,Cholera,2559,,30,9,59,1.17,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,27,Measles,523,,,18,63,,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,27,Mpox,3,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,27,AFP,106,,0,23,91,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/27
+2021,7,28,Lassa Fever,70,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,28,CSM,5,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,28,Yellow Fever,32,,0,13,30,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,28,Cholera,534,,18,8,53,3.37,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,28,Measles,498,,,15,62,,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,28,Mpox,0,,,,,,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,28,AFP,98,,0,19,77,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/28
+2021,7,29,Lassa Fever,66,,,3,4,,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,29,CSM,3,,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,29,Yellow Fever,25,,0,11,23,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,29,Cholera,1554,,20,5,88,1.29,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,29,Measles,299,,0,18,72,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,29,Measles,3,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,29,AFP,75,,0,20,67,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/29
+2021,7,30,Lassa Fever,133,,0,11,33,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2021,7,30,CSM,4,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2021,7,30,Yellow Fever,9,,0,7,8,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2021,7,30,Cholera,1699,,86,5,65,5.06,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2021,7,30,Measles,147,,0,19,58,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2021,7,30,Mpox,4,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2021,7,30,AFP,99,,0,17,76,0.0,https://ncdc.gov.ng/reports/weekly/2021/7/30
+2023,10,40,Lassa Fever,67,,,12,17,,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,CSM,6,0,,4,4,,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,Yellow Fever,71,0,0,21,39,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,Cholera,6,0,0,4,6,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,Measles,30,0,0,8,24,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,AFP,91,0,0,26,37,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,COVID-19,8240,400,0,6,19,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,40,Diphtheria,440,352,,7,42,,https://ncdc.gov.ng/reports/weekly/2023/10/40
+2023,10,41,Lassa Fever,103,,,11,19,,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,Yellow Fever,80,0,0,23,33,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,Cholera,5,0,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,Measles,13,0,0,8,13,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,Mpox,5,0,0,4,4,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,AFP,90,0,0,23,52,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,COVID-19,123,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,41,Diphtheria,336,299,,3,20,,https://ncdc.gov.ng/reports/weekly/2023/10/41
+2023,10,42,Lassa Fever,118,,0,17,26,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,CSM,3,0,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,Yellow Fever,2412,0,0,22,39,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,Cholera,19,0,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,Measles,65,,0,7,38,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,Mpox,21,,0,8,15,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,AFP,116,0,0,23,73,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,42,Diphtheria,656,478,,5,35,,https://ncdc.gov.ng/reports/weekly/2023/10/42
+2023,10,43,Lassa Fever,124,,0,16,21,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,43,Yellow Fever,47,0,,19,25,,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,43,Cholera,19,,0,5,7,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,43,Measles,13,0,0,5,9,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,43,Mpox,17,0,0,10,16,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,43,AFP,96,0,0,27,33,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,43,Diphtheria,286,243,,3,19,,https://ncdc.gov.ng/reports/weekly/2023/10/43
+2023,10,44,Lassa Fever,117,,0,12,21,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,10,44,Yellow Fever,47,0,,19,25,,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,10,44,Cholera,7,,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,10,44,Measles,175,30,0,15,67,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,10,44,Mpox,22,0,0,8,13,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,10,44,AFP,81,0,0,25,32,0.0,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,10,44,Diphtheria,217,178,,5,29,,https://ncdc.gov.ng/reports/weekly/2023/10/44
+2023,11,45,Lassa Fever,95,12,,12,19,,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,45,Yellow Fever,19,0,,10,12,,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,45,Cholera,5,,,4,4,,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,45,Measles,149,22,0,16,73,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,45,Mpox,30,,0,9,15,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,45,AFP,82,0,0,22,50,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,45,Diphtheria,204,127,,3,13,,https://ncdc.gov.ng/reports/weekly/2023/11/45
+2023,11,46,Lassa Fever,125,17,,16,21,,https://ncdc.gov.ng/reports/weekly/2023/11/46
+2023,11,46,Yellow Fever,72,0,,29,21,,https://ncdc.gov.ng/reports/weekly/2023/11/46
+2023,11,46,Cholera,5,,,4,4,,https://ncdc.gov.ng/reports/weekly/2023/11/46
+2023,11,46,Measles,104,15,0,19,82,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/46
+2023,11,46,AFP,42,0,0,22,23,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/46
+2023,11,46,Diphtheria,121,82,0,4,18,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/46
+2023,11,47,Lassa Fever,122,11,,11,17,,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,47,Yellow Fever,108,0,,23,31,,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,47,Cholera,36,,,7,7,,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,47,Measles,141,18,0,18,72,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,47,Mpox,26,,0,9,20,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,47,AFP,10,0,0,9,9,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,47,Diphtheria,155,128,,3,16,,https://ncdc.gov.ng/reports/weekly/2023/11/47
+2023,11,48,Lassa Fever,119,16,,17,19,,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,CSM,7,,,4,6,,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,Yellow Fever,84,0,0,18,29,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,Cholera,8,0,,5,5,,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,Measles,91,16,0,15,37,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,Mpox,20,,0,7,14,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,AFP,13,0,0,9,11,0.0,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,11,48,Diphtheria,454,354,,6,31,,https://ncdc.gov.ng/reports/weekly/2023/11/48
+2023,12,49,Lassa Fever,165,21,,16,29,,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,CSM,23,,,6,8,,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,Yellow Fever,61,0,0,18,25,0.0,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,Cholera,7,0,,2,2,,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,Measles,29,,0,8,17,0.0,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,Mpox,23,0,0,8,14,0.0,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,AFP,8,0,0,6,6,0.0,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,12,49,Diphtheria,130,105,,3,13,,https://ncdc.gov.ng/reports/weekly/2023/12/49
+2023,7,27,Lassa Fever,108,,0,4,5,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,27,CSM,7,,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,27,Yellow Fever,31,,,18,26,,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,27,Cholera,35,,,7,13,,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,27,Measles,132,,0,20,81,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,27,AFP,86,,0,20,63,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,27,Diphtheria,484,167,13,11,35,2.69,https://ncdc.gov.ng/reports/weekly/2023/7/27
+2023,7,28,Lassa Fever,119,,,11,36,,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,CSM,168,12,0,4,11,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,Yellow Fever,54,0,0,21,42,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,Cholera,38,,,7,12,,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,Measles,106,10,0,25,103,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,Mpox,10,0,,6,9,,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,AFP,86,,0,20,63,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,COVID-19,14,0,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,28,Diphtheria,168,63,,3,13,,https://ncdc.gov.ng/reports/weekly/2023/7/28
+2023,7,29,Lassa Fever,114,,0,3,8,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,CSM,116,,,2,19,,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,Yellow Fever,5,0,0,3,4,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,Cholera,10,,,,1,,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,Measles,69,,0,17,41,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,Mpox,17,0,,6,9,,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,AFP,116,,0,27,106,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,COVID-19,15,,0,,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,29,Diphtheria,175,103,3,6,20,1.71,https://ncdc.gov.ng/reports/weekly/2023/7/29
+2023,7,30,Lassa Fever,117,12,,10,28,,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,CSM,150,,,3,5,,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,Yellow Fever,21,0,0,12,17,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,Yellow Fever,21,0,0,12,17,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,Cholera,4,0,0,4,4,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,Measles,61,,0,17,31,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,Mpox,23,0,0,9,13,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,AFP,88,0,0,21,49,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,COVID-19,2,,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,30,Diphtheria,259,223,13,5,19,5.02,https://ncdc.gov.ng/reports/weekly/2023/7/30
+2023,7,31,Lassa Fever,64,,0,12,23,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,7,31,CSM,31,,,,10,,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,7,31,Yellow Fever,25,0,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,7,31,Cholera,11,0,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,7,31,Measles,45,,0,12,22,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,7,31,AFP,106,0,0,17,81,0.0,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,7,31,Diphtheria,178,105,,6,31,,https://ncdc.gov.ng/reports/weekly/2023/7/31
+2023,8,32,Lassa Fever,94,,,9,15,,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,CSM,3,0,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,Yellow Fever,48,0,0,16,,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,Cholera,3,0,,2,2,,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,Measles,92,,,18,32,,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,Mpox,14,0,0,5,8,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,AFP,97,0,0,29,42,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,COVID-19,1,0,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,32,Diphtheria,78,12,,5,18,,https://ncdc.gov.ng/reports/weekly/2023/8/32
+2023,8,33,Lassa Fever,82,,,7,11,,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,CSM,1,0,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,Yellow Fever,29,0,0,13,26,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,Cholera,1,0,,,1,,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,Measles,23,,0,9,13,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,Mpox,8,0,0,6,7,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,AFP,65,0,0,24,51,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,COVID-19,14,0,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,33,Diphtheria,118,104,,2,14,,https://ncdc.gov.ng/reports/weekly/2023/8/33
+2023,8,35,Lassa Fever,109,,0,14,38,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,CSM,1,0,0,1,1,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,Yellow Fever,47,0,,17,33,,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,Cholera,76,,,5,5,,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,Measles,15,,0,10,15,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,Mpox,4,0,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,AFP,16,0,0,11,13,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,COVID-19,7525,1085,0,3,19,0.0,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,8,35,Diphtheria,667,553,,3,18,,https://ncdc.gov.ng/reports/weekly/2023/8/35
+2023,9,36,Lassa Fever,85,,0,8,19,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,CSM,2,0,0,,1,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,Yellow Fever,48,0,0,17,40,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,Cholera,71,,,3,6,,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,Measles,86,0,0,19,71,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,AFP,1871,0,0,35,121,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,COVID-19,900,0,0,3,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,36,Diphtheria,763,590,15,3,22,1.97,https://ncdc.gov.ng/reports/weekly/2023/9/36
+2023,9,37,Lassa Fever,79,,0,10,36,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,CSM,4,0,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,Yellow Fever,47,0,0,18,31,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,Cholera,43,,,3,8,,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,Measles,68,0,0,18,67,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,AFP,1871,0,0,35,118,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,COVID-19,459,,0,3,31,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,37,Diphtheria,533,449,,5,28,,https://ncdc.gov.ng/reports/weekly/2023/9/37
+2023,9,38,Lassa Fever,107,,0,2,3,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,CSM,3,,0,,2,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,Yellow Fever,29,,0,16,23,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,Cholera,27,0,,,2,,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,Measles,26,0,0,12,21,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,AFP,177,0,0,30,52,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,COVID-19,6232,,0,,5,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,38,Diphtheria,33,,0,6,28,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/38
+2023,9,39,Lassa Fever,96,,,7,25,,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2023,9,39,Yellow Fever,14,0,0,10,10,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2023,9,39,Cholera,0,,,,,,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2023,9,39,Measles,12,0,0,8,10,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2023,9,39,AFP,123,0,0,17,,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2023,9,39,COVID-19,39,0,0,2,4,0.0,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2023,9,39,Diphtheria,178,105,,6,31,,https://ncdc.gov.ng/reports/weekly/2023/9/39
+2024,1,1,Lassa Fever,190,53,,13,27,,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,CSM,59,,,10,24,,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,Yellow Fever,52,0,0,21,44,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,Cholera,91,0,,7,,,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,Measles,725,60,,32,127,,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,Mpox,3,0,0,2,2,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,AFP,143,0,0,34,120,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,COVID-19,12,,0,4,7,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,1,Diphtheria,581,300,,8,16,,https://ncdc.gov.ng/reports/weekly/2024/1/1
+2024,1,2,Lassa Fever,296,81,16,15,30,5.41,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,CSM,76,,,9,21,,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,Yellow Fever,71,0,0,24,56,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,Cholera,86,0,0,8,17,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,Measles,637,86,,28,140,,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,Mpox,6,0,0,6,6,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,AFP,137,0,0,31,112,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,COVID-19,11,,,4,7,,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,2,Diphtheria,584,283,,10,70,,https://ncdc.gov.ng/reports/weekly/2024/1/2
+2024,1,3,Lassa Fever,406,77,21,16,33,5.17,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,CSM,120,,,9,30,,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,Yellow Fever,75,0,0,25,62,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,Cholera,80,0,,11,20,,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,Measles,668,107,,36,175,,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,Mpox,15,0,0,6,9,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,AFP,150,0,0,32,125,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,COVID-19,21,21,,3,21,,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,3,Diphtheria,506,275,,9,56,,https://ncdc.gov.ng/reports/weekly/2024/1/3
+2024,1,4,Lassa Fever,347,47,,20,22,,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,CSM,159,,,12,24,,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,Yellow Fever,51,0,0,25,41,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,Measles,744,117,,33,167,,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,Mpox,30,2,0,9,19,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,AFP,159,0,0,32,132,0.0,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,COVID-19,45,45,,5,19,,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,1,4,Diphtheria,505,282,,9,62,,https://ncdc.gov.ng/reports/weekly/2024/1/4
+2024,2,5,Lassa Fever,429,70,,23,28,,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,CSM,81,,,9,27,,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,Yellow Fever,63,0,0,26,51,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,Cholera,79,0,,11,23,,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,Measles,780,142,,35,206,,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,Mpox,10,0,0,3,8,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,AFP,176,0,0,31,137,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,COVID-19,79,79,,6,30,,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,5,Diphtheria,505,282,,9,62,,https://ncdc.gov.ng/reports/weekly/2024/2/5
+2024,2,6,CSM,70,,,7,24,,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,Yellow Fever,73,,0,25,55,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,Cholera,74,0,,9,20,,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,Measles,630,114,,35,236,,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,Mpox,25,,0,9,14,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,AFP,184,0,0,32,140,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,COVID-19,188,188,,7,38,,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,6,Diphtheria,517,222,,9,53,,https://ncdc.gov.ng/reports/weekly/2024/2/6
+2024,2,7,Lassa Fever,507,66,13,21,32,2.56,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,CSM,148,,,10,30,,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,Yellow Fever,84,0,0,29,73,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,Cholera,114,0,,14,19,,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,Measles,699,130,,35,263,,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,Mpox,27,,0,11,18,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,AFP,175,,0,34,141,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,COVID-19,108,108,,10,39,,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,7,Diphtheria,694,359,,8,56,,https://ncdc.gov.ng/reports/weekly/2024/2/7
+2024,2,8,Lassa Fever,585,,23,26,39,3.93,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,CSM,262,,,14,39,,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,Yellow Fever,54,0,0,24,45,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,Cholera,87,0,,10,21,,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,Measles,729,99,,34,256,,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,Mpox,42,0,0,16,23,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,AFP,185,0,0,31,140,0.0,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,COVID-19,114,114,,15,43,,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,2,8,Diphtheria,635,347,,8,52,,https://ncdc.gov.ng/reports/weekly/2024/2/8
+2024,3,9,Lassa Fever,694,109,20,32,51,2.88,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,CSM,315,12,,11,38,,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,Yellow Fever,52,0,0,23,42,0.0,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,Cholera,93,,,13,24,,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,Measles,882,117,,34,254,,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,Mpox,41,0,0,9,17,0.0,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,AFP,246,0,0,34,180,0.0,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,COVID-19,43,43,,8,22,,https://ncdc.gov.ng/reports/weekly/2024/3/9
+2024,3,9,Diphtheria,555,392,,8,48,,https://ncdc.gov.ng/reports/weekly/2024/3/9

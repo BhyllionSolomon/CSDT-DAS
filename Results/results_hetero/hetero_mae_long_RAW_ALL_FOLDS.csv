@@ -1,0 +1,337 @@
+seed_run,fold_test_year,variant,disease,MAE
+42,2022,full,AFP,27.84
+42,2022,full,CSM,2.58
+42,2022,full,Cholera,232.28
+42,2022,full,Lassa Fever,30.19
+42,2022,full,Measles,97.85
+42,2022,full,Mpox,45.92
+42,2022,full,Yellow Fever,25.25
+42,2022,no_transformer,AFP,87.35
+42,2022,no_transformer,CSM,1.62
+42,2022,no_transformer,Cholera,356.9
+42,2022,no_transformer,Lassa Fever,58.2
+42,2022,no_transformer,Measles,198.28
+42,2022,no_transformer,Mpox,46.11
+42,2022,no_transformer,Yellow Fever,9.21
+42,2022,no_bilstm,AFP,87.23
+42,2022,no_bilstm,CSM,2.43
+42,2022,no_bilstm,Cholera,333.18
+42,2022,no_bilstm,Lassa Fever,16.35
+42,2022,no_bilstm,Measles,276.41
+42,2022,no_bilstm,Mpox,45.38
+42,2022,no_bilstm,Yellow Fever,4.6
+42,2022,no_tcn,AFP,32.84
+42,2022,no_tcn,CSM,2.45
+42,2022,no_tcn,Cholera,342.04
+42,2022,no_tcn,Lassa Fever,22.43
+42,2022,no_tcn,Measles,178.25
+42,2022,no_tcn,Mpox,45.23
+42,2022,no_tcn,Yellow Fever,5.69
+42,2023,full,AFP,322.49
+42,2023,full,CSM,5.43
+42,2023,full,Cholera,19.63
+42,2023,full,Lassa Fever,57.29
+42,2023,full,Measles,53.21
+42,2023,full,Mpox,11.3
+42,2023,full,Yellow Fever,44.94
+42,2023,no_transformer,AFP,330.19
+42,2023,no_transformer,CSM,3.63
+42,2023,no_transformer,Cholera,17.46
+42,2023,no_transformer,Lassa Fever,57.98
+42,2023,no_transformer,Measles,48.62
+42,2023,no_transformer,Mpox,12.65
+42,2023,no_transformer,Yellow Fever,40.11
+42,2023,no_bilstm,AFP,327.15
+42,2023,no_bilstm,CSM,3.82
+42,2023,no_bilstm,Cholera,16.64
+42,2023,no_bilstm,Lassa Fever,27.5
+42,2023,no_bilstm,Measles,56.77
+42,2023,no_bilstm,Mpox,12.67
+42,2023,no_bilstm,Yellow Fever,27.76
+42,2023,no_tcn,AFP,294.07
+42,2023,no_tcn,CSM,3.41
+42,2023,no_tcn,Cholera,16.87
+42,2023,no_tcn,Lassa Fever,34.57
+42,2023,no_tcn,Measles,157.52
+42,2023,no_tcn,Mpox,12.76
+42,2023,no_tcn,Yellow Fever,29.43
+42,2024,full,AFP,79.99
+42,2024,full,CSM,59.02
+42,2024,full,Cholera,385.29
+42,2024,full,Lassa Fever,59.23
+42,2024,full,Measles,155.02
+42,2024,full,Mpox,25.45
+42,2024,full,Yellow Fever,18.84
+42,2024,no_transformer,AFP,82.44
+42,2024,no_transformer,CSM,60.34
+42,2024,no_transformer,Cholera,378.21
+42,2024,no_transformer,Lassa Fever,100.9
+42,2024,no_transformer,Measles,193.44
+42,2024,no_transformer,Mpox,26.72
+42,2024,no_transformer,Yellow Fever,29.5
+42,2024,no_bilstm,AFP,71.41
+42,2024,no_bilstm,CSM,58.67
+42,2024,no_bilstm,Cholera,367.91
+42,2024,no_bilstm,Lassa Fever,110.49
+42,2024,no_bilstm,Measles,152.31
+42,2024,no_bilstm,Mpox,27.72
+42,2024,no_bilstm,Yellow Fever,21.21
+42,2024,no_tcn,AFP,45.19
+42,2024,no_tcn,CSM,60.5
+42,2024,no_tcn,Cholera,340.62
+42,2024,no_tcn,Lassa Fever,72.15
+42,2024,no_tcn,Measles,139.85
+42,2024,no_tcn,Mpox,25.23
+42,2024,no_tcn,Yellow Fever,16.23
+42,2025,full,AFP,280.72
+42,2025,full,CSM,85.13
+42,2025,full,Cholera,244.61
+42,2025,full,Lassa Fever,90.4
+42,2025,full,Measles,124.74
+42,2025,full,Mpox,25.49
+42,2025,full,Yellow Fever,16.41
+42,2025,no_transformer,AFP,78.02
+42,2025,no_transformer,CSM,85.81
+42,2025,no_transformer,Cholera,248.04
+42,2025,no_transformer,Lassa Fever,104.46
+42,2025,no_transformer,Measles,110.66
+42,2025,no_transformer,Mpox,26.64
+42,2025,no_transformer,Yellow Fever,18.66
+42,2025,no_bilstm,AFP,71.07
+42,2025,no_bilstm,CSM,84.56
+42,2025,no_bilstm,Cholera,246.05
+42,2025,no_bilstm,Lassa Fever,95.48
+42,2025,no_bilstm,Measles,98.04
+42,2025,no_bilstm,Mpox,23.55
+42,2025,no_bilstm,Yellow Fever,15.79
+42,2025,no_tcn,AFP,60.22
+42,2025,no_tcn,CSM,90.39
+42,2025,no_tcn,Cholera,233.22
+42,2025,no_tcn,Lassa Fever,37.5
+42,2025,no_tcn,Measles,112.34
+42,2025,no_tcn,Mpox,19.23
+42,2025,no_tcn,Yellow Fever,12.9
+123,2022,full,AFP,77.07
+123,2022,full,CSM,5.22
+123,2022,full,Cholera,370.31
+123,2022,full,Lassa Fever,75.1
+123,2022,full,Measles,284.91
+123,2022,full,Mpox,45.28
+123,2022,full,Yellow Fever,17.23
+123,2022,no_transformer,AFP,67.72
+123,2022,no_transformer,CSM,4.13
+123,2022,no_transformer,Cholera,352.81
+123,2022,no_transformer,Lassa Fever,92.58
+123,2022,no_transformer,Measles,225.42
+123,2022,no_transformer,Mpox,45.73
+123,2022,no_transformer,Yellow Fever,14.95
+123,2022,no_bilstm,AFP,59.13
+123,2022,no_bilstm,CSM,1.86
+123,2022,no_bilstm,Cholera,369.84
+123,2022,no_bilstm,Lassa Fever,79.32
+123,2022,no_bilstm,Measles,282.01
+123,2022,no_bilstm,Mpox,43.23
+123,2022,no_bilstm,Yellow Fever,17.93
+123,2022,no_tcn,AFP,20.33
+123,2022,no_tcn,CSM,1.72
+123,2022,no_tcn,Cholera,354.34
+123,2022,no_tcn,Lassa Fever,43.44
+123,2022,no_tcn,Measles,247.86
+123,2022,no_tcn,Mpox,45.5
+123,2022,no_tcn,Yellow Fever,10.06
+123,2023,full,AFP,312.28
+123,2023,full,CSM,3.83
+123,2023,full,Cholera,21.0
+123,2023,full,Lassa Fever,50.86
+123,2023,full,Measles,54.14
+123,2023,full,Mpox,11.81
+123,2023,full,Yellow Fever,32.16
+123,2023,no_transformer,AFP,317.58
+123,2023,no_transformer,CSM,3.32
+123,2023,no_transformer,Cholera,17.32
+123,2023,no_transformer,Lassa Fever,40.88
+123,2023,no_transformer,Measles,48.02
+123,2023,no_transformer,Mpox,12.39
+123,2023,no_transformer,Yellow Fever,36.2
+123,2023,no_bilstm,AFP,301.46
+123,2023,no_bilstm,CSM,5.01
+123,2023,no_bilstm,Cholera,16.9
+123,2023,no_bilstm,Lassa Fever,57.73
+123,2023,no_bilstm,Measles,128.37
+123,2023,no_bilstm,Mpox,12.73
+123,2023,no_bilstm,Yellow Fever,41.22
+123,2023,no_tcn,AFP,304.24
+123,2023,no_tcn,CSM,3.92
+123,2023,no_tcn,Cholera,16.96
+123,2023,no_tcn,Lassa Fever,58.82
+123,2023,no_tcn,Measles,58.54
+123,2023,no_tcn,Mpox,12.35
+123,2023,no_tcn,Yellow Fever,37.42
+123,2024,full,AFP,85.16
+123,2024,full,CSM,61.84
+123,2024,full,Cholera,377.47
+123,2024,full,Lassa Fever,110.9
+123,2024,full,Measles,221.09
+123,2024,full,Mpox,27.83
+123,2024,full,Yellow Fever,24.72
+123,2024,no_transformer,AFP,83.45
+123,2024,no_transformer,CSM,59.17
+123,2024,no_transformer,Cholera,381.48
+123,2024,no_transformer,Lassa Fever,99.57
+123,2024,no_transformer,Measles,231.55
+123,2024,no_transformer,Mpox,27.5
+123,2024,no_transformer,Yellow Fever,25.82
+123,2024,no_bilstm,AFP,62.96
+123,2024,no_bilstm,CSM,60.64
+123,2024,no_bilstm,Cholera,370.81
+123,2024,no_bilstm,Lassa Fever,91.34
+123,2024,no_bilstm,Measles,216.5
+123,2024,no_bilstm,Mpox,27.05
+123,2024,no_bilstm,Yellow Fever,23.14
+123,2024,no_tcn,AFP,39.93
+123,2024,no_tcn,CSM,61.47
+123,2024,no_tcn,Cholera,344.64
+123,2024,no_tcn,Lassa Fever,78.14
+123,2024,no_tcn,Measles,211.68
+123,2024,no_tcn,Mpox,26.1
+123,2024,no_tcn,Yellow Fever,21.94
+123,2025,full,AFP,60.78
+123,2025,full,CSM,86.49
+123,2025,full,Cholera,251.6
+123,2025,full,Lassa Fever,83.99
+123,2025,full,Measles,110.24
+123,2025,full,Mpox,22.99
+123,2025,full,Yellow Fever,16.09
+123,2025,no_transformer,AFP,66.72
+123,2025,no_transformer,CSM,85.77
+123,2025,no_transformer,Cholera,245.52
+123,2025,no_transformer,Lassa Fever,111.69
+123,2025,no_transformer,Measles,92.02
+123,2025,no_transformer,Mpox,24.99
+123,2025,no_transformer,Yellow Fever,12.24
+123,2025,no_bilstm,AFP,58.85
+123,2025,no_bilstm,CSM,85.17
+123,2025,no_bilstm,Cholera,246.79
+123,2025,no_bilstm,Lassa Fever,79.06
+123,2025,no_bilstm,Measles,121.19
+123,2025,no_bilstm,Mpox,25.5
+123,2025,no_bilstm,Yellow Fever,13.92
+123,2025,no_tcn,AFP,91.65
+123,2025,no_tcn,CSM,87.98
+123,2025,no_tcn,Cholera,284.34
+123,2025,no_tcn,Lassa Fever,75.51
+123,2025,no_tcn,Measles,76.66
+123,2025,no_tcn,Mpox,16.4
+123,2025,no_tcn,Yellow Fever,18.78
+2024,2022,full,AFP,58.2
+2024,2022,full,CSM,4.16
+2024,2022,full,Cholera,369.15
+2024,2022,full,Lassa Fever,63.84
+2024,2022,full,Measles,162.09
+2024,2022,full,Mpox,45.4
+2024,2022,full,Yellow Fever,18.03
+2024,2022,no_transformer,AFP,73.15
+2024,2022,no_transformer,CSM,2.35
+2024,2022,no_transformer,Cholera,340.93
+2024,2022,no_transformer,Lassa Fever,48.11
+2024,2022,no_transformer,Measles,354.63
+2024,2022,no_transformer,Mpox,45.87
+2024,2022,no_transformer,Yellow Fever,5.97
+2024,2022,no_bilstm,AFP,59.86
+2024,2022,no_bilstm,CSM,2.07
+2024,2022,no_bilstm,Cholera,367.78
+2024,2022,no_bilstm,Lassa Fever,81.69
+2024,2022,no_bilstm,Measles,272.35
+2024,2022,no_bilstm,Mpox,46.55
+2024,2022,no_bilstm,Yellow Fever,4.77
+2024,2022,no_tcn,AFP,74.71
+2024,2022,no_tcn,CSM,3.71
+2024,2022,no_tcn,Cholera,344.02
+2024,2022,no_tcn,Lassa Fever,45.09
+2024,2022,no_tcn,Measles,60.05
+2024,2022,no_tcn,Mpox,45.68
+2024,2022,no_tcn,Yellow Fever,4.01
+2024,2023,full,AFP,307.67
+2024,2023,full,CSM,4.81
+2024,2023,full,Cholera,16.09
+2024,2023,full,Lassa Fever,56.98
+2024,2023,full,Measles,61.33
+2024,2023,full,Mpox,12.64
+2024,2023,full,Yellow Fever,32.3
+2024,2023,no_transformer,AFP,323.36
+2024,2023,no_transformer,CSM,3.48
+2024,2023,no_transformer,Cholera,16.83
+2024,2023,no_transformer,Lassa Fever,49.67
+2024,2023,no_transformer,Measles,60.27
+2024,2023,no_transformer,Mpox,12.71
+2024,2023,no_transformer,Yellow Fever,42.82
+2024,2023,no_bilstm,AFP,326.84
+2024,2023,no_bilstm,CSM,3.69
+2024,2023,no_bilstm,Cholera,19.73
+2024,2023,no_bilstm,Lassa Fever,41.51
+2024,2023,no_bilstm,Measles,58.4
+2024,2023,no_bilstm,Mpox,10.82
+2024,2023,no_bilstm,Yellow Fever,33.55
+2024,2023,no_tcn,AFP,304.68
+2024,2023,no_tcn,CSM,4.3
+2024,2023,no_tcn,Cholera,17.7
+2024,2023,no_tcn,Lassa Fever,46.62
+2024,2023,no_tcn,Measles,337.15
+2024,2023,no_tcn,Mpox,12.38
+2024,2023,no_tcn,Yellow Fever,32.56
+2024,2024,full,AFP,84.53
+2024,2024,full,CSM,57.26
+2024,2024,full,Cholera,316.04
+2024,2024,full,Lassa Fever,95.4
+2024,2024,full,Measles,221.96
+2024,2024,full,Mpox,27.13
+2024,2024,full,Yellow Fever,15.09
+2024,2024,no_transformer,AFP,63.86
+2024,2024,no_transformer,CSM,60.27
+2024,2024,no_transformer,Cholera,386.24
+2024,2024,no_transformer,Lassa Fever,113.76
+2024,2024,no_transformer,Measles,209.22
+2024,2024,no_transformer,Mpox,25.65
+2024,2024,no_transformer,Yellow Fever,28.76
+2024,2024,no_bilstm,AFP,88.56
+2024,2024,no_bilstm,CSM,61.81
+2024,2024,no_bilstm,Cholera,381.21
+2024,2024,no_bilstm,Lassa Fever,130.91
+2024,2024,no_bilstm,Measles,243.45
+2024,2024,no_bilstm,Mpox,27.73
+2024,2024,no_bilstm,Yellow Fever,29.93
+2024,2024,no_tcn,AFP,119.77
+2024,2024,no_tcn,CSM,59.37
+2024,2024,no_tcn,Cholera,352.03
+2024,2024,no_tcn,Lassa Fever,64.9
+2024,2024,no_tcn,Measles,394.97
+2024,2024,no_tcn,Mpox,24.23
+2024,2024,no_tcn,Yellow Fever,18.56
+2024,2025,full,AFP,76.97
+2024,2025,full,CSM,85.58
+2024,2025,full,Cholera,239.66
+2024,2025,full,Lassa Fever,98.53
+2024,2025,full,Measles,124.19
+2024,2025,full,Mpox,26.68
+2024,2025,full,Yellow Fever,18.21
+2024,2025,no_transformer,AFP,69.35
+2024,2025,no_transformer,CSM,84.24
+2024,2025,no_transformer,Cholera,241.18
+2024,2025,no_transformer,Lassa Fever,64.76
+2024,2025,no_transformer,Measles,97.73
+2024,2025,no_transformer,Mpox,26.91
+2024,2025,no_transformer,Yellow Fever,13.17
+2024,2025,no_bilstm,AFP,294.02
+2024,2025,no_bilstm,CSM,84.08
+2024,2025,no_bilstm,Cholera,224.4
+2024,2025,no_bilstm,Lassa Fever,39.82
+2024,2025,no_bilstm,Measles,136.11
+2024,2025,no_bilstm,Mpox,18.13
+2024,2025,no_bilstm,Yellow Fever,19.34
+2024,2025,no_tcn,AFP,43.91
+2024,2025,no_tcn,CSM,85.99
+2024,2025,no_tcn,Cholera,230.79
+2024,2025,no_tcn,Lassa Fever,68.29
+2024,2025,no_tcn,Measles,99.68
+2024,2025,no_tcn,Mpox,12.49
+2024,2025,no_tcn,Yellow Fever,17.59

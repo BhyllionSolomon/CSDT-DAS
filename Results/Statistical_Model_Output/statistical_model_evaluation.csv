@@ -1,0 +1,4 @@
+Model,R2,MAE,RMSE
+Linear Trend,0.0041,886.02,1465.14
+Polynomial (deg 3),0.0632,821.54,1421.0
+Log-Linear (NB approx),-0.1215,703.9,1554.8

@@ -1,0 +1,322 @@
+NATIONAL CHOLERA SITUATION REPORT; WEEK 36, 2017
+HIGHLIGHTS
+ The 2017 outbreak started in week 18 (week of May 1) in Kwara State.
+ In the reporting week, a total of 1,017 cases reported in 4 States (Borno, Kebbi, Zamfara and Kano)
+ As at 10th September, 2017, a total of 5,138 cases and 136 deaths (CFR=2.6%) have been reported
+from 7 States (Borno, Kebbi, Zamfara, Kano, Lagos, Oyo and Kwara States) with confirmed
+outbreak.
+ New cases of Cholera reported in Shinkafi LGA, Zamfara State with 65 cases recorded
+ NCDC RRT team currently supporting response in Kebbi and Borno States.
+ NCDC team also supporting Benue State emergency response. No report of Outbreak in the State.
+ Outbreak responses in affected States led by the State Ministries of Health with support from NCDC
+and partners.
+Epidemiological summary:
+ There has been a rapid increase in the number of cases reported in Borno State (357 in week 35 to
+1,380 at the end of week 36)
+ Kwara, Lagos and Oyo States have not reported any case in the last 3 Epi weeks
+ Serotyping of isolates from Zamfara and Lagos State showed Vibrio cholerae 01 (ogawa)
+ From week 1-36, a total of 5,264 suspected and 115 confirmed cases with 140 deaths have been
+reported from 16 states and the FCT so far in 2017, including the 7 States with confirmed Outbreak
+Epidemiological curves: (Please note that the y-axis for National and Borno charts has a maximum bound of 1200 whike
+others has 500)
+Nigeria: Reported Cholera Cases by Week, Wk01-37, 2017
+1200
+Alive Dead
+1100
+1000
+900
+s Nigeria:
+e 800
+s
+a (Borno, Kano, Kebbi, Kwara, Lagos,
+C 700
+f Oyo & Zamfara)
+o 600
+r
+e 500
+b
+m
+400
+u
+N
+300
+200
+100
+0
+g1234567890123456789012345678901234567
+nWWWWWWWWW1111111111222222222233333333
+is WWWWWWWWWWWWWWWWWWWWWWWWWWWW
+s
+iM
+Borno State: Reported Cholera Cases by Week, Wk01-36 2017
+1200
+Alive Dead
+s1000
+e
+s
+a
+C 800
+f
+o
+r
+e 600
+b
+m
+u 400
+N
+200
+0
+g1234567890123456789012345678901234567
+nWWWWWWWWW1111111111222222222233333333
+is WWWWWWWWWWWWWWWWWWWWWWWWWWWW
+s
+iM
+Kebbi State: Reported Cholera Cases by Week, Wk01-37 2017
+500
+Alive Dead
+450
+400
+s 350
+e
+s a 300
+C
+f 250
+o
+r 200
+e
+b
+m 150
+u 100
+N
+50
+0
+g1234567890123456789012345678901234567
+nWWWWWWWWW1111111111222222222233333333
+is WWWWWWWWWWWWWWWWWWWWWWWWWWWW
+s
+iM
+Zamfara State: Reported Cholera Cases by Week, Wk01-36, 2017
+500
+Alive Dead
+450
+400
+s
+e
+s 350
+a
+C 300
+f
+o
+r
+250
+e
+b 200
+m
+u 150
+N
+100
+50
+0
+g1234567890123456789012345678901234567
+nWWWWWWWWW1111111111222222222233333333
+is WWWWWWWWWWWWWWWWWWWWWWWWWWWW
+s
+iM
+Kano State: Reported Cholera Cases by Week, Wk01-37 2017
+500
+Alive Dead
+400
+s
+e
+s
+a 300
+C
+f
+o
+r 200
+e
+b
+m
+u 100
+N
+0
+g1234567890123456789012345678901234567
+nWWWWWWWWW1111111111222222222233333333
+is WWWWWWWWWWWWWWWWWWWWWWWWWWWW
+s
+iM
+Lagos State: Reported Cholera Cases by Week, Wk01-36, 2017
+500
+Alive Dead
+450
+400
+s
+e350
+s
+a
+C300
+f o250
+r
+e200
+b
+m150
+u
+N100
+50
+0
+…
+is
+s
+1
+W
+2
+W
+3
+W
+4
+W
+5
+W
+6
+W
+7
+W
+8
+W
+9
+W
+0
+1
+1
+1
+2
+1
+3
+1
+4
+1
+5
+1
+6
+1
+7
+1
+8
+1
+9
+1
+0
+2
+1
+2
+2
+2
+3
+2
+4
+2
+5
+2
+6
+2
+7
+2
+8
+2
+9
+2
+0
+3
+1
+3
+2
+3
+3
+3
+4
+3
+5
+3
+6
+3
+iM WWWWWWWWWWWWWWWWWWWWWWWWWWW
+Kwara State: Reported Cholera Cases by Week, Wk01-37 2017
+500
+Alive Dead
+400
+s
+e
+s
+a300
+C
+f
+o
+r200
+e
+b
+m
+u100
+N
+0
+g1234567890123456789012345678901234567
+nWWWWWWWWW1111111111222222222233333333
+is WWWWWWWWWWWWWWWWWWWWWWWWWWWW
+s
+iM
+Nigeria: States/LGAs affected by Cholera, Wk01-36 2017
+Affected: States = 7; LGAs = 62; Suspected Cases = 5138, Deaths = 108
+Lab-Confirmed Cholera Cases
+S ummary Table for Reported cholera cases, 1-36, 2017
+r
+e
+﻿Description A BI A B e n u e cr o s s Ri v E b o yi n F C T Ji g a w a G o m b e O n d o K a d u n a K e b bi K a n o K w ar a L a g o s Z a mf ar a O Y O B or n o T ot al
+Number of new cases (Week 36) 0 0 0 0 0 0 0 0 0 67 1 0 0 68 0 881 1017
+Number of samples tested 0 0 0 0 0 0 0 0
+Number of confirmed samples 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1
+Number of deaths 3 0 0 0 0 0 18 12
+Number of cases previous week
+(Week 35) 0 0 0 0 0 0 0 0 0 147 20 0 0 0 0 218 385
+Cummulative Week( 1- 36)
+Number of cases(suspected and
+confirmed) 2 2 1 9 5 17 35 7 39 1263 362 1629 70 430 13 1380 5264
+Number of sample tested 90
+Number of confirmed cases 0 0 0 0 0 0 0 0 0 4 5 18 8 9 1 72 115
+Number of deaths 0 0 0 4 0 0 0 0 0 50 7 22 2 15 1 39 140
+Response
+Coordination:
+ NCDC is supporting the State Ministries of Health in collaboration with partners
+(WHO, CDC, UMB, AFENET) to coordinate response activities.
+ Outbreak situation in affected States constantly being assessed and RRT deployed as needed.
+ More RRT members have been deployed to Borno to further strengthen ongoing response
+ The NCDC Acute watery diarrhoea guideline( Preparedness and Response to AWD Outbreak-
+A GUIDE FOR HEATLH WORKERS AND AUTHORITIES IN NIGERA) have been published
+Case management and WaSH
+ Cases are being treated at identified treatment/ isolation Centers across states.
+ Affected States are supported to ensure proper isolation of cases and ensure use of
+designated Treatment Units or Centers in affected communities.
+ In Borno State, Cholera Treatment Centre (CTC ) and Oral Rehydration Points (ORP) in
+affected communities
+Surveillance and Laboratory Diagnosis:
+ Cases are continuously being line listed and analyzed
+ Collation of responses on Risk assessment and preparedness ongoing
+ Harmonization of Laboratory and Surveillance data ongoing
+ States affected by floods are currently being monitored for potential Cholera
+Outbreak
+Logistics
+ ICG request approved for Borno and 915,000 oral Cholera vaccines (OCV) expected to
+arrive in-country on Friday, 15th September 2017
+ RDT kits for Cholera are being distributed to all states
+ Micro planning in preparation for vaccination in Borno State ongoing
+Prevention/Social Mobilization
+ Water Chlorination, Toilet and Environmental disinfection ongoing in Borno State
+ Hand washing stations have been setup
+ Health education and Community sensitization are being carried out in affected
+States
+ Dissemination of Banners on Social media
+Challenges
+ Poor water supply and environmental sanitation in affected areas.
+ Open defaecation remain a challenge
+ Inadequate support for WaSH response activity in some States
+Recommendation
+ Strengthen inter-agency collaboration to improve WaSH activities in affected States
+ Active community mobilization to enhance behavioral change

@@ -1,0 +1,8 @@
+disease,EARLY,ON_TIME,LATE,MISSED
+AFP,0,0,10,2
+CSM,0,0,9,3
+Cholera,0,0,5,7
+Lassa Fever,0,0,7,8
+Measles,0,0,3,3
+Mpox,0,0,9,6
+Yellow Fever,0,0,0,3

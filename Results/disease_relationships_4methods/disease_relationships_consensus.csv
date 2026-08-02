@@ -1,0 +1,7 @@
+source,target,pcc,granger_p,granger_best_lag_weeks,granger_significant,rf_shap_importance,rf_shap_significant,transfer_entropy,transfer_entropy_significant,dbn_p,dbn_significant,n_methods_agree
+Lassa Fever,CSM,0.4165,0.0046,1,True,0.2207,True,0.0569,True,0.0158,True,4
+Mpox,Cholera,0.3593,0.004,1,True,0.3276,True,0.0822,True,0.0,True,4
+Mpox,Lassa Fever,0.4637,0.0147,1,True,0.3565,True,0.083,True,0.0117,True,4
+AFP,Measles,0.3104,0.0001,1,True,0.2573,True,0.0413,False,0.0001,True,3
+CSM,Measles,0.4645,0.0699,1,False,0.1895,True,0.0958,True,0.039,True,3
+Yellow Fever,AFP,0.3842,0.0009,1,True,0.1394,False,0.08,True,0.0017,True,3

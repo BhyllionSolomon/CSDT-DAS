@@ -1,0 +1,2605 @@
+year,epi_week,disease,weekly_suspected
+2019,1,AFP,22
+2019,1,CSM,9
+2019,1,Cholera,21
+2019,1,Lassa Fever,25
+2019,1,Measles,26
+2019,1,Mpox,23
+2019,1,Yellow Fever,26
+2019,2,AFP,17
+2019,2,CSM,22
+2019,2,Cholera,21
+2019,2,Lassa Fever,22
+2019,2,Measles,23
+2019,2,Mpox,14
+2019,2,Yellow Fever,20
+2019,3,AFP,20
+2019,3,CSM,28
+2019,3,Cholera,21
+2019,3,Lassa Fever,21
+2019,3,Measles,18
+2019,3,Mpox,16
+2019,3,Yellow Fever,24
+2019,4,AFP,26
+2019,4,CSM,18
+2019,4,Cholera,19
+2019,4,Lassa Fever,16
+2019,4,Measles,19
+2019,4,Mpox,13
+2019,4,Yellow Fever,17
+2019,5,AFP,16
+2019,5,CSM,18
+2019,5,Cholera,19
+2019,5,Lassa Fever,20
+2019,5,Measles,30
+2019,5,Mpox,24
+2019,5,Yellow Fever,20
+2019,6,AFP,19
+2019,6,CSM,14
+2019,6,Cholera,26
+2019,6,Lassa Fever,20
+2019,6,Measles,17
+2019,6,Mpox,19
+2019,6,Yellow Fever,21
+2019,7,AFP,23
+2019,7,CSM,24
+2019,7,Cholera,28
+2019,7,Lassa Fever,25
+2019,7,Measles,18
+2019,7,Mpox,32
+2019,7,Yellow Fever,17
+2019,8,AFP,26
+2019,8,CSM,14
+2019,8,Cholera,21
+2019,8,Lassa Fever,25
+2019,8,Measles,17
+2019,8,Mpox,25
+2019,8,Yellow Fever,31
+2019,9,AFP,21
+2019,9,CSM,25
+2019,9,Cholera,19
+2019,9,Lassa Fever,19
+2019,9,Measles,12
+2019,9,Mpox,17
+2019,9,Yellow Fever,29
+2019,10,AFP,26
+2019,10,CSM,18
+2019,10,Cholera,24
+2019,10,Lassa Fever,17
+2019,10,Measles,26
+2019,10,Mpox,17
+2019,10,Yellow Fever,28
+2019,11,AFP,26
+2019,11,CSM,14
+2019,11,Cholera,23
+2019,11,Lassa Fever,19
+2019,11,Measles,21
+2019,11,Mpox,15
+2019,11,Yellow Fever,20
+2019,12,AFP,17
+2019,12,CSM,22
+2019,12,Cholera,21
+2019,12,Lassa Fever,32
+2019,12,Measles,20
+2019,12,Mpox,15
+2019,12,Yellow Fever,13
+2019,13,AFP,26
+2019,13,CSM,27
+2019,13,Cholera,37
+2019,13,Lassa Fever,12
+2019,13,Measles,26
+2019,13,Mpox,20
+2019,13,Yellow Fever,22
+2019,14,AFP,23
+2019,14,CSM,20
+2019,14,Cholera,13
+2019,14,Lassa Fever,24
+2019,14,Measles,25
+2019,14,Mpox,18
+2019,14,Yellow Fever,20
+2019,15,AFP,26
+2019,15,CSM,23
+2019,15,Cholera,24
+2019,15,Lassa Fever,24
+2019,15,Measles,18
+2019,15,Mpox,20
+2019,15,Yellow Fever,19
+2019,16,AFP,23
+2019,16,CSM,14
+2019,16,Cholera,25
+2019,16,Lassa Fever,20
+2019,16,Measles,27
+2019,16,Mpox,17
+2019,16,Yellow Fever,21
+2019,17,AFP,18
+2019,17,CSM,20
+2019,17,Cholera,19
+2019,17,Lassa Fever,22
+2019,17,Measles,27
+2019,17,Mpox,21
+2019,17,Yellow Fever,20
+2019,18,AFP,15
+2019,18,CSM,24
+2019,18,Cholera,21
+2019,18,Lassa Fever,23
+2019,18,Measles,21
+2019,18,Mpox,27
+2019,18,Yellow Fever,23
+2019,19,AFP,15
+2019,19,CSM,18
+2019,19,Cholera,29
+2019,19,Lassa Fever,20
+2019,19,Measles,15
+2019,19,Mpox,24
+2019,19,Yellow Fever,16
+2019,20,AFP,23
+2019,20,CSM,21
+2019,20,Cholera,16
+2019,20,Lassa Fever,28
+2019,20,Measles,21
+2019,20,Mpox,14
+2019,20,Yellow Fever,18
+2019,21,AFP,25
+2019,21,CSM,20
+2019,21,Cholera,12
+2019,21,Lassa Fever,21
+2019,21,Measles,35
+2019,21,Mpox,19
+2019,21,Yellow Fever,16
+2019,22,AFP,22
+2019,22,CSM,12
+2019,22,Cholera,20
+2019,22,Lassa Fever,9
+2019,22,Measles,29
+2019,22,Mpox,25
+2019,22,Yellow Fever,18
+2019,23,AFP,25
+2019,23,CSM,25
+2019,23,Cholera,25
+2019,23,Lassa Fever,23
+2019,23,Measles,19
+2019,23,Mpox,16
+2019,23,Yellow Fever,13
+2019,24,AFP,17
+2019,24,CSM,15
+2019,24,Cholera,22
+2019,24,Lassa Fever,20
+2019,24,Measles,24
+2019,24,Mpox,21
+2019,24,Yellow Fever,22
+2019,25,AFP,13
+2019,25,CSM,19
+2019,25,Cholera,23
+2019,25,Lassa Fever,23
+2019,25,Measles,19
+2019,25,Mpox,16
+2019,25,Yellow Fever,23
+2019,26,AFP,20
+2019,26,CSM,20
+2019,26,Cholera,27
+2019,26,Lassa Fever,22
+2019,26,Measles,21
+2019,26,Mpox,29
+2019,26,Yellow Fever,15
+2019,27,AFP,27
+2019,27,CSM,15
+2019,27,Cholera,24
+2019,27,Lassa Fever,15
+2019,27,Measles,20
+2019,27,Mpox,16
+2019,27,Yellow Fever,21
+2019,28,AFP,25
+2019,28,CSM,17
+2019,28,Cholera,18
+2019,28,Lassa Fever,20
+2019,28,Measles,22
+2019,28,Mpox,21
+2019,28,Yellow Fever,22
+2019,29,AFP,18
+2019,29,CSM,21
+2019,29,Cholera,21
+2019,29,Lassa Fever,19
+2019,29,Measles,29
+2019,29,Mpox,21
+2019,29,Yellow Fever,25
+2019,30,AFP,19
+2019,30,CSM,20
+2019,30,Cholera,17
+2019,30,Lassa Fever,14
+2019,30,Measles,19
+2019,30,Mpox,21
+2019,30,Yellow Fever,23
+2019,31,AFP,25
+2019,31,CSM,15
+2019,31,Cholera,19
+2019,31,Lassa Fever,26
+2019,31,Measles,20
+2019,31,Mpox,23
+2019,31,Yellow Fever,17
+2019,32,AFP,21
+2019,32,CSM,19
+2019,32,Cholera,17
+2019,32,Lassa Fever,22
+2019,32,Measles,26
+2019,32,Mpox,22
+2019,32,Yellow Fever,15
+2019,33,AFP,14
+2019,33,CSM,20
+2019,33,Cholera,24
+2019,33,Lassa Fever,18
+2019,33,Measles,16
+2019,33,Mpox,16
+2019,33,Yellow Fever,28
+2019,34,AFP,18
+2019,34,CSM,22
+2019,34,Cholera,12
+2019,34,Lassa Fever,23
+2019,34,Measles,21
+2019,34,Mpox,12
+2019,34,Yellow Fever,28
+2019,35,AFP,27
+2019,35,CSM,24
+2019,35,Cholera,23
+2019,35,Lassa Fever,26
+2019,35,Measles,22
+2019,35,Mpox,23
+2019,35,Yellow Fever,14
+2019,36,AFP,19
+2019,36,CSM,14
+2019,36,Cholera,22
+2019,36,Lassa Fever,23
+2019,36,Measles,22
+2019,36,Mpox,14
+2019,36,Yellow Fever,23
+2019,37,AFP,23
+2019,37,CSM,27
+2019,37,Cholera,17
+2019,37,Lassa Fever,16
+2019,37,Measles,20
+2019,37,Mpox,16
+2019,37,Yellow Fever,14
+2019,38,AFP,24
+2019,38,CSM,26
+2019,38,Cholera,24
+2019,38,Lassa Fever,17
+2019,38,Measles,20
+2019,38,Mpox,25
+2019,38,Yellow Fever,12
+2019,39,AFP,17
+2019,39,CSM,33
+2019,39,Cholera,34
+2019,39,Lassa Fever,14
+2019,39,Measles,18
+2019,39,Mpox,17
+2019,39,Yellow Fever,32
+2019,40,AFP,30
+2019,40,CSM,11
+2019,40,Cholera,22
+2019,40,Lassa Fever,21
+2019,40,Measles,18
+2019,40,Mpox,23
+2019,40,Yellow Fever,14
+2019,41,AFP,26
+2019,41,CSM,15
+2019,41,Cholera,19
+2019,41,Lassa Fever,22
+2019,41,Measles,24
+2019,41,Mpox,25
+2019,41,Yellow Fever,23
+2019,42,AFP,20
+2019,42,CSM,28
+2019,42,Cholera,21
+2019,42,Lassa Fever,26
+2019,42,Measles,25
+2019,42,Mpox,24
+2019,42,Yellow Fever,14
+2019,43,AFP,17
+2019,43,CSM,15
+2019,43,Cholera,25
+2019,43,Lassa Fever,20
+2019,43,Measles,24
+2019,43,Mpox,23
+2019,43,Yellow Fever,15
+2019,44,AFP,17
+2019,44,CSM,22
+2019,44,Cholera,25
+2019,44,Lassa Fever,25
+2019,44,Measles,16
+2019,44,Mpox,14
+2019,44,Yellow Fever,20
+2019,45,AFP,17
+2019,45,CSM,17
+2019,45,Cholera,13
+2019,45,Lassa Fever,24
+2019,45,Measles,17
+2019,45,Mpox,18
+2019,45,Yellow Fever,21
+2019,46,AFP,21
+2019,46,CSM,13
+2019,46,Cholera,18
+2019,46,Lassa Fever,28
+2019,46,Measles,17
+2019,46,Mpox,29
+2019,46,Yellow Fever,19
+2019,47,AFP,12
+2019,47,CSM,23
+2019,47,Cholera,16
+2019,47,Lassa Fever,26
+2019,47,Measles,15
+2019,47,Mpox,24
+2019,47,Yellow Fever,18
+2019,48,AFP,21
+2019,48,CSM,15
+2019,48,Cholera,18
+2019,48,Lassa Fever,19
+2019,48,Measles,19
+2019,48,Mpox,21
+2019,48,Yellow Fever,16
+2019,49,AFP,22
+2019,49,CSM,14
+2019,49,Cholera,27
+2019,49,Lassa Fever,16
+2019,49,Measles,15
+2019,49,Mpox,15
+2019,49,Yellow Fever,20
+2019,50,AFP,17
+2019,50,CSM,27
+2019,50,Cholera,20
+2019,50,Lassa Fever,24
+2019,50,Measles,26
+2019,50,Mpox,22
+2019,50,Yellow Fever,22
+2019,51,AFP,16
+2019,51,CSM,20
+2019,51,Cholera,21
+2019,51,Lassa Fever,19
+2019,51,Measles,16
+2019,51,Mpox,22
+2019,51,Yellow Fever,20
+2019,52,AFP,23
+2019,52,CSM,22
+2019,52,Cholera,31
+2019,52,Lassa Fever,20
+2019,52,Measles,18
+2019,52,Mpox,20
+2019,52,Yellow Fever,19
+2020,1,AFP,20
+2020,1,CSM,15
+2020,1,Cholera,21
+2020,1,Lassa Fever,29
+2020,1,Measles,28
+2020,1,Mpox,21
+2020,1,Yellow Fever,18
+2020,2,AFP,27
+2020,2,CSM,19
+2020,2,Cholera,18
+2020,2,Lassa Fever,21
+2020,2,Measles,18
+2020,2,Mpox,20
+2020,2,Yellow Fever,13
+2020,3,AFP,18
+2020,3,CSM,17
+2020,3,Cholera,21
+2020,3,Lassa Fever,22
+2020,3,Measles,15
+2020,3,Mpox,22
+2020,3,Yellow Fever,22
+2020,4,AFP,12
+2020,4,CSM,25
+2020,4,Cholera,21
+2020,4,Lassa Fever,22
+2020,4,Measles,24
+2020,4,Mpox,22
+2020,4,Yellow Fever,20
+2020,5,AFP,18
+2020,5,CSM,32
+2020,5,Cholera,23
+2020,5,Lassa Fever,25
+2020,5,Measles,14
+2020,5,Mpox,15
+2020,5,Yellow Fever,22
+2020,6,AFP,21
+2020,6,CSM,23
+2020,6,Cholera,22
+2020,6,Lassa Fever,27
+2020,6,Measles,25
+2020,6,Mpox,17
+2020,6,Yellow Fever,17
+2020,7,AFP,22
+2020,7,CSM,22
+2020,7,Cholera,21
+2020,7,Lassa Fever,21
+2020,7,Measles,12
+2020,7,Mpox,15
+2020,7,Yellow Fever,20
+2020,8,AFP,21
+2020,8,CSM,17
+2020,8,Cholera,10
+2020,8,Lassa Fever,11
+2020,8,Measles,21
+2020,8,Mpox,14
+2020,8,Yellow Fever,23
+2020,9,AFP,12
+2020,9,CSM,19
+2020,9,Cholera,14
+2020,9,Lassa Fever,20
+2020,9,Measles,20
+2020,9,Mpox,26
+2020,9,Yellow Fever,18
+2020,10,AFP,17
+2020,10,CSM,24
+2020,10,Cholera,9
+2020,10,Lassa Fever,13
+2020,10,Measles,22
+2020,10,Mpox,22
+2020,10,Yellow Fever,13
+2020,11,AFP,20
+2020,11,CSM,16
+2020,11,Cholera,19
+2020,11,Lassa Fever,17
+2020,11,Measles,26
+2020,11,Mpox,28
+2020,11,Yellow Fever,24
+2020,12,AFP,26
+2020,12,CSM,14
+2020,12,Cholera,25
+2020,12,Lassa Fever,26
+2020,12,Measles,23
+2020,12,Mpox,16
+2020,12,Yellow Fever,21
+2020,13,AFP,18
+2020,13,CSM,20
+2020,13,Cholera,28
+2020,13,Lassa Fever,19
+2020,13,Measles,17
+2020,13,Mpox,17
+2020,13,Yellow Fever,17
+2020,14,AFP,17
+2020,14,CSM,13
+2020,14,Cholera,13
+2020,14,Lassa Fever,24
+2020,14,Measles,11
+2020,14,Mpox,14
+2020,14,Yellow Fever,25
+2020,15,AFP,16
+2020,15,CSM,15
+2020,15,Cholera,18
+2020,15,Lassa Fever,20
+2020,15,Measles,18
+2020,15,Mpox,23
+2020,15,Yellow Fever,24
+2020,16,AFP,14
+2020,16,CSM,18
+2020,16,Cholera,27
+2020,16,Lassa Fever,21
+2020,16,Measles,8
+2020,16,Mpox,25
+2020,16,Yellow Fever,21
+2020,17,AFP,18
+2020,17,CSM,21
+2020,17,Cholera,21
+2020,17,Lassa Fever,15
+2020,17,Measles,21
+2020,17,Mpox,22
+2020,17,Yellow Fever,17
+2020,18,AFP,27
+2020,18,CSM,18
+2020,18,Cholera,19
+2020,18,Lassa Fever,24
+2020,18,Measles,27
+2020,18,Mpox,17
+2020,18,Yellow Fever,23
+2020,19,AFP,17
+2020,19,CSM,25
+2020,19,Cholera,26
+2020,19,Lassa Fever,11
+2020,19,Measles,16
+2020,19,Mpox,25
+2020,19,Yellow Fever,26
+2020,20,AFP,20
+2020,20,CSM,17
+2020,20,Cholera,23
+2020,20,Lassa Fever,20
+2020,20,Measles,24
+2020,20,Mpox,11
+2020,20,Yellow Fever,21
+2020,21,AFP,22
+2020,21,CSM,18
+2020,21,Cholera,31
+2020,21,Lassa Fever,13
+2020,21,Measles,22
+2020,21,Mpox,23
+2020,21,Yellow Fever,19
+2020,22,AFP,18
+2020,22,CSM,20
+2020,22,Cholera,18
+2020,22,Lassa Fever,20
+2020,22,Measles,17
+2020,22,Mpox,21
+2020,22,Yellow Fever,22
+2020,23,AFP,19
+2020,23,CSM,12
+2020,23,Cholera,16
+2020,23,Lassa Fever,24
+2020,23,Measles,18
+2020,23,Mpox,28
+2020,23,Yellow Fever,23
+2020,24,AFP,20
+2020,24,CSM,21
+2020,24,Cholera,18
+2020,24,Lassa Fever,23
+2020,24,Measles,24
+2020,24,Mpox,22
+2020,24,Yellow Fever,13
+2020,25,AFP,24
+2020,25,CSM,22
+2020,25,Cholera,16
+2020,25,Lassa Fever,18
+2020,25,Measles,22
+2020,25,Mpox,21
+2020,25,Yellow Fever,12
+2020,26,AFP,21
+2020,26,CSM,24
+2020,26,Cholera,31
+2020,26,Lassa Fever,14
+2020,26,Measles,19
+2020,26,Mpox,18
+2020,26,Yellow Fever,18
+2020,27,AFP,21
+2020,27,CSM,19
+2020,27,Cholera,16
+2020,27,Lassa Fever,10
+2020,27,Measles,12
+2020,27,Mpox,14
+2020,27,Yellow Fever,16
+2020,28,AFP,16
+2020,28,CSM,22
+2020,28,Cholera,18
+2020,28,Lassa Fever,29
+2020,28,Measles,18
+2020,28,Mpox,16
+2020,28,Yellow Fever,18
+2020,29,AFP,24
+2020,29,CSM,21
+2020,29,Cholera,21
+2020,29,Lassa Fever,16
+2020,29,Measles,20
+2020,29,Mpox,19
+2020,29,Yellow Fever,23
+2020,30,AFP,20
+2020,30,CSM,17
+2020,30,Cholera,26
+2020,30,Lassa Fever,18
+2020,30,Measles,27
+2020,30,Mpox,14
+2020,30,Yellow Fever,19
+2020,31,AFP,21
+2020,31,CSM,27
+2020,31,Cholera,27
+2020,31,Lassa Fever,12
+2020,31,Measles,26
+2020,31,Mpox,19
+2020,31,Yellow Fever,33
+2020,32,AFP,22
+2020,32,CSM,22
+2020,32,Cholera,21
+2020,32,Lassa Fever,18
+2020,32,Measles,23
+2020,32,Mpox,28
+2020,32,Yellow Fever,17
+2020,33,AFP,23
+2020,33,CSM,33
+2020,33,Cholera,24
+2020,33,Lassa Fever,26
+2020,33,Measles,21
+2020,33,Mpox,19
+2020,33,Yellow Fever,22
+2020,34,AFP,17
+2020,34,CSM,22
+2020,34,Cholera,14
+2020,34,Lassa Fever,15
+2020,34,Measles,18
+2020,34,Mpox,17
+2020,34,Yellow Fever,15
+2020,35,AFP,25
+2020,35,CSM,20
+2020,35,Cholera,19
+2020,35,Lassa Fever,21
+2020,35,Measles,21
+2020,35,Mpox,25
+2020,35,Yellow Fever,17
+2020,36,AFP,24
+2020,36,CSM,24
+2020,36,Cholera,17
+2020,36,Lassa Fever,27
+2020,36,Measles,19
+2020,36,Mpox,23
+2020,36,Yellow Fever,23
+2020,37,AFP,21
+2020,37,CSM,13
+2020,37,Cholera,22
+2020,37,Lassa Fever,22
+2020,37,Measles,19
+2020,37,Mpox,16
+2020,37,Yellow Fever,15
+2020,38,AFP,25
+2020,38,CSM,14
+2020,38,Cholera,20
+2020,38,Lassa Fever,18
+2020,38,Measles,27
+2020,38,Mpox,16
+2020,38,Yellow Fever,24
+2020,39,AFP,16
+2020,39,CSM,19
+2020,39,Cholera,37
+2020,39,Lassa Fever,28
+2020,39,Measles,21
+2020,39,Mpox,19
+2020,39,Yellow Fever,17
+2020,40,AFP,19
+2020,40,CSM,21
+2020,40,Cholera,25
+2020,40,Lassa Fever,25
+2020,40,Measles,14
+2020,40,Mpox,18
+2020,40,Yellow Fever,26
+2020,41,AFP,23
+2020,41,CSM,21
+2020,41,Cholera,20
+2020,41,Lassa Fever,23
+2020,41,Measles,22
+2020,41,Mpox,20
+2020,41,Yellow Fever,20
+2020,42,AFP,25
+2020,42,CSM,13
+2020,42,Cholera,20
+2020,42,Lassa Fever,22
+2020,42,Measles,19
+2020,42,Mpox,19
+2020,42,Yellow Fever,20
+2020,43,AFP,14
+2020,43,CSM,15
+2020,43,Cholera,16
+2020,43,Lassa Fever,22
+2020,43,Measles,14
+2020,43,Mpox,27
+2020,43,Yellow Fever,18
+2020,44,AFP,16
+2020,44,CSM,16
+2020,44,Cholera,26
+2020,44,Lassa Fever,21
+2020,44,Measles,24
+2020,44,Mpox,21
+2020,44,Yellow Fever,18
+2020,45,AFP,23
+2020,45,CSM,20
+2020,45,Cholera,20
+2020,45,Lassa Fever,30
+2020,45,Measles,12
+2020,45,Mpox,22
+2020,45,Yellow Fever,27
+2020,46,AFP,15
+2020,46,CSM,19
+2020,46,Cholera,24
+2020,46,Lassa Fever,26
+2020,46,Measles,20
+2020,46,Mpox,16
+2020,46,Yellow Fever,21
+2020,47,AFP,21
+2020,47,CSM,23
+2020,47,Cholera,20
+2020,47,Lassa Fever,23
+2020,47,Measles,25
+2020,47,Mpox,18
+2020,47,Yellow Fever,15
+2020,48,AFP,24
+2020,48,CSM,18
+2020,48,Cholera,18
+2020,48,Lassa Fever,17
+2020,48,Measles,18
+2020,48,Mpox,17
+2020,48,Yellow Fever,17
+2020,49,AFP,21
+2020,49,CSM,17
+2020,49,Cholera,18
+2020,49,Lassa Fever,22
+2020,49,Measles,21
+2020,49,Mpox,16
+2020,49,Yellow Fever,19
+2020,50,AFP,29
+2020,50,CSM,19
+2020,50,Cholera,15
+2020,50,Lassa Fever,18
+2020,50,Measles,25
+2020,50,Mpox,28
+2020,50,Yellow Fever,13
+2020,51,AFP,19
+2020,51,CSM,16
+2020,51,Cholera,17
+2020,51,Lassa Fever,17
+2020,51,Measles,16
+2020,51,Mpox,24
+2020,51,Yellow Fever,15
+2020,52,AFP,11
+2020,52,CSM,19
+2020,52,Cholera,22
+2020,52,Lassa Fever,18
+2020,52,Measles,30
+2020,52,Mpox,22
+2020,52,Yellow Fever,18
+2021,1,AFP,21
+2021,1,CSM,36
+2021,1,Cholera,20
+2021,1,Lassa Fever,19
+2021,1,Measles,18
+2021,1,Mpox,11
+2021,1,Yellow Fever,22
+2021,2,AFP,18
+2021,2,CSM,27
+2021,2,Cholera,13
+2021,2,Lassa Fever,20
+2021,2,Measles,15
+2021,2,Mpox,30
+2021,2,Yellow Fever,19
+2021,3,AFP,18
+2021,3,CSM,21
+2021,3,Cholera,23
+2021,3,Lassa Fever,17
+2021,3,Measles,17
+2021,3,Mpox,15
+2021,3,Yellow Fever,18
+2021,4,AFP,21
+2021,4,CSM,13
+2021,4,Cholera,25
+2021,4,Lassa Fever,21
+2021,4,Measles,19
+2021,4,Mpox,19
+2021,4,Yellow Fever,15
+2021,5,AFP,20
+2021,5,CSM,25
+2021,5,Cholera,17
+2021,5,Lassa Fever,17
+2021,5,Measles,17
+2021,5,Mpox,16
+2021,5,Yellow Fever,17
+2021,6,AFP,17
+2021,6,CSM,15
+2021,6,Cholera,25
+2021,6,Lassa Fever,14
+2021,6,Measles,25
+2021,6,Mpox,19
+2021,6,Yellow Fever,16
+2021,7,AFP,17
+2021,7,CSM,21
+2021,7,Cholera,16
+2021,7,Lassa Fever,14
+2021,7,Measles,23
+2021,7,Mpox,18
+2021,7,Yellow Fever,22
+2021,8,AFP,20
+2021,8,CSM,23
+2021,8,Cholera,19
+2021,8,Lassa Fever,23
+2021,8,Measles,16
+2021,8,Mpox,13
+2021,8,Yellow Fever,21
+2021,9,AFP,16
+2021,9,CSM,15
+2021,9,Cholera,22
+2021,9,Lassa Fever,13
+2021,9,Measles,15
+2021,9,Mpox,27
+2021,9,Yellow Fever,18
+2021,10,AFP,23
+2021,10,CSM,23
+2021,10,Cholera,15
+2021,10,Lassa Fever,19
+2021,10,Measles,21
+2021,10,Mpox,21
+2021,10,Yellow Fever,17
+2021,11,AFP,14
+2021,11,CSM,30
+2021,11,Cholera,24
+2021,11,Lassa Fever,18
+2021,11,Measles,12
+2021,11,Mpox,36
+2021,11,Yellow Fever,28
+2021,12,AFP,12
+2021,12,CSM,27
+2021,12,Cholera,18
+2021,12,Lassa Fever,17
+2021,12,Measles,20
+2021,12,Mpox,15
+2021,12,Yellow Fever,19
+2021,13,AFP,13
+2021,13,CSM,23
+2021,13,Cholera,26
+2021,13,Lassa Fever,20
+2021,13,Measles,13
+2021,13,Mpox,25
+2021,13,Yellow Fever,17
+2021,14,AFP,18
+2021,14,CSM,15
+2021,14,Cholera,15
+2021,14,Lassa Fever,18
+2021,14,Measles,16
+2021,14,Mpox,17
+2021,14,Yellow Fever,11
+2021,15,AFP,20
+2021,15,CSM,22
+2021,15,Cholera,15
+2021,15,Lassa Fever,15
+2021,15,Measles,15
+2021,15,Mpox,16
+2021,15,Yellow Fever,23
+2021,16,AFP,18
+2021,16,CSM,26
+2021,16,Cholera,13
+2021,16,Lassa Fever,15
+2021,16,Measles,22
+2021,16,Mpox,19
+2021,16,Yellow Fever,26
+2021,17,AFP,21
+2021,17,CSM,14
+2021,17,Cholera,22
+2021,17,Lassa Fever,24
+2021,17,Measles,26
+2021,17,Mpox,19
+2021,17,Yellow Fever,16
+2021,18,AFP,25
+2021,18,CSM,28
+2021,18,Cholera,18
+2021,18,Lassa Fever,15
+2021,18,Measles,16
+2021,18,Mpox,13
+2021,18,Yellow Fever,15
+2021,19,AFP,26
+2021,19,CSM,13
+2021,19,Cholera,19
+2021,19,Lassa Fever,20
+2021,19,Measles,21
+2021,19,Mpox,21
+2021,19,Yellow Fever,19
+2021,20,AFP,27
+2021,20,CSM,21
+2021,20,Cholera,22
+2021,20,Lassa Fever,13
+2021,20,Measles,22
+2021,20,Mpox,25
+2021,20,Yellow Fever,22
+2021,21,AFP,23
+2021,21,CSM,7
+2021,21,Cholera,17
+2021,21,Lassa Fever,23
+2021,21,Measles,22
+2021,21,Mpox,10
+2021,21,Yellow Fever,29
+2021,22,AFP,19
+2021,22,CSM,24
+2021,22,Cholera,15
+2021,22,Lassa Fever,21
+2021,22,Measles,27
+2021,22,Mpox,13
+2021,22,Yellow Fever,17
+2021,23,AFP,22
+2021,23,CSM,17
+2021,23,Cholera,18
+2021,23,Lassa Fever,23
+2021,23,Measles,19
+2021,23,Mpox,21
+2021,23,Yellow Fever,22
+2021,24,AFP,15
+2021,24,CSM,21
+2021,24,Cholera,19
+2021,24,Lassa Fever,21
+2021,24,Measles,13
+2021,24,Mpox,15
+2021,24,Yellow Fever,19
+2021,25,AFP,18
+2021,25,CSM,19
+2021,25,Cholera,24
+2021,25,Lassa Fever,16
+2021,25,Measles,25
+2021,25,Mpox,14
+2021,25,Yellow Fever,19
+2021,26,AFP,18
+2021,26,CSM,14
+2021,26,Cholera,32
+2021,26,Lassa Fever,18
+2021,26,Measles,19
+2021,26,Mpox,16
+2021,26,Yellow Fever,18
+2021,27,AFP,18
+2021,27,CSM,25
+2021,27,Cholera,17
+2021,27,Lassa Fever,16
+2021,27,Measles,26
+2021,27,Mpox,22
+2021,27,Yellow Fever,21
+2021,28,AFP,21
+2021,28,CSM,17
+2021,28,Cholera,23
+2021,28,Lassa Fever,30
+2021,28,Measles,21
+2021,28,Mpox,20
+2021,28,Yellow Fever,20
+2021,29,AFP,14
+2021,29,CSM,22
+2021,29,Cholera,19
+2021,29,Lassa Fever,25
+2021,29,Measles,19
+2021,29,Mpox,19
+2021,29,Yellow Fever,20
+2021,30,AFP,16
+2021,30,CSM,21
+2021,30,Cholera,16
+2021,30,Lassa Fever,25
+2021,30,Measles,14
+2021,30,Mpox,15
+2021,30,Yellow Fever,20
+2021,31,AFP,12
+2021,31,CSM,18
+2021,31,Cholera,12
+2021,31,Lassa Fever,14
+2021,31,Measles,12
+2021,31,Mpox,17
+2021,31,Yellow Fever,27
+2021,32,AFP,18
+2021,32,CSM,26
+2021,32,Cholera,28
+2021,32,Lassa Fever,18
+2021,32,Measles,17
+2021,32,Mpox,17
+2021,32,Yellow Fever,28
+2021,33,AFP,26
+2021,33,CSM,23
+2021,33,Cholera,18
+2021,33,Lassa Fever,12
+2021,33,Measles,19
+2021,33,Mpox,19
+2021,33,Yellow Fever,27
+2021,34,AFP,21
+2021,34,CSM,19
+2021,34,Cholera,21
+2021,34,Lassa Fever,20
+2021,34,Measles,20
+2021,34,Mpox,12
+2021,34,Yellow Fever,10
+2021,35,AFP,18
+2021,35,CSM,19
+2021,35,Cholera,14
+2021,35,Lassa Fever,17
+2021,35,Measles,22
+2021,35,Mpox,22
+2021,35,Yellow Fever,25
+2021,36,AFP,20
+2021,36,CSM,22
+2021,36,Cholera,17
+2021,36,Lassa Fever,17
+2021,36,Measles,25
+2021,36,Mpox,20
+2021,36,Yellow Fever,16
+2021,37,AFP,18
+2021,37,CSM,26
+2021,37,Cholera,26
+2021,37,Lassa Fever,24
+2021,37,Measles,24
+2021,37,Mpox,30
+2021,37,Yellow Fever,24
+2021,38,AFP,16
+2021,38,CSM,28
+2021,38,Cholera,26
+2021,38,Lassa Fever,27
+2021,38,Measles,22
+2021,38,Mpox,18
+2021,38,Yellow Fever,24
+2021,39,AFP,12
+2021,39,CSM,14
+2021,39,Cholera,27
+2021,39,Lassa Fever,18
+2021,39,Measles,19
+2021,39,Mpox,20
+2021,39,Yellow Fever,23
+2021,40,AFP,29
+2021,40,CSM,22
+2021,40,Cholera,11
+2021,40,Lassa Fever,13
+2021,40,Measles,23
+2021,40,Mpox,24
+2021,40,Yellow Fever,11
+2021,41,AFP,28
+2021,41,CSM,19
+2021,41,Cholera,11
+2021,41,Lassa Fever,20
+2021,41,Measles,18
+2021,41,Mpox,19
+2021,41,Yellow Fever,16
+2021,42,AFP,30
+2021,42,CSM,18
+2021,42,Cholera,13
+2021,42,Lassa Fever,8
+2021,42,Measles,20
+2021,42,Mpox,18
+2021,42,Yellow Fever,26
+2021,43,AFP,18
+2021,43,CSM,19
+2021,43,Cholera,14
+2021,43,Lassa Fever,19
+2021,43,Measles,22
+2021,43,Mpox,18
+2021,43,Yellow Fever,20
+2021,44,AFP,24
+2021,44,CSM,21
+2021,44,Cholera,19
+2021,44,Lassa Fever,24
+2021,44,Measles,29
+2021,44,Mpox,13
+2021,44,Yellow Fever,25
+2021,45,AFP,12
+2021,45,CSM,19
+2021,45,Cholera,21
+2021,45,Lassa Fever,18
+2021,45,Measles,18
+2021,45,Mpox,20
+2021,45,Yellow Fever,12
+2021,46,AFP,27
+2021,46,CSM,23
+2021,46,Cholera,26
+2021,46,Lassa Fever,18
+2021,46,Measles,21
+2021,46,Mpox,18
+2021,46,Yellow Fever,22
+2021,47,AFP,20
+2021,47,CSM,17
+2021,47,Cholera,23
+2021,47,Lassa Fever,27
+2021,47,Measles,23
+2021,47,Mpox,22
+2021,47,Yellow Fever,20
+2021,48,AFP,26
+2021,48,CSM,24
+2021,48,Cholera,12
+2021,48,Lassa Fever,15
+2021,48,Measles,21
+2021,48,Mpox,21
+2021,48,Yellow Fever,21
+2021,49,AFP,24
+2021,49,CSM,25
+2021,49,Cholera,19
+2021,49,Lassa Fever,12
+2021,49,Measles,20
+2021,49,Mpox,20
+2021,49,Yellow Fever,17
+2021,50,AFP,25
+2021,50,CSM,22
+2021,50,Cholera,24
+2021,50,Lassa Fever,21
+2021,50,Measles,20
+2021,50,Mpox,25
+2021,50,Yellow Fever,21
+2021,51,AFP,17
+2021,51,CSM,15
+2021,51,Cholera,20
+2021,51,Lassa Fever,16
+2021,51,Measles,17
+2021,51,Mpox,19
+2021,51,Yellow Fever,18
+2021,52,AFP,11
+2021,52,CSM,16
+2021,52,Cholera,30
+2021,52,Lassa Fever,17
+2021,52,Measles,13
+2021,52,Mpox,22
+2021,52,Yellow Fever,21
+2022,1,AFP,20
+2022,1,CSM,20
+2022,1,Cholera,21
+2022,1,Lassa Fever,20
+2022,1,Measles,27
+2022,1,Mpox,23
+2022,1,Yellow Fever,15
+2022,2,AFP,19
+2022,2,CSM,17
+2022,2,Cholera,19
+2022,2,Lassa Fever,23
+2022,2,Measles,26
+2022,2,Mpox,23
+2022,2,Yellow Fever,14
+2022,3,AFP,19
+2022,3,CSM,22
+2022,3,Cholera,20
+2022,3,Lassa Fever,13
+2022,3,Measles,25
+2022,3,Mpox,23
+2022,3,Yellow Fever,18
+2022,4,AFP,18
+2022,4,CSM,19
+2022,4,Cholera,20
+2022,4,Lassa Fever,22
+2022,4,Measles,26
+2022,4,Mpox,18
+2022,4,Yellow Fever,15
+2022,5,AFP,23
+2022,5,CSM,21
+2022,5,Cholera,25
+2022,5,Lassa Fever,25
+2022,5,Measles,10
+2022,5,Mpox,17
+2022,5,Yellow Fever,22
+2022,6,AFP,24
+2022,6,CSM,19
+2022,6,Cholera,18
+2022,6,Lassa Fever,19
+2022,6,Measles,21
+2022,6,Mpox,21
+2022,6,Yellow Fever,21
+2022,7,AFP,17
+2022,7,CSM,27
+2022,7,Cholera,24
+2022,7,Lassa Fever,27
+2022,7,Measles,23
+2022,7,Mpox,20
+2022,7,Yellow Fever,19
+2022,8,AFP,25
+2022,8,CSM,23
+2022,8,Cholera,18
+2022,8,Lassa Fever,24
+2022,8,Measles,21
+2022,8,Mpox,28
+2022,8,Yellow Fever,20
+2022,9,AFP,18
+2022,9,CSM,25
+2022,9,Cholera,34
+2022,9,Lassa Fever,21
+2022,9,Measles,25
+2022,9,Mpox,19
+2022,9,Yellow Fever,18
+2022,10,AFP,23
+2022,10,CSM,19
+2022,10,Cholera,21
+2022,10,Lassa Fever,19
+2022,10,Measles,20
+2022,10,Mpox,23
+2022,10,Yellow Fever,26
+2022,11,AFP,15
+2022,11,CSM,18
+2022,11,Cholera,24
+2022,11,Lassa Fever,29
+2022,11,Measles,14
+2022,11,Mpox,24
+2022,11,Yellow Fever,20
+2022,12,AFP,26
+2022,12,CSM,14
+2022,12,Cholera,19
+2022,12,Lassa Fever,18
+2022,12,Measles,21
+2022,12,Mpox,19
+2022,12,Yellow Fever,26
+2022,13,AFP,24
+2022,13,CSM,20
+2022,13,Cholera,23
+2022,13,Lassa Fever,13
+2022,13,Measles,16
+2022,13,Mpox,20
+2022,13,Yellow Fever,23
+2022,14,AFP,17
+2022,14,CSM,18
+2022,14,Cholera,16
+2022,14,Lassa Fever,16
+2022,14,Measles,21
+2022,14,Mpox,18
+2022,14,Yellow Fever,22
+2022,15,AFP,21
+2022,15,CSM,20
+2022,15,Cholera,18
+2022,15,Lassa Fever,25
+2022,15,Measles,21
+2022,15,Mpox,24
+2022,15,Yellow Fever,19
+2022,16,AFP,15
+2022,16,CSM,18
+2022,16,Cholera,12
+2022,16,Lassa Fever,18
+2022,16,Measles,21
+2022,16,Mpox,30
+2022,16,Yellow Fever,24
+2022,17,AFP,16
+2022,17,CSM,15
+2022,17,Cholera,15
+2022,17,Lassa Fever,14
+2022,17,Measles,22
+2022,17,Mpox,15
+2022,17,Yellow Fever,19
+2022,18,AFP,20
+2022,18,CSM,20
+2022,18,Cholera,16
+2022,18,Lassa Fever,20
+2022,18,Measles,19
+2022,18,Mpox,16
+2022,18,Yellow Fever,15
+2022,19,AFP,21
+2022,19,CSM,25
+2022,19,Cholera,15
+2022,19,Lassa Fever,15
+2022,19,Measles,20
+2022,19,Mpox,24
+2022,19,Yellow Fever,26
+2022,20,AFP,20
+2022,20,CSM,19
+2022,20,Cholera,24
+2022,20,Lassa Fever,19
+2022,20,Measles,18
+2022,20,Mpox,14
+2022,20,Yellow Fever,16
+2022,21,AFP,26
+2022,21,CSM,21
+2022,21,Cholera,20
+2022,21,Lassa Fever,13
+2022,21,Measles,24
+2022,21,Mpox,25
+2022,21,Yellow Fever,22
+2022,22,AFP,19
+2022,22,CSM,15
+2022,22,Cholera,18
+2022,22,Lassa Fever,24
+2022,22,Measles,19
+2022,22,Mpox,19
+2022,22,Yellow Fever,16
+2022,23,AFP,21
+2022,23,CSM,17
+2022,23,Cholera,24
+2022,23,Lassa Fever,16
+2022,23,Measles,24
+2022,23,Mpox,24
+2022,23,Yellow Fever,19
+2022,24,AFP,25
+2022,24,CSM,22
+2022,24,Cholera,13
+2022,24,Lassa Fever,21
+2022,24,Measles,25
+2022,24,Mpox,14
+2022,24,Yellow Fever,19
+2022,25,AFP,16
+2022,25,CSM,15
+2022,25,Cholera,18
+2022,25,Lassa Fever,22
+2022,25,Measles,16
+2022,25,Mpox,22
+2022,25,Yellow Fever,16
+2022,26,AFP,16
+2022,26,CSM,30
+2022,26,Cholera,38
+2022,26,Lassa Fever,26
+2022,26,Measles,25
+2022,26,Mpox,17
+2022,26,Yellow Fever,14
+2022,27,AFP,16
+2022,27,CSM,17
+2022,27,Cholera,23
+2022,27,Lassa Fever,24
+2022,27,Measles,19
+2022,27,Mpox,18
+2022,27,Yellow Fever,19
+2022,28,AFP,19
+2022,28,CSM,16
+2022,28,Cholera,25
+2022,28,Lassa Fever,20
+2022,28,Measles,21
+2022,28,Mpox,19
+2022,28,Yellow Fever,22
+2022,29,AFP,15
+2022,29,CSM,15
+2022,29,Cholera,21
+2022,29,Lassa Fever,16
+2022,29,Measles,22
+2022,29,Mpox,20
+2022,29,Yellow Fever,18
+2022,30,AFP,19
+2022,30,CSM,26
+2022,30,Cholera,23
+2022,30,Lassa Fever,16
+2022,30,Measles,24
+2022,30,Mpox,13
+2022,30,Yellow Fever,22
+2022,31,AFP,21
+2022,31,CSM,19
+2022,31,Cholera,28
+2022,31,Lassa Fever,33
+2022,31,Measles,19
+2022,31,Mpox,24
+2022,31,Yellow Fever,20
+2022,32,AFP,19
+2022,32,CSM,24
+2022,32,Cholera,14
+2022,32,Lassa Fever,13
+2022,32,Measles,14
+2022,32,Mpox,16
+2022,32,Yellow Fever,22
+2022,33,AFP,17
+2022,33,CSM,11
+2022,33,Cholera,21
+2022,33,Lassa Fever,25
+2022,33,Measles,28
+2022,33,Mpox,19
+2022,33,Yellow Fever,19
+2022,34,AFP,12
+2022,34,CSM,19
+2022,34,Cholera,22
+2022,34,Lassa Fever,13
+2022,34,Measles,23
+2022,34,Mpox,20
+2022,34,Yellow Fever,16
+2022,35,AFP,20
+2022,35,CSM,21
+2022,35,Cholera,21
+2022,35,Lassa Fever,13
+2022,35,Measles,13
+2022,35,Mpox,12
+2022,35,Yellow Fever,23
+2022,36,AFP,21
+2022,36,CSM,14
+2022,36,Cholera,18
+2022,36,Lassa Fever,18
+2022,36,Measles,25
+2022,36,Mpox,21
+2022,36,Yellow Fever,11
+2022,37,AFP,22
+2022,37,CSM,10
+2022,37,Cholera,24
+2022,37,Lassa Fever,17
+2022,37,Measles,19
+2022,37,Mpox,19
+2022,37,Yellow Fever,14
+2022,38,AFP,30
+2022,38,CSM,18
+2022,38,Cholera,19
+2022,38,Lassa Fever,27
+2022,38,Measles,15
+2022,38,Mpox,15
+2022,38,Yellow Fever,19
+2022,39,AFP,20
+2022,39,CSM,22
+2022,39,Cholera,30
+2022,39,Lassa Fever,20
+2022,39,Measles,16
+2022,39,Mpox,19
+2022,39,Yellow Fever,17
+2022,40,AFP,24
+2022,40,CSM,16
+2022,40,Cholera,16
+2022,40,Lassa Fever,19
+2022,40,Measles,30
+2022,40,Mpox,19
+2022,40,Yellow Fever,17
+2022,41,AFP,16
+2022,41,CSM,23
+2022,41,Cholera,20
+2022,41,Lassa Fever,14
+2022,41,Measles,23
+2022,41,Mpox,16
+2022,41,Yellow Fever,19
+2022,42,AFP,28
+2022,42,CSM,13
+2022,42,Cholera,24
+2022,42,Lassa Fever,19
+2022,42,Measles,22
+2022,42,Mpox,13
+2022,42,Yellow Fever,21
+2022,43,AFP,21
+2022,43,CSM,22
+2022,43,Cholera,12
+2022,43,Lassa Fever,23
+2022,43,Measles,24
+2022,43,Mpox,18
+2022,43,Yellow Fever,25
+2022,44,AFP,20
+2022,44,CSM,13
+2022,44,Cholera,14
+2022,44,Lassa Fever,17
+2022,44,Measles,26
+2022,44,Mpox,26
+2022,44,Yellow Fever,24
+2022,45,AFP,22
+2022,45,CSM,19
+2022,45,Cholera,19
+2022,45,Lassa Fever,23
+2022,45,Measles,19
+2022,45,Mpox,17
+2022,45,Yellow Fever,19
+2022,46,AFP,26
+2022,46,CSM,18
+2022,46,Cholera,16
+2022,46,Lassa Fever,10
+2022,46,Measles,17
+2022,46,Mpox,13
+2022,46,Yellow Fever,18
+2022,47,AFP,22
+2022,47,CSM,27
+2022,47,Cholera,21
+2022,47,Lassa Fever,23
+2022,47,Measles,18
+2022,47,Mpox,17
+2022,47,Yellow Fever,22
+2022,48,AFP,25
+2022,48,CSM,17
+2022,48,Cholera,21
+2022,48,Lassa Fever,20
+2022,48,Measles,24
+2022,48,Mpox,22
+2022,48,Yellow Fever,20
+2022,49,AFP,17
+2022,49,CSM,15
+2022,49,Cholera,30
+2022,49,Lassa Fever,26
+2022,49,Measles,22
+2022,49,Mpox,16
+2022,49,Yellow Fever,18
+2022,50,AFP,17
+2022,50,CSM,15
+2022,50,Cholera,15
+2022,50,Lassa Fever,17
+2022,50,Measles,19
+2022,50,Mpox,23
+2022,50,Yellow Fever,22
+2022,51,AFP,24
+2022,51,CSM,24
+2022,51,Cholera,18
+2022,51,Lassa Fever,20
+2022,51,Measles,17
+2022,51,Mpox,15
+2022,51,Yellow Fever,24
+2022,52,AFP,30
+2022,52,CSM,18
+2022,52,Cholera,29
+2022,52,Lassa Fever,17
+2022,52,Measles,23
+2022,52,Mpox,17
+2022,52,Yellow Fever,23
+2023,1,AFP,19
+2023,1,CSM,22
+2023,1,Cholera,19
+2023,1,Lassa Fever,19
+2023,1,Measles,16
+2023,1,Mpox,23
+2023,1,Yellow Fever,19
+2023,2,AFP,14
+2023,2,CSM,16
+2023,2,Cholera,19
+2023,2,Lassa Fever,15
+2023,2,Measles,14
+2023,2,Mpox,19
+2023,2,Yellow Fever,21
+2023,3,AFP,18
+2023,3,CSM,17
+2023,3,Cholera,19
+2023,3,Lassa Fever,23
+2023,3,Measles,10
+2023,3,Mpox,19
+2023,3,Yellow Fever,21
+2023,4,AFP,26
+2023,4,CSM,23
+2023,4,Cholera,16
+2023,4,Lassa Fever,21
+2023,4,Measles,24
+2023,4,Mpox,23
+2023,4,Yellow Fever,13
+2023,5,AFP,18
+2023,5,CSM,18
+2023,5,Cholera,20
+2023,5,Lassa Fever,26
+2023,5,Measles,25
+2023,5,Mpox,26
+2023,5,Yellow Fever,25
+2023,6,AFP,15
+2023,6,CSM,33
+2023,6,Cholera,21
+2023,6,Lassa Fever,22
+2023,6,Measles,15
+2023,6,Mpox,20
+2023,6,Yellow Fever,24
+2023,7,AFP,11
+2023,7,CSM,24
+2023,7,Cholera,25
+2023,7,Lassa Fever,23
+2023,7,Measles,18
+2023,7,Mpox,14
+2023,7,Yellow Fever,23
+2023,8,AFP,14
+2023,8,CSM,22
+2023,8,Cholera,22
+2023,8,Lassa Fever,22
+2023,8,Measles,26
+2023,8,Mpox,17
+2023,8,Yellow Fever,20
+2023,9,AFP,9
+2023,9,CSM,20
+2023,9,Cholera,22
+2023,9,Lassa Fever,24
+2023,9,Measles,21
+2023,9,Mpox,25
+2023,9,Yellow Fever,28
+2023,10,AFP,21
+2023,10,CSM,22
+2023,10,Cholera,20
+2023,10,Lassa Fever,14
+2023,10,Measles,16
+2023,10,Mpox,13
+2023,10,Yellow Fever,19
+2023,11,AFP,19
+2023,11,CSM,16
+2023,11,Cholera,22
+2023,11,Lassa Fever,29
+2023,11,Measles,20
+2023,11,Mpox,39
+2023,11,Yellow Fever,24
+2023,12,AFP,22
+2023,12,CSM,16
+2023,12,Cholera,24
+2023,12,Lassa Fever,17
+2023,12,Measles,16
+2023,12,Mpox,17
+2023,12,Yellow Fever,23
+2023,13,AFP,26
+2023,13,CSM,18
+2023,13,Cholera,31
+2023,13,Lassa Fever,23
+2023,13,Measles,17
+2023,13,Mpox,21
+2023,13,Yellow Fever,14
+2023,14,AFP,21
+2023,14,CSM,22
+2023,14,Cholera,24
+2023,14,Lassa Fever,15
+2023,14,Measles,22
+2023,14,Mpox,13
+2023,14,Yellow Fever,14
+2023,15,AFP,16
+2023,15,CSM,29
+2023,15,Cholera,12
+2023,15,Lassa Fever,19
+2023,15,Measles,25
+2023,15,Mpox,19
+2023,15,Yellow Fever,25
+2023,16,AFP,29
+2023,16,CSM,14
+2023,16,Cholera,25
+2023,16,Lassa Fever,17
+2023,16,Measles,22
+2023,16,Mpox,24
+2023,16,Yellow Fever,21
+2023,17,AFP,15
+2023,17,CSM,21
+2023,17,Cholera,15
+2023,17,Lassa Fever,24
+2023,17,Measles,20
+2023,17,Mpox,21
+2023,17,Yellow Fever,23
+2023,18,AFP,20
+2023,18,CSM,24
+2023,18,Cholera,22
+2023,18,Lassa Fever,18
+2023,18,Measles,21
+2023,18,Mpox,22
+2023,18,Yellow Fever,20
+2023,19,AFP,19
+2023,19,CSM,21
+2023,19,Cholera,21
+2023,19,Lassa Fever,24
+2023,19,Measles,20
+2023,19,Mpox,20
+2023,19,Yellow Fever,14
+2023,20,AFP,22
+2023,20,CSM,22
+2023,20,Cholera,17
+2023,20,Lassa Fever,16
+2023,20,Measles,26
+2023,20,Mpox,27
+2023,20,Yellow Fever,16
+2023,21,AFP,8
+2023,21,CSM,18
+2023,21,Cholera,10
+2023,21,Lassa Fever,21
+2023,21,Measles,19
+2023,21,Mpox,24
+2023,21,Yellow Fever,16
+2023,22,AFP,18
+2023,22,CSM,14
+2023,22,Cholera,18
+2023,22,Lassa Fever,18
+2023,22,Measles,22
+2023,22,Mpox,16
+2023,22,Yellow Fever,29
+2023,23,AFP,19
+2023,23,CSM,27
+2023,23,Cholera,16
+2023,23,Lassa Fever,18
+2023,23,Measles,9
+2023,23,Mpox,12
+2023,23,Yellow Fever,18
+2023,24,AFP,20
+2023,24,CSM,19
+2023,24,Cholera,21
+2023,24,Lassa Fever,20
+2023,24,Measles,25
+2023,24,Mpox,19
+2023,24,Yellow Fever,22
+2023,25,AFP,26
+2023,25,CSM,19
+2023,25,Cholera,13
+2023,25,Lassa Fever,22
+2023,25,Measles,18
+2023,25,Mpox,30
+2023,25,Yellow Fever,17
+2023,26,AFP,18
+2023,26,CSM,18
+2023,26,Cholera,25
+2023,26,Lassa Fever,18
+2023,26,Measles,27
+2023,26,Mpox,20
+2023,26,Yellow Fever,15
+2023,27,AFP,19
+2023,27,CSM,24
+2023,27,Cholera,12
+2023,27,Lassa Fever,15
+2023,27,Measles,23
+2023,27,Mpox,20
+2023,27,Yellow Fever,19
+2023,28,AFP,20
+2023,28,CSM,13
+2023,28,Cholera,13
+2023,28,Lassa Fever,20
+2023,28,Measles,22
+2023,28,Mpox,21
+2023,28,Yellow Fever,21
+2023,29,AFP,20
+2023,29,CSM,17
+2023,29,Cholera,25
+2023,29,Lassa Fever,15
+2023,29,Measles,18
+2023,29,Mpox,22
+2023,29,Yellow Fever,26
+2023,30,AFP,14
+2023,30,CSM,18
+2023,30,Cholera,26
+2023,30,Lassa Fever,24
+2023,30,Measles,21
+2023,30,Mpox,24
+2023,30,Yellow Fever,12
+2023,31,AFP,19
+2023,31,CSM,29
+2023,31,Cholera,22
+2023,31,Lassa Fever,18
+2023,31,Measles,21
+2023,31,Mpox,16
+2023,31,Yellow Fever,26
+2023,32,AFP,24
+2023,32,CSM,15
+2023,32,Cholera,14
+2023,32,Lassa Fever,23
+2023,32,Measles,23
+2023,32,Mpox,25
+2023,32,Yellow Fever,21
+2023,33,AFP,19
+2023,33,CSM,19
+2023,33,Cholera,10
+2023,33,Lassa Fever,22
+2023,33,Measles,18
+2023,33,Mpox,17
+2023,33,Yellow Fever,14
+2023,34,AFP,14
+2023,34,CSM,12
+2023,34,Cholera,20
+2023,34,Lassa Fever,23
+2023,34,Measles,22
+2023,34,Mpox,15
+2023,34,Yellow Fever,28
+2023,35,AFP,15
+2023,35,CSM,10
+2023,35,Cholera,24
+2023,35,Lassa Fever,31
+2023,35,Measles,22
+2023,35,Mpox,23
+2023,35,Yellow Fever,26
+2023,36,AFP,23
+2023,36,CSM,16
+2023,36,Cholera,17
+2023,36,Lassa Fever,19
+2023,36,Measles,28
+2023,36,Mpox,25
+2023,36,Yellow Fever,22
+2023,37,AFP,20
+2023,37,CSM,14
+2023,37,Cholera,25
+2023,37,Lassa Fever,15
+2023,37,Measles,21
+2023,37,Mpox,23
+2023,37,Yellow Fever,21
+2023,38,AFP,27
+2023,38,CSM,20
+2023,38,Cholera,24
+2023,38,Lassa Fever,25
+2023,38,Measles,13
+2023,38,Mpox,22
+2023,38,Yellow Fever,24
+2023,39,AFP,25
+2023,39,CSM,18
+2023,39,Cholera,25
+2023,39,Lassa Fever,18
+2023,39,Measles,19
+2023,39,Mpox,27
+2023,39,Yellow Fever,15
+2023,40,AFP,17
+2023,40,CSM,13
+2023,40,Cholera,30
+2023,40,Lassa Fever,21
+2023,40,Measles,15
+2023,40,Mpox,20
+2023,40,Yellow Fever,18
+2023,41,AFP,21
+2023,41,CSM,20
+2023,41,Cholera,21
+2023,41,Lassa Fever,26
+2023,41,Measles,16
+2023,41,Mpox,23
+2023,41,Yellow Fever,28
+2023,42,AFP,18
+2023,42,CSM,20
+2023,42,Cholera,19
+2023,42,Lassa Fever,26
+2023,42,Measles,15
+2023,42,Mpox,21
+2023,42,Yellow Fever,15
+2023,43,AFP,13
+2023,43,CSM,23
+2023,43,Cholera,27
+2023,43,Lassa Fever,19
+2023,43,Measles,16
+2023,43,Mpox,14
+2023,43,Yellow Fever,25
+2023,44,AFP,17
+2023,44,CSM,16
+2023,44,Cholera,21
+2023,44,Lassa Fever,19
+2023,44,Measles,24
+2023,44,Mpox,22
+2023,44,Yellow Fever,23
+2023,45,AFP,29
+2023,45,CSM,13
+2023,45,Cholera,22
+2023,45,Lassa Fever,15
+2023,45,Measles,14
+2023,45,Mpox,26
+2023,45,Yellow Fever,22
+2023,46,AFP,27
+2023,46,CSM,25
+2023,46,Cholera,22
+2023,46,Lassa Fever,19
+2023,46,Measles,22
+2023,46,Mpox,19
+2023,46,Yellow Fever,27
+2023,47,AFP,20
+2023,47,CSM,21
+2023,47,Cholera,21
+2023,47,Lassa Fever,13
+2023,47,Measles,26
+2023,47,Mpox,16
+2023,47,Yellow Fever,27
+2023,48,AFP,17
+2023,48,CSM,22
+2023,48,Cholera,21
+2023,48,Lassa Fever,21
+2023,48,Measles,18
+2023,48,Mpox,17
+2023,48,Yellow Fever,23
+2023,49,AFP,18
+2023,49,CSM,21
+2023,49,Cholera,14
+2023,49,Lassa Fever,22
+2023,49,Measles,22
+2023,49,Mpox,26
+2023,49,Yellow Fever,22
+2023,50,AFP,23
+2023,50,CSM,14
+2023,50,Cholera,18
+2023,50,Lassa Fever,20
+2023,50,Measles,26
+2023,50,Mpox,19
+2023,50,Yellow Fever,18
+2023,51,AFP,21
+2023,51,CSM,25
+2023,51,Cholera,27
+2023,51,Lassa Fever,23
+2023,51,Measles,15
+2023,51,Mpox,24
+2023,51,Yellow Fever,18
+2023,52,AFP,20
+2023,52,CSM,18
+2023,52,Cholera,28
+2023,52,Lassa Fever,18
+2023,52,Measles,27
+2023,52,Mpox,16
+2023,52,Yellow Fever,21
+2024,1,AFP,25
+2024,1,CSM,28
+2024,1,Cholera,28
+2024,1,Lassa Fever,23
+2024,1,Measles,14
+2024,1,Mpox,13
+2024,1,Yellow Fever,13
+2024,2,AFP,16
+2024,2,CSM,12
+2024,2,Cholera,21
+2024,2,Lassa Fever,26
+2024,2,Measles,20
+2024,2,Mpox,17
+2024,2,Yellow Fever,15
+2024,3,AFP,21
+2024,3,CSM,30
+2024,3,Cholera,16
+2024,3,Lassa Fever,21
+2024,3,Measles,15
+2024,3,Mpox,23
+2024,3,Yellow Fever,18
+2024,4,AFP,11
+2024,4,CSM,25
+2024,4,Cholera,20
+2024,4,Lassa Fever,23
+2024,4,Measles,16
+2024,4,Mpox,25
+2024,4,Yellow Fever,26
+2024,5,AFP,18
+2024,5,CSM,19
+2024,5,Cholera,21
+2024,5,Lassa Fever,24
+2024,5,Measles,17
+2024,5,Mpox,16
+2024,5,Yellow Fever,21
+2024,6,AFP,21
+2024,6,CSM,14
+2024,6,Cholera,20
+2024,6,Lassa Fever,21
+2024,6,Measles,20
+2024,6,Mpox,21
+2024,6,Yellow Fever,14
+2024,7,AFP,19
+2024,7,CSM,12
+2024,7,Cholera,21
+2024,7,Lassa Fever,29
+2024,7,Measles,18
+2024,7,Mpox,15
+2024,7,Yellow Fever,30
+2024,8,AFP,12
+2024,8,CSM,17
+2024,8,Cholera,16
+2024,8,Lassa Fever,20
+2024,8,Measles,25
+2024,8,Mpox,12
+2024,8,Yellow Fever,20
+2024,9,AFP,25
+2024,9,CSM,21
+2024,9,Cholera,18
+2024,9,Lassa Fever,28
+2024,9,Measles,29
+2024,9,Mpox,23
+2024,9,Yellow Fever,10
+2024,10,AFP,15
+2024,10,CSM,20
+2024,10,Cholera,20
+2024,10,Lassa Fever,20
+2024,10,Measles,28
+2024,10,Mpox,25
+2024,10,Yellow Fever,12
+2024,11,AFP,22
+2024,11,CSM,20
+2024,11,Cholera,22
+2024,11,Lassa Fever,26
+2024,11,Measles,20
+2024,11,Mpox,22
+2024,11,Yellow Fever,26
+2024,12,AFP,25
+2024,12,CSM,29
+2024,12,Cholera,22
+2024,12,Lassa Fever,29
+2024,12,Measles,15
+2024,12,Mpox,23
+2024,12,Yellow Fever,25
+2024,13,AFP,26
+2024,13,CSM,19
+2024,13,Cholera,24
+2024,13,Lassa Fever,22
+2024,13,Measles,22
+2024,13,Mpox,19
+2024,13,Yellow Fever,28
+2024,14,AFP,24
+2024,14,CSM,12
+2024,14,Cholera,11
+2024,14,Lassa Fever,30
+2024,14,Measles,14
+2024,14,Mpox,20
+2024,14,Yellow Fever,19
+2024,15,AFP,31
+2024,15,CSM,30
+2024,15,Cholera,24
+2024,15,Lassa Fever,17
+2024,15,Measles,17
+2024,15,Mpox,21
+2024,15,Yellow Fever,23
+2024,16,AFP,25
+2024,16,CSM,23
+2024,16,Cholera,14
+2024,16,Lassa Fever,25
+2024,16,Measles,24
+2024,16,Mpox,15
+2024,16,Yellow Fever,13
+2024,17,AFP,24
+2024,17,CSM,15
+2024,17,Cholera,20
+2024,17,Lassa Fever,17
+2024,17,Measles,23
+2024,17,Mpox,15
+2024,17,Yellow Fever,16
+2024,18,AFP,25
+2024,18,CSM,28
+2024,18,Cholera,25
+2024,18,Lassa Fever,17
+2024,18,Measles,28
+2024,18,Mpox,21
+2024,18,Yellow Fever,19
+2024,19,AFP,17
+2024,19,CSM,21
+2024,19,Cholera,20
+2024,19,Lassa Fever,31
+2024,19,Measles,12
+2024,19,Mpox,21
+2024,19,Yellow Fever,22
+2024,20,AFP,23
+2024,20,CSM,30
+2024,20,Cholera,21
+2024,20,Lassa Fever,19
+2024,20,Measles,24
+2024,20,Mpox,16
+2024,20,Yellow Fever,13
+2024,21,AFP,19
+2024,21,CSM,25
+2024,21,Cholera,28
+2024,21,Lassa Fever,16
+2024,21,Measles,23
+2024,21,Mpox,21
+2024,21,Yellow Fever,15
+2024,22,AFP,26
+2024,22,CSM,19
+2024,22,Cholera,19
+2024,22,Lassa Fever,19
+2024,22,Measles,15
+2024,22,Mpox,14
+2024,22,Yellow Fever,15
+2024,23,AFP,22
+2024,23,CSM,17
+2024,23,Cholera,14
+2024,23,Lassa Fever,30
+2024,23,Measles,17
+2024,23,Mpox,22
+2024,23,Yellow Fever,15
+2024,24,AFP,21
+2024,24,CSM,12
+2024,24,Cholera,29
+2024,24,Lassa Fever,19
+2024,24,Measles,12
+2024,24,Mpox,19
+2024,24,Yellow Fever,20
+2024,25,AFP,18
+2024,25,CSM,16
+2024,25,Cholera,21
+2024,25,Lassa Fever,14
+2024,25,Measles,16
+2024,25,Mpox,25
+2024,25,Yellow Fever,18
+2024,26,AFP,19
+2024,26,CSM,26
+2024,26,Cholera,30
+2024,26,Lassa Fever,25
+2024,26,Measles,22
+2024,26,Mpox,22
+2024,26,Yellow Fever,27
+2024,27,AFP,21
+2024,27,CSM,16
+2024,27,Cholera,22
+2024,27,Lassa Fever,14
+2024,27,Measles,20
+2024,27,Mpox,16
+2024,27,Yellow Fever,21
+2024,28,AFP,16
+2024,28,CSM,24
+2024,28,Cholera,23
+2024,28,Lassa Fever,22
+2024,28,Measles,19
+2024,28,Mpox,22
+2024,28,Yellow Fever,18
+2024,29,AFP,24
+2024,29,CSM,18
+2024,29,Cholera,21
+2024,29,Lassa Fever,19
+2024,29,Measles,35
+2024,29,Mpox,26
+2024,29,Yellow Fever,27
+2024,30,AFP,22
+2024,30,CSM,17
+2024,30,Cholera,20
+2024,30,Lassa Fever,16
+2024,30,Measles,26
+2024,30,Mpox,13
+2024,30,Yellow Fever,26
+2024,31,AFP,23
+2024,31,CSM,24
+2024,31,Cholera,18
+2024,31,Lassa Fever,19
+2024,31,Measles,19
+2024,31,Mpox,13
+2024,31,Yellow Fever,18
+2024,32,AFP,15
+2024,32,CSM,20
+2024,32,Cholera,18
+2024,32,Lassa Fever,19
+2024,32,Measles,19
+2024,32,Mpox,28
+2024,32,Yellow Fever,26
+2024,33,AFP,15
+2024,33,CSM,22
+2024,33,Cholera,20
+2024,33,Lassa Fever,15
+2024,33,Measles,14
+2024,33,Mpox,18
+2024,33,Yellow Fever,18
+2024,34,AFP,13
+2024,34,CSM,8
+2024,34,Cholera,17
+2024,34,Lassa Fever,28
+2024,34,Measles,19
+2024,34,Mpox,17
+2024,34,Yellow Fever,18
+2024,35,AFP,25
+2024,35,CSM,18
+2024,35,Cholera,11
+2024,35,Lassa Fever,22
+2024,35,Measles,19
+2024,35,Mpox,13
+2024,35,Yellow Fever,19
+2024,36,AFP,18
+2024,36,CSM,17
+2024,36,Cholera,21
+2024,36,Lassa Fever,20
+2024,36,Measles,18
+2024,36,Mpox,16
+2024,36,Yellow Fever,27
+2024,37,AFP,19
+2024,37,CSM,18
+2024,37,Cholera,18
+2024,37,Lassa Fever,24
+2024,37,Measles,26
+2024,37,Mpox,20
+2024,37,Yellow Fever,12
+2024,38,AFP,22
+2024,38,CSM,14
+2024,38,Cholera,17
+2024,38,Lassa Fever,17
+2024,38,Measles,22
+2024,38,Mpox,16
+2024,38,Yellow Fever,13
+2024,39,AFP,23
+2024,39,CSM,14
+2024,39,Cholera,27
+2024,39,Lassa Fever,14
+2024,39,Measles,25
+2024,39,Mpox,12
+2024,39,Yellow Fever,21
+2024,40,AFP,19
+2024,40,CSM,28
+2024,40,Cholera,13
+2024,40,Lassa Fever,12
+2024,40,Measles,18
+2024,40,Mpox,13
+2024,40,Yellow Fever,24
+2024,41,AFP,24
+2024,41,CSM,15
+2024,41,Cholera,18
+2024,41,Lassa Fever,19
+2024,41,Measles,18
+2024,41,Mpox,18
+2024,41,Yellow Fever,26
+2024,42,AFP,20
+2024,42,CSM,27
+2024,42,Cholera,21
+2024,42,Lassa Fever,25
+2024,42,Measles,18
+2024,42,Mpox,25
+2024,42,Yellow Fever,24
+2024,43,AFP,13
+2024,43,CSM,26
+2024,43,Cholera,23
+2024,43,Lassa Fever,26
+2024,43,Measles,19
+2024,43,Mpox,23
+2024,43,Yellow Fever,19
+2024,44,AFP,30
+2024,44,CSM,17
+2024,44,Cholera,23
+2024,44,Lassa Fever,23
+2024,44,Measles,22
+2024,44,Mpox,28
+2024,44,Yellow Fever,22
+2024,45,AFP,19
+2024,45,CSM,26
+2024,45,Cholera,22
+2024,45,Lassa Fever,27
+2024,45,Measles,18
+2024,45,Mpox,21
+2024,45,Yellow Fever,17
+2024,46,AFP,18
+2024,46,CSM,21
+2024,46,Cholera,25
+2024,46,Lassa Fever,22
+2024,46,Measles,25
+2024,46,Mpox,19
+2024,46,Yellow Fever,32
+2024,47,AFP,21
+2024,47,CSM,21
+2024,47,Cholera,12
+2024,47,Lassa Fever,25
+2024,47,Measles,15
+2024,47,Mpox,16
+2024,47,Yellow Fever,11
+2024,48,AFP,20
+2024,48,CSM,24
+2024,48,Cholera,15
+2024,48,Lassa Fever,16
+2024,48,Measles,18
+2024,48,Mpox,26
+2024,48,Yellow Fever,19
+2024,49,AFP,25
+2024,49,CSM,17
+2024,49,Cholera,22
+2024,49,Lassa Fever,26
+2024,49,Measles,22
+2024,49,Mpox,15
+2024,49,Yellow Fever,19
+2024,50,AFP,34
+2024,50,CSM,18
+2024,50,Cholera,18
+2024,50,Lassa Fever,27
+2024,50,Measles,17
+2024,50,Mpox,22
+2024,50,Yellow Fever,15
+2024,51,AFP,19
+2024,51,CSM,20
+2024,51,Cholera,13
+2024,51,Lassa Fever,17
+2024,51,Measles,22
+2024,51,Mpox,19
+2024,51,Yellow Fever,30
+2024,52,AFP,26
+2024,52,CSM,21
+2024,52,Cholera,34
+2024,52,Lassa Fever,27
+2024,52,Measles,15
+2024,52,Mpox,23
+2024,52,Yellow Fever,19
+2025,1,AFP,19
+2025,1,CSM,14
+2025,1,Cholera,25
+2025,1,Lassa Fever,18
+2025,1,Measles,21
+2025,1,Mpox,12
+2025,1,Yellow Fever,21
+2025,2,AFP,20
+2025,2,CSM,27
+2025,2,Cholera,17
+2025,2,Lassa Fever,13
+2025,2,Measles,15
+2025,2,Mpox,18
+2025,2,Yellow Fever,17
+2025,3,AFP,20
+2025,3,CSM,18
+2025,3,Cholera,22
+2025,3,Lassa Fever,20
+2025,3,Measles,15
+2025,3,Mpox,16
+2025,3,Yellow Fever,13
+2025,4,AFP,17
+2025,4,CSM,14
+2025,4,Cholera,26
+2025,4,Lassa Fever,29
+2025,4,Measles,24
+2025,4,Mpox,26
+2025,4,Yellow Fever,18
+2025,5,AFP,19
+2025,5,CSM,16
+2025,5,Cholera,20
+2025,5,Lassa Fever,25
+2025,5,Measles,18
+2025,5,Mpox,24
+2025,5,Yellow Fever,13
+2025,6,AFP,17
+2025,6,CSM,9
+2025,6,Cholera,23
+2025,6,Lassa Fever,15
+2025,6,Measles,15
+2025,6,Mpox,21
+2025,6,Yellow Fever,16
+2025,7,AFP,14
+2025,7,CSM,21
+2025,7,Cholera,12
+2025,7,Lassa Fever,22
+2025,7,Measles,19
+2025,7,Mpox,17
+2025,7,Yellow Fever,20
+2025,8,AFP,21
+2025,8,CSM,22
+2025,8,Cholera,24
+2025,8,Lassa Fever,22
+2025,8,Measles,21
+2025,8,Mpox,20
+2025,8,Yellow Fever,14
+2025,9,AFP,14
+2025,9,CSM,21
+2025,9,Cholera,21
+2025,9,Lassa Fever,34
+2025,9,Measles,26
+2025,9,Mpox,13
+2025,9,Yellow Fever,21
+2025,10,AFP,25
+2025,10,CSM,19
+2025,10,Cholera,18
+2025,10,Lassa Fever,21
+2025,10,Measles,22
+2025,10,Mpox,26
+2025,10,Yellow Fever,20
+2025,11,AFP,28
+2025,11,CSM,28
+2025,11,Cholera,27
+2025,11,Lassa Fever,12
+2025,11,Measles,16
+2025,11,Mpox,19
+2025,11,Yellow Fever,25
+2025,12,AFP,19
+2025,12,CSM,29
+2025,12,Cholera,25
+2025,12,Lassa Fever,23
+2025,12,Measles,17
+2025,12,Mpox,22
+2025,12,Yellow Fever,18
+2025,13,AFP,27
+2025,13,CSM,20
+2025,13,Cholera,31
+2025,13,Lassa Fever,21
+2025,13,Measles,7
+2025,13,Mpox,18
+2025,13,Yellow Fever,17
+2025,14,AFP,20
+2025,14,CSM,14
+2025,14,Cholera,21
+2025,14,Lassa Fever,21
+2025,14,Measles,21
+2025,14,Mpox,22
+2025,14,Yellow Fever,23
+2025,15,AFP,20
+2025,15,CSM,19
+2025,15,Cholera,17
+2025,15,Lassa Fever,20
+2025,15,Measles,19
+2025,15,Mpox,23
+2025,15,Yellow Fever,27
+2025,16,AFP,15
+2025,16,CSM,20
+2025,16,Cholera,18
+2025,16,Lassa Fever,21
+2025,16,Measles,18
+2025,16,Mpox,22
+2025,16,Yellow Fever,21
+2025,17,AFP,20
+2025,17,CSM,21
+2025,17,Cholera,20
+2025,17,Lassa Fever,19
+2025,17,Measles,26
+2025,17,Mpox,23
+2025,17,Yellow Fever,22
+2025,18,AFP,21
+2025,18,CSM,12
+2025,18,Cholera,14
+2025,18,Lassa Fever,18
+2025,18,Measles,25
+2025,18,Mpox,24
+2025,18,Yellow Fever,19
+2025,19,AFP,25
+2025,19,CSM,25
+2025,19,Cholera,16
+2025,19,Lassa Fever,19
+2025,19,Measles,15
+2025,19,Mpox,22
+2025,19,Yellow Fever,19
+2025,20,AFP,16
+2025,20,CSM,18
+2025,20,Cholera,26
+2025,20,Lassa Fever,22
+2025,20,Measles,15
+2025,20,Mpox,15
+2025,20,Yellow Fever,21
+2025,21,AFP,23
+2025,21,CSM,24
+2025,21,Cholera,15
+2025,21,Lassa Fever,20
+2025,21,Measles,16
+2025,21,Mpox,18
+2025,21,Yellow Fever,21
+2025,22,AFP,20
+2025,22,CSM,17
+2025,22,Cholera,14
+2025,22,Lassa Fever,12
+2025,22,Measles,18
+2025,22,Mpox,21
+2025,22,Yellow Fever,25
+2025,23,AFP,18
+2025,23,CSM,19
+2025,23,Cholera,24
+2025,23,Lassa Fever,19
+2025,23,Measles,11
+2025,23,Mpox,26
+2025,23,Yellow Fever,18
+2025,24,AFP,25
+2025,24,CSM,20
+2025,24,Cholera,26
+2025,24,Lassa Fever,20
+2025,24,Measles,23
+2025,24,Mpox,14
+2025,24,Yellow Fever,17
+2025,25,AFP,24
+2025,25,CSM,11
+2025,25,Cholera,24
+2025,25,Lassa Fever,25
+2025,25,Measles,11
+2025,25,Mpox,23
+2025,25,Yellow Fever,17
+2025,26,AFP,20
+2025,26,CSM,21
+2025,26,Cholera,26
+2025,26,Lassa Fever,25
+2025,26,Measles,22
+2025,26,Mpox,24
+2025,26,Yellow Fever,20
+2025,27,AFP,19
+2025,27,CSM,17
+2025,27,Cholera,18
+2025,27,Lassa Fever,18
+2025,27,Measles,21
+2025,27,Mpox,14
+2025,27,Yellow Fever,23
+2025,28,AFP,20
+2025,28,CSM,11
+2025,28,Cholera,24
+2025,28,Lassa Fever,17
+2025,28,Measles,21
+2025,28,Mpox,22
+2025,28,Yellow Fever,19
+2025,29,AFP,16
+2025,29,CSM,13
+2025,29,Cholera,18
+2025,29,Lassa Fever,13
+2025,29,Measles,16
+2025,29,Mpox,22
+2025,29,Yellow Fever,27
+2025,30,AFP,18
+2025,30,CSM,25
+2025,30,Cholera,19
+2025,30,Lassa Fever,17
+2025,30,Measles,18
+2025,30,Mpox,24
+2025,30,Yellow Fever,15
+2025,31,AFP,15
+2025,31,CSM,26
+2025,31,Cholera,20
+2025,31,Lassa Fever,26
+2025,31,Measles,14
+2025,31,Mpox,25
+2025,31,Yellow Fever,17
+2025,32,AFP,18
+2025,32,CSM,24
+2025,32,Cholera,23
+2025,32,Lassa Fever,22
+2025,32,Measles,11
+2025,32,Mpox,18
+2025,32,Yellow Fever,11
+2025,33,AFP,14
+2025,33,CSM,18
+2025,33,Cholera,22
+2025,33,Lassa Fever,16
+2025,33,Measles,22
+2025,33,Mpox,21
+2025,33,Yellow Fever,16
+2025,34,AFP,15
+2025,34,CSM,23
+2025,34,Cholera,27
+2025,34,Lassa Fever,16
+2025,34,Measles,21
+2025,34,Mpox,15
+2025,34,Yellow Fever,18
+2025,35,AFP,22
+2025,35,CSM,20
+2025,35,Cholera,13
+2025,35,Lassa Fever,21
+2025,35,Measles,21
+2025,35,Mpox,24
+2025,35,Yellow Fever,12
+2025,36,AFP,20
+2025,36,CSM,25
+2025,36,Cholera,19
+2025,36,Lassa Fever,12
+2025,36,Measles,16
+2025,36,Mpox,15
+2025,36,Yellow Fever,22
+2025,37,AFP,14
+2025,37,CSM,14
+2025,37,Cholera,17
+2025,37,Lassa Fever,19
+2025,37,Measles,22
+2025,37,Mpox,19
+2025,37,Yellow Fever,26
+2025,38,AFP,14
+2025,38,CSM,24
+2025,38,Cholera,15
+2025,38,Lassa Fever,18
+2025,38,Measles,22
+2025,38,Mpox,23
+2025,38,Yellow Fever,26
+2025,39,AFP,31
+2025,39,CSM,16
+2025,39,Cholera,33
+2025,39,Lassa Fever,16
+2025,39,Measles,23
+2025,39,Mpox,18
+2025,39,Yellow Fever,24
+2025,40,AFP,20
+2025,40,CSM,21
+2025,40,Cholera,12
+2025,40,Lassa Fever,17
+2025,40,Measles,24
+2025,40,Mpox,22
+2025,40,Yellow Fever,23
+2025,41,AFP,20
+2025,41,CSM,25
+2025,41,Cholera,20
+2025,41,Lassa Fever,16
+2025,41,Measles,17
+2025,41,Mpox,23
+2025,41,Yellow Fever,17
+2025,42,AFP,21
+2025,42,CSM,23
+2025,42,Cholera,19
+2025,42,Lassa Fever,14
+2025,42,Measles,16
+2025,42,Mpox,16
+2025,42,Yellow Fever,18
+2025,43,AFP,10
+2025,43,CSM,23
+2025,43,Cholera,22
+2025,43,Lassa Fever,18
+2025,43,Measles,21
+2025,43,Mpox,15
+2025,43,Yellow Fever,16
+2025,44,AFP,21
+2025,44,CSM,21
+2025,44,Cholera,16
+2025,44,Lassa Fever,27
+2025,44,Measles,15
+2025,44,Mpox,24
+2025,44,Yellow Fever,23
+2025,45,AFP,29
+2025,45,CSM,31
+2025,45,Cholera,22
+2025,45,Lassa Fever,17
+2025,45,Measles,17
+2025,45,Mpox,18
+2025,45,Yellow Fever,16
+2025,46,AFP,23
+2025,46,CSM,20
+2025,46,Cholera,26
+2025,46,Lassa Fever,21
+2025,46,Measles,16
+2025,46,Mpox,18
+2025,46,Yellow Fever,23
+2025,47,AFP,26
+2025,47,CSM,17
+2025,47,Cholera,14
+2025,47,Lassa Fever,17
+2025,47,Measles,25
+2025,47,Mpox,21
+2025,47,Yellow Fever,13
+2025,48,AFP,21
+2025,48,CSM,25
+2025,48,Cholera,20
+2025,48,Lassa Fever,13
+2025,48,Measles,14
+2025,48,Mpox,24
+2025,48,Yellow Fever,19
+2025,49,AFP,16
+2025,49,CSM,10
+2025,49,Cholera,24
+2025,49,Lassa Fever,13
+2025,49,Measles,19
+2025,49,Mpox,18
+2025,49,Yellow Fever,28
+2025,50,AFP,18
+2025,50,CSM,23
+2025,50,Cholera,21
+2025,50,Lassa Fever,26
+2025,50,Measles,27
+2025,50,Mpox,24
+2025,50,Yellow Fever,18
+2025,51,AFP,18
+2025,51,CSM,31
+2025,51,Cholera,19
+2025,51,Lassa Fever,19
+2025,51,Measles,18
+2025,51,Mpox,18
+2025,51,Yellow Fever,15
+2025,52,AFP,33
+2025,52,CSM,17
+2025,52,Cholera,30
+2025,52,Lassa Fever,21
+2025,52,Measles,13
+2025,52,Mpox,16
+2025,52,Yellow Fever,12
+2026,1,AFP,16
+2026,1,CSM,14
+2026,1,Cholera,15
+2026,1,Lassa Fever,12
+2026,1,Measles,23
+2026,1,Mpox,17
+2026,1,Yellow Fever,27
+2026,2,AFP,16
+2026,2,CSM,18
+2026,2,Cholera,24
+2026,2,Lassa Fever,19
+2026,2,Measles,26
+2026,2,Mpox,23
+2026,2,Yellow Fever,20
+2026,3,AFP,22
+2026,3,CSM,20
+2026,3,Cholera,31
+2026,3,Lassa Fever,19
+2026,3,Measles,22
+2026,3,Mpox,20
+2026,3,Yellow Fever,29
+2026,4,AFP,21
+2026,4,CSM,17
+2026,4,Cholera,18
+2026,4,Lassa Fever,12
+2026,4,Measles,14
+2026,4,Mpox,13
+2026,4,Yellow Fever,19
+2026,5,AFP,27
+2026,5,CSM,19
+2026,5,Cholera,24
+2026,5,Lassa Fever,16
+2026,5,Measles,15
+2026,5,Mpox,18
+2026,5,Yellow Fever,23
+2026,6,AFP,24
+2026,6,CSM,18
+2026,6,Cholera,10
+2026,6,Lassa Fever,13
+2026,6,Measles,20
+2026,6,Mpox,20
+2026,6,Yellow Fever,19
+2026,7,AFP,13
+2026,7,CSM,23
+2026,7,Cholera,17
+2026,7,Lassa Fever,23
+2026,7,Measles,22
+2026,7,Mpox,17
+2026,7,Yellow Fever,22
+2026,8,AFP,22
+2026,8,CSM,17
+2026,8,Cholera,21
+2026,8,Lassa Fever,17
+2026,8,Measles,8
+2026,8,Mpox,20
+2026,8,Yellow Fever,21
