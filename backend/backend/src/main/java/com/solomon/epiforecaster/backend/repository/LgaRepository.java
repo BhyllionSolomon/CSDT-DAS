@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LgaRepository extends JpaRepository<Lga, Long> {
 
+    boolean existsByNameIgnoreCase(String name);
+
 }

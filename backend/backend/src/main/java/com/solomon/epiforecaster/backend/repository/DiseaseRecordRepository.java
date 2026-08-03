@@ -1,11 +1,13 @@
 package com.solomon.epiforecaster.backend.repository;
 
 import com.solomon.epiforecaster.backend.entity.DiseaseRecord;
+import com.solomon.epiforecaster.backend.entity.RawDataset;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface DiseaseRecordRepository extends JpaRepository<DiseaseRecord, Long> {
+import java.util.List;
+
+public interface DiseaseRecordRepository
+        extends JpaRepository<DiseaseRecord, Long> {
 
     boolean existsByDiseaseNameAndCountryAndStateAndLgaAndYearAndEpiWeek(
             String diseaseName,
@@ -15,5 +17,7 @@ public interface DiseaseRecordRepository extends JpaRepository<DiseaseRecord, Lo
             Integer year,
             Integer epiWeek
     );
+
+    List<DiseaseRecord> findByDataset(RawDataset dataset);
 
 }

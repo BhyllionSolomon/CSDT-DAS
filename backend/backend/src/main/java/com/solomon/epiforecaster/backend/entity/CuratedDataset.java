@@ -5,22 +5,12 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "disease_record")
-public class DiseaseRecord {
+@Table(name = "curated_dataset")
+public class CuratedDataset {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    //----------------------------------------------------
-    // Link back to the uploaded dataset
-    //----------------------------------------------------
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dataset_id", nullable = false)
-    private RawDataset dataset;
-
-    //----------------------------------------------------
 
     @Column(nullable = false)
     private String diseaseName;
@@ -50,32 +40,14 @@ public class DiseaseRecord {
     private Integer deaths;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime curatedAt;
 
-    public DiseaseRecord() {
-        this.createdAt = LocalDateTime.now();
+    public CuratedDataset() {
+        this.curatedAt = LocalDateTime.now();
     }
-
-    //----------------------------------------------------
-    // Dataset
-    //----------------------------------------------------
-
-    public RawDataset getDataset() {
-        return dataset;
-    }
-
-    public void setDataset(RawDataset dataset) {
-        this.dataset = dataset;
-    }
-
-    //----------------------------------------------------
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDiseaseName() {
@@ -150,11 +122,11 @@ public class DiseaseRecord {
         this.deaths = deaths;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getCuratedAt() {
+        return curatedAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setCuratedAt(LocalDateTime curatedAt) {
+        this.curatedAt = curatedAt;
     }
 }

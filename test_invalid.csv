@@ -1,0 +1,6 @@
+Disease,Country,State,LGA,Year,EpiWeek,SuspectedCases,ConfirmedCases,Deaths
+UnknownDisease,Nigeria,Lagos,Ikeja,2025,10,120,95,4
+Cholera,Nigeria,Lagos,Ikeja,2025,60,120,95,4
+Malaria,Nigeria,Kano,Nassarawa,2025,12,-20,15,1
+Typhoid,Nigeria,Rivers,Port Harcourt,2025,15,20,25,1
+Yellow Fever,Nigeria,Abuja,Abaji,2025,16,30,20,35
