@@ -6,7 +6,9 @@ import com.solomon.epiforecaster.backend.repository.ValidationResultRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CsvValidationService {
@@ -34,6 +36,12 @@ public class CsvValidationService {
             "ConfirmedCases",
             "Deaths"
     );
+
+    // ==========================================================
+    // DUPLICATE DETECTION MEMORY
+    // ==========================================================
+
+    private final Set<String> uniqueRecords = new HashSet<>();
 
     // ==========================================================
     // HEADER VALIDATION
@@ -94,6 +102,58 @@ public class CsvValidationService {
 
         validationResultRepository.save(result);
 
+    }
+
+    // ==========================================================
+    // DUPLICATE RECORD VALIDATION
+    // ==========================================================
+
+    public void validateDuplicateRecord(
+            RawDataset dataset,
+            int rowNumber,
+            String disease,
+            String country,
+            String state,
+            String lga,
+            String year,
+            String epiWeek) {
+
+        String recordKey =
+                disease.trim().toLowerCase() + "|" +
+                        country.trim().toLowerCase() + "|" +
+                        state.trim().toLowerCase() + "|" +
+                        lga.trim().toLowerCase() + "|" +
+                        year.trim() + "|" +
+                        epiWeek.trim();
+
+        if (uniqueRecords.contains(recordKey)) {
+
+            ValidationResult result = new ValidationResult();
+
+            result.setRawDataset(dataset);
+            result.setRowNumber(rowNumber);
+            result.setFieldName("ROW");
+            result.setFieldValue(recordKey);
+            result.setValidationType("DUPLICATE_RECORD");
+            result.setMessage("Duplicate disease record detected.");
+            result.setSeverity("ERROR");
+
+            validationResultRepository.save(result);
+
+        } else {
+
+            uniqueRecords.add(recordKey);
+
+        }
+
+    }
+
+    // ==========================================================
+    // RESET BEFORE EVERY NEW FILE
+    // ==========================================================
+
+    public void resetDuplicateDetector() {
+        uniqueRecords.clear();
     }
 
 }

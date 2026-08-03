@@ -1,0 +1,7 @@
+Disease,Country,State,LGA,Year,EpiWeek,SuspectedCases,ConfirmedCases,Deaths
+Cholera,Nigeria,Lagos,Ikeja,2025,12,10,5,1
+Malaria,Nigeria,Kano,Nassarawa,2025,12,25,12,0
+Cholera,Nigeria,Lagos,Ikeja,2025,12,10,5,1
+Yellow Fever,Nigeria,Oyo,Ibadan North,2025,13,8,3,0
+Measles,Nigeria,Kaduna,Zaria,2025,14,15,7,1
+Malaria,Nigeria,Kano,Nassarawa,2025,12,25,12,0

@@ -7,4 +7,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DiseaseRecordRepository extends JpaRepository<DiseaseRecord, Long> {
 
+    boolean existsByDiseaseNameAndCountryAndStateAndLgaAndYearAndEpiWeek(
+            String diseaseName,
+            String country,
+            String state,
+            String lga,
+            Integer year,
+            Integer epiWeek
+    );
+
 }

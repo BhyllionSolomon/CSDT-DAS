@@ -1,5 +1,6 @@
 package com.solomon.epiforecaster.backend.service;
 
+import com.solomon.epiforecaster.backend.entity.DiseaseRecord;
 import com.solomon.epiforecaster.backend.entity.RawDataset;
 import com.solomon.epiforecaster.backend.repository.DiseaseRecordRepository;
 import com.solomon.epiforecaster.backend.repository.RawDatasetRepository;
@@ -15,15 +16,24 @@ public class CsvUploadService {
     private final DiseaseRecordRepository diseaseRecordRepository;
     private final RawDatasetRepository rawDatasetRepository;
     private final CsvValidationService csvValidationService;
+    private final DuplicateDetectionService duplicateDetectionService;
+    private final DiseaseRecordMapper diseaseRecordMapper;
+    private final NumericValidationService numericValidationService;
 
     public CsvUploadService(
             DiseaseRecordRepository diseaseRecordRepository,
             RawDatasetRepository rawDatasetRepository,
-            CsvValidationService csvValidationService) {
+            CsvValidationService csvValidationService,
+            DuplicateDetectionService duplicateDetectionService,
+            DiseaseRecordMapper diseaseRecordMapper,
+            NumericValidationService numericValidationService) {
 
         this.diseaseRecordRepository = diseaseRecordRepository;
         this.rawDatasetRepository = rawDatasetRepository;
         this.csvValidationService = csvValidationService;
+        this.duplicateDetectionService = duplicateDetectionService;
+        this.diseaseRecordMapper = diseaseRecordMapper;
+        this.numericValidationService = numericValidationService;
     }
 
     public void importCsv(MultipartFile file) {
@@ -41,11 +51,12 @@ public class CsvUploadService {
 
         try (
                 BufferedReader reader =
-                        new BufferedReader(new InputStreamReader(file.getInputStream()))
+                        new BufferedReader(
+                                new InputStreamReader(file.getInputStream()))
         ) {
 
             // =====================================================
-            // STEP 1: Read and validate the CSV header
+            // STEP 1 : HEADER VALIDATION
             // =====================================================
 
             String headerLine = reader.readLine();
@@ -59,7 +70,7 @@ public class CsvUploadService {
             csvValidationService.validateHeaders(dataset, headers);
 
             // =====================================================
-            // STEP 2: Validate each row
+            // STEP 2 : PROCESS EACH ROW
             // =====================================================
 
             int rowNumber = 1;
@@ -72,16 +83,25 @@ public class CsvUploadService {
 
                 String[] columns = line.split(",", -1);
 
+                boolean rowValid = true;
+
+                // =================================================
+                // EMPTY FIELD VALIDATION
+                // =================================================
+
                 for (int i = 0; i < columns.length; i++) {
 
                     String value = columns[i].trim();
 
-                    String fieldName;
+                    String fieldName =
+                            (i < headers.length)
+                                    ? headers[i]
+                                    : "Column " + (i + 1);
 
-                    if (i < headers.length) {
-                        fieldName = headers[i];
-                    } else {
-                        fieldName = "Column " + (i + 1);
+                    boolean valid = !value.isBlank();
+
+                    if (!valid) {
+                        rowValid = false;
                     }
 
                     csvValidationService.validateField(
@@ -89,23 +109,123 @@ public class CsvUploadService {
                             rowNumber,
                             fieldName,
                             value,
-                            !value.isBlank(),
+                            valid,
                             "EMPTY_VALUE",
                             "Field cannot be empty"
                     );
 
                 }
 
-                /*
-                 * DiseaseRecord mapping will be added later.
-                 */
+                // =================================================
+                // NUMERIC VALIDATION
+                // =================================================
+
+                if (rowValid && columns.length >= 9) {
+
+                    String[] numericFields = {
+                            columns[4], // Year
+                            columns[5], // EpiWeek
+                            columns[6], // SuspectedCases
+                            columns[7], // ConfirmedCases
+                            columns[8]  // Deaths
+                    };
+
+                    String[] fieldNames = {
+                            "Year",
+                            "EpiWeek",
+                            "SuspectedCases",
+                            "ConfirmedCases",
+                            "Deaths"
+                    };
+
+                    for (int i = 0; i < numericFields.length; i++) {
+
+                        boolean valid =
+                                numericValidationService.isInteger(
+                                        numericFields[i]
+                                );
+
+                        if (!valid) {
+                            rowValid = false;
+                        }
+
+                        csvValidationService.validateField(
+                                dataset,
+                                rowNumber,
+                                fieldNames[i],
+                                numericFields[i],
+                                valid,
+                                "INVALID_NUMBER",
+                                fieldNames[i] + " must be a valid integer."
+                        );
+
+                    }
+
+                }
+
+                // =================================================
+                // DATABASE DUPLICATE VALIDATION
+                // =================================================
+
+                if (rowValid && columns.length >= 9) {
+
+                    String disease = columns[0].trim();
+                    String country = columns[1].trim();
+                    String state = columns[2].trim();
+                    String lga = columns[3].trim();
+
+                    Integer year = Integer.parseInt(columns[4].trim());
+                    Integer epiWeek = Integer.parseInt(columns[5].trim());
+
+                    boolean duplicate =
+                            duplicateDetectionService.isDuplicate(
+                                    disease,
+                                    country,
+                                    state,
+                                    lga,
+                                    year,
+                                    epiWeek
+                            );
+
+                    if (duplicate) {
+
+                        rowValid = false;
+
+                        csvValidationService.validateField(
+                                dataset,
+                                rowNumber,
+                                "Disease",
+                                disease,
+                                false,
+                                "DUPLICATE_RECORD",
+                                "Duplicate disease record already exists."
+                        );
+
+                    }
+
+                }
+
+                // =================================================
+                // SAVE VALID RECORD
+                // =================================================
+
+                if (rowValid) {
+
+                    DiseaseRecord record =
+                            diseaseRecordMapper.map(columns);
+
+                    diseaseRecordRepository.save(record);
+
+                }
 
             }
 
             dataset.setStatus("IMPORTED");
-            dataset.setRemarks("File uploaded successfully");
+            dataset.setRemarks("Import completed successfully.");
 
-        } catch (Exception e) {
+        }
+
+        catch (Exception e) {
 
             dataset.setStatus("FAILED");
             dataset.setRemarks(e.getMessage());
