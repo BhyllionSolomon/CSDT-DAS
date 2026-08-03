@@ -50,9 +50,13 @@
 
 ✅ Empty Field Validation
 
+✅ Numeric Validation
+
 ✅ ValidationResult Persistence
 
 ✅ Database Duplicate Detection
+
+✅ Duplicate Detection Within Uploaded CSV
 
 ✅ DiseaseRecord Mapping
 
@@ -60,7 +64,7 @@
 
 ▶ **CURRENT TASK**
 
-⬜ Duplicate Detection Within Uploaded CSV
+⬜ Business Rule Validation
 
 ---
 
@@ -74,7 +78,7 @@
 
 ✅ Database Duplicate Detection
 
-⬜ Duplicate Detection Within Uploaded CSV
+✅ Duplicate Detection Within Uploaded CSV
 
 ⬜ Business Rule Validation
 
@@ -140,11 +144,10 @@ CSV Ingestion & Data Quality Pipeline
 
 # NEXT TASKS
 
-1. Duplicate Detection Within Uploaded CSV
-2. Business Rule Validation
-3. Disease Validation
-4. Geographic Validation
-5. Curated Dataset Generation
+1. Business Rule Validation
+2. Disease Validation
+3. Geographic Validation
+4. Curated Dataset Generation
 
 ---
 
@@ -174,6 +177,8 @@ CSV Ingestion & Data Quality Pipeline
 
 ✅ Database Duplicate Detection Implemented
 
+✅ Duplicate Detection Within Uploaded CSV Implemented
+
 ✅ DiseaseRecord Mapping Implemented
 
 ✅ Save Valid Records Implemented
@@ -188,7 +193,7 @@ Software Design
 
 Backend Implementation
 
-████████░░░░░░░░░░░░ 40%
+██████████░░░░░░░░░░ 50%
 
 Frontend
 
@@ -200,7 +205,7 @@ AI Pipeline
 
 Overall Project
 
-███████░░░░░░░░░░░░░ 35%
+████████░░░░░░░░░░░░ 40%
 
 ---
 

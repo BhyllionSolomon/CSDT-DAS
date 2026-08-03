@@ -17,6 +17,7 @@ public class CsvUploadService {
     private final RawDatasetRepository rawDatasetRepository;
     private final CsvValidationService csvValidationService;
     private final DuplicateDetectionService duplicateDetectionService;
+    private final CsvDuplicateDetectionService csvDuplicateDetectionService;
     private final DiseaseRecordMapper diseaseRecordMapper;
     private final NumericValidationService numericValidationService;
 
@@ -25,6 +26,7 @@ public class CsvUploadService {
             RawDatasetRepository rawDatasetRepository,
             CsvValidationService csvValidationService,
             DuplicateDetectionService duplicateDetectionService,
+            CsvDuplicateDetectionService csvDuplicateDetectionService,
             DiseaseRecordMapper diseaseRecordMapper,
             NumericValidationService numericValidationService) {
 
@@ -32,6 +34,7 @@ public class CsvUploadService {
         this.rawDatasetRepository = rawDatasetRepository;
         this.csvValidationService = csvValidationService;
         this.duplicateDetectionService = duplicateDetectionService;
+        this.csvDuplicateDetectionService = csvDuplicateDetectionService;
         this.diseaseRecordMapper = diseaseRecordMapper;
         this.numericValidationService = numericValidationService;
     }
@@ -68,6 +71,9 @@ public class CsvUploadService {
             String[] headers = headerLine.split(",");
 
             csvValidationService.validateHeaders(dataset, headers);
+
+            // Reset uploaded-file duplicate detector
+            csvDuplicateDetectionService.reset();
 
             // =====================================================
             // STEP 2 : PROCESS EACH ROW
@@ -123,11 +129,11 @@ public class CsvUploadService {
                 if (rowValid && columns.length >= 9) {
 
                     String[] numericFields = {
-                            columns[4], // Year
-                            columns[5], // EpiWeek
-                            columns[6], // SuspectedCases
-                            columns[7], // ConfirmedCases
-                            columns[8]  // Deaths
+                            columns[4],
+                            columns[5],
+                            columns[6],
+                            columns[7],
+                            columns[8]
                     };
 
                     String[] fieldNames = {
@@ -163,45 +169,79 @@ public class CsvUploadService {
 
                 }
 
+                if (!rowValid) {
+                    continue;
+                }
+
                 // =================================================
-                // DATABASE DUPLICATE VALIDATION
+                // Parse values once
                 // =================================================
 
-                if (rowValid && columns.length >= 9) {
+                String disease = columns[0].trim();
+                String country = columns[1].trim();
+                String state = columns[2].trim();
+                String lga = columns[3].trim();
 
-                    String disease = columns[0].trim();
-                    String country = columns[1].trim();
-                    String state = columns[2].trim();
-                    String lga = columns[3].trim();
+                Integer year = Integer.parseInt(columns[4].trim());
+                Integer epiWeek = Integer.parseInt(columns[5].trim());
 
-                    Integer year = Integer.parseInt(columns[4].trim());
-                    Integer epiWeek = Integer.parseInt(columns[5].trim());
+                // =================================================
+                // DATABASE DUPLICATE
+                // =================================================
 
-                    boolean duplicate =
-                            duplicateDetectionService.isDuplicate(
-                                    disease,
-                                    country,
-                                    state,
-                                    lga,
-                                    year,
-                                    epiWeek
-                            );
-
-                    if (duplicate) {
-
-                        rowValid = false;
-
-                        csvValidationService.validateField(
-                                dataset,
-                                rowNumber,
-                                "Disease",
+                boolean duplicateInDatabase =
+                        duplicateDetectionService.isDuplicate(
                                 disease,
-                                false,
-                                "DUPLICATE_RECORD",
-                                "Duplicate disease record already exists."
+                                country,
+                                state,
+                                lga,
+                                year,
+                                epiWeek
                         );
 
-                    }
+                if (duplicateInDatabase) {
+
+                    csvValidationService.validateField(
+                            dataset,
+                            rowNumber,
+                            "Disease",
+                            disease,
+                            false,
+                            "DATABASE_DUPLICATE",
+                            "Duplicate disease record already exists."
+                    );
+
+                    continue;
+
+                }
+
+                // =================================================
+                // DUPLICATE INSIDE CURRENT CSV
+                // =================================================
+
+                boolean duplicateInCsv =
+                        csvDuplicateDetectionService.isDuplicate(
+                                disease,
+                                country,
+                                state,
+                                lga,
+                                year,
+                                epiWeek
+                        );
+
+                if (duplicateInCsv) {
+
+                    csvValidationService.validateField(
+                            dataset,
+                            rowNumber,
+                            "Disease",
+                            disease,
+                            false,
+                            "CSV_DUPLICATE",
+                            "Duplicate record found within uploaded CSV."
+                    );
+
+                    continue;
 
                 }
 
@@ -209,14 +249,10 @@ public class CsvUploadService {
                 // SAVE VALID RECORD
                 // =================================================
 
-                if (rowValid) {
+                DiseaseRecord record =
+                        diseaseRecordMapper.map(columns);
 
-                    DiseaseRecord record =
-                            diseaseRecordMapper.map(columns);
-
-                    diseaseRecordRepository.save(record);
-
-                }
+                diseaseRecordRepository.save(record);
 
             }
 
