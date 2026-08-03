@@ -1,5 +1,6 @@
 package com.solomon.epiforecaster.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -13,9 +14,10 @@ public class DiseaseRecord {
     private Long id;
 
     //----------------------------------------------------
-    // Link back to the uploaded dataset
+    // Link back to uploaded dataset
     //----------------------------------------------------
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dataset_id", nullable = false)
     private RawDataset dataset;
@@ -69,6 +71,8 @@ public class DiseaseRecord {
     }
 
     //----------------------------------------------------
+    // ID
+    //----------------------------------------------------
 
     public Long getId() {
         return id;
@@ -78,6 +82,10 @@ public class DiseaseRecord {
         this.id = id;
     }
 
+    //----------------------------------------------------
+    // Disease
+    //----------------------------------------------------
+
     public String getDiseaseName() {
         return diseaseName;
     }
@@ -85,6 +93,10 @@ public class DiseaseRecord {
     public void setDiseaseName(String diseaseName) {
         this.diseaseName = diseaseName;
     }
+
+    //----------------------------------------------------
+    // Country
+    //----------------------------------------------------
 
     public String getCountry() {
         return country;
@@ -94,6 +106,10 @@ public class DiseaseRecord {
         this.country = country;
     }
 
+    //----------------------------------------------------
+    // State
+    //----------------------------------------------------
+
     public String getState() {
         return state;
     }
@@ -101,6 +117,10 @@ public class DiseaseRecord {
     public void setState(String state) {
         this.state = state;
     }
+
+    //----------------------------------------------------
+    // LGA
+    //----------------------------------------------------
 
     public String getLga() {
         return lga;
@@ -110,6 +130,10 @@ public class DiseaseRecord {
         this.lga = lga;
     }
 
+    //----------------------------------------------------
+    // Year
+    //----------------------------------------------------
+
     public Integer getYear() {
         return year;
     }
@@ -118,6 +142,10 @@ public class DiseaseRecord {
         this.year = year;
     }
 
+    //----------------------------------------------------
+    // Epidemiological Week
+    //----------------------------------------------------
+
     public Integer getEpiWeek() {
         return epiWeek;
     }
@@ -125,6 +153,10 @@ public class DiseaseRecord {
     public void setEpiWeek(Integer epiWeek) {
         this.epiWeek = epiWeek;
     }
+
+    //----------------------------------------------------
+    // Cases
+    //----------------------------------------------------
 
     public Integer getSuspectedCases() {
         return suspectedCases;
@@ -150,6 +182,10 @@ public class DiseaseRecord {
         this.deaths = deaths;
     }
 
+    //----------------------------------------------------
+    // Created Time
+    //----------------------------------------------------
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -157,4 +193,5 @@ public class DiseaseRecord {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
 }
