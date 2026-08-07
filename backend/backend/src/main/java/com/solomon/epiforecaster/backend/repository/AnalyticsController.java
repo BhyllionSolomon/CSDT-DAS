@@ -16,6 +16,20 @@ public class AnalyticsController {
 
         this.analyticsService = analyticsService;
     }
+@GetMapping("/statistics")
+public ResponseEntity<?> statistics() {
+
+    return ResponseEntity.ok(
+            analyticsService.summary());
+
+}
+    @GetMapping("/weekly-trend")
+    public ResponseEntity<?> weeklyTrend() {
+
+        return ResponseEntity.ok(
+                analyticsService.weeklyTrend());
+
+    }
 
     @GetMapping("/summary")
     public ResponseEntity<?> summary() {

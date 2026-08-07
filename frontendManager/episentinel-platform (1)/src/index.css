@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============ THEME TOKENS ============ */
+/* Values are "R G B" so Tailwind can apply <alpha-value> */
+
+:root,
+[data-theme='light'] {
+  --c-bg: 244 246 249;
+  --c-bg-sunken: 234 238 243;
+  --c-surface: 255 255 255;
+  --c-surface-hover: 246 248 251;
+  --c-border: 224 229 236;
+  --c-text-primary: 15 23 42;
+  --c-text-secondary: 71 85 105;
+  --c-text-muted: 148 163 184;
+  --c-accent: 28 109 208;
+  --c-accent-2: 13 148 136;
+  --c-success: 22 163 74;
+  --c-warning: 217 119 6;
+  --c-danger: 220 38 38;
+  --c-info: 8 145 178;
+}
+
+[data-theme='blue'] {
+  --c-bg: 8 20 33;
+  --c-bg-sunken: 5 13 22;
+  --c-surface: 16 35 53;
+  --c-surface-hover: 21 44 66;
+  --c-border: 27 55 79;
+  --c-text-primary: 227 238 248;
+  --c-text-secondary: 148 176 199;
+  --c-text-muted: 94 119 141;
+  --c-accent: 58 158 255;
+  --c-accent-2: 34 211 199;
+  --c-success: 52 211 153;
+  --c-warning: 251 191 36;
+  --c-danger: 248 113 113;
+  --c-info: 56 189 248;
+}
+
+[data-theme='green'] {
+  --c-bg: 8 22 16;
+  --c-bg-sunken: 5 15 11;
+  --c-surface: 14 36 26;
+  --c-surface-hover: 19 47 34;
+  --c-border: 26 60 43;
+  --c-text-primary: 227 245 234;
+  --c-text-secondary: 154 196 174;
+  --c-text-muted: 90 133 111;
+  --c-accent: 34 197 94;
+  --c-accent-2: 20 184 166;
+  --c-success: 74 222 128;
+  --c-warning: 250 204 21;
+  --c-danger: 248 113 113;
+  --c-info: 45 212 191;
+}
+
+[data-theme='dark'] {
+  --c-bg: 9 9 11;
+  --c-bg-sunken: 5 5 7;
+  --c-surface: 20 20 24;
+  --c-surface-hover: 27 27 32;
+  --c-border: 35 35 42;
+  --c-text-primary: 241 241 245;
+  --c-text-secondary: 161 161 174;
+  --c-text-muted: 100 100 112;
+  --c-accent: 99 102 241;
+  --c-accent-2: 34 211 238;
+  --c-success: 52 211 153;
+  --c-warning: 251 191 36;
+  --c-danger: 248 113 113;
+  --c-info: 56 189 248;
+}
+
+[data-theme='neon'] {
+  --c-bg: 5 5 10;
+  --c-bg-sunken: 2 2 6;
+  --c-surface: 14 14 22;
+  --c-surface-hover: 21 21 33;
+  --c-border: 35 35 58;
+  --c-text-primary: 244 244 255;
+  --c-text-secondary: 168 168 204;
+  --c-text-muted: 106 106 148;
+  --c-accent: 217 70 239;
+  --c-accent-2: 0 240 255;
+  --c-success: 0 255 163;
+  --c-warning: 255 212 0;
+  --c-danger: 255 59 92;
+  --c-info: 0 240 255;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background-color: rgb(var(--c-bg));
+  color: rgb(var(--c-text-primary));
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+* { scrollbar-width: thin; scrollbar-color: rgb(var(--c-border)) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: rgb(var(--c-border)); border-radius: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+.skeleton {
+  background-image: linear-gradient(
+    90deg,
+    rgb(var(--c-surface-hover)) 0px,
+    rgb(var(--c-border)) 40px,
+    rgb(var(--c-surface-hover)) 80px
+  );
+  background-size: 600px 100%;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid rgb(var(--c-accent-2));
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

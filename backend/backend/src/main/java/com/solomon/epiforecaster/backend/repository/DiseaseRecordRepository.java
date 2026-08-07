@@ -1,6 +1,7 @@
 package com.solomon.epiforecaster.backend.repository;
 
 import com.solomon.epiforecaster.backend.entity.DiseaseRecord;
+import com.solomon.epiforecaster.backend.entity.RawDataset;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -10,16 +11,25 @@ public interface DiseaseRecordRepository
         extends JpaRepository<DiseaseRecord, Long> {
 
     /*
-     * Existing Dashboard Statistics
+     * Dashboard Statistics
      */
 
-    @Query("SELECT COUNT(DISTINCT d.disease) FROM DiseaseRecord d")
+    @Query("""
+            SELECT COUNT(DISTINCT d.diseaseName)
+            FROM DiseaseRecord d
+            """)
     Long countDistinctDiseases();
 
-    @Query("SELECT COUNT(DISTINCT d.state) FROM DiseaseRecord d")
+    @Query("""
+            SELECT COUNT(DISTINCT d.state)
+            FROM DiseaseRecord d
+            """)
     Long countDistinctStates();
 
-    @Query("SELECT COUNT(DISTINCT d.lga) FROM DiseaseRecord d")
+    @Query("""
+            SELECT COUNT(DISTINCT d.lga)
+            FROM DiseaseRecord d
+            """)
     Long countDistinctLgas();
 
     /*
@@ -27,9 +37,9 @@ public interface DiseaseRecordRepository
      */
 
     @Query("""
-            SELECT d.disease, COUNT(d)
+            SELECT d.diseaseName, COUNT(d)
             FROM DiseaseRecord d
-            GROUP BY d.disease
+            GROUP BY d.diseaseName
             ORDER BY COUNT(d) DESC
             """)
     List<Object[]> getDiseaseDistribution();
@@ -53,24 +63,53 @@ public interface DiseaseRecordRepository
     List<Object[]> getWeeklyTrend();
 
     /*
-     * Disease Queries
+     * Search
      */
 
-    List<DiseaseRecord> findByDisease(String disease);
+    List<DiseaseRecord> findByDiseaseName(String diseaseName);
 
     List<DiseaseRecord> findByState(String state);
 
     List<DiseaseRecord> findByLga(String lga);
 
-    List<DiseaseRecord> findByDiseaseAndState(
-            String disease,
+    List<DiseaseRecord> findByDiseaseNameAndState(
+            String diseaseName,
             String state
     );
 
-    List<DiseaseRecord> findByDiseaseAndStateAndLga(
-            String disease,
+    List<DiseaseRecord> findByDiseaseNameAndStateAndLga(
+            String diseaseName,
             String state,
             String lga
     );
 
+    /*
+     * Curated Dataset Generator
+     */
+
+    List<DiseaseRecord> findByDataset(RawDataset dataset);
+
+    /*
+     * Dashboard Drop-down
+     */
+
+    @Query("""
+            SELECT DISTINCT d.diseaseName
+            FROM DiseaseRecord d
+            ORDER BY d.diseaseName
+            """)
+    List<String> findDistinctDiseases();
+
+    /*
+     * Duplicate Detection
+     */
+
+    boolean existsByDiseaseNameAndCountryAndStateAndLgaAndYearAndEpiWeek(
+            String diseaseName,
+            String country,
+            String state,
+            String lga,
+            Integer year,
+            Integer epiWeek
+    );
 }

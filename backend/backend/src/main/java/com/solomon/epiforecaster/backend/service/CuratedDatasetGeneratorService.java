@@ -50,7 +50,7 @@ public class CuratedDatasetGeneratorService {
 
             // Absolute path (temporary until everything works)
             File folder = new File(
-                    "E:\\GitHub\\SolomonAi_Projects\\Epidemiological-Forecaster\\prediction-service\\datasets"
+                    "E:\\GitHub\\SolomonAi_Projects\\Epidemiological-Forecaster\\datasets"
             );
 
             if (!folder.exists()) {

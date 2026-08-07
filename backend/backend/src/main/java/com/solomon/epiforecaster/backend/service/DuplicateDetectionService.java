@@ -15,22 +15,21 @@ public class DuplicateDetectionService {
     }
 
     public boolean isDuplicate(
-            String disease,
+            String diseaseName,
             String country,
             String state,
             String lga,
             Integer year,
             Integer epiWeek) {
 
-        return diseaseRecordRepository.existsByDiseaseNameAndCountryAndStateAndLgaAndYearAndEpiWeek(
-                disease,
-                country,
-                state,
-                lga,
-                year,
-                epiWeek
-        );
-
+        return diseaseRecordRepository
+                .existsByDiseaseNameAndCountryAndStateAndLgaAndYearAndEpiWeek(
+                        diseaseName,
+                        country,
+                        state,
+                        lga,
+                        year,
+                        epiWeek
+                );
     }
-
 }

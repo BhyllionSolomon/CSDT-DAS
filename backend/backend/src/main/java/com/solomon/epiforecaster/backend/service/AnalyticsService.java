@@ -5,6 +5,7 @@ import com.solomon.epiforecaster.backend.repository.ForecastHistoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -21,38 +22,59 @@ public class AnalyticsService {
         this.forecastRepository = forecastRepository;
     }
 
-    public Map<String,Object> summary(){
+    /*
+     * Dashboard summary cards
+     */
+    public Map<String, Object> summary() {
 
-        Map<String,Object> m=new LinkedHashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
 
-        m.put("records",diseaseRepository.count());
+        map.put("records", diseaseRepository.count());
+        map.put("predictions", forecastRepository.count());
+        map.put("diseases", diseaseRepository.countDistinctDiseases());
+        map.put("states", diseaseRepository.countDistinctStates());
 
-        m.put("predictions",forecastRepository.count());
-
-        m.put("diseases",
-                diseaseRepository.countDistinctDiseases());
-
-        m.put("states",
-                diseaseRepository.countDistinctStates());
-
-        return m;
+        return map;
     }
 
-    public Object riskMap(){
+    /*
+     * Weekly trend chart
+     */
+    public List<Object[]> weeklyTrend() {
+
+        return diseaseRepository.getWeeklyTrend();
+
+    }
+
+    /*
+     * Choropleth map
+     */
+    public List<Object[]> riskMap() {
 
         return diseaseRepository.getStateDistribution();
 
     }
 
-    public Object hotspots(){
+    /*
+     * Disease distribution
+     */
+    public List<Object[]> hotspots() {
 
         return diseaseRepository.getDiseaseDistribution();
 
     }
 
-    public Object forecastOverview(){
+    /*
+     * Forecast summary ONLY
+     * Do NOT return entities.
+     */
+    public Map<String, Object> forecastOverview() {
 
-        return forecastRepository.findAll();
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        map.put("totalForecasts", forecastRepository.count());
+
+        return map;
 
     }
 

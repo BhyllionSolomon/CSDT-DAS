@@ -7,7 +7,7 @@ import Card, { CardHeader } from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import Badge from '../components/ui/Badge'
 import { DISEASES, STATES, LGAS_BY_STATE } from '../data/mockData'
-import { useState } from "react";
+
 import DailySurveillanceApi from "../services/dailySurveillanceApi";
 
 function Field({ label, children, span = 1 }) {

@@ -2,66 +2,52 @@ package com.solomon.epiforecaster.backend.dto;
 
 public class DailySurveillanceStatistics {
 
-    private long totalReports;
-    private long totalFacilities;
-    private long totalSuspectedCases;
-    private long totalConfirmedCases;
-    private long totalDeaths;
+    private int totalReports;
+    private int totalSuspectedCases;
+    private int totalConfirmedCases;
+    private int totalDeaths;
+    private int totalRecovered;
 
     public DailySurveillanceStatistics() {
     }
 
-    public DailySurveillanceStatistics(
-            long totalReports,
-            long totalFacilities,
-            long totalSuspectedCases,
-            long totalConfirmedCases,
-            long totalDeaths) {
-
-        this.totalReports = totalReports;
-        this.totalFacilities = totalFacilities;
-        this.totalSuspectedCases = totalSuspectedCases;
-        this.totalConfirmedCases = totalConfirmedCases;
-        this.totalDeaths = totalDeaths;
-    }
-
-    public long getTotalReports() {
+    public int getTotalReports() {
         return totalReports;
     }
 
-    public void setTotalReports(long totalReports) {
+    public void setTotalReports(int totalReports) {
         this.totalReports = totalReports;
     }
 
-    public long getTotalFacilities() {
-        return totalFacilities;
-    }
-
-    public void setTotalFacilities(long totalFacilities) {
-        this.totalFacilities = totalFacilities;
-    }
-
-    public long getTotalSuspectedCases() {
+    public int getTotalSuspectedCases() {
         return totalSuspectedCases;
     }
 
-    public void setTotalSuspectedCases(long totalSuspectedCases) {
+    public void setTotalSuspectedCases(int totalSuspectedCases) {
         this.totalSuspectedCases = totalSuspectedCases;
     }
 
-    public long getTotalConfirmedCases() {
+    public int getTotalConfirmedCases() {
         return totalConfirmedCases;
     }
 
-    public void setTotalConfirmedCases(long totalConfirmedCases) {
+    public void setTotalConfirmedCases(int totalConfirmedCases) {
         this.totalConfirmedCases = totalConfirmedCases;
     }
 
-    public long getTotalDeaths() {
+    public int getTotalDeaths() {
         return totalDeaths;
     }
 
-    public void setTotalDeaths(long totalDeaths) {
+    public void setTotalDeaths(int totalDeaths) {
         this.totalDeaths = totalDeaths;
+    }
+
+    public int getTotalRecovered() {
+        return totalRecovered;
+    }
+
+    public void setTotalRecovered(int totalRecovered) {
+        this.totalRecovered = totalRecovered;
     }
 }

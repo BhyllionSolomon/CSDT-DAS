@@ -15,19 +15,39 @@ public class DiseaseRecordService {
         this.repository = repository;
     }
 
+    /*
+     * Dashboard Drop-down
+     */
+    public List<String> getDiseases() {
+        return repository.findDistinctDiseases();
+    }
+
+    /*
+     * Get all disease records
+     */
     public List<DiseaseRecord> getAll() {
         return repository.findAll();
     }
 
+    /*
+     * Get one disease record
+     */
     public DiseaseRecord getById(Long id) {
         return repository.findById(id).orElse(null);
     }
 
+    /*
+     * Create
+     */
     public DiseaseRecord create(DiseaseRecord diseaseRecord) {
         return repository.save(diseaseRecord);
     }
 
+    /*
+     * Update
+     */
     public DiseaseRecord update(Long id, DiseaseRecord diseaseRecord) {
+
         DiseaseRecord existing = repository.findById(id).orElse(null);
 
         if (existing == null) {
@@ -47,7 +67,11 @@ public class DiseaseRecordService {
         return repository.save(existing);
     }
 
+    /*
+     * Delete
+     */
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
 }

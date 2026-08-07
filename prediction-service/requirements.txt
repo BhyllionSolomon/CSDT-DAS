@@ -5,3 +5,12 @@ numpy
 pandas
 joblib
 scikit-learn
+fastapi
+uvicorn
+tensorflow
+numpy
+pandas
+joblib
+scikit-learn
+pydantic
+python-multipart
