@@ -4,18 +4,21 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "permissions")
-public class Permission {
+@Table(name = "levels")
+public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 20)
+    private String code;
+
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(length = 500)
-    private String description;
+    @Column(nullable = false)
+    private Integer levelNumber;
 
     @Column(nullable = false)
     private Boolean active = true;
@@ -26,7 +29,7 @@ public class Permission {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Permission() {
+    public Level() {
     }
 
     @PrePersist
@@ -53,6 +56,14 @@ public class Permission {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
@@ -61,12 +72,12 @@ public class Permission {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getLevelNumber() {
+        return levelNumber;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLevelNumber(Integer levelNumber) {
+        this.levelNumber = levelNumber;
     }
 
     public Boolean getActive() {

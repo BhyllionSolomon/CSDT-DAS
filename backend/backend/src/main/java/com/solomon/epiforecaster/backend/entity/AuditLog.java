@@ -1,25 +1,24 @@
 package com.solomon.epiforecaster.backend.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "audit_log")
+@Table(name = "audit_logs")
 public class AuditLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String action;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String entityType;
 
     @Column(nullable = false)
@@ -28,6 +27,7 @@ public class AuditLog {
     @Column(length = 1000)
     private String description;
 
+    @Column(nullable = false)
     private LocalDateTime createdAt;
 
     public AuditLog() {
@@ -42,47 +42,51 @@ public class AuditLog {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public User getUser() {
         return user;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public String getEntityType() {
-        return entityType;
-    }
-
-    public Long getEntityId() {
-        return entityId;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     public void setUser(User user) {
         this.user = user;
     }
 
+    public String getAction() {
+        return action;
+    }
+
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getEntityType() {
+        return entityType;
     }
 
     public void setEntityType(String entityType) {
         this.entityType = entityType;
     }
 
+    public Long getEntityId() {
+        return entityId;
+    }
+
     public void setEntityId(Long entityId) {
         this.entityId = entityId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

@@ -1,21 +1,28 @@
 package com.solomon.epiforecaster.backend.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "permissions")
-public class Permission {
+@Table(name = "academic_sessions")
+public class AcademicSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 20)
     private String name;
 
-    @Column(length = 500)
-    private String description;
+    @Column(nullable = false)
+    private LocalDate startDate;
+
+    @Column(nullable = false)
+    private LocalDate endDate;
+
+    @Column(nullable = false)
+    private Boolean current = false;
 
     @Column(nullable = false)
     private Boolean active = true;
@@ -26,7 +33,7 @@ public class Permission {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Permission() {
+    public AcademicSession() {
     }
 
     @PrePersist
@@ -34,6 +41,10 @@ public class Permission {
         LocalDateTime now = LocalDateTime.now();
         createdAt = now;
         updatedAt = now;
+
+        if (current == null) {
+            current = false;
+        }
 
         if (active == null) {
             active = true;
@@ -61,12 +72,28 @@ public class Permission {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Boolean getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Boolean current) {
+        this.current = current;
     }
 
     public Boolean getActive() {

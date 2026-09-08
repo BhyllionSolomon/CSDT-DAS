@@ -4,15 +4,22 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "permissions")
-public class Permission {
+@Table(name = "programmes")
+public class Programme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 20)
+    private String code;
+
+    @Column(nullable = false, length = 150)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     @Column(length = 500)
     private String description;
@@ -26,7 +33,7 @@ public class Permission {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public Permission() {
+    public Programme() {
     }
 
     @PrePersist
@@ -53,12 +60,28 @@ public class Permission {
         this.id = id;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public String getDescription() {
