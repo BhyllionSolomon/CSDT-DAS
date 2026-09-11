@@ -4,6 +4,7 @@ import com.kdu.csdtdas.backend.dto.CourseResultDTO;
 import com.kdu.csdtdas.backend.dto.CumulativeSummaryDTO;
 import com.kdu.csdtdas.backend.dto.SemesterResultDTO;
 import com.kdu.csdtdas.backend.dto.SemesterSummaryDTO;
+import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.Result;
 import com.kdu.csdtdas.backend.repository.ResultRepository;
 import com.kdu.csdtdas.backend.util.DegreeClassUtil;
@@ -63,7 +64,7 @@ public class ResultCalculationService {
         CumulativeSummaryDTO previousCumulative =
                 calculatePreviousCumulative(
                         studentId,
-                        sessionId,
+                        first.getAcademicSession(),
                         semester
                 );
 
@@ -293,7 +294,7 @@ public class ResultCalculationService {
 
     private CumulativeSummaryDTO calculatePreviousCumulative(
             Long studentId,
-            Long sessionId,
+            AcademicSession targetSession,
             String semester
     ) {
 
@@ -305,7 +306,7 @@ public class ResultCalculationService {
                         .filter(result ->
                                 isBefore(
                                         result,
-                                        sessionId,
+                                        targetSession,
                                         semester
                                 )
                         )
@@ -409,12 +410,12 @@ public class ResultCalculationService {
 
     private boolean isBefore(
             Result result,
-            Long sessionId,
+            AcademicSession targetSession,
             String semester
     ) {
 
         if (result.getAcademicSession().getId()
-                .equals(sessionId)) {
+                .equals(targetSession.getId())) {
 
             return parseSemester(result.getSemester())
                     < parseSemester(semester);
@@ -423,8 +424,7 @@ public class ResultCalculationService {
         return result.getAcademicSession()
                 .getStartDate()
                 .isBefore(
-                        result.getAcademicSession()
-                                .getStartDate()
+                        targetSession.getStartDate()
                 );
     }
 

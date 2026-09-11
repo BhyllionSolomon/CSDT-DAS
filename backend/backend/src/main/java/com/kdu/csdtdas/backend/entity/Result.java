@@ -7,7 +7,14 @@ import java.time.LocalDateTime;
 @Table(
         name = "results",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"student_id", "course_id", "academic_session_id", "semester"})
+                @UniqueConstraint(
+                        columnNames = {
+                                "student_id",
+                                "course_id",
+                                "academic_session_id",
+                                "semester"
+                        }
+                )
         }
 )
 public class Result {
@@ -44,7 +51,7 @@ public class Result {
     private String grade;
 
     @Column
-    private Double gradePoint;
+    private Integer gradePoint;
 
     @Column(length = 30)
     private String remark;
@@ -159,11 +166,11 @@ public class Result {
         this.grade = grade;
     }
 
-    public Double getGradePoint() {
+    public Integer getGradePoint() {
         return gradePoint;
     }
 
-    public void setGradePoint(Double gradePoint) {
+    public void setGradePoint(Integer gradePoint) {
         this.gradePoint = gradePoint;
     }
 

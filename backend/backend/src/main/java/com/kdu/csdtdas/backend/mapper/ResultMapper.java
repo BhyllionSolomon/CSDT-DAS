@@ -20,7 +20,11 @@ public class ResultMapper {
         response.setExamScore(result.getExamScore());
         response.setTotalScore(result.getTotalScore());
         response.setGrade(result.getGrade());
-        response.setGradePoint(result.getGradePoint());
+        response.setGradePoint(
+                result.getGradePoint() == null
+                        ? null
+                        : result.getGradePoint().doubleValue()
+        );
         response.setRemark(result.getRemark());
         response.setSemester(result.getSemester());
         response.setStatus(result.getStatus());

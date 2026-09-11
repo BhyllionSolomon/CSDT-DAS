@@ -18,6 +18,7 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
         WHERE r.student.id = :studentId
           AND s.id = :sessionId
           AND r.semester = :semester
+          AND r.status = 'APPROVED'
         ORDER BY c.code
     """)
     List<Result> findSemesterResults(
@@ -32,6 +33,7 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
         JOIN FETCH r.course c
         JOIN FETCH r.academicSession s
         WHERE r.student.id = :studentId
+          AND r.status = 'APPROVED'
         ORDER BY s.startDate ASC, r.semester ASC, c.code ASC
     """)
     List<Result> findFullAcademicHistory(

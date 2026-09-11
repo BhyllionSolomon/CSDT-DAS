@@ -8,9 +8,11 @@ import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
 import com.kdu.csdtdas.backend.repository.CourseRepository;
 import com.kdu.csdtdas.backend.repository.ResultRepository;
 import com.kdu.csdtdas.backend.repository.StudentRepository;
+import com.kdu.csdtdas.backend.util.GradeUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -73,7 +75,8 @@ public class ResultService {
                                 )
                         );
 
-        String cleanSemester = semester.trim().toUpperCase();
+        String cleanSemester =
+                semester.trim().toUpperCase();
 
         boolean exists =
                 resultRepository
@@ -121,6 +124,11 @@ public class ResultService {
 
         calculateGrade(result);
 
+        /*
+         * Any edited result must require approval again.
+         */
+        result.setStatus("PENDING");
+
         return resultRepository.save(result);
     }
 
@@ -136,7 +144,9 @@ public class ResultService {
     }
 
     @Transactional(readOnly = true)
-    public List<Result> getStudentResults(Long studentId) {
+    public List<Result> getStudentResults(
+            Long studentId
+    ) {
 
         if (!studentRepository.existsById(studentId)) {
             throw new IllegalArgumentException(
@@ -144,7 +154,9 @@ public class ResultService {
             );
         }
 
-        return resultRepository.findByStudentId(studentId);
+        return resultRepository.findByStudentId(
+                studentId
+        );
     }
 
     @Transactional(readOnly = true)
@@ -159,19 +171,24 @@ public class ResultService {
             );
         }
 
-        if (!academicSessionRepository.existsById(academicSessionId)) {
+        if (!academicSessionRepository.existsById(
+                academicSessionId
+        )) {
             throw new IllegalArgumentException(
                     "Academic session not found."
             );
         }
 
-        return resultRepository.findByStudentIdAndAcademicSessionId(
-                studentId,
-                academicSessionId
-        );
+        return resultRepository
+                .findByStudentIdAndAcademicSessionId(
+                        studentId,
+                        academicSessionId
+                );
     }
 
-    public Result approveResult(Long resultId) {
+    public Result approveResult(
+            Long resultId
+    ) {
 
         Result result = getResult(resultId);
 
@@ -180,7 +197,9 @@ public class ResultService {
         return resultRepository.save(result);
     }
 
-    public Result rejectResult(Long resultId) {
+    public Result rejectResult(
+            Long resultId
+    ) {
 
         Result result = getResult(resultId);
 
@@ -189,54 +208,56 @@ public class ResultService {
         return resultRepository.save(result);
     }
 
-    private void calculateGrade(Result result) {
+    private void calculateGrade(
+            Result result
+    ) {
+
+        double ca =
+                result.getCaScore() == null
+                        ? 0.0
+                        : result.getCaScore();
+
+        double exam =
+                result.getExamScore() == null
+                        ? 0.0
+                        : result.getExamScore();
 
         double total =
-                (result.getCaScore() == null ? 0.0 : result.getCaScore())
-                        +
-                        (result.getExamScore() == null ? 0.0 : result.getExamScore());
+                ca + exam;
 
         result.setTotalScore(total);
 
-        /*
-         * Temporary grading scale.
-         *
-         * We will later move this into a configurable
-         * institutional grading configuration so that
-         * administrators can define the university's
-         * actual grading policy.
-         */
+        BigDecimal score =
+                BigDecimal.valueOf(total);
 
-        if (total >= 70) {
-            result.setGrade("A");
-            result.setGradePoint(5.0);
-            result.setRemark("Excellent");
+        result.setGrade(
+                GradeUtil.getLetterGrade(score)
+        );
 
-        } else if (total >= 60) {
-            result.setGrade("B");
-            result.setGradePoint(4.0);
-            result.setRemark("Very Good");
+        result.setGradePoint(
+                GradeUtil.getGradePoint(score)
+        );
 
-        } else if (total >= 50) {
-            result.setGrade("C");
-            result.setGradePoint(3.0);
-            result.setRemark("Good");
+        result.setRemark(
+                getGradeRemark(
+                        GradeUtil.getLetterGrade(score)
+                )
+        );
+    }
 
-        } else if (total >= 45) {
-            result.setGrade("D");
-            result.setGradePoint(2.0);
-            result.setRemark("Fair");
+    private String getGradeRemark(
+            String grade
+    ) {
 
-        } else if (total >= 40) {
-            result.setGrade("E");
-            result.setGradePoint(1.0);
-            result.setRemark("Pass");
-
-        } else {
-            result.setGrade("F");
-            result.setGradePoint(0.0);
-            result.setRemark("Fail");
-        }
+        return switch (grade) {
+            case "A" -> "Excellent";
+            case "B" -> "Very Good";
+            case "C" -> "Good";
+            case "D" -> "Fair";
+            case "E" -> "Pass";
+            case "F" -> "Fail";
+            default -> "Unknown";
+        };
     }
 
     private void validateScores(
@@ -265,6 +286,15 @@ public class ResultService {
         if (examScore < 0) {
             throw new IllegalArgumentException(
                     "Exam score cannot be negative."
+            );
+        }
+
+        double total =
+                caScore + examScore;
+
+        if (total > 100) {
+            throw new IllegalArgumentException(
+                    "CA score plus Exam score cannot exceed 100."
             );
         }
     }
