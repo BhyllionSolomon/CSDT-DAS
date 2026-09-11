@@ -1,7 +1,9 @@
 package com.solomon.epiforecaster.backend.controller;
 
 import com.solomon.epiforecaster.backend.dto.AcademicSessionRequest;
+import com.solomon.epiforecaster.backend.dto.AcademicSessionResponse;
 import com.solomon.epiforecaster.backend.entity.AcademicSession;
+import com.solomon.epiforecaster.backend.mapper.AcademicSessionMapper;
 import com.solomon.epiforecaster.backend.service.AcademicSessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +17,18 @@ import java.util.List;
 public class AcademicSessionController {
 
     private final AcademicSessionService academicSessionService;
+    private final AcademicSessionMapper academicSessionMapper;
 
     public AcademicSessionController(
-            AcademicSessionService academicSessionService
+            AcademicSessionService academicSessionService,
+            AcademicSessionMapper academicSessionMapper
     ) {
         this.academicSessionService = academicSessionService;
+        this.academicSessionMapper = academicSessionMapper;
     }
 
     @PostMapping
-    public ResponseEntity<AcademicSession> createSession(
+    public ResponseEntity<AcademicSessionResponse> createSession(
             @RequestBody AcademicSessionRequest request
     ) {
 
@@ -36,54 +41,71 @@ public class AcademicSessionController {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(session);
+                .body(academicSessionMapper.toResponse(session));
     }
 
     @GetMapping
-    public ResponseEntity<List<AcademicSession>> getAllSessions() {
+    public ResponseEntity<List<AcademicSessionResponse>> getAllSessions() {
 
-        return ResponseEntity.ok(
+        List<AcademicSessionResponse> responses =
                 academicSessionService.getAllSessions()
-        );
+                        .stream()
+                        .map(academicSessionMapper::toResponse)
+                        .toList();
+
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AcademicSession> getSession(
+    public ResponseEntity<AcademicSessionResponse> getSession(
             @PathVariable Long id
     ) {
 
+        AcademicSession session =
+                academicSessionService.getSession(id);
+
         return ResponseEntity.ok(
-                academicSessionService.getSession(id)
+                academicSessionMapper.toResponse(session)
         );
     }
 
     @PutMapping("/{id}/current")
-    public ResponseEntity<AcademicSession> setCurrentSession(
+    public ResponseEntity<AcademicSessionResponse> setCurrentSession(
             @PathVariable Long id
     ) {
 
+        AcademicSession session =
+                academicSessionService.setCurrentSession(id);
+
         return ResponseEntity.ok(
-                academicSessionService.setCurrentSession(id)
+                academicSessionMapper.toResponse(session)
         );
     }
 
     @PutMapping("/{id}/activate")
-    public ResponseEntity<AcademicSession> activateSession(
+    public ResponseEntity<AcademicSessionResponse> activateSession(
             @PathVariable Long id
     ) {
 
+        AcademicSession session =
+                academicSessionService.activateSession(id);
+
         return ResponseEntity.ok(
-                academicSessionService.activateSession(id)
+                academicSessionMapper.toResponse(session)
         );
     }
 
     @PutMapping("/{id}/deactivate")
-    public ResponseEntity<AcademicSession> deactivateSession(
+    public ResponseEntity<AcademicSessionResponse> deactivateSession(
             @PathVariable Long id
     ) {
 
+        AcademicSession session =
+                academicSessionService.deactivateSession(id);
+
         return ResponseEntity.ok(
-                academicSessionService.deactivateSession(id)
+                academicSessionMapper.toResponse(session)
         );
     }
 }
+

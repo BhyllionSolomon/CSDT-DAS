@@ -1,6 +1,8 @@
 package com.solomon.epiforecaster.backend.controller;
 
+import com.solomon.epiforecaster.backend.dto.ProgrammeResponse;
 import com.solomon.epiforecaster.backend.entity.Programme;
+import com.solomon.epiforecaster.backend.mapper.ProgrammeMapper;
 import com.solomon.epiforecaster.backend.service.ProgrammeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,84 +16,102 @@ import java.util.List;
 public class ProgrammeController {
 
     private final ProgrammeService programmeService;
+    private final ProgrammeMapper programmeMapper;
 
-    public ProgrammeController(ProgrammeService programmeService) {
+    public ProgrammeController(
+            ProgrammeService programmeService,
+            ProgrammeMapper programmeMapper
+    ) {
         this.programmeService = programmeService;
+        this.programmeMapper = programmeMapper;
     }
 
     @PostMapping
-    public ResponseEntity<Programme> createProgramme(
+    public ResponseEntity<ProgrammeResponse> createProgramme(
             @RequestParam String code,
             @RequestParam String name,
             @RequestParam Long departmentId,
             @RequestParam(required = false) String description
     ) {
 
-        Programme programme =
-                programmeService.createProgramme(
-                        code,
-                        name,
-                        departmentId,
-                        description
-                );
+        Programme programme = programmeService.createProgramme(
+                code,
+                name,
+                departmentId,
+                description
+        );
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(programme);
+                .body(programmeMapper.toResponse(programme));
     }
 
     @GetMapping
-    public ResponseEntity<List<Programme>> getAllProgrammes() {
+    public ResponseEntity<List<ProgrammeResponse>> getAllProgrammes() {
 
-        return ResponseEntity.ok(
+        List<ProgrammeResponse> responses =
                 programmeService.getAllProgrammes()
-        );
+                        .stream()
+                        .map(programmeMapper::toResponse)
+                        .toList();
+
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Programme> getProgramme(
+    public ResponseEntity<ProgrammeResponse> getProgramme(
             @PathVariable Long id
     ) {
 
+        Programme programme = programmeService.getProgramme(id);
+
         return ResponseEntity.ok(
-                programmeService.getProgramme(id)
+                programmeMapper.toResponse(programme)
         );
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Programme> updateProgramme(
+    public ResponseEntity<ProgrammeResponse> updateProgramme(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam(required = false) String description
     ) {
 
-        Programme programme =
-                programmeService.updateProgramme(
-                        id,
-                        name,
-                        description
-                );
+        Programme programme = programmeService.updateProgramme(
+                id,
+                name,
+                description
+        );
 
-        return ResponseEntity.ok(programme);
+        return ResponseEntity.ok(
+                programmeMapper.toResponse(programme)
+        );
     }
 
     @PutMapping("/{id}/activate")
-    public ResponseEntity<Programme> activateProgramme(
+    public ResponseEntity<ProgrammeResponse> activateProgramme(
             @PathVariable Long id
     ) {
 
+        Programme programme =
+                programmeService.activateProgramme(id);
+
         return ResponseEntity.ok(
-                programmeService.activateProgramme(id)
+                programmeMapper.toResponse(programme)
         );
     }
 
     @PutMapping("/{id}/deactivate")
-    public ResponseEntity<Programme> deactivateProgramme(
+    public ResponseEntity<ProgrammeResponse> deactivateProgramme(
             @PathVariable Long id
     ) {
 
+        Programme programme =
+                programmeService.deactivateProgramme(id);
+
         return ResponseEntity.ok(
-                programmeService.deactivateProgramme(id)
+                programmeMapper.toResponse(programme)
         );
     }
 }
+

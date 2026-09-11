@@ -107,7 +107,7 @@ public class ProgrammeService {
     @Transactional(readOnly = true)
     public Programme getProgramme(Long programmeId) {
 
-        return programmeRepository.findById(programmeId)
+        return programmeRepository.findByIdWithDepartment(programmeId)
                 .orElseThrow(() ->
                         new IllegalArgumentException(
                                 "Programme not found."
@@ -117,7 +117,8 @@ public class ProgrammeService {
 
     @Transactional(readOnly = true)
     public List<Programme> getAllProgrammes() {
-        return programmeRepository.findAll();
+
+        return programmeRepository.findAllWithDepartment();
     }
 
     public Programme updateProgramme(
@@ -126,7 +127,13 @@ public class ProgrammeService {
             String description
     ) {
 
-        Programme programme = getProgramme(programmeId);
+        Programme programme =
+                programmeRepository.findByIdWithDepartment(programmeId)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException(
+                                        "Programme not found."
+                                )
+                        );
 
         if (name != null && !name.isBlank()) {
             programme.setName(name.trim());
@@ -141,7 +148,13 @@ public class ProgrammeService {
 
     public Programme deactivateProgramme(Long programmeId) {
 
-        Programme programme = getProgramme(programmeId);
+        Programme programme =
+                programmeRepository.findByIdWithDepartment(programmeId)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException(
+                                        "Programme not found."
+                                )
+                        );
 
         programme.setActive(false);
 
@@ -150,10 +163,17 @@ public class ProgrammeService {
 
     public Programme activateProgramme(Long programmeId) {
 
-        Programme programme = getProgramme(programmeId);
+        Programme programme =
+                programmeRepository.findByIdWithDepartment(programmeId)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException(
+                                        "Programme not found."
+                                )
+                        );
 
         programme.setActive(true);
 
         return programmeRepository.save(programme);
     }
 }
+
