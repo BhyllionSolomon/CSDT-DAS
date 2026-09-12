@@ -91,7 +91,7 @@ public class CourseService {
     @Transactional(readOnly = true)
     public Course getCourse(Long courseId) {
 
-        return courseRepository.findById(courseId)
+        return courseRepository.findByIdWithDetails(courseId)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Course not found.")
                 );
@@ -108,7 +108,7 @@ public class CourseService {
 
     @Transactional(readOnly = true)
     public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+        return courseRepository.findAllWithDetails();
     }
 
     public Course updateCourse(

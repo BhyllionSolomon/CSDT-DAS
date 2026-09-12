@@ -135,7 +135,7 @@ public class ResultService {
     @Transactional(readOnly = true)
     public Result getResult(Long resultId) {
 
-        return resultRepository.findById(resultId)
+        return resultRepository.findByIdWithDetails(resultId)
                 .orElseThrow(() ->
                         new IllegalArgumentException(
                                 "Result not found."
@@ -154,7 +154,7 @@ public class ResultService {
             );
         }
 
-        return resultRepository.findByStudentId(
+        return resultRepository.findByStudentIdWithDetails(
                 studentId
         );
     }
@@ -180,7 +180,7 @@ public class ResultService {
         }
 
         return resultRepository
-                .findByStudentIdAndAcademicSessionId(
+                .findByStudentIdAndAcademicSessionIdWithDetails(
                         studentId,
                         academicSessionId
                 );

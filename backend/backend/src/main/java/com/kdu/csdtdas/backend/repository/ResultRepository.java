@@ -55,10 +55,41 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
             String semester
     );
 
-    List<Result> findByStudentId(Long studentId);
+    @Query("""
+        SELECT r
+        FROM Result r
+        JOIN FETCH r.student st
+        JOIN FETCH r.course c
+        JOIN FETCH r.academicSession s
+        WHERE r.id = :id
+    """)
+    Optional<Result> findByIdWithDetails(@Param("id") Long id);
 
-    List<Result> findByStudentIdAndAcademicSessionId(
-            Long studentId,
-            Long academicSessionId
+    @Query("""
+        SELECT r
+        FROM Result r
+        JOIN FETCH r.student st
+        JOIN FETCH r.course c
+        JOIN FETCH r.academicSession s
+        WHERE r.student.id = :studentId
+        ORDER BY s.startDate ASC, r.semester ASC, c.code ASC
+    """)
+    List<Result> findByStudentIdWithDetails(
+            @Param("studentId") Long studentId
+    );
+
+    @Query("""
+        SELECT r
+        FROM Result r
+        JOIN FETCH r.student st
+        JOIN FETCH r.course c
+        JOIN FETCH r.academicSession s
+        WHERE r.student.id = :studentId
+          AND s.id = :academicSessionId
+        ORDER BY r.semester ASC, c.code ASC
+    """)
+    List<Result> findByStudentIdAndAcademicSessionIdWithDetails(
+            @Param("studentId") Long studentId,
+            @Param("academicSessionId") Long academicSessionId
     );
 }

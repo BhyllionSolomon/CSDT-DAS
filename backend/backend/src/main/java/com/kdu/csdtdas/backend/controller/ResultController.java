@@ -2,8 +2,10 @@ package com.kdu.csdtdas.backend.controller;
 
 import com.kdu.csdtdas.backend.dto.ResultRequest;
 import com.kdu.csdtdas.backend.dto.ResultResponse;
+import com.kdu.csdtdas.backend.dto.SemesterResultDTO;
 import com.kdu.csdtdas.backend.entity.Result;
 import com.kdu.csdtdas.backend.mapper.ResultMapper;
+import com.kdu.csdtdas.backend.service.ResultCalculationService;
 import com.kdu.csdtdas.backend.service.ResultService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +21,16 @@ public class ResultController {
 
     private final ResultService resultService;
     private final ResultMapper resultMapper;
+    private final ResultCalculationService resultCalculationService;
 
     public ResultController(
             ResultService resultService,
-            ResultMapper resultMapper
+            ResultMapper resultMapper,
+            ResultCalculationService resultCalculationService
     ) {
         this.resultService = resultService;
         this.resultMapper = resultMapper;
+        this.resultCalculationService = resultCalculationService;
     }
 
     @PostMapping
@@ -130,5 +135,33 @@ public class ResultController {
         return ResponseEntity.ok(
                 resultMapper.toResponse(result)
         );
+    }
+
+    @GetMapping("/student/{studentId}/session/{academicSessionId}/semester/{semester}/calculate")
+    public ResponseEntity<SemesterResultDTO> calculateSemesterResult(
+            @PathVariable Long studentId,
+            @PathVariable Long academicSessionId,
+            @PathVariable String semester
+    ) {
+
+        SemesterResultDTO dto =
+                resultCalculationService.calculateSemesterResult(
+                        studentId,
+                        academicSessionId,
+                        semester
+                );
+
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/student/{studentId}/history")
+    public ResponseEntity<List<SemesterResultDTO>> calculateFullAcademicHistory(
+            @PathVariable Long studentId
+    ) {
+
+        List<SemesterResultDTO> history =
+                resultCalculationService.calculateFullAcademicHistory(studentId);
+
+        return ResponseEntity.ok(history);
     }
 }
