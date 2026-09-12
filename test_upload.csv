@@ -1,6 +1,0 @@
-Disease,Country,State,LGA,Year,EpiWeek,SuspectedCases,ConfirmedCases,Deaths
-Cholera,Nigeria,Lagos,Ikeja,2025,10,120,95,4
-Cholera,Nigeria,Oyo,Ibadan North,2025,11,85,60,2
-Malaria,Nigeria,Kano,Nassarawa,2025,12,210,180,5
-Yellow Fever,Nigeria,Abuja,Abaji,2025,13,35,18,1
-Typhoid,Nigeria,Rivers,Port Harcourt,2025,14,52,40,0

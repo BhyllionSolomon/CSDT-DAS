@@ -1,4 +1,0 @@
-Category,Best_Use,Best_Model,Limitation
-ML,"Short-term individual prediction, feature importance",Random Forest / Gradient Boosting,Requires clean training data; no mechanistic insight
-Statistical,"Trend forecasting, seasonal adjustment, correlation",Polynomial Regression,Cannot model non-linear epidemic dynamics well
-Mathematical,"Epidemic curve simulation, intervention planning",SEIR with hub suppression,Requires population parameters; not data-driven directly
