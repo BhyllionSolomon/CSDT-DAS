@@ -2,7 +2,10 @@ package com.kdu.csdtdas.backend.mapper;
 
 import com.kdu.csdtdas.backend.dto.CourseResponse;
 import com.kdu.csdtdas.backend.entity.Course;
+import com.kdu.csdtdas.backend.entity.Programme;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class CourseMapper {
@@ -50,6 +53,26 @@ public class CourseMapper {
             );
         }
 
+        if (course.getProgrammes() != null) {
+            List<CourseResponse.ProgrammeSummary> programmes =
+                    course.getProgrammes().stream()
+                            .map(this::toProgrammeSummary)
+                            .toList();
+
+            response.setProgrammes(programmes);
+        }
+
         return response;
+    }
+
+    private CourseResponse.ProgrammeSummary toProgrammeSummary(
+            Programme programme
+    ) {
+
+        return new CourseResponse.ProgrammeSummary(
+                programme.getId(),
+                programme.getCode(),
+                programme.getName()
+        );
     }
 }

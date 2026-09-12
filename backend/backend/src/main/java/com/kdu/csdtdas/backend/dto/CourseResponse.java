@@ -1,5 +1,7 @@
 package com.kdu.csdtdas.backend.dto;
 
+import java.util.List;
+
 public class CourseResponse {
 
     private Long id;
@@ -16,6 +18,8 @@ public class CourseResponse {
     private Long levelId;
     private String levelCode;
     private String levelName;
+
+    private List<ProgrammeSummary> programmes;
 
     public CourseResponse() {
     }
@@ -114,5 +118,53 @@ public class CourseResponse {
 
     public void setLevelName(String levelName) {
         this.levelName = levelName;
+    }
+
+    public List<ProgrammeSummary> getProgrammes() {
+        return programmes;
+    }
+
+    public void setProgrammes(List<ProgrammeSummary> programmes) {
+        this.programmes = programmes;
+    }
+
+    public static class ProgrammeSummary {
+
+        private Long id;
+        private String code;
+        private String name;
+
+        public ProgrammeSummary() {
+        }
+
+        public ProgrammeSummary(Long id, String code, String name) {
+            this.id = id;
+            this.code = code;
+            this.name = name;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 }

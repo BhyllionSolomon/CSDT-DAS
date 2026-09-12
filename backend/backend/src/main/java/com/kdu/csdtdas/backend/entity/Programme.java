@@ -2,6 +2,8 @@ package com.kdu.csdtdas.backend.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "programmes")
@@ -32,6 +34,9 @@ public class Programme {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @ManyToMany(mappedBy = "programmes", fetch = FetchType.LAZY)
+    private Set<Course> courses = new HashSet<>();
 
     public Programme() {
     }
@@ -106,5 +111,13 @@ public class Programme {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
     }
 }

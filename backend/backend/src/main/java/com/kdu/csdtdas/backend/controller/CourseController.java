@@ -39,7 +39,8 @@ public class CourseController {
                 request.getCreditUnit(),
                 request.getDepartmentId(),
                 request.getLevelId(),
-                request.getSemester()
+                request.getSemester(),
+                request.getProgrammeIds()
         );
 
         return ResponseEntity
@@ -83,6 +84,20 @@ public class CourseController {
         );
     }
 
+    @GetMapping("/programme/{programmeId}")
+    public ResponseEntity<List<CourseResponse>> getCoursesByProgramme(
+            @PathVariable Long programmeId
+    ) {
+
+        List<CourseResponse> courses =
+                courseService.getCoursesByProgramme(programmeId)
+                        .stream()
+                        .map(courseMapper::toResponse)
+                        .collect(Collectors.toList());
+
+        return ResponseEntity.ok(courses);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CourseResponse> updateCourse(
             @PathVariable Long id,
@@ -94,6 +109,22 @@ public class CourseController {
                 request.getTitle(),
                 request.getCreditUnit(),
                 request.getSemester()
+        );
+
+        return ResponseEntity.ok(
+                courseMapper.toResponse(course)
+        );
+    }
+
+    @PutMapping("/{id}/programmes")
+    public ResponseEntity<CourseResponse> updateCourseProgrammes(
+            @PathVariable Long id,
+            @RequestBody CourseRequest request
+    ) {
+
+        Course course = courseService.updateCourseProgrammes(
+                id,
+                request.getProgrammeIds()
         );
 
         return ResponseEntity.ok(

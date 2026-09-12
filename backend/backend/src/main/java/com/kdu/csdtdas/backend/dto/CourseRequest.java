@@ -1,5 +1,7 @@
 package com.kdu.csdtdas.backend.dto;
 
+import java.util.List;
+
 public class CourseRequest {
 
     private String code;
@@ -8,6 +10,7 @@ public class CourseRequest {
     private Long departmentId;
     private Long levelId;
     private String semester;
+    private List<Long> programmeIds;
 
     public CourseRequest() {
     }
@@ -58,5 +61,13 @@ public class CourseRequest {
 
     public void setSemester(String semester) {
         this.semester = semester;
+    }
+
+    public List<Long> getProgrammeIds() {
+        return programmeIds;
+    }
+
+    public void setProgrammeIds(List<Long> programmeIds) {
+        this.programmeIds = programmeIds;
     }
 }

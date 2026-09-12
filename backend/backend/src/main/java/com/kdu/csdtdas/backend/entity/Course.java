@@ -2,6 +2,8 @@ package com.kdu.csdtdas.backend.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "courses")
@@ -30,6 +32,14 @@ public class Course {
 
     @Column(nullable = false, length = 20)
     private String semester;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "course_programmes",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "programme_id")
+    )
+    private Set<Programme> programmes = new HashSet<>();
 
     @Column(nullable = false)
     private Boolean active = true;
@@ -113,6 +123,14 @@ public class Course {
 
     public void setSemester(String semester) {
         this.semester = semester;
+    }
+
+    public Set<Programme> getProgrammes() {
+        return programmes;
+    }
+
+    public void setProgrammes(Set<Programme> programmes) {
+        this.programmes = programmes;
     }
 
     public Boolean getActive() {
