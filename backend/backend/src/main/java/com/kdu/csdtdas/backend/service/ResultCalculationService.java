@@ -17,14 +17,17 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
 public class ResultCalculationService {
 
     private static final int SCALE = 8;
+    private static final BigDecimal GOOD_STANDING_THRESHOLD = BigDecimal.valueOf(1.50);
 
     private final ResultRepository resultRepository;
 
@@ -61,12 +64,15 @@ public class ResultCalculationService {
         SemesterSummaryDTO semesterSummary =
                 calculateSemesterSummary(results);
 
-        CumulativeSummaryDTO previousCumulative =
-                calculatePreviousCumulative(
+        List<Result> previousResults =
+                getPreviousResults(
                         studentId,
                         first.getAcademicSession(),
                         semester
                 );
+
+        CumulativeSummaryDTO previousCumulative =
+                calculatePreviousCumulative(previousResults);
 
         CumulativeSummaryDTO currentCumulative =
                 calculateCurrentCumulative(
@@ -74,8 +80,22 @@ public class ResultCalculationService {
                         semesterSummary
                 );
 
+        List<Result> allUpToAndIncluding =
+                new ArrayList<>(previousResults);
+        allUpToAndIncluding.addAll(results);
+
+        Set<String> outstandingCourses =
+                new LinkedHashSet<>();
+        updateOutstanding(
+                outstandingCourses,
+                allUpToAndIncluding
+        );
+
         String remark =
-                buildRemark(courses);
+                buildRemark(
+                        currentCumulative.cgpa(),
+                        outstandingCourses
+                );
 
         return new SemesterResultDTO(
                 first.getStudent().getId(),
@@ -153,6 +173,9 @@ public class ResultCalculationService {
                         DegreeClassUtil.classify(BigDecimal.ZERO)
                 );
 
+        Set<String> outstandingCourses =
+                new LinkedHashSet<>();
+
         for (List<Result> semesterResults : semesters) {
 
             Result first = semesterResults.get(0);
@@ -171,6 +194,17 @@ public class ResultCalculationService {
                             .map(this::toCourseResult)
                             .toList();
 
+            updateOutstanding(
+                    outstandingCourses,
+                    semesterResults
+            );
+
+            String remark =
+                    buildRemark(
+                            current.cgpa(),
+                            outstandingCourses
+                    );
+
             history.add(
                     new SemesterResultDTO(
                             first.getStudent().getId(),
@@ -183,7 +217,7 @@ public class ResultCalculationService {
                             semesterSummary,
                             previous,
                             current,
-                            buildRemark(courses)
+                            remark
                     )
             );
 
@@ -292,7 +326,7 @@ public class ResultCalculationService {
         );
     }
 
-    private CumulativeSummaryDTO calculatePreviousCumulative(
+    private List<Result> getPreviousResults(
             Long studentId,
             AcademicSession targetSession,
             String semester
@@ -301,16 +335,20 @@ public class ResultCalculationService {
         List<Result> allResults =
                 resultRepository.findFullAcademicHistory(studentId);
 
-        List<Result> previousResults =
-                allResults.stream()
-                        .filter(result ->
-                                isBefore(
-                                        result,
-                                        targetSession,
-                                        semester
-                                )
+        return allResults.stream()
+                .filter(result ->
+                        isBefore(
+                                result,
+                                targetSession,
+                                semester
                         )
-                        .toList();
+                )
+                .toList();
+    }
+
+    private CumulativeSummaryDTO calculatePreviousCumulative(
+            List<Result> previousResults
+    ) {
 
         if (previousResults.isEmpty()) {
             return new CumulativeSummaryDTO(
@@ -428,24 +466,60 @@ public class ResultCalculationService {
                 );
     }
 
-    private String buildRemark(
-            List<CourseResultDTO> courses
+    /**
+     * Walks the given results (must be in chronological order) and updates
+     * the outstanding-carryover set in place: a failed course is added, a
+     * passed course removes it. A course that was failed once and later
+     * passed on retake no longer appears in the outstanding set.
+     */
+    private void updateOutstanding(
+            Set<String> outstanding,
+            List<Result> resultsInOrder
     ) {
 
-        List<String> failedCourses =
-                courses.stream()
-                        .filter(course -> !course.passed())
-                        .map(CourseResultDTO::courseCode)
-                        .toList();
+        for (Result result : resultsInOrder) {
 
-        if (failedCourses.isEmpty()) {
-            return "GS";
+            String courseCode =
+                    result.getCourse().getCode();
+
+            BigDecimal score =
+                    toBigDecimal(result.getTotalScore());
+
+            if (GradeUtil.isPassed(score)) {
+                outstanding.remove(courseCode);
+            } else {
+                outstanding.add(courseCode);
+            }
+        }
+    }
+
+    /**
+     * GS/NGS is based on cumulative CGPA crossing the university's Fail
+     * threshold (1.50), matching DegreeClassUtil's boundary — not on
+     * whether any course failed in this specific semester. The course list
+     * shows every currently-outstanding carryover (failed and not yet
+     * passed on a later attempt), which may include courses failed in
+     * earlier semesters.
+     */
+    private String buildRemark(
+            BigDecimal cgpa,
+            Set<String> outstandingCourses
+    ) {
+
+        String status =
+                cgpa.compareTo(GOOD_STANDING_THRESHOLD) >= 0
+                        ? "GS"
+                        : "NGS";
+
+        if (outstandingCourses.isEmpty()) {
+            return status;
         }
 
-        return "NGS - "
+        return status
+                + " - "
                 + String.join(
                 ", ",
-                failedCourses
+                outstandingCourses
         );
     }
 
