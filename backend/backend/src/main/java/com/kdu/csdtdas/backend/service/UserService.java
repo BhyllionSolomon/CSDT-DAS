@@ -2,48 +2,129 @@ package com.kdu.csdtdas.backend.service;
 
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.UserRepository;
+import com.kdu.csdtdas.backend.util.JwtUtil;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
+    public UserService(
+            UserRepository userRepository,
+            PasswordEncoder passwordEncoder,
+            JwtUtil jwtUtil
+    ) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
+    @Transactional(readOnly = true)
     public List<User> getAll() {
-        return repository.findAll();
+        return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public User getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
-    public User create(User user) {
-        return repository.save(user);
+    @Transactional(readOnly = true)
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
-    public User update(Long id, User user) {
+    public User create(
+            String username,
+            String password,
+            String fullName,
+            String email,
+            String role
+    ) {
 
-        User existing = repository.findById(id).orElse(null);
+        if (username == null || username.isBlank()) {
+            throw new IllegalArgumentException("Username is required.");
+        }
 
-        if (existing == null)
-            return null;
+        if (password == null || password.isBlank()) {
+            throw new IllegalArgumentException("Password is required.");
+        }
 
-        existing.setUsername(user.getUsername());
-        existing.setEmail(user.getEmail());
-        existing.setPassword(user.getPassword());
-        existing.setRole(user.getRole());
-        existing.setActive(user.getActive());
+        if (role == null || role.isBlank()) {
+            throw new IllegalArgumentException("Role is required.");
+        }
 
-        return repository.save(existing);
+        if (userRepository.existsByUsername(username.trim())) {
+            throw new IllegalArgumentException("Username already exists.");
+        }
+
+        User user = new User();
+        user.setUsername(username.trim());
+        user.setPassword(passwordEncoder.encode(password));
+        user.setFullName(fullName);
+        user.setEmail(email);
+        user.setRole(role.trim().toUpperCase());
+        user.setActive(true);
+
+        return userRepository.save(user);
+    }
+
+    public User update(
+            Long id,
+            String fullName,
+            String email,
+            String role,
+            Boolean active
+    ) {
+
+        User existing = getById(id);
+
+        if (fullName != null) {
+            existing.setFullName(fullName);
+        }
+
+        if (email != null) {
+            existing.setEmail(email);
+        }
+
+        if (role != null) {
+            existing.setRole(role.trim().toUpperCase());
+        }
+
+        if (active != null) {
+            existing.setActive(active);
+        }
+
+        return userRepository.save(existing);
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        userRepository.deleteById(id);
+    }
+
+    public String authenticate(String username, String password) {
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password."));
+
+        if (!Boolean.TRUE.equals(user.getActive())) {
+            throw new IllegalArgumentException("This account is inactive.");
+        }
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid username or password.");
+        }
+
+        return jwtUtil.generateToken(user.getUsername(), user.getRole());
     }
 }

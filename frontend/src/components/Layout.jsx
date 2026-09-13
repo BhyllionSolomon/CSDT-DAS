@@ -6,6 +6,7 @@ const navItems = [
     { to: '/courses', label: 'Courses' },
     { to: '/sessions', label: 'Academic Sessions' },
     { to: '/enter-result', label: 'Enter Result' },
+    { to: '/verification', label: 'Result Verification' },
 ]
 
 function Layout() {

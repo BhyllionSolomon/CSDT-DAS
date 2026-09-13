@@ -37,3 +37,9 @@ export async function createResult(payload) {
     const response = await api.post('/results', payload)
     return response.data
 }
+export async function calculateClassResults(sessionId, semester) {
+    const response = await api.get(
+        `/results/session/${sessionId}/semester/${semester}/class`
+    )
+    return response.data
+}

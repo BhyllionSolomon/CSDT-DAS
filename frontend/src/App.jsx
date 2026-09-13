@@ -6,6 +6,7 @@ import Courses from './pages/Courses'
 import Sessions from './pages/Sessions'
 import StudentResults from './pages/StudentResults'
 import EnterResult from './pages/EnterResult'
+import ResultVerification from './pages/ResultVerification'
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="courses" element={<Courses />} />
                     <Route path="sessions" element={<Sessions />} />
                     <Route path="enter-result" element={<EnterResult />} />
+                    <Route path="verification" element={<ResultVerification />} />
                 </Route>
             </Routes>
         </BrowserRouter>
