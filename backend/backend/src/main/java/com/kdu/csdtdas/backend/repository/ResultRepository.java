@@ -92,4 +92,20 @@ public interface ResultRepository extends JpaRepository<Result, Long> {
             @Param("studentId") Long studentId,
             @Param("academicSessionId") Long academicSessionId
     );
+
+    @Query("""
+    SELECT r
+    FROM Result r
+    JOIN FETCH r.student st
+    JOIN FETCH r.course c
+    JOIN FETCH r.academicSession s
+    WHERE s.id = :sessionId
+      AND r.semester = :semester
+      AND r.status = 'APPROVED'
+    ORDER BY st.matricNumber, c.code
+""")
+    List<Result> findApprovedResultsBySessionAndSemester(
+            @Param("sessionId") Long sessionId,
+            @Param("semester") String semester
+    );
 }

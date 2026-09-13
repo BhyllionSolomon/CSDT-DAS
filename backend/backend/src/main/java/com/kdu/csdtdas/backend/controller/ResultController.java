@@ -164,4 +164,19 @@ public class ResultController {
 
         return ResponseEntity.ok(history);
     }
+
+    @GetMapping("/session/{sessionId}/semester/{semester}/class")
+    public ResponseEntity<List<SemesterResultDTO>> calculateClassResults(
+            @PathVariable Long sessionId,
+            @PathVariable String semester
+    ) {
+
+        List<SemesterResultDTO> results =
+                resultCalculationService.calculateClassResults(
+                        sessionId,
+                        semester
+                );
+
+        return ResponseEntity.ok(results);
+    }
 }

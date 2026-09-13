@@ -561,4 +561,52 @@ public class ResultCalculationService {
                 ? BigDecimal.ZERO
                 : BigDecimal.valueOf(value);
     }
+
+    public List<SemesterResultDTO> calculateClassResults(
+            Long sessionId,
+            String semester
+    ) {
+
+        List<Result> allResults =
+                resultRepository.findApprovedResultsBySessionAndSemester(
+                        sessionId,
+                        semester
+                );
+
+        if (allResults.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Map<Long, List<Result>> byStudent =
+                allResults.stream()
+                        .collect(
+                                LinkedHashMap::new,
+                                (map, result) -> {
+
+                                    Long studentId =
+                                            result.getStudent().getId();
+
+                                    map.computeIfAbsent(
+                                            studentId,
+                                            k -> new ArrayList<>()
+                                    ).add(result);
+                                },
+                                Map::putAll
+                        );
+
+        List<SemesterResultDTO> classResults =
+                new ArrayList<>();
+
+        for (Map.Entry<Long, List<Result>> entry : byStudent.entrySet()) {
+
+            Long studentId = entry.getKey();
+
+            SemesterResultDTO dto =
+                    calculateSemesterResult(studentId, sessionId, semester);
+
+            classResults.add(dto);
+        }
+
+        return classResults;
+    }
 }
