@@ -167,4 +167,27 @@ public class CourseRegistrationService {
 
         courseRegistrationRepository.save(registration);
     }
+
+    @Transactional(readOnly = true)
+    public List<CourseRegistration> getRegistrationsForCourse(
+            Long courseId,
+            Long academicSessionId,
+            String semester
+    ) {
+
+        if (!courseRepository.existsById(courseId)) {
+            throw new IllegalArgumentException("Course not found.");
+        }
+
+        if (!academicSessionRepository.existsById(academicSessionId)) {
+            throw new IllegalArgumentException("Academic session not found.");
+        }
+
+        return courseRegistrationRepository
+                .findByCourseIdAndAcademicSessionIdAndSemester(
+                        courseId,
+                        academicSessionId,
+                        semester.trim().toUpperCase()
+                );
+    }
 }

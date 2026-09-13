@@ -48,6 +48,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/allocations/**")
                         .hasAnyRole("ADMIN", "HOD")
 
+                        .requestMatchers(HttpMethod.POST, "/api/results/csv/upload")
+                        .hasAnyRole("ADMIN", "HOD", "LECTURER")
+
                         // TEMPORARY: every other endpoint stays open while the
                         // frontend is incrementally wired to send JWT tokens on
                         // every request. This must be tightened once login is
