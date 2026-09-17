@@ -13,6 +13,8 @@ const navItems = [
     { to: '/upload-results-csv', label: 'Upload Results' },
     { to: '/verification', label: 'Result Verification' },
     { to: '/register-courses', label: 'Student Course Registration' },
+    { to: '/course-allocations', label: 'Course Allocations' },
+    { to: '/claim-courses', label: 'Claim Courses' },
 ]
 
 function Layout() {

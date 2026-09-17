@@ -15,6 +15,8 @@ import CreateCourse from './pages/CreateCourse'
 import UploadResultsCsv from './pages/UploadResultsCsv'
 import BulkEnterResults from './pages/BulkEnterResults'
 import StudentCourseRegistration from './pages/StudentCourseRegistration'
+import CourseAllocations from './pages/CourseAllocations'
+import ClaimCourses from './pages/ClaimCourses'
 
 function App() {
     return (
@@ -43,6 +45,8 @@ function App() {
                         <Route path="upload-results-csv" element={<UploadResultsCsv />} />
                         <Route path="verification" element={<ResultVerification />} />
                         <Route path="register-courses" element={<StudentCourseRegistration />} />
+                        <Route path="course-allocations" element={<CourseAllocations />} />
+                        <Route path="claim-courses" element={<ClaimCourses />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
