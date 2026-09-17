@@ -11,6 +11,7 @@ import com.kdu.csdtdas.backend.util.DegreeClassUtil;
 import com.kdu.csdtdas.backend.util.GradeUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.kdu.csdtdas.backend.entity.Course;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -608,5 +609,25 @@ public class ResultCalculationService {
         }
 
         return classResults;
+    }
+
+    @Transactional(readOnly = true)
+    public List<Course> getOutstandingCourses(Long studentId) {
+
+        List<Result> allResults = resultRepository.findFullAcademicHistory(studentId);
+        Map<Long, Course> outstanding = new LinkedHashMap<>();
+
+        for (Result result : allResults) {
+            BigDecimal score = toBigDecimal(result.getTotalScore());
+            Long courseId = result.getCourse().getId();
+
+            if (GradeUtil.isPassed(score)) {
+                outstanding.remove(courseId);
+            } else {
+                outstanding.put(courseId, result.getCourse());
+            }
+        }
+
+        return new ArrayList<>(outstanding.values());
     }
 }

@@ -43,3 +43,36 @@ export async function calculateClassResults(sessionId, semester) {
     )
     return response.data
 }
+
+export async function uploadResultsCsv(courseId, academicSessionId, semester, file) {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await api.post(
+        `/results/csv/upload?courseId=${courseId}&academicSessionId=${academicSessionId}&semester=${semester}`,
+        formData,
+        { headers: { 'Content-Type': undefined } }
+    )
+    return response.data
+}
+
+export async function uploadResultsDocx(courseId, academicSessionId, semester, file) {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const response = await api.post(
+        `/results/docx/upload?courseId=${courseId}&academicSessionId=${academicSessionId}&semester=${semester}`,
+        formData,
+        { headers: { 'Content-Type': undefined } }
+    )
+    return response.data
+}
+export async function bulkSaveResults(courseId, academicSessionId, semester, entries) {
+    const response = await api.post('/results/bulk', {
+        courseId,
+        academicSessionId,
+        semester,
+        entries,
+    })
+    return response.data
+}

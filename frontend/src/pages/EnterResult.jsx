@@ -35,10 +35,37 @@ function EnterResult() {
             .finally(() => setLoading(false))
     }, [])
 
+    function confirmSuspiciousValues(ca, exam) {
+
+        if (ca === 30) {
+            const ok = window.confirm(
+                'CA score of 30 is the maximum possible — please confirm this is correct before saving.'
+            )
+            if (!ok) return false
+        }
+
+        if (exam === 69 || exam === 70) {
+            const ok = window.confirm(
+                `Exam score of ${exam} is very high (close to or at the maximum of 70) — please confirm this is correct before saving.`
+            )
+            if (!ok) return false
+        }
+
+        return true
+    }
+
     async function handleSubmit(e) {
         e.preventDefault()
         setError(null)
         setSuccess(null)
+
+        const ca = Number(caScore)
+        const exam = Number(examScore)
+
+        if (!confirmSuspiciousValues(ca, exam)) {
+            return
+        }
+
         setSubmitting(true)
 
         try {
@@ -47,8 +74,8 @@ function EnterResult() {
                 courseId: Number(courseId),
                 academicSessionId: Number(academicSessionId),
                 semester,
-                caScore: Number(caScore),
-                examScore: Number(examScore),
+                caScore: ca,
+                examScore: exam,
             })
 
             setSuccess(
@@ -70,7 +97,12 @@ function EnterResult() {
 
     return (
         <div className="max-w-xl">
-            <h2 className="text-2xl font-bold text-slate-800 mb-6">Enter Result</h2>
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">Enter Result</h2>
+            <p className="text-sm text-slate-500 mb-6">
+                CA score maximum is 30, Exam score maximum is 70. Certain borderline
+                totals (34, 44, 49, 59, 69, 79) are not allowed and must be corrected
+                before saving.
+            </p>
 
             {error && (
                 <div className="mb-4 px-4 py-3 rounded-md bg-red-50 text-red-700 text-sm">
@@ -166,12 +198,12 @@ function EnterResult() {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            CA Score
+                            CA Score (max 30)
                         </label>
                         <input
                             type="number"
                             min="0"
-                            max="100"
+                            max="30"
                             value={caScore}
                             onChange={(e) => setCaScore(e.target.value)}
                             required
@@ -180,12 +212,12 @@ function EnterResult() {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Exam Score
+                            Exam Score (max 70)
                         </label>
                         <input
                             type="number"
                             min="0"
-                            max="100"
+                            max="70"
                             value={examScore}
                             onChange={(e) => setExamScore(e.target.value)}
                             required

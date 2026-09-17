@@ -1,15 +1,23 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 
 const navItems = [
     { to: '/', label: 'Dashboard', end: true },
     { to: '/students', label: 'Students' },
+    { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
     { to: '/courses', label: 'Courses' },
+    { to: '/create-course', label: 'Create Course' },
     { to: '/sessions', label: 'Academic Sessions' },
     { to: '/enter-result', label: 'Enter Result' },
+    { to: '/bulk-enter-results', label: 'Bulk Enter Results' },
+    { to: '/upload-results-csv', label: 'Upload Results' },
     { to: '/verification', label: 'Result Verification' },
+    { to: '/register-courses', label: 'Student Course Registration' },
 ]
 
 function Layout() {
+    const { user, logout } = useAuth()
+
     return (
         <div className="min-h-screen bg-slate-100 flex">
             <aside className="w-64 bg-slate-900 text-white flex flex-col">
@@ -35,6 +43,16 @@ function Layout() {
                         </NavLink>
                     ))}
                 </nav>
+                <div className="p-4 border-t border-slate-700">
+                    <p className="text-sm font-medium">{user?.fullName}</p>
+                    <p className="text-xs text-slate-400 mb-3">{user?.role}</p>
+                    <button
+                        onClick={logout}
+                        className="text-xs text-slate-300 hover:text-white underline"
+                    >
+                        Sign out
+                    </button>
+                </div>
             </aside>
 
             <main className="flex-1 p-8">

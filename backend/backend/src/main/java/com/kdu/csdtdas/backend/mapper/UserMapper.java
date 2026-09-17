@@ -22,6 +22,11 @@ public class UserMapper {
         response.setRole(user.getRole());
         response.setActive(user.getActive());
 
+        if (user.getProgramme() != null) {
+            response.setProgrammeId(user.getProgramme().getId());
+            response.setProgrammeName(user.getProgramme().getName());
+        }
+
         return response;
     }
 }

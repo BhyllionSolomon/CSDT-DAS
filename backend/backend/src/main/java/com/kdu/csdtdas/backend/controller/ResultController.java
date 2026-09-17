@@ -23,6 +23,30 @@ public class ResultController {
     private final ResultMapper resultMapper;
     private final ResultCalculationService resultCalculationService;
 
+
+    @PutMapping("/course/{courseId}/session/{academicSessionId}/semester/{semester}/approve-all")
+    public ResponseEntity<Integer> approveAllPending(
+            @PathVariable Long courseId,
+            @PathVariable Long academicSessionId,
+            @PathVariable String semester
+    ) {
+        int approved = resultService.approveAllPending(courseId, academicSessionId, semester);
+        return ResponseEntity.ok(approved);
+    }
+
+    @PostMapping("/bulk")
+    public ResponseEntity<com.kdu.csdtdas.backend.service.ResultCsvService.CsvUploadResult> bulkSave(
+            @RequestBody com.kdu.csdtdas.backend.dto.BulkResultRequest request
+    ) {
+        var result = resultService.bulkSave(
+                request.getCourseId(),
+                request.getAcademicSessionId(),
+                request.getSemester(),
+                request.getEntries()
+        );
+        return ResponseEntity.ok(result);
+    }
+
     public ResultController(
             ResultService resultService,
             ResultMapper resultMapper,

@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseAllocationRepository extends JpaRepository<CourseAllocation, Long> {
 
     @Query("""
         SELECT ca
         FROM CourseAllocation ca
-        JOIN FETCH ca.lecturer l
+        LEFT JOIN FETCH ca.lecturer l
         JOIN FETCH ca.course c
         JOIN FETCH ca.academicSession s
         ORDER BY s.startDate DESC, ca.semester, c.code
@@ -22,16 +23,14 @@ public interface CourseAllocationRepository extends JpaRepository<CourseAllocati
     @Query("""
         SELECT ca
         FROM CourseAllocation ca
-        JOIN FETCH ca.lecturer l
+        LEFT JOIN FETCH ca.lecturer l
         JOIN FETCH ca.course c
         JOIN FETCH ca.academicSession s
-        WHERE l.id = :lecturerId
-          AND s.id = :sessionId
+        WHERE s.id = :sessionId
           AND ca.semester = :semester
         ORDER BY c.code
     """)
-    List<CourseAllocation> findByLecturerAndSessionAndSemester(
-            @Param("lecturerId") Long lecturerId,
+    List<CourseAllocation> findByAcademicSessionIdAndSemester(
             @Param("sessionId") Long sessionId,
             @Param("semester") String semester
     );
@@ -39,7 +38,7 @@ public interface CourseAllocationRepository extends JpaRepository<CourseAllocati
     @Query("""
         SELECT ca
         FROM CourseAllocation ca
-        JOIN FETCH ca.lecturer l
+        LEFT JOIN FETCH ca.lecturer l
         JOIN FETCH ca.course c
         JOIN FETCH ca.academicSession s
         WHERE l.id = :lecturerId
@@ -47,10 +46,7 @@ public interface CourseAllocationRepository extends JpaRepository<CourseAllocati
     """)
     List<CourseAllocation> findByLecturerId(@Param("lecturerId") Long lecturerId);
 
-    boolean existsByLecturerIdAndCourseIdAndAcademicSessionIdAndSemester(
-            Long lecturerId,
-            Long courseId,
-            Long academicSessionId,
-            String semester
+    Optional<CourseAllocation> findByCourseIdAndAcademicSessionIdAndSemester(
+            Long courseId, Long academicSessionId, String semester
     );
 }

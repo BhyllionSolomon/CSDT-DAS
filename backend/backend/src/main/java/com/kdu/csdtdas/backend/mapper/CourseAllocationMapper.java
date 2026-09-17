@@ -8,20 +8,18 @@ import org.springframework.stereotype.Component;
 public class CourseAllocationMapper {
 
     public CourseAllocationResponse toResponse(CourseAllocation allocation) {
-
-        if (allocation == null) {
-            return null;
-        }
+        if (allocation == null) return null;
 
         CourseAllocationResponse response = new CourseAllocationResponse();
-
         response.setId(allocation.getId());
         response.setSemester(allocation.getSemester());
+        response.setLecturerName(allocation.getLecturerName());
+        response.setStatus(allocation.getStatus());
+        response.setPhoneNumber(allocation.getPhoneNumber());
 
         if (allocation.getLecturer() != null) {
             response.setLecturerId(allocation.getLecturer().getId());
             response.setLecturerUsername(allocation.getLecturer().getUsername());
-            response.setLecturerName(allocation.getLecturer().getFullName());
         }
 
         if (allocation.getCourse() != null) {

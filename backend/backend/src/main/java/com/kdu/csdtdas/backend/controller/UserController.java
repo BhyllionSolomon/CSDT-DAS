@@ -25,6 +25,9 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+
+
+
     @GetMapping
     public List<UserResponse> getAll() {
         return userService.getAll()
@@ -47,7 +50,8 @@ public class UserController {
                 request.getPassword(),
                 request.getFullName(),
                 request.getEmail(),
-                request.getRole()
+                request.getRole(),
+                request.getProgrammeId()
         );
 
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -65,7 +69,8 @@ public class UserController {
                 request.getFullName(),
                 request.getEmail(),
                 request.getRole(),
-                request.getActive()
+                request.getActive(),
+                request.getProgrammeId()
         );
 
         return ResponseEntity.ok(userMapper.toResponse(updated));

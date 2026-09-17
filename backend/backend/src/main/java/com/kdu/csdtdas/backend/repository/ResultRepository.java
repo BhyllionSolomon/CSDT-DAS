@@ -11,6 +11,38 @@ import java.util.Optional;
 public interface ResultRepository extends JpaRepository<Result, Long> {
 
     @Query("""
+    SELECT r
+    FROM Result r
+    WHERE r.course.id = :courseId
+      AND r.academicSession.id = :academicSessionId
+      AND r.semester = :semester
+      AND r.status = :status
+""")
+    List<Result> findByCourseIdAndAcademicSessionIdAndSemesterAndStatus(
+            @Param("courseId") Long courseId,
+            @Param("academicSessionId") Long academicSessionId,
+            @Param("semester") String semester,
+            @Param("status") String status
+    );
+
+    @Query("""
+    SELECT r
+    FROM Result r
+    WHERE r.course.id = :courseId
+      AND r.academicSession.id = :academicSessionId
+      AND r.semester = :semester
+""")
+    List<Result> findByCourseIdAndAcademicSessionIdAndSemester(
+            @Param("courseId") Long courseId,
+            @Param("academicSessionId") Long academicSessionId,
+            @Param("semester") String semester
+    );
+
+
+
+
+
+    @Query("""
         SELECT r
         FROM Result r
         JOIN FETCH r.course c

@@ -28,6 +28,10 @@ public class User {
     @Column(nullable = false, length = 30)
     private String role;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "programme_id")
+    private Programme programme;
+
     @Column(nullable = false)
     private Boolean active = true;
 
@@ -45,10 +49,7 @@ public class User {
         LocalDateTime now = LocalDateTime.now();
         createdAt = now;
         updatedAt = now;
-
-        if (active == null) {
-            active = true;
-        }
+        if (active == null) active = true;
     }
 
     @PreUpdate
@@ -56,67 +57,22 @@ public class User {
         updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+    public Programme getProgramme() { return programme; }
+    public void setProgramme(Programme programme) { this.programme = programme; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
 }
