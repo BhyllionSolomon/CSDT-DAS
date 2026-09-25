@@ -19,6 +19,13 @@ export async function calculateSemesterResult(studentId, sessionId, semester) {
     return response.data
 }
 
+export async function getResultsForCourse(courseId, academicSessionId, semester) {
+    const response = await api.get(
+        `/results/course/${courseId}/session/${academicSessionId}/semester/${semester}`
+    )
+    return response.data
+}
+
 export async function calculateFullHistory(studentId) {
     const response = await api.get(`/results/student/${studentId}/history`)
     return response.data

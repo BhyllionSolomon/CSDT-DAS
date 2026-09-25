@@ -101,6 +101,9 @@ public class StudentService {
         student.setProgramme(programme);
         student.setLevel(level);
         student.setAcademicSession(academicSession);
+        // New students default to their current session also being their
+        // admission session, unless explicitly set otherwise afterward.
+        student.setAdmissionSession(academicSession);
         student.setStatus("ACTIVE");
 
         return studentRepository.save(student);
@@ -171,6 +174,26 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
+    public Student setAdmissionSession(
+            Long studentId,
+            Long academicSessionId
+    ) {
+
+        Student student = getStudent(studentId);
+
+        AcademicSession admissionSession =
+                academicSessionRepository.findById(academicSessionId)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException(
+                                        "Academic session not found."
+                                )
+                        );
+
+        student.setAdmissionSession(admissionSession);
+
+        return studentRepository.save(student);
+    }
+
     public Student deactivateStudent(Long studentId) {
 
         Student student = getStudent(studentId);
@@ -188,6 +211,4 @@ public class StudentService {
 
         return studentRepository.save(student);
     }
-
-
 }

@@ -203,4 +203,14 @@ public class ResultController {
 
         return ResponseEntity.ok(results);
     }
+
+    @GetMapping("/course/{courseId}/session/{academicSessionId}/semester/{semester}")
+    public ResponseEntity<List<ResultResponse>> getResultsForCourse(
+            @PathVariable Long courseId, @PathVariable Long academicSessionId, @PathVariable String semester
+    ) {
+        List<ResultResponse> results = resultService
+                .getResultsForCourseSessionSemester(courseId, academicSessionId, semester)
+                .stream().map(resultMapper::toResponse).collect(Collectors.toList());
+        return ResponseEntity.ok(results);
+    }
 }

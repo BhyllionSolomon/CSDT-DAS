@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-import { login as loginRequest } from '../services/authService'
+import { login as loginRequest, signup as signupRequest, getCurrentUser } from '../services/authService'
 
 const AuthContext = createContext(null)
 
@@ -9,24 +9,21 @@ export function AuthProvider({ children }) {
         return stored ? JSON.parse(stored) : null
     })
 
+    async function afterAuth(data) {
+        localStorage.setItem('csdtdas_token', data.token)
+        const profile = await getCurrentUser()
+        localStorage.setItem('csdtdas_user', JSON.stringify(profile))
+        setUser(profile)
+    }
+
     async function login(username, password) {
         const data = await loginRequest(username, password)
+        await afterAuth(data)
+    }
 
-        localStorage.setItem('csdtdas_token', data.token)
-        localStorage.setItem(
-            'csdtdas_user',
-            JSON.stringify({
-                username: data.username,
-                fullName: data.fullName,
-                role: data.role,
-            })
-        )
-
-        setUser({
-            username: data.username,
-            fullName: data.fullName,
-            role: data.role,
-        })
+    async function signup(idNumber, fullName, email, username, password) {
+        const data = await signupRequest(idNumber, fullName, email, username, password)
+        await afterAuth(data)
     }
 
     function logout() {
@@ -36,7 +33,7 @@ export function AuthProvider({ children }) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, signup, logout }}>
             {children}
         </AuthContext.Provider>
     )

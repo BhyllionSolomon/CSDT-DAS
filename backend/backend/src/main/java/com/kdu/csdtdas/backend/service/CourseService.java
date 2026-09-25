@@ -207,4 +207,10 @@ public class CourseService {
 
         return programmes;
     }
+
+    public Course updateCoursePrograms(Long courseId, List<Long> programmeIds) {
+        Course course = getCourse(courseId);
+        course.setProgrammes(resolveProgrammes(programmeIds));
+        return courseRepository.save(course);
+    }
 }

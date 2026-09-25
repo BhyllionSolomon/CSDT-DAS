@@ -1,1 +1,153 @@
 @import "tailwindcss";
+
+:root, [data-theme="navy"] {
+    --bg: #0f1729;
+    --bg-gradient: radial-gradient(circle at 20% -10%, #1e3a8a33, transparent 40%), radial-gradient(circle at 100% 0%, #4c1d9533, transparent 40%);
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --sidebar: #0b1120;
+    --sidebar-hover: #1e293b;
+    --accent: #3b82f6;
+    --accent-2: #6366f1;
+    --accent-hover: #2563eb;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+}
+
+[data-theme="light"] {
+    --bg: #f8fafc;
+    --bg-gradient: radial-gradient(circle at 20% -10%, #dbeafe66, transparent 40%);
+    --surface: #ffffff;
+    --surface-soft: #f1f5f9;
+    --sidebar: #ffffff;
+    --sidebar-hover: #f1f5f9;
+    --accent: #2563eb;
+    --accent-2: #4f46e5;
+    --accent-hover: #1d4ed8;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+}
+
+[data-theme="dark"] {
+    --bg: #09090b;
+    --bg-gradient: radial-gradient(circle at 20% -10%, #4c1d9540, transparent 40%);
+    --surface: #18181b;
+    --surface-soft: #27272a;
+    --sidebar: #050505;
+    --sidebar-hover: #18181b;
+    --accent: #818cf8;
+    --accent-2: #a78bfa;
+    --accent-hover: #6366f1;
+    --text: #fafafa;
+    --text-muted: #a1a1aa;
+    --border: #27272a;
+}
+
+[data-theme="purple"] {
+    --bg: #faf5ff;
+    --bg-gradient: radial-gradient(circle at 20% -10%, #e9d5ff66, transparent 40%);
+    --surface: #ffffff;
+    --surface-soft: #f5f3ff;
+    --sidebar: #2e1065;
+    --sidebar-hover: #4c1d95;
+    --accent: #9333ea;
+    --accent-2: #c026d3;
+    --accent-hover: #7e22ce;
+    --text: #2e1065;
+    --text-muted: #7c3aed;
+    --border: #ede9fe;
+}
+
+[data-theme="green"] {
+    --bg: #f0fdf4;
+    --bg-gradient: radial-gradient(circle at 20% -10%, #bbf7d066, transparent 40%);
+    --surface: #ffffff;
+    --surface-soft: #ecfdf5;
+    --sidebar: #052e16;
+    --sidebar-hover: #14532d;
+    --accent: #16a34a;
+    --accent-2: #059669;
+    --accent-hover: #15803d;
+    --text: #052e16;
+    --text-muted: #16a34a;
+    --border: #dcfce7;
+}
+
+body {
+    background: var(--bg-gradient), var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+* {
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+}
+
+.theme-surface { background-color: var(--surface); border: 1px solid var(--border); }
+.theme-sidebar { background-color: var(--sidebar); }
+.theme-sidebar-hover:hover { background-color: var(--sidebar-hover); }
+.theme-text-muted { color: var(--text-muted); }
+.theme-border { border-color: var(--border); }
+
+.accent-gradient {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+.accent-gradient:hover {
+    filter: brightness(1.08);
+}
+.accent-text {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px -12px rgba(0,0,0,0.08);
+}
+.card-hover:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 16px 32px -12px rgba(0,0,0,0.14);
+    transform: translateY(-2px);
+}
+.card-top-accent {
+    position: relative;
+    overflow: hidden;
+}
+.card-top-accent::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeSlideIn 0.25s ease-out; }
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.skeleton {
+    background: linear-gradient(90deg, var(--surface-soft) 25%, var(--border) 50%, var(--surface-soft) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+.btn-press:active { transform: scale(0.96); }
+
+@media print {
+    aside, .no-print { display: none !important; }
+    main { padding: 0 !important; }
+    body { background: white !important; }
+}

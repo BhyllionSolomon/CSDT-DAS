@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { getAllPropgrammes } from '../services/programmeService'
 import { getRequiredUnits, setRequiredUnits } from '../services/registrationService'
 import api from '../services/api'
 
@@ -29,25 +28,46 @@ function SetUnitRequirements() {
     const [success, setSuccess] = useState(null)
 
     useEffect(() => {
-        Promise.all([getAllProgrammes(), getAllLevels()])
-            .then(([p, l]) => {
-                setProgrammes(p)
-                setLevels(l)
-            })
-            .catch((err) => setError(err.message))
-            .finally(() => setLoading(false))
+        async function loadData() {
+            setLoading(true)
+            setError(null)
+            try {
+                const [programmesData, levelsData] = await Promise.all([getAllProgrammes(), getAllLevels()])
+                setProgrammes(programmesData || [])
+                setLevels(levelsData || [])
+            } catch (err) {
+                setError(err.response?.data?.message || err.message || 'Failed to load programmes and levels.')
+            } finally {
+                setLoading(false)
+            }
+        }
+        loadData()
     }, [])
 
     async function handleLookup() {
-        if (!programmeId || !levelId) return
+        if (!programmeId || !levelId || !semester) return
         setError(null)
         setSuccess(null)
+        setCurrent(null)
         try {
             const data = await getRequiredUnits(programmeId, levelId, semester)
-            setCurrent(data.requiredUnits)
-            setUnits(String(data.requiredUnits))
+            if (data && data.requiredUnits !== undefined) {
+                setCurrent(data.requiredUnits)
+                setUnits(String(data.requiredUnits))
+            } else {
+                setCurrent(null)
+                setUnits('')
+                setError('No required-unit value has been configured for this selection.')
+            }
         } catch (err) {
-            setError(err.response?.data?.message || err.message)
+            const status = err.response?.status
+            if (status === 404) {
+                setCurrent(null)
+                setUnits('')
+                setError('No required units have been configured for this programme, level and semester.')
+            } else {
+                setError(err.response?.data?.message || err.message || 'Failed to retrieve the current required units.')
+            }
         }
     }
 
@@ -55,20 +75,37 @@ function SetUnitRequirements() {
         e.preventDefault()
         setError(null)
         setSuccess(null)
-        setSaving(true)
 
+        if (!programmeId) { setError('Please select a programme.'); return }
+        if (!levelId) { setError('Please select a level.'); return }
+        if (!semester) { setError('Please select a semester.'); return }
+
+        const units = Number(requiredUnits)
+        if (!Number.isFinite(units) || units <= 0) {
+            setError('Required units must be a number greater than zero.')
+            return
+        }
+
+        setSaving(true)
         try {
-            await setRequiredUnits(programmeId, levelId, semester, Number(requiredUnits))
-            setCurrent(Number(requiredUnits))
-            setSuccess('Required units updated.')
+            await setRequiredUnits(programmeId, levelId, semester, units)
+            setCurrent(units)
+            setUnits(String(units))
+            setSuccess('Required units updated successfully.')
         } catch (err) {
-            setError(err.response?.data?.message || err.message)
+            setError(err.response?.data?.message || err.message || 'Failed to update required units.')
         } finally {
             setSaving(false)
         }
     }
 
-    if (loading) return <p className="text-slate-500">Loading…</p>
+    function handleProgrammeChange(e) { setProgrammeId(e.target.value); setCurrent(null); setSuccess(null); setError(null) }
+    function handleLevelChange(e) { setLevelId(e.target.value); setCurrent(null); setSuccess(null); setError(null) }
+    function handleSemesterChange(e) { setSemester(e.target.value); setCurrent(null); setSuccess(null); setError(null) }
+
+    if (loading) {
+        return <div className="max-w-lg"><p className="text-slate-500">Loading programmes and levels…</p></div>
+    }
 
     return (
         <div className="max-w-lg">
@@ -78,26 +115,14 @@ function SetUnitRequirements() {
                 programme, level and semester. Students must match this total exactly.
             </p>
 
-            {error && (
-                <div className="mb-4 px-4 py-3 rounded-md bg-red-50 text-red-700 text-sm">
-                    {error}
-                </div>
-            )}
-            {success && (
-                <div className="mb-4 px-4 py-3 rounded-md bg-green-50 text-green-700 text-sm">
-                    {success}
-                </div>
-            )}
+            {error && <div className="mb-4 px-4 py-3 rounded-md bg-red-50 text-red-700 text-sm">{error}</div>}
+            {success && <div className="mb-4 px-4 py-3 rounded-md bg-green-50 text-green-700 text-sm">{success}</div>}
 
             <div className="bg-white rounded-lg shadow p-6 space-y-4">
                 <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">Programme</label>
-                    <select
-                        value={programmeId}
-                        onChange={(e) => { setProgrammeId(e.target.value); setCurrent(null) }}
-                        className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm"
-                    >
-                        <option value="">Select…</option>
+                    <select value={programmeId} onChange={handleProgrammeChange} className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm">
+                        <option value="">Select programme…</option>
                         {programmes.map((p) => (
                             <option key={p.id} value={p.id}>{p.name} ({p.code})</option>
                         ))}
@@ -107,12 +132,8 @@ function SetUnitRequirements() {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Level</label>
-                        <select
-                            value={levelId}
-                            onChange={(e) => { setLevelId(e.target.value); setCurrent(null) }}
-                            className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm"
-                        >
-                            <option value="">Select…</option>
+                        <select value={levelId} onChange={handleLevelChange} className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm">
+                            <option value="">Select level…</option>
                             {levels.map((l) => (
                                 <option key={l.id} value={l.id}>{l.name}</option>
                             ))}
@@ -120,50 +141,31 @@ function SetUnitRequirements() {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-slate-700 mb-1">Semester</label>
-                        <select
-                            value={semester}
-                            onChange={(e) => { setSemester(e.target.value); setCurrent(null) }}
-                            className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm"
-                        >
+                        <select value={semester} onChange={handleSemesterChange} className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm">
                             <option value="FIRST">First</option>
                             <option value="SECOND">Second</option>
                         </select>
                     </div>
                 </div>
 
-                <button
-                    onClick={handleLookup}
-                    disabled={!programmeId || !levelId}
-                    className="text-sm text-blue-600 underline disabled:opacity-50"
-                >
+                <button type="button" onClick={handleLookup} disabled={!programmeId || !levelId} className="text-sm text-blue-600 underline disabled:opacity-50">
                     Check current value
                 </button>
 
                 {current !== null && (
-                    <p className="text-sm text-slate-600">
-                        Current required units: <span className="font-semibold">{current}</span>
-                    </p>
+                    <div className="px-4 py-3 rounded-md bg-slate-50">
+                        <p className="text-sm text-slate-600">Current required units: <span className="font-semibold ml-1">{current}</span></p>
+                    </div>
                 )}
 
                 <form onSubmit={handleSave} className="flex gap-3 items-end">
                     <div className="flex-1">
-                        <label className="block text-sm font-medium text-slate-700 mb-1">
-                            Required Units
-                        </label>
-                        <input
-                            type="number"
-                            min="1"
-                            value={requiredUnits}
-                            onChange={(e) => setUnits(e.target.value)}
-                            required
-                            className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm"
-                        />
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Required Units</label>
+                        <input type="number" min="1" step="1" value={requiredUnits} onChange={(e) => setUnits(e.target.value)} required
+                               className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm" placeholder="e.g. 18" />
                     </div>
-                    <button
-                        type="submit"
-                        disabled={saving || !programmeId || !levelId}
-                        className="bg-blue-600 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
-                    >
+                    <button type="submit" disabled={saving || !programmeId || !levelId || !requiredUnits}
+                            className="bg-blue-600 text-white rounded-md px-4 py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
                         {saving ? 'Saving…' : 'Save'}
                     </button>
                 </form>

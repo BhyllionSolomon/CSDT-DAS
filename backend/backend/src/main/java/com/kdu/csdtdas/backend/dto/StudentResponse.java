@@ -22,6 +22,9 @@ public class StudentResponse {
     private Long academicSessionId;
     private String academicSessionName;
 
+    private Long admissionSessionId;
+    private String admissionSessionName;
+
     private String status;
 
     public StudentResponse() {
@@ -145,6 +148,22 @@ public class StudentResponse {
 
     public void setAcademicSessionName(String academicSessionName) {
         this.academicSessionName = academicSessionName;
+    }
+
+    public Long getAdmissionSessionId() {
+        return admissionSessionId;
+    }
+
+    public void setAdmissionSessionId(Long admissionSessionId) {
+        this.admissionSessionId = admissionSessionId;
+    }
+
+    public String getAdmissionSessionName() {
+        return admissionSessionName;
+    }
+
+    public void setAdmissionSessionName(String admissionSessionName) {
+        this.admissionSessionName = admissionSessionName;
     }
 
     public String getStatus() {

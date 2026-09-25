@@ -32,6 +32,10 @@ public class User {
     @JoinColumn(name = "programme_id")
     private Programme programme;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
+
     @Column(nullable = false)
     private Boolean active = true;
 
@@ -71,6 +75,8 @@ public class User {
     public void setRole(String role) { this.role = role; }
     public Programme getProgramme() { return programme; }
     public void setProgramme(Programme programme) { this.programme = programme; }
+    public Student getStudent() { return student; }
+    public void setStudent(Student student) { this.student = student; }
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
     public LocalDateTime getCreatedAt() { return createdAt; }

@@ -14,3 +14,7 @@ export async function createCourse(payload) {
     const response = await api.post('/courses', payload)
     return response.data
 }
+export async function updateCourse(courseId, payload) {
+    const response = await api.put(`/courses/${courseId}`, payload)
+    return response.data
+}

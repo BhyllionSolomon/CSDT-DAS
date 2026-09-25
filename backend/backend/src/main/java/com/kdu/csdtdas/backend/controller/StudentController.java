@@ -2,8 +2,11 @@ package com.kdu.csdtdas.backend.controller;
 
 import com.kdu.csdtdas.backend.dto.StudentRequest;
 import com.kdu.csdtdas.backend.dto.StudentResponse;
+import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.mapper.StudentMapper;
+import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
+import com.kdu.csdtdas.backend.service.StudentLevelProgressionService;
 import com.kdu.csdtdas.backend.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +22,19 @@ public class StudentController {
 
     private final StudentService studentService;
     private final StudentMapper studentMapper;
+    private final StudentLevelProgressionService progressionService;
+    private final AcademicSessionRepository academicSessionRepository;
 
     public StudentController(
             StudentService studentService,
-            StudentMapper studentMapper
+            StudentMapper studentMapper,
+            StudentLevelProgressionService progressionService,
+            AcademicSessionRepository academicSessionRepository
     ) {
         this.studentService = studentService;
         this.studentMapper = studentMapper;
+        this.progressionService = progressionService;
+        this.academicSessionRepository = academicSessionRepository;
     }
 
     @PostMapping
@@ -48,18 +57,6 @@ public class StudentController {
                 .body(studentMapper.toResponse(student));
     }
 
-    @GetMapping
-    public ResponseEntity<List<StudentResponse>> getAllStudents() {
-
-        List<StudentResponse> students =
-                studentService.getAllStudents()
-                        .stream()
-                        .map(studentMapper::toResponse)
-                        .collect(Collectors.toList());
-
-        return ResponseEntity.ok(students);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponse> getStudent(
             @PathVariable Long id
@@ -77,12 +74,23 @@ public class StudentController {
             @PathVariable String matricNumber
     ) {
 
-        Student student =
-                studentService.getStudentByMatricNumber(matricNumber);
+        Student student = studentService.getStudentByMatricNumber(matricNumber);
 
         return ResponseEntity.ok(
                 studentMapper.toResponse(student)
         );
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StudentResponse>> getAllStudents() {
+
+        List<StudentResponse> students =
+                studentService.getAllStudents()
+                        .stream()
+                        .map(studentMapper::toResponse)
+                        .collect(Collectors.toList());
+
+        return ResponseEntity.ok(students);
     }
 
     @PutMapping("/{id}/level/{levelId}")
@@ -91,8 +99,7 @@ public class StudentController {
             @PathVariable Long levelId
     ) {
 
-        Student student =
-                studentService.updateStudentLevel(id, levelId);
+        Student student = studentService.updateStudentLevel(id, levelId);
 
         return ResponseEntity.ok(
                 studentMapper.toResponse(student)
@@ -105,15 +112,40 @@ public class StudentController {
             @PathVariable Long programmeId
     ) {
 
-        Student student =
-                studentService.updateStudentProgramme(
-                        id,
-                        programmeId
-                );
+        Student student = studentService.updateStudentProgramme(id, programmeId);
 
         return ResponseEntity.ok(
                 studentMapper.toResponse(student)
         );
+    }
+
+    @PutMapping("/{id}/admission-session/{academicSessionId}")
+    public ResponseEntity<StudentResponse> setAdmissionSession(
+            @PathVariable Long id,
+            @PathVariable Long academicSessionId
+    ) {
+
+        Student student = studentService.setAdmissionSession(id, academicSessionId);
+
+        return ResponseEntity.ok(
+                studentMapper.toResponse(student)
+        );
+    }
+
+    @PostMapping("/advance-levels/session/{currentSessionId}")
+    public ResponseEntity<Integer> advanceAllLevels(
+            @PathVariable Long currentSessionId
+    ) {
+
+        AcademicSession currentSession =
+                academicSessionRepository.findById(currentSessionId)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException("Session not found.")
+                        );
+
+        int advanced = progressionService.advanceAllStudents(currentSession);
+
+        return ResponseEntity.ok(advanced);
     }
 
     @PutMapping("/{id}/deactivate")
@@ -121,8 +153,7 @@ public class StudentController {
             @PathVariable Long id
     ) {
 
-        Student student =
-                studentService.deactivateStudent(id);
+        Student student = studentService.deactivateStudent(id);
 
         return ResponseEntity.ok(
                 studentMapper.toResponse(student)
@@ -134,8 +165,7 @@ public class StudentController {
             @PathVariable Long id
     ) {
 
-        Student student =
-                studentService.activateStudent(id);
+        Student student = studentService.activateStudent(id);
 
         return ResponseEntity.ok(
                 studentMapper.toResponse(student)

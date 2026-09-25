@@ -39,6 +39,16 @@ public class Student {
     @JoinColumn(name = "academic_session_id", nullable = false)
     private AcademicSession academicSession;
 
+    /**
+     * The session the student was first admitted in (e.g. "2025/2026"),
+     * used to compute their correct level as sessions progress —
+     * independent of the manually-set `level` field above, which is used
+     * for course/programme matching and may need periodic advancement.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admission_session_id")
+    private AcademicSession admissionSession;
+
     @Column(nullable = false, length = 150)
     private String fullName;
 
@@ -127,6 +137,14 @@ public class Student {
 
     public void setAcademicSession(AcademicSession academicSession) {
         this.academicSession = academicSession;
+    }
+
+    public AcademicSession getAdmissionSession() {
+        return admissionSession;
+    }
+
+    public void setAdmissionSession(AcademicSession admissionSession) {
+        this.admissionSession = admissionSession;
     }
 
     public String getFullName() {

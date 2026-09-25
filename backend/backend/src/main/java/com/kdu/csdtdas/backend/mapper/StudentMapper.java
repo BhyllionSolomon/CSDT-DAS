@@ -73,6 +73,16 @@ public class StudentMapper {
             );
         }
 
+        if (student.getAdmissionSession() != null) {
+            response.setAdmissionSessionId(
+                    student.getAdmissionSession().getId()
+            );
+
+            response.setAdmissionSessionName(
+                    student.getAdmissionSession().getName()
+            );
+        }
+
         return response;
     }
 }

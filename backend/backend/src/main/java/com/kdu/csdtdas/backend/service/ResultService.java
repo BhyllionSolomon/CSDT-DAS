@@ -288,4 +288,15 @@ public class ResultService {
         return rounded == 34 || rounded == 44 || rounded == 49
                 || rounded == 59 || rounded == 69 || rounded == 79;
     }
+
+
+
+    @Transactional(readOnly = true)
+    public List<Result> getResultsForCourseSessionSemester(
+            Long courseId, Long academicSessionId, String semester
+    ) {
+        return resultRepository.findByCourseIdAndAcademicSessionIdAndSemester(
+                courseId, academicSessionId, semester.trim().toUpperCase()
+        );
+    }
 }
