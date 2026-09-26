@@ -97,7 +97,7 @@ public class UserService {
         }
 
         String cleanId = idNumber.trim().toUpperCase();
-        boolean isStudent = cleanId.startsWith("KDU");
+        boolean looksLikeStudent = cleanId.startsWith("KDU");
 
         User user = new User();
         user.setUsername(username.trim());
@@ -106,10 +106,24 @@ public class UserService {
         user.setEmail(email);
         user.setActive(true);
 
-        if (isStudent) {
+        if (looksLikeStudent) {
+            Student student = studentRepository.findByMatricNumber(cleanId)
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "This matric number is not on the department's student roster. "
+                                    + "Please contact your Level Adviser or the H.O.D to confirm you have been added."
+                    ));
+
+            boolean alreadyLinked = userRepository.findAll().stream()
+                    .anyMatch(u -> u.getStudent() != null && u.getStudent().getId().equals(student.getId()));
+
+            if (alreadyLinked) {
+                throw new IllegalArgumentException(
+                        "An account has already been created for this matric number."
+                );
+            }
+
             user.setRole("STUDENT");
-            Optional<Student> student = studentRepository.findByMatricNumber(cleanId);
-            student.ifPresent(user::setStudent);
+            user.setStudent(student);
         } else {
             user.setRole("LECTURER");
         }

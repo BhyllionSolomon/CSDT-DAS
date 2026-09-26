@@ -10,6 +10,8 @@ public class CurrentUserResponse {
     private String programmeName;
     private Long studentId;
     private String matricNumber;
+    private Long levelId;
+    private String levelName;
     private boolean assigned;
 
     public CurrentUserResponse() {}
@@ -31,6 +33,10 @@ public class CurrentUserResponse {
     public void setStudentId(Long studentId) { this.studentId = studentId; }
     public String getMatricNumber() { return matricNumber; }
     public void setMatricNumber(String matricNumber) { this.matricNumber = matricNumber; }
+    public Long getLevelId() { return levelId; }
+    public void setLevelId(Long levelId) { this.levelId = levelId; }
+    public String getLevelName() { return levelName; }
+    public void setLevelName(String levelName) { this.levelName = levelName; }
     public boolean isAssigned() { return assigned; }
     public void setAssigned(boolean assigned) { this.assigned = assigned; }
 }

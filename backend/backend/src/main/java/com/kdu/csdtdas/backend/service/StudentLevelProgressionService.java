@@ -97,4 +97,38 @@ public class StudentLevelProgressionService {
 
         return advanced;
     }
+
+
+    /**
+     * Direct level bump for the start of a new session: every ACTIVE student
+     * moves up exactly one level (100→200→300→400, capped at 400), and their
+     * current academicSession updates to the new session. This does not
+     * require any admission-date history — it simply advances everyone by
+     * one tier, which is what actually happens at the start of each session.
+     */
+    public int advanceAllStudentsByOneLevel(AcademicSession newSession) {
+
+        List<Student> students = studentRepository.findAll();
+        int advanced = 0;
+
+        for (Student student : students) {
+
+            if (!"ACTIVE".equalsIgnoreCase(student.getStatus())) continue;
+            if (student.getLevel() == null || student.getLevel().getLevelNumber() == null) continue;
+
+            int currentNumber = student.getLevel().getLevelNumber();
+            int nextNumber = Math.min(currentNumber + 100, 400);
+
+            Optional<Level> nextLevel = findLevelByNumber(nextNumber);
+
+            if (nextLevel.isPresent()) {
+                student.setLevel(nextLevel.get());
+                student.setAcademicSession(newSession);
+                studentRepository.save(student);
+                advanced++;
+            }
+        }
+
+        return advanced;
+    }
 }

@@ -56,6 +56,8 @@ public class AuthController {
         if (authentication == null || !authentication.isAuthenticated()
                 || "anonymousUser".equals(authentication.getPrincipal())) {
             throw new IllegalArgumentException("Not authenticated.");
+
+
         }
 
         User user = userService.getByUsername(authentication.getName());
@@ -72,9 +74,18 @@ public class AuthController {
             response.setProgrammeName(user.getProgramme().getName());
         }
 
+
+
         if (user.getStudent() != null) {
+
+            if (user.getStudent().getLevel() != null) {
+                response.setLevelId(user.getStudent().getLevel().getId());
+                response.setLevelName(user.getStudent().getLevel().getName());
+            }
             response.setStudentId(user.getStudent().getId());
             response.setMatricNumber(user.getStudent().getMatricNumber());
+
+
         }
 
         boolean assigned = "LEVEL_ADVISER".equalsIgnoreCase(user.getRole())

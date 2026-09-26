@@ -171,4 +171,17 @@ public class StudentController {
                 studentMapper.toResponse(student)
         );
     }
+
+    @PostMapping("/advance-one-level/session/{newSessionId}")
+    public ResponseEntity<Integer> advanceAllStudentsByOneLevel(
+            @PathVariable Long newSessionId
+    ) {
+        AcademicSession newSession =
+                academicSessionRepository.findById(newSessionId)
+                        .orElseThrow(() -> new IllegalArgumentException("Session not found."));
+
+        int advanced = progressionService.advanceAllStudentsByOneLevel(newSession);
+
+        return ResponseEntity.ok(advanced);
+    }
 }
