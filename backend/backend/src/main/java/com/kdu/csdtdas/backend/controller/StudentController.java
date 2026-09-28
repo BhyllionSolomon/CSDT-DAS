@@ -2,10 +2,12 @@ package com.kdu.csdtdas.backend.controller;
 
 import com.kdu.csdtdas.backend.dto.StudentRequest;
 import com.kdu.csdtdas.backend.dto.StudentResponse;
+import com.kdu.csdtdas.backend.dto.StudentSessionRecord;
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.mapper.StudentMapper;
 import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
+import com.kdu.csdtdas.backend.service.StudentLevelHistoryService;
 import com.kdu.csdtdas.backend.service.StudentLevelProgressionService;
 import com.kdu.csdtdas.backend.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -23,17 +25,20 @@ public class StudentController {
     private final StudentService studentService;
     private final StudentMapper studentMapper;
     private final StudentLevelProgressionService progressionService;
+    private final StudentLevelHistoryService studentLevelHistoryService;
     private final AcademicSessionRepository academicSessionRepository;
 
     public StudentController(
             StudentService studentService,
             StudentMapper studentMapper,
             StudentLevelProgressionService progressionService,
+            StudentLevelHistoryService studentLevelHistoryService,
             AcademicSessionRepository academicSessionRepository
     ) {
         this.studentService = studentService;
         this.studentMapper = studentMapper;
         this.progressionService = progressionService;
+        this.studentLevelHistoryService = studentLevelHistoryService;
         this.academicSessionRepository = academicSessionRepository;
     }
 
@@ -148,6 +153,34 @@ public class StudentController {
         return ResponseEntity.ok(advanced);
     }
 
+    @PostMapping("/advance-one-level/session/{newSessionId}")
+    public ResponseEntity<Integer> advanceAllStudentsByOneLevel(
+            @PathVariable Long newSessionId
+    ) {
+
+        AcademicSession newSession =
+                academicSessionRepository.findById(newSessionId)
+                        .orElseThrow(() ->
+                                new IllegalArgumentException("Session not found.")
+                        );
+
+        int advanced = progressionService.advanceAllStudentsByOneLevel(newSession);
+
+        return ResponseEntity.ok(advanced);
+    }
+
+    @PostMapping("/history/backfill")
+    public ResponseEntity<Integer> backfillHistory() {
+        return ResponseEntity.ok(studentLevelHistoryService.backfillFromCurrentState());
+    }
+
+    @GetMapping("/session/{academicSessionId}/history")
+    public ResponseEntity<List<StudentSessionRecord>> getStudentsForSession(
+            @PathVariable Long academicSessionId
+    ) {
+        return ResponseEntity.ok(studentLevelHistoryService.getForSession(academicSessionId));
+    }
+
     @PutMapping("/{id}/deactivate")
     public ResponseEntity<StudentResponse> deactivateStudent(
             @PathVariable Long id
@@ -170,18 +203,5 @@ public class StudentController {
         return ResponseEntity.ok(
                 studentMapper.toResponse(student)
         );
-    }
-
-    @PostMapping("/advance-one-level/session/{newSessionId}")
-    public ResponseEntity<Integer> advanceAllStudentsByOneLevel(
-            @PathVariable Long newSessionId
-    ) {
-        AcademicSession newSession =
-                academicSessionRepository.findById(newSessionId)
-                        .orElseThrow(() -> new IllegalArgumentException("Session not found."));
-
-        int advanced = progressionService.advanceAllStudentsByOneLevel(newSession);
-
-        return ResponseEntity.ok(advanced);
     }
 }

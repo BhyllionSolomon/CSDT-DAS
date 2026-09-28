@@ -8,7 +8,6 @@ import com.kdu.csdtdas.backend.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,44 +17,33 @@ public class StudentLevelProgressionService {
 
     private final StudentRepository studentRepository;
     private final LevelRepository levelRepository;
+    private final StudentLevelHistoryService studentLevelHistoryService;
 
     public StudentLevelProgressionService(
             StudentRepository studentRepository,
-            LevelRepository levelRepository
+            LevelRepository levelRepository,
+            StudentLevelHistoryService studentLevelHistoryService
     ) {
         this.studentRepository = studentRepository;
         this.levelRepository = levelRepository;
+        this.studentLevelHistoryService = studentLevelHistoryService;
     }
 
     /**
      * The level a student SHOULD be at right now, computed purely from how
-     * many sessions have passed since their admission session — independent
-     * of whatever is currently stored in Student.level.
+     * many sessions have passed since their admission session.
      */
     @Transactional(readOnly = true)
     public Level computeCurrentLevel(Student student, AcademicSession currentSession) {
 
         if (student.getAdmissionSession() == null) {
-            // No admission session on record — fall back to whatever is stored.
             return student.getLevel();
         }
 
         int yearsElapsed = yearsBetween(student.getAdmissionSession(), currentSession);
-
-        int startingLevelNumber = student.getLevel() != null
-                ? levelNumberAtAdmission(student)
-                : 100;
-
-        int targetLevelNumber = Math.min(startingLevelNumber + (yearsElapsed * 100), 400);
+        int targetLevelNumber = Math.min(100 + (yearsElapsed * 100), 400);
 
         return findLevelByNumber(targetLevelNumber).orElse(student.getLevel());
-    }
-
-    private int levelNumberAtAdmission(Student student) {
-        // If the student's current stored level is already past 100, and we
-        // don't know their exact admission level, assume 100 as the safest
-        // default for freshly-admitted students uploaded via roster.
-        return 100;
     }
 
     private int yearsBetween(AcademicSession admission, AcademicSession current) {
@@ -71,9 +59,9 @@ public class StudentLevelProgressionService {
     }
 
     /**
-     * Bulk-advances every ACTIVE student's stored level to match their
-     * computed current level, for the given now-current session. Run this
-     * once, by the H.O.D, at the start of each new academic session.
+     * Aligns every ACTIVE student's stored level with the level computed
+     * from their admission session. Only affects students who have an
+     * admission session recorded.
      */
     public int advanceAllStudents(AcademicSession currentSession) {
 
@@ -98,13 +86,11 @@ public class StudentLevelProgressionService {
         return advanced;
     }
 
-
     /**
      * Direct level bump for the start of a new session: every ACTIVE student
-     * moves up exactly one level (100→200→300→400, capped at 400), and their
-     * current academicSession updates to the new session. This does not
-     * require any admission-date history — it simply advances everyone by
-     * one tier, which is what actually happens at the start of each session.
+     * moves up exactly one level (100 to 200 to 300 to 400, capped at 400),
+     * and their current academic session updates to the new session. Their
+     * outgoing and incoming states are both recorded in the history table.
      */
     public int advanceAllStudentsByOneLevel(AcademicSession newSession) {
 
@@ -116,6 +102,8 @@ public class StudentLevelProgressionService {
             if (!"ACTIVE".equalsIgnoreCase(student.getStatus())) continue;
             if (student.getLevel() == null || student.getLevel().getLevelNumber() == null) continue;
 
+            studentLevelHistoryService.recordSnapshot(student);
+
             int currentNumber = student.getLevel().getLevelNumber();
             int nextNumber = Math.min(currentNumber + 100, 400);
 
@@ -124,7 +112,8 @@ public class StudentLevelProgressionService {
             if (nextLevel.isPresent()) {
                 student.setLevel(nextLevel.get());
                 student.setAcademicSession(newSession);
-                studentRepository.save(student);
+                Student saved = studentRepository.save(student);
+                studentLevelHistoryService.recordSnapshot(saved);
                 advanced++;
             }
         }

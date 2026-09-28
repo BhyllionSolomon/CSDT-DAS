@@ -5,14 +5,14 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(() => {
-        const stored = localStorage.getItem('csdtdas_user')
+        const stored = sessionStorage.getItem('csdtdas_user')
         return stored ? JSON.parse(stored) : null
     })
 
     async function afterAuth(data) {
-        localStorage.setItem('csdtdas_token', data.token)
+        sessionStorage.setItem('csdtdas_token', data.token)
         const profile = await getCurrentUser()
-        localStorage.setItem('csdtdas_user', JSON.stringify(profile))
+        sessionStorage.setItem('csdtdas_user', JSON.stringify(profile))
         setUser(profile)
     }
 
@@ -27,8 +27,8 @@ export function AuthProvider({ children }) {
     }
 
     function logout() {
-        localStorage.removeItem('csdtdas_token')
-        localStorage.removeItem('csdtdas_user')
+        sessionStorage.removeItem('csdtdas_token')
+        sessionStorage.removeItem('csdtdas_user')
         setUser(null)
     }
 

@@ -24,19 +24,22 @@ public class StudentService {
     private final ProgrammeRepository programmeRepository;
     private final LevelRepository levelRepository;
     private final AcademicSessionRepository academicSessionRepository;
+    private final StudentLevelHistoryService studentLevelHistoryService;
 
     public StudentService(
             StudentRepository studentRepository,
             DepartmentRepository departmentRepository,
             ProgrammeRepository programmeRepository,
             LevelRepository levelRepository,
-            AcademicSessionRepository academicSessionRepository
+            AcademicSessionRepository academicSessionRepository,
+            StudentLevelHistoryService studentLevelHistoryService
     ) {
         this.studentRepository = studentRepository;
         this.departmentRepository = departmentRepository;
         this.programmeRepository = programmeRepository;
         this.levelRepository = levelRepository;
         this.academicSessionRepository = academicSessionRepository;
+        this.studentLevelHistoryService = studentLevelHistoryService;
     }
 
     public Student createStudent(
@@ -101,12 +104,12 @@ public class StudentService {
         student.setProgramme(programme);
         student.setLevel(level);
         student.setAcademicSession(academicSession);
-        // New students default to their current session also being their
-        // admission session, unless explicitly set otherwise afterward.
         student.setAdmissionSession(academicSession);
         student.setStatus("ACTIVE");
 
-        return studentRepository.save(student);
+        Student saved = studentRepository.save(student);
+        studentLevelHistoryService.recordSnapshot(saved);
+        return saved;
     }
 
     @Transactional(readOnly = true)
@@ -146,7 +149,9 @@ public class StudentService {
 
         student.setLevel(level);
 
-        return studentRepository.save(student);
+        Student saved = studentRepository.save(student);
+        studentLevelHistoryService.recordSnapshot(saved);
+        return saved;
     }
 
     public Student updateStudentProgramme(
@@ -171,7 +176,9 @@ public class StudentService {
 
         student.setProgramme(programme);
 
-        return studentRepository.save(student);
+        Student saved = studentRepository.save(student);
+        studentLevelHistoryService.recordSnapshot(saved);
+        return saved;
     }
 
     public Student setAdmissionSession(
