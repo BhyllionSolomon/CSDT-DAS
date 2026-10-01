@@ -27,13 +27,19 @@ public class StudentLevelHistoryService {
     }
 
     /**
-     * Records (or overwrites, if one already exists) the given student's
-     * level/programme as of their current academicSession. Call this
-     * whenever a student's session/level/programme changes, so the
-     * snapshot for that session is never lost.
+     * Records (or overwrites) a snapshot of the given student's level and
+     * programme as of their current academic session. Always re-fetches the
+     * student with all relations eagerly joined, so this is safe to call
+     * regardless of the caller's transaction/session state.
      */
-    public void recordSnapshot(Student student) {
+    public void recordSnapshot(Student studentRef) {
 
+        if (studentRef == null || studentRef.getId() == null) return;
+
+        Student student = studentRepository.findByIdWithDetails(studentRef.getId())
+                .orElse(null);
+
+        if (student == null) return;
         if (student.getAcademicSession() == null || student.getLevel() == null
                 || student.getProgramme() == null) {
             return;
@@ -51,13 +57,8 @@ public class StudentLevelHistoryService {
         historyRepository.save(history);
     }
 
-    /**
-     * One-time catch-up for students created before this history feature
-     * existed: writes a snapshot for each student's CURRENT live session,
-     * using whatever level/session/programme they presently show.
-     */
     public int backfillFromCurrentState() {
-        List<Student> students = studentRepository.findAll();
+        List<Student> students = studentRepository.findAllWithDetails();
         int written = 0;
 
         for (Student student : students) {

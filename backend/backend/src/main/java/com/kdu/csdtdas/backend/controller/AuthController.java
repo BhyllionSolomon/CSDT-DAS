@@ -1,9 +1,6 @@
 package com.kdu.csdtdas.backend.controller;
 
-import com.kdu.csdtdas.backend.dto.CurrentUserResponse;
-import com.kdu.csdtdas.backend.dto.LoginRequest;
-import com.kdu.csdtdas.backend.dto.LoginResponse;
-import com.kdu.csdtdas.backend.dto.SignupRequest;
+import com.kdu.csdtdas.backend.dto.*;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.service.CourseAllocationService;
 import com.kdu.csdtdas.backend.service.UserService;
@@ -23,6 +20,8 @@ public class AuthController {
         this.userService = userService;
         this.courseAllocationService = courseAllocationService;
     }
+
+
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
@@ -97,4 +96,12 @@ public class AuthController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
+        userService.resetPassword(request.getMatricNumber(), request.getNewPassword());
+        return ResponseEntity.ok().build();
+    }
+
+
 }

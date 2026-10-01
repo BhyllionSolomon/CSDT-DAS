@@ -61,4 +61,23 @@ public interface CourseRegistrationRepository extends JpaRepository<CourseRegist
             Long academicSessionId,
             String semester
     );
+
+    @Query("""
+    SELECT cr
+    FROM CourseRegistration cr
+    JOIN FETCH cr.student s
+    JOIN FETCH cr.course c
+    WHERE s.programme.id = :programmeId
+      AND s.level.id = :levelId
+      AND cr.academicSession.id = :academicSessionId
+      AND cr.semester = :semester
+      AND cr.status = 'REGISTERED'
+""")
+    List<CourseRegistration> findByProgrammeAndLevelAndSessionAndSemester(
+            @Param("programmeId") Long programmeId,
+            @Param("levelId") Long levelId,
+            @Param("academicSessionId") Long academicSessionId,
+            @Param("semester") String semester
+    );
+
 }

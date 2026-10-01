@@ -182,4 +182,22 @@ public class UserService {
             throw new IllegalArgumentException("Username already exists.");
         }
     }
+
+    public void resetPassword(String matricNumber, String newPassword) {
+
+        if (newPassword == null || newPassword.isBlank()) {
+            throw new IllegalArgumentException("New password is required.");
+        }
+
+        Student student = studentRepository.findByMatricNumber(matricNumber.trim().toUpperCase())
+                .orElseThrow(() -> new IllegalArgumentException("No student found with this matric number."));
+
+        User user = userRepository.findAll().stream()
+                .filter(u -> u.getStudent() != null && u.getStudent().getId().equals(student.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No account found for this matric number."));
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
 }

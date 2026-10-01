@@ -12,11 +12,13 @@ const hodGroups = [
     { label: 'Department', items: [
             { to: '/programme-overview', label: 'Programme Overview' },
             { to: '/sessions', label: 'Academic Sessions' },
+            { to: '/students-per-session', label: 'Students Per Session' },
         ]},
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
             { to: '/register-courses', label: 'Course Registration' },
+            { to: '/registration-status', label: 'Registration Status' },
         ]},
     { label: 'Courses', items: [
             { to: '/courses', label: 'All Courses' },
@@ -65,7 +67,10 @@ const lecturerGroups = [
 
 const adviserGroups = [
     { label: 'Programme', items: [{ to: '/', label: 'My Programme' }] },
-    { label: 'Students', items: [{ to: '/register-courses', label: 'Course Registration' }] },
+    { label: 'Students', items: [
+            { to: '/register-courses', label: 'Course Registration' },
+            { to: '/registration-status', label: 'Registration Status' },
+        ]},
     { label: 'Results', items: [{ to: '/verification', label: 'Result Verification' }] },
 ]
 
@@ -83,6 +88,7 @@ const studentGroups = [
     { label: 'My Results', items: [
             { to: '/upload-my-results', label: 'Upload & Analyse Results' },
         ]},
+
 ]
 
 function getGroupsForRole(role) {

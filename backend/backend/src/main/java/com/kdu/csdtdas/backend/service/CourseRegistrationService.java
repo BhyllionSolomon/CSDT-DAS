@@ -1,5 +1,6 @@
 package com.kdu.csdtdas.backend.service;
 
+import com.kdu.csdtdas.backend.dto.RegistrationStatusRecord;
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.Course;
 import com.kdu.csdtdas.backend.entity.CourseRegistration;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -197,6 +200,7 @@ public class CourseRegistrationService {
                         semester.trim().toUpperCase()
                 );
     }
+
     public com.kdu.csdtdas.backend.dto.BulkRegistrationResult registerMultiple(
             Long studentId,
             Long academicSessionId,
@@ -325,5 +329,35 @@ public class CourseRegistrationService {
         }
 
         return registered;
+    }
+
+    @Transactional(readOnly = true)
+    public List<RegistrationStatusRecord> getRegistrationStatus(
+            Long programmeId, Long levelId, Long academicSessionId, String semester
+    ) {
+        List<CourseRegistration> registrations = courseRegistrationRepository
+                .findByProgrammeAndLevelAndSessionAndSemester(
+                        programmeId, levelId, academicSessionId, semester.trim().toUpperCase()
+                );
+
+        Map<Long, RegistrationStatusRecord> byStudent = new LinkedHashMap<>();
+
+        for (CourseRegistration reg : registrations) {
+            Student student = reg.getStudent();
+            RegistrationStatusRecord record = byStudent.get(student.getId());
+
+            if (record == null) {
+                record = new RegistrationStatusRecord(
+                        student.getId(), student.getMatricNumber(), student.getFullName(),
+                        student.getLevel().getCode(), 0, 0
+                );
+                byStudent.put(student.getId(), record);
+            }
+
+            record.setCoursesRegistered(record.getCoursesRegistered() + 1);
+            record.setTotalUnits(record.getTotalUnits() + reg.getCourse().getCreditUnit());
+        }
+
+        return new ArrayList<>(byStudent.values());
     }
 }

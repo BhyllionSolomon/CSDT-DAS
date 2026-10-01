@@ -156,4 +156,14 @@ public class CourseRegistrationController {
 
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/status/programme/{programmeId}/level/{levelId}/session/{academicSessionId}/semester/{semester}")
+    public ResponseEntity<List<com.kdu.csdtdas.backend.dto.RegistrationStatusRecord>> getRegistrationStatus(
+            @PathVariable Long programmeId, @PathVariable Long levelId,
+            @PathVariable Long academicSessionId, @PathVariable String semester
+    ) {
+        return ResponseEntity.ok(courseRegistrationService.getRegistrationStatus(
+                programmeId, levelId, academicSessionId, semester
+        ));
+    }
 }

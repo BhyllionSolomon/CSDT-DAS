@@ -16,6 +16,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     boolean existsByMatricNumber(String matricNumber);
 
+
+
     @Query("""
         SELECT s
         FROM Student s

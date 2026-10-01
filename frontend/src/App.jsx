@@ -27,6 +27,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import ExamScoresheet from './pages/ExamScoresheet'
 import StudentCarryOvers from './pages/StudentCarryOvers'
 import UploadMyResults from './pages/UploadMyResults'
+import RegistrationStatus from './pages/RegistrationStatus'
 
 function App() {
     return (
@@ -67,6 +68,7 @@ function App() {
                             <Route path="exam-scoresheet" element={<ExamScoresheet />} />
                             <Route path="my-carryovers" element={<StudentCarryOvers />} />
                             <Route path="upload-my-results" element={<UploadMyResults />} />
+                            <Route path="registration-status" element={<RegistrationStatus />} />
 
 
                         </Route>
