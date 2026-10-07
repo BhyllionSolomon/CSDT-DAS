@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getAllCourses, updateCourse } from '../services/courseService'
+import { getAllCourses, updateCourse, setCourseStatus } from '../services/courseService'
+
+const STATUS_LABEL = { C: 'Compulsory', R: 'Required', E: 'Elective' }
 
 function Courses() {
     const [courses, setCourses] = useState([])
@@ -18,7 +20,12 @@ function Courses() {
 
     function startEdit(course) {
         setEditingId(course.id)
-        setDraft({ title: course.title, creditUnit: course.creditUnit, semester: course.semester })
+        setDraft({
+            title: course.title,
+            creditUnit: course.creditUnit,
+            semester: course.semester,
+            status: course.status || 'C',
+        })
         setSaveMessage(null)
     }
     function cancelEdit() { setEditingId(null); setDraft({}) }
@@ -27,12 +34,19 @@ function Courses() {
         setSaving(true)
         setError(null)
         try {
+            const original = courses.find((c) => c.id === courseId)
+
             await updateCourse(courseId, {
                 title: draft.title,
                 creditUnit: Number(draft.creditUnit),
                 semester: draft.semester,
             })
-            setSaveMessage(`${courses.find((c) => c.id === courseId)?.code} updated successfully.`)
+
+            if (draft.status && draft.status !== (original.status || 'C')) {
+                await setCourseStatus(courseId, draft.status)
+            }
+
+            setSaveMessage(`${original?.code} updated successfully.`)
             setEditingId(null)
             load()
         } catch (err) {
@@ -41,18 +55,18 @@ function Courses() {
     }
 
     if (loading) return <p className="text-slate-500">Loading courses…</p>
-    if (error) return <p className="text-red-600">Error: {error}</p>
+    if (error && courses.length === 0) return <p className="text-red-600">Error: {error}</p>
 
     return (
         <div>
             <h2 className="text-2xl font-bold mb-2">All Courses</h2>
             <p className="theme-text-muted text-sm mb-6">
-                Click Edit on any row to correct a mistake — title, credit unit, or semester — without recreating the course.
+                Click Edit on any row to correct the title, credit unit, semester or status
+                (C – Compulsory, R – Required, E – Elective). The status appears on the results broadsheet.
             </p>
 
-            {saveMessage && (
-                <div className="mb-4 px-4 py-3 rounded-lg bg-green-50 text-green-700 text-sm">{saveMessage}</div>
-            )}
+            {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
+            {saveMessage && <div className="mb-4 px-4 py-3 rounded-lg bg-green-50 text-green-700 text-sm">{saveMessage}</div>}
 
             <div className="card overflow-hidden">
                 <table className="w-full text-sm text-left">
@@ -61,6 +75,7 @@ function Courses() {
                         <th className="px-4 py-3">Code</th>
                         <th className="px-4 py-3">Title</th>
                         <th className="px-4 py-3">Unit</th>
+                        <th className="px-4 py-3">Status</th>
                         <th className="px-4 py-3">Level</th>
                         <th className="px-4 py-3">Semester</th>
                         <th className="px-4 py-3">Programmes</th>
@@ -85,6 +100,18 @@ function Courses() {
                                                className="border theme-border rounded px-2 py-1 text-sm w-16" />
                                     ) : course.creditUnit}
                                 </td>
+                                <td className="px-4 py-3">
+                                    {isEditing ? (
+                                        <select value={draft.status} onChange={(e) => setDraft({ ...draft, status: e.target.value })}
+                                                className="border theme-border rounded px-2 py-1 text-sm">
+                                            <option value="C">C – Compulsory</option>
+                                            <option value="R">R – Required</option>
+                                            <option value="E">E – Elective</option>
+                                        </select>
+                                    ) : (
+                                        <span title={STATUS_LABEL[course.status || 'C']} className="font-medium">{course.status || 'C'}</span>
+                                    )}
+                                </td>
                                 <td className="px-4 py-3">{course.levelCode}</td>
                                 <td className="px-4 py-3">
                                     {isEditing ? (
@@ -98,7 +125,8 @@ function Courses() {
                                 <td className="px-4 py-3">
                                     <div className="flex flex-wrap gap-1">
                                         {course.programmes?.length > 0 ? course.programmes.map((p) => (
-                                            <span key={p.id} className="px-2 py-0.5 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--surface-soft)', color: 'var(--accent)' }}>
+                                            <span key={p.id} className="px-2 py-0.5 rounded-full text-xs font-medium"
+                                                  style={{ backgroundColor: 'var(--surface-soft)', color: 'var(--accent)' }}>
                           {p.code}
                         </span>
                                         )) : <span className="theme-text-muted text-xs">Unassigned</span>}

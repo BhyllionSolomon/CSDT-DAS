@@ -16,9 +16,11 @@ const hodGroups = [
             { to: '/programme-overview', label: 'Programme Overview' },
             { to: '/sessions', label: 'Academic Sessions' },
             { to: '/students-per-session', label: 'Students Per Session' },
-
         ]},
-
+    { label: 'Reports', items: [
+            { to: '/reports', label: 'Broadsheet & Lists' },
+            { to: '/student-report', label: 'Student Result' },
+        ]},
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
@@ -30,9 +32,6 @@ const hodGroups = [
             { to: '/create-course', label: 'Create Course' },
             { to: '/bulk-upload-courses', label: 'Bulk Upload Courses' },
             { to: '/set-unit-requirements', label: 'Set Required Units' },
-        ]},
-    { label: 'Teaching', items: [
-            { to: '/teaching', label: 'Materials & Online Classes' },
         ]},
     { label: 'Lecturers', items: [
             { to: '/course-allocations', label: 'Course Allocations' },
@@ -51,6 +50,7 @@ const hodGroups = [
             { to: '/verification', label: 'Result Verification' },
         ]},
 ]
+
 
 
 const lecturerGroups = [
@@ -80,6 +80,10 @@ const lecturerGroups = [
 
 const adviserGroups = [
     { label: 'Programme', items: [{ to: '/', label: 'My Programme' }] },
+    { label: 'Reports', items: [
+            { to: '/reports', label: 'Broadsheet & Lists' },
+            { to: '/student-report', label: 'Student Result' },
+        ]},
     { label: 'Students', items: [
             { to: '/register-courses', label: 'Course Registration' },
             { to: '/registration-status', label: 'Registration Status' },
@@ -138,6 +142,7 @@ const GROUP_ICONS = {
     'Programme': BookOpen,
     'Academics': GraduationCap,
     'Teaching': Video, 'Learning': Video,
+    'Reports': FileSpreadsheet,
 }
 
 function NavGroup({ group }) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,18 +27,12 @@ public class StudentLevelHistoryService {
         this.studentRepository = studentRepository;
     }
 
-    /**
-     * Records (or overwrites) a snapshot of the given student's level and
-     * programme as of their current academic session. Always re-fetches the
-     * student with all relations eagerly joined, so this is safe to call
-     * regardless of the caller's transaction/session state.
-     */
+    /** Records (or overwrites) the student's level/programme for their current session. */
     public void recordSnapshot(Student studentRef) {
 
         if (studentRef == null || studentRef.getId() == null) return;
 
-        Student student = studentRepository.findByIdWithDetails(studentRef.getId())
-                .orElse(null);
+        Student student = studentRepository.findByIdWithDetails(studentRef.getId()).orElse(null);
 
         if (student == null) return;
         if (student.getAcademicSession() == null || student.getLevel() == null
@@ -58,25 +53,41 @@ public class StudentLevelHistoryService {
     }
 
     public int backfillFromCurrentState() {
-        List<Student> students = studentRepository.findAllWithDetails();
+        return ensureSnapshots();
+    }
+
+    /** Writes a snapshot for every student who does not yet have one for their current session. */
+    private int ensureSnapshots() {
+        Set<String> existing = historyRepository.findAll().stream()
+                .map(h -> h.getStudent().getId() + "-" + h.getAcademicSession().getId())
+                .collect(Collectors.toSet());
+
         int written = 0;
 
-        for (Student student : students) {
-            boolean exists = student.getAcademicSession() != null
-                    && historyRepository.findByStudentIdAndAcademicSessionId(
-                    student.getId(), student.getAcademicSession().getId()
-            ).isPresent();
+        for (Student student : studentRepository.findAllWithDetails()) {
+            if (student.getAcademicSession() == null) continue;
+            if (existing.contains(student.getId() + "-" + student.getAcademicSession().getId())) continue;
 
-            if (!exists) {
-                recordSnapshot(student);
-                written++;
-            }
+            recordSnapshot(student);
+            written++;
         }
+
         return written;
     }
 
-    @Transactional(readOnly = true)
+    /** The students who were in this programme and level during this session. */
+    public List<StudentLevelHistory> cohort(Long sessionId, Long programmeId, Long levelId) {
+        ensureSnapshots();
+
+        return historyRepository.findByAcademicSessionId(sessionId).stream()
+                .filter(h -> h.getProgramme().getId().equals(programmeId)
+                        && h.getLevel().getId().equals(levelId))
+                .toList();
+    }
+
     public List<StudentSessionRecord> getForSession(Long academicSessionId) {
+        ensureSnapshots();
+
         return historyRepository.findByAcademicSessionId(academicSessionId).stream()
                 .map(h -> new StudentSessionRecord(
                         h.getStudent().getId(),

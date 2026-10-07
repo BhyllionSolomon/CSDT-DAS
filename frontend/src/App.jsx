@@ -30,6 +30,8 @@ import UploadMyResults from './pages/UploadMyResults'
 import RegistrationStatus from './pages/RegistrationStatus'
 import LecturerTeaching from './pages/LecturerTeaching'
 import StudentLearning from './pages/StudentLearning'
+import Reports from './pages/Reports'
+import StudentReport from './pages/StudentReport'
 
 function App() {
     return (
@@ -73,6 +75,8 @@ function App() {
                             <Route path="registration-status" element={<RegistrationStatus />} />
                             <Route path="teaching" element={<LecturerTeaching />} />
                             <Route path="my-learning" element={<StudentLearning />} />
+                            <Route path="reports" element={<Reports />} />
+                            <Route path="student-report" element={<StudentReport />} />
 
 
                         </Route>

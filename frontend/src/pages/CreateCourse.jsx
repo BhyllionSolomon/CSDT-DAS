@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { createCourse } from '../services/courseService'
+import { createCourse, setCourseStatus } from '../services/courseService'
 import api from '../services/api'
 
 async function getAllProgrammes() { return (await api.get('/programmes')).data }
 async function getAllLevels() { return (await api.get('/levels')).data }
 
 const LEVEL_CODES = ['100', '200', '300', '400']
+const STATUS_LABEL = { C: 'C – Compulsory', R: 'R – Required', E: 'E – Elective' }
 
 function CreateCourse() {
     const [programmes, setProgrammes] = useState([])
@@ -20,6 +21,7 @@ function CreateCourse() {
     const [title, setTitle] = useState('')
     const [creditUnit, setCreditUnit] = useState('')
     const [semester, setSemester] = useState('FIRST')
+    const [status, setStatus] = useState('C')
 
     const [confirming, setConfirming] = useState(false)
     const [result, setResult] = useState(null)
@@ -56,8 +58,13 @@ function CreateCourse() {
                 levelId: selectedLevel.id, semester,
                 programmeIds: [selectedProgramme.id],
             })
+
+            if (status !== 'C') {
+                await setCourseStatus(created.id, status)
+            }
+
             setResult(created)
-            setCode(''); setTitle(''); setCreditUnit('')
+            setCode(''); setTitle(''); setCreditUnit(''); setStatus('C')
             setConfirming(false)
         } catch (err) {
             setError(err.response?.data?.message || err.message)
@@ -128,11 +135,20 @@ function CreateCourse() {
                                 <input value={title} onChange={(e) => setTitle(e.target.value)} required
                                        className="w-full border theme-border rounded-lg px-3 py-2 text-sm" />
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-3 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Credit Unit</label>
                                     <input type="number" value={creditUnit} onChange={(e) => setCreditUnit(e.target.value)} required
                                            className="w-full border theme-border rounded-lg px-3 py-2 text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium mb-1">Status</label>
+                                    <select value={status} onChange={(e) => setStatus(e.target.value)}
+                                            className="w-full border theme-border rounded-lg px-3 py-2 text-sm">
+                                        <option value="C">C – Compulsory</option>
+                                        <option value="R">R – Required</option>
+                                        <option value="E">E – Elective</option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Semester</label>
@@ -157,6 +173,7 @@ function CreateCourse() {
                                 <div className="flex justify-between"><dt className="theme-text-muted">Code</dt><dd className="font-medium">{code.toUpperCase()}</dd></div>
                                 <div className="flex justify-between"><dt className="theme-text-muted">Title</dt><dd className="font-medium">{title}</dd></div>
                                 <div className="flex justify-between"><dt className="theme-text-muted">Credit Unit</dt><dd className="font-medium">{creditUnit}</dd></div>
+                                <div className="flex justify-between"><dt className="theme-text-muted">Status</dt><dd className="font-medium">{STATUS_LABEL[status]}</dd></div>
                                 <div className="flex justify-between"><dt className="theme-text-muted">Semester</dt><dd className="font-medium">{semester}</dd></div>
                             </dl>
                             <div className="flex gap-3">

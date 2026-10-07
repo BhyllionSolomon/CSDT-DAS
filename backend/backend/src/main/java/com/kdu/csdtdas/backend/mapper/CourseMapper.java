@@ -22,35 +22,20 @@ public class CourseMapper {
         response.setCode(course.getCode());
         response.setTitle(course.getTitle());
         response.setCreditUnit(course.getCreditUnit());
+        response.setStatus(course.getStatus());
         response.setSemester(course.getSemester());
         response.setActive(course.getActive());
 
         if (course.getDepartment() != null) {
-            response.setDepartmentId(
-                    course.getDepartment().getId()
-            );
-
-            response.setDepartmentCode(
-                    course.getDepartment().getCode()
-            );
-
-            response.setDepartmentName(
-                    course.getDepartment().getName()
-            );
+            response.setDepartmentId(course.getDepartment().getId());
+            response.setDepartmentCode(course.getDepartment().getCode());
+            response.setDepartmentName(course.getDepartment().getName());
         }
 
         if (course.getLevel() != null) {
-            response.setLevelId(
-                    course.getLevel().getId()
-            );
-
-            response.setLevelCode(
-                    course.getLevel().getCode()
-            );
-
-            response.setLevelName(
-                    course.getLevel().getName()
-            );
+            response.setLevelId(course.getLevel().getId());
+            response.setLevelCode(course.getLevel().getCode());
+            response.setLevelName(course.getLevel().getName());
         }
 
         if (course.getProgrammes() != null) {
@@ -65,10 +50,7 @@ public class CourseMapper {
         return response;
     }
 
-    private CourseResponse.ProgrammeSummary toProgrammeSummary(
-            Programme programme
-    ) {
-
+    private CourseResponse.ProgrammeSummary toProgrammeSummary(Programme programme) {
         return new CourseResponse.ProgrammeSummary(
                 programme.getId(),
                 programme.getCode(),

@@ -22,6 +22,10 @@ public class Course {
     @Column(nullable = false)
     private Integer creditUnit;
 
+    /** C = Compulsory, R = Required, E = Elective. */
+    @Column(length = 5)
+    private String status = "C";
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
@@ -62,6 +66,9 @@ public class Course {
         if (active == null) {
             active = true;
         }
+        if (status == null) {
+            status = "C";
+        }
     }
 
     @PreUpdate
@@ -69,83 +76,26 @@ public class Course {
         updatedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getCreditUnit() {
-        return creditUnit;
-    }
-
-    public void setCreditUnit(Integer creditUnit) {
-        this.creditUnit = creditUnit;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
-    public Set<Programme> getProgrammes() {
-        return programmes;
-    }
-
-    public void setProgrammes(Set<Programme> programmes) {
-        this.programmes = programmes;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+    public Integer getCreditUnit() { return creditUnit; }
+    public void setCreditUnit(Integer creditUnit) { this.creditUnit = creditUnit; }
+    public String getStatus() { return status == null ? "C" : status; }
+    public void setStatus(String status) { this.status = status; }
+    public Department getDepartment() { return department; }
+    public void setDepartment(Department department) { this.department = department; }
+    public Level getLevel() { return level; }
+    public void setLevel(Level level) { this.level = level; }
+    public String getSemester() { return semester; }
+    public void setSemester(String semester) { this.semester = semester; }
+    public Set<Programme> getProgrammes() { return programmes; }
+    public void setProgrammes(Set<Programme> programmes) { this.programmes = programmes; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
 }
