@@ -28,6 +28,8 @@ import ExamScoresheet from './pages/ExamScoresheet'
 import StudentCarryOvers from './pages/StudentCarryOvers'
 import UploadMyResults from './pages/UploadMyResults'
 import RegistrationStatus from './pages/RegistrationStatus'
+import LecturerTeaching from './pages/LecturerTeaching'
+import StudentLearning from './pages/StudentLearning'
 
 function App() {
     return (
@@ -69,6 +71,8 @@ function App() {
                             <Route path="my-carryovers" element={<StudentCarryOvers />} />
                             <Route path="upload-my-results" element={<UploadMyResults />} />
                             <Route path="registration-status" element={<RegistrationStatus />} />
+                            <Route path="teaching" element={<LecturerTeaching />} />
+                            <Route path="my-learning" element={<StudentLearning />} />
 
 
                         </Route>

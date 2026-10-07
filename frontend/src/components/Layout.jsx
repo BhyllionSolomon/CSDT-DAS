@@ -4,13 +4,13 @@ import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import {
     LayoutDashboard, GraduationCap, BookOpen, Users, UserCog,
-    ClipboardCheck, FileSpreadsheet, Settings, LogOut, ChevronRight
+    ClipboardCheck, FileSpreadsheet, Settings, LogOut, ChevronRight, Video
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import Logo from './Logo'
 import ThemeSwitcher from './ThemeSwitcher'
 
-import { ExternalLink } from 'lucide-react'
+
 const hodGroups = [
     { label: 'Department', items: [
             { to: '/programme-overview', label: 'Programme Overview' },
@@ -31,9 +31,13 @@ const hodGroups = [
             { to: '/bulk-upload-courses', label: 'Bulk Upload Courses' },
             { to: '/set-unit-requirements', label: 'Set Required Units' },
         ]},
+    { label: 'Teaching', items: [
+            { to: '/teaching', label: 'Materials & Online Classes' },
+        ]},
     { label: 'Lecturers', items: [
             { to: '/course-allocations', label: 'Course Allocations' },
             { to: '/users', label: 'Manage Lecturers' },
+            { to: '/teaching', label: 'Teaching Activity' },
         ]},
     { label: 'Level Advisers', items: [
             { to: '/advisers', label: 'Manage Advisers' },
@@ -47,15 +51,15 @@ const hodGroups = [
             { to: '/verification', label: 'Result Verification' },
         ]},
 ]
-const EXTERNAL_LINKS = [
-    { label: 'SIWES', url: 'https://ems-frontend-fv32.onrender.com' },
-    { label: 'NACOS', url: 'https://your-nacos-frontend-url-here' },
-]
+
 
 const lecturerGroups = [
     { label: 'Courses', items: [
             { to: '/', label: 'My Courses' },
             { to: '/claim-courses', label: 'Claim Course' },
+        ]},
+    { label: 'Teaching', items: [
+            { to: '/teaching', label: 'Materials & Online Classes' },
         ]},
     { label: 'Students', items: [
             { to: '/lecturer-students', label: 'My Students' },
@@ -87,6 +91,9 @@ const studentGroups = [
     { label: 'Academics', items: [
             { to: '/register-courses', label: 'Course Registration' },
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
+        ]},
+    { label: 'Learning', items: [
+            { to: '/my-learning', label: 'Class Materials & Online Classes' },
         ]},
     { label: 'Attendance', items: [
             { to: '/attendance', label: 'My Attendance', disabled: true },
@@ -130,6 +137,7 @@ const GROUP_ICONS = {
     'Exam Scoresheet': FileSpreadsheet,
     'Programme': BookOpen,
     'Academics': GraduationCap,
+    'Teaching': Video, 'Learning': Video,
 }
 
 function NavGroup({ group }) {
