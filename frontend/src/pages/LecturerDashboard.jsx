@@ -19,29 +19,29 @@ function LecturerDashboard() {
             .finally(() => setLoading(false))
     }, [user.id])
 
-    if (loading) return <p className="text-slate-500">Loading…</p>
+    if (loading) return <p className="theme-text-muted">Loading…</p>
 
     return (
         <div>
-            <h2 className="text-2xl font-bold text-slate-800 mb-2">Welcome, {user.fullName}</h2>
+            <h2 className="text-2xl font-bold mb-2">Welcome, {user.fullName}</h2>
 
             {allocations.length === 0 ? (
-                <div className="bg-white rounded-lg shadow p-6">
-                    <p className="text-slate-600 mb-2">
+                <div className="card p-6">
+                    <p className="theme-text-muted mb-2">
                         You have not been assigned any courses yet. Once the H.O.D allocates a
                         course to you, or you claim one from the available pool, it will appear here.
                     </p>
-                    <Link to="/claim-courses" className="text-blue-600 hover:underline text-sm font-medium">
+                    <Link to="/claim-courses" className="font-medium" style={{ color: 'var(--accent)' }}>
                         View courses available to claim →
                     </Link>
                 </div>
             ) : (
-                <div className="bg-white rounded-lg shadow overflow-hidden">
-                    <div className="bg-slate-800 text-white px-4 py-2 text-sm font-semibold">
+                <div className="card overflow-hidden">
+                    <div className="theme-sidebar text-white px-4 py-2 text-sm font-semibold">
                         Your Assigned Courses
                     </div>
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-50 text-slate-600 uppercase text-xs">
+                        <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted uppercase text-xs">
                         <tr>
                             <th className="px-4 py-3">Session</th>
                             <th className="px-4 py-3">Semester</th>
@@ -50,7 +50,7 @@ function LecturerDashboard() {
                             <th className="px-4 py-3"></th>
                         </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y theme-border">
                         {allocations.map((a) => (
                             <tr key={a.id}>
                                 <td className="px-4 py-3">{a.academicSessionName}</td>
@@ -59,10 +59,11 @@ function LecturerDashboard() {
                                 <td className="px-4 py-3">{a.courseTitle}</td>
                                 <td className="px-4 py-3 text-right">
                                     <Link
-                                        to={`/bulk-enter-results?courseId=${a.courseId}&sessionId=${a.academicSessionId}&semester=${a.semester}`}
-                                        className="text-blue-600 hover:underline text-xs font-medium"
+                                        to={`/exam-scoresheet?courseId=${a.courseId}&sessionId=${a.academicSessionId}&semester=${a.semester}`}
+                                        className="font-medium text-xs"
+                                        style={{ color: 'var(--accent)' }}
                                     >
-                                        Enter Scores →
+                                        Record Results →
                                     </Link>
                                 </td>
                             </tr>

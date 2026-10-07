@@ -25,12 +25,19 @@ public class User {
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
+    @Column(length = 30)
+    private String phoneNumber;
+
     @Column(nullable = false, length = 30)
     private String role;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "programme_id")
     private Programme programme;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "level_id")
+    private Level level;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
@@ -71,10 +78,14 @@ public class User {
     public void setFullName(String fullName) { this.fullName = fullName; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
     public Programme getProgramme() { return programme; }
     public void setProgramme(Programme programme) { this.programme = programme; }
+    public Level getLevel() { return level; }
+    public void setLevel(Level level) { this.level = level; }
     public Student getStudent() { return student; }
     public void setStudent(Student student) { this.student = student; }
     public Boolean getActive() { return active; }

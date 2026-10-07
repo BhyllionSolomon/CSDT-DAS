@@ -1,4 +1,6 @@
 import { useState } from 'react'
+
+
 import { NavLink, Outlet } from 'react-router-dom'
 import {
     LayoutDashboard, GraduationCap, BookOpen, Users, UserCog,
@@ -8,12 +10,15 @@ import { useAuth } from '../context/AuthContext'
 import Logo from './Logo'
 import ThemeSwitcher from './ThemeSwitcher'
 
+import { ExternalLink } from 'lucide-react'
 const hodGroups = [
     { label: 'Department', items: [
             { to: '/programme-overview', label: 'Programme Overview' },
             { to: '/sessions', label: 'Academic Sessions' },
             { to: '/students-per-session', label: 'Students Per Session' },
+
         ]},
+
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
@@ -41,6 +46,10 @@ const hodGroups = [
     { label: 'Exams', items: [
             { to: '/verification', label: 'Result Verification' },
         ]},
+]
+const EXTERNAL_LINKS = [
+    { label: 'SIWES', url: 'https://ems-frontend-fv32.onrender.com' },
+    { label: 'NACOS', url: 'https://your-nacos-frontend-url-here' },
 ]
 
 const lecturerGroups = [

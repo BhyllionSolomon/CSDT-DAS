@@ -19,12 +19,19 @@ public class UserMapper {
         response.setUsername(user.getUsername());
         response.setFullName(user.getFullName());
         response.setEmail(user.getEmail());
+        response.setPhoneNumber(user.getPhoneNumber());
         response.setRole(user.getRole());
         response.setActive(user.getActive());
 
         if (user.getProgramme() != null) {
             response.setProgrammeId(user.getProgramme().getId());
             response.setProgrammeName(user.getProgramme().getName());
+        }
+
+        if (user.getLevel() != null) {
+            response.setLevelId(user.getLevel().getId());
+            response.setLevelCode(user.getLevel().getCode());
+            response.setLevelName(user.getLevel().getName());
         }
 
         return response;

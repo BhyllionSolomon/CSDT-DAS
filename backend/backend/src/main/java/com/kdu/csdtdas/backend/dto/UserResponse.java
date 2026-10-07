@@ -6,10 +6,14 @@ public class UserResponse {
     private String username;
     private String fullName;
     private String email;
+    private String phoneNumber;
     private String role;
     private Boolean active;
     private Long programmeId;
     private String programmeName;
+    private Long levelId;
+    private String levelCode;
+    private String levelName;
 
     public UserResponse() {
     }
@@ -22,6 +26,8 @@ public class UserResponse {
     public void setFullName(String fullName) { this.fullName = fullName; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
     public Boolean getActive() { return active; }
@@ -30,4 +36,10 @@ public class UserResponse {
     public void setProgrammeId(Long programmeId) { this.programmeId = programmeId; }
     public String getProgrammeName() { return programmeName; }
     public void setProgrammeName(String programmeName) { this.programmeName = programmeName; }
+    public Long getLevelId() { return levelId; }
+    public void setLevelId(Long levelId) { this.levelId = levelId; }
+    public String getLevelCode() { return levelCode; }
+    public void setLevelCode(String levelCode) { this.levelCode = levelCode; }
+    public String getLevelName() { return levelName; }
+    public void setLevelName(String levelName) { this.levelName = levelName; }
 }
