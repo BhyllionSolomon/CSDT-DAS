@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
-const THEMES = ['light', 'dark', 'navy', 'purple', 'green']
+const THEMES = ['light', 'orange', 'navy', 'purple', 'green']
 
 const ThemeContext = createContext(null)
 

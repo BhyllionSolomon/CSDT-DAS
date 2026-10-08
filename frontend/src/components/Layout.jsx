@@ -153,7 +153,7 @@ function NavGroup({ group }) {
         <div className="mb-1 px-3">
             <button
                 onClick={() => setOpen(!open)}
-                className="w-full flex items-center gap-2 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-white/50 hover:text-white btn-press rounded-lg hover:bg-white/5"
+                className="w-full flex items-center gap-2 px-3 py-2.5 text-xs font-semibold uppercase tracking-wide opacity-60 hover:opacity-100 btn-press rounded-lg hover:bg-[var(--sidebar-hover)]"
             >
                 <Icon size={15} />
                 <span className="flex-1 text-left">{group.label}</span>
@@ -171,9 +171,9 @@ function NavGroup({ group }) {
                     {group.items.map((item) =>
                         item.disabled ? (
                             <div key={item.to}
-                                 className="flex justify-between items-center px-4 py-1.5 text-sm text-white/25 cursor-not-allowed">
+                                 className="flex justify-between items-center px-4 py-1.5 text-sm opacity-25 cursor-not-allowed">
                                 {item.label}
-                                <span className="text-[10px] uppercase bg-white/10 text-white/40 px-1.5 py-0.5 rounded">soon</span>
+                                <span className="text-[10px] uppercase bg-[var(--sidebar-hover)] opacity-60 px-1.5 py-0.5 rounded">soon</span>
                             </div>
                         ) : (
                             <NavLink key={item.to} to={item.to} end={item.to === '/'}
@@ -181,7 +181,7 @@ function NavGroup({ group }) {
                                          `block px-4 py-1.5 rounded-lg text-sm font-medium transition-all btn-press ${
                                              isActive
                                                  ? 'accent-gradient text-white shadow-lg shadow-black/20'
-                                                 : 'text-white/60 hover:bg-white/5 hover:text-white'
+                                                 : 'opacity-60 hover:bg-[var(--sidebar-hover)] hover:opacity-100'
                                          }`
                                      }>
                                 {item.label}
@@ -202,12 +202,12 @@ function Layout() {
 
     return (
         <div className="min-h-screen flex">
-            <aside className="w-72 theme-sidebar text-white flex flex-col shrink-0 max-h-screen">
+            <aside className="w-72 theme-sidebar flex flex-col shrink-0 max-h-screen">
                 <div className="p-6 flex items-center gap-3 shrink-0">
                     <Logo className="w-10 h-10" />
                     <div>
                         <h1 className="text-lg font-bold">CSDT-DAS</h1>
-                        <p className="text-white/40 text-xs">Academic Results</p>
+                        <p className="opacity-40 text-xs">Academic Results</p>
                     </div>
                 </div>
 
@@ -217,19 +217,19 @@ function Layout() {
                     ))}
                 </nav>
 
-                <div className="p-4 mx-3 mb-3 rounded-xl bg-white/5 space-y-3 shrink-0">
+                <div className="p-4 mx-3 mb-3 rounded-xl bg-[var(--sidebar-hover)] space-y-3 shrink-0">
                     <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-full accent-gradient flex items-center justify-center text-xs font-bold shrink-0">
                             {initials}
                         </div>
                         <div className="min-w-0">
                             <p className="text-sm font-medium truncate">{user?.fullName}</p>
-                            <p className="text-xs text-white/40">{user?.role}</p>
+                            <p className="text-xs opacity-40">{user?.role}</p>
                         </div>
                     </div>
                     <div className="flex items-center justify-between">
                         <ThemeSwitcher />
-                        <button onClick={logout} className="text-white/50 hover:text-white btn-press" title="Sign out">
+                        <button onClick={logout} className="opacity-50 hover:opacity-100 btn-press" title="Sign out">
                             <LogOut size={16} />
                         </button>
                     </div>

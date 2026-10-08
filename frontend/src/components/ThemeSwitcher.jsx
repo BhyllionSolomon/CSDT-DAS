@@ -1,8 +1,8 @@
 import { useTheme } from '../context/ThemeContext'
 
 const SWATCH = {
-    light: '#f4f4f5',
-    dark: '#ff6b00',
+    light: '#ffffff',
+    orange: '#ff6b00',
     navy: '#0b1120',
     purple: '#9333ea',
     green: '#16a34a',

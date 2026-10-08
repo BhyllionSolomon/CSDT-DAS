@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
-:root, [data-theme="navy"] {
+/* ============================================================
+   THEME VARIABLES
+   ============================================================ */
+
+:root,
+[data-theme="navy"] {
     --bg: #0f1729;
-    --bg-gradient: radial-gradient(circle at 20% -10%, #1e3a8a33, transparent 40%), radial-gradient(circle at 100% 0%, #4c1d9533, transparent 40%);
+    --bg-gradient: radial-gradient(circle at 20% -10%, #1e3a8a33, transparent 40%),
+    radial-gradient(circle at 100% 0%, #4c1d9533, transparent 40%);
     --surface: #ffffff;
     --surface-soft: #f8fafc;
     --sidebar: #0b1120;
     --sidebar-hover: #1e293b;
+    --sidebar-text: #e2e8f0;
     --accent: #3b82f6;
     --accent-2: #6366f1;
     --accent-hover: #2563eb;
@@ -22,6 +29,7 @@
     --surface-soft: #f1f5f9;
     --sidebar: #ffffff;
     --sidebar-hover: #f1f5f9;
+    --sidebar-text: #0f172a;
     --accent: #2563eb;
     --accent-2: #4f46e5;
     --accent-hover: #1d4ed8;
@@ -30,16 +38,17 @@
     --border: #e2e8f0;
 }
 
-[data-theme="dark"] {
+[data-theme="orange"] {
     --bg: #09090b;
-    --bg-gradient: radial-gradient(circle at 20% -10%, #4c1d9540, transparent 40%);
+    --bg-gradient: radial-gradient(circle at 20% -10%, #ff6b0040, transparent 40%);
     --surface: #18181b;
     --surface-soft: #27272a;
     --sidebar: #050505;
     --sidebar-hover: #18181b;
-    --accent: #818cf8;
-    --accent-2: #a78bfa;
-    --accent-hover: #6366f1;
+    --sidebar-text: #fafafa;
+    --accent: #ff6b00;
+    --accent-2: #ff9333;
+    --accent-hover: #e65f00;
     --text: #fafafa;
     --text-muted: #a1a1aa;
     --border: #27272a;
@@ -52,6 +61,7 @@
     --surface-soft: #f5f3ff;
     --sidebar: #2e1065;
     --sidebar-hover: #4c1d95;
+    --sidebar-text: #f3e8ff;
     --accent: #9333ea;
     --accent-2: #c026d3;
     --accent-hover: #7e22ce;
@@ -67,6 +77,7 @@
     --surface-soft: #ecfdf5;
     --sidebar: #052e16;
     --sidebar-hover: #14532d;
+    --sidebar-text: #dcfce7;
     --accent: #16a34a;
     --accent-2: #059669;
     --accent-hover: #15803d;
@@ -75,7 +86,135 @@
     --border: #dcfce7;
 }
 
-body {
+/* ============================================================
+   TAILWIND v4 THEME MAPPING
+   ============================================================ */
+
+@theme {
+    --color-bg: var(--bg);
+    --color-surface: var(--surface);
+    --color-surface-soft: var(--surface-soft);
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-hover: var(--sidebar-hover);
+    --color-sidebar-text: var(--sidebar-text);
+    --color-text: var(--text);
+    --color-text-muted: var(--text-muted);
+    --color-border: var(--border);
+    --color-accent: var(--accent);
+    --color-accent-2: var(--accent-2);
+    --color-accent-hover: var(--accent-hover);
+}
+
+/* ============================================================
+   GLOBAL REMAP — make hardcoded Tailwind colors follow the theme
+   Fixes every page at once. No component files need changing.
+   ============================================================ */
+
+/* ---------- Backgrounds ---------- */
+.bg-white,
+.bg-gray-50, .bg-gray-100,
+.bg-slate-50, .bg-slate-100,
+.bg-zinc-50, .bg-zinc-100,
+.bg-neutral-50, .bg-neutral-100 {
+    background-color: var(--surface) !important;
+}
+
+.bg-gray-200, .bg-slate-200, .bg-zinc-200,
+.bg-neutral-200 {
+    background-color: var(--surface-soft) !important;
+}
+
+.bg-slate-800, .bg-slate-900,
+.bg-gray-800, .bg-gray-900,
+.bg-zinc-800, .bg-zinc-900 {
+    background-color: var(--sidebar) !important;
+}
+
+/* ---------- Text — main ---------- */
+.text-black,
+.text-gray-900, .text-gray-800, .text-gray-700,
+.text-slate-900, .text-slate-800, .text-slate-700,
+.text-zinc-900, .text-zinc-800, .text-zinc-700,
+.text-neutral-900, .text-neutral-800, .text-neutral-700 {
+    color: var(--text) !important;
+}
+
+/* ---------- Text — muted ---------- */
+.text-gray-600, .text-gray-500, .text-gray-400,
+.text-slate-600, .text-slate-500, .text-slate-400,
+.text-zinc-600, .text-zinc-500, .text-zinc-400,
+.text-neutral-600, .text-neutral-500, .text-neutral-400 {
+    color: var(--text-muted) !important;
+}
+
+/* ---------- Status badges (colored pills) ---------- */
+.bg-green-50, .bg-green-100,
+.bg-emerald-50, .bg-emerald-100 {
+    background-color: #dcfce7 !important;
+}
+.text-green-600, .text-green-700, .text-green-800 {
+    color: #166534 !important;
+}
+
+.bg-red-50, .bg-red-100 {
+    background-color: #fee2e2 !important;
+}
+.text-red-600, .text-red-700, .text-red-800 {
+    color: #991b1b !important;
+}
+
+.bg-amber-50, .bg-amber-100, .bg-yellow-100 {
+    background-color: #fef3c7 !important;
+}
+.text-amber-600, .text-amber-700, .text-amber-800,
+.text-yellow-700 {
+    color: #92400e !important;
+}
+
+.bg-blue-50, .bg-blue-100 {
+    background-color: #dbeafe !important;
+}
+.text-blue-600, .text-blue-700, .text-blue-800 {
+    color: #1e40af !important;
+}
+
+/* ---------- Borders ---------- */
+.border-gray-100, .border-gray-200, .border-gray-300,
+.border-slate-100, .border-slate-200, .border-slate-300,
+.border-zinc-100, .border-zinc-200, .border-zinc-300,
+.border-neutral-100, .border-neutral-200, .border-neutral-300 {
+    border-color: var(--border) !important;
+}
+
+.divide-gray-100, .divide-gray-200,
+.divide-slate-100, .divide-slate-200,
+.divide-zinc-100, .divide-zinc-200,
+.divide-neutral-100, .divide-neutral-200 {
+    border-color: var(--border) !important;
+}
+
+/* ---------- Hover backgrounds used on rows/buttons ---------- */
+.hover\:bg-gray-50:hover, .hover\:bg-gray-100:hover,
+.hover\:bg-slate-50:hover, .hover\:bg-slate-100:hover,
+.hover\:bg-zinc-50:hover, .hover\:bg-zinc-100:hover {
+    background-color: var(--surface-soft) !important;
+}
+
+/* ---------- Inputs & form controls inherit theme ---------- */
+input, select, textarea {
+    background-color: var(--surface);
+    color: var(--text);
+    border-color: var(--border);
+}
+input::placeholder, textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+html, body {
     background: var(--bg-gradient), var(--bg);
     background-attachment: fixed;
     color: var(--text);
@@ -83,33 +222,56 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+#root {
+    color: var(--text);
+}
+
 * {
-    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
 }
 
-.theme-surface { background-color: var(--surface); border: 1px solid var(--border); }
-.theme-sidebar { background-color: var(--sidebar); }
-.theme-sidebar-hover:hover { background-color: var(--sidebar-hover); }
+/* ============================================================
+   TEXT HELPERS — force theme text everywhere
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6, p, span, label, li, td, th, div {
+    color: inherit;
+}
+
+.theme-text { color: var(--text); }
 .theme-text-muted { color: var(--text-muted); }
-.theme-border { border-color: var(--border); }
+.theme-sidebar-text { color: var(--sidebar-text); }
 
-.accent-gradient {
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+/* ============================================================
+   SURFACES
+   ============================================================ */
+
+.theme-surface {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
 }
-.accent-gradient:hover {
-    filter: brightness(1.08);
+
+.theme-sidebar {
+    background-color: var(--sidebar);
+    color: var(--sidebar-text);
 }
-.accent-text {
-    background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+.theme-sidebar * {
+    color: inherit;
 }
+
+.theme-sidebar-hover:hover {
+    background-color: var(--sidebar-hover);
+}
+
+.theme-border { border-color: var(--border); }
 
 .card {
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: 1rem;
+    color: var(--text);
     box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px -12px rgba(0,0,0,0.08);
 }
 .card-hover:hover {
@@ -128,14 +290,35 @@ body {
     background: linear-gradient(90deg, var(--accent), var(--accent-2));
 }
 
+/* ============================================================
+   ACCENTS
+   ============================================================ */
+
+.accent-gradient {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+.accent-gradient:hover {
+    filter: brightness(1.08);
+}
+.accent-text {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
 @keyframes fadeSlideIn {
     from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 .animate-in { animation: fadeSlideIn 0.25s ease-out; }
 
 @keyframes shimmer {
-    0% { background-position: -200% 0; }
+    0%   { background-position: -200% 0; }
     100% { background-position: 200% 0; }
 }
 .skeleton {
@@ -146,8 +329,12 @@ body {
 
 .btn-press:active { transform: scale(0.96); }
 
+/* ============================================================
+   PRINT
+   ============================================================ */
+
 @media print {
     aside, .no-print { display: none !important; }
     main { padding: 0 !important; }
-    body { background: white !important; }
+    body { background: white !important; color: black !important; }
 }

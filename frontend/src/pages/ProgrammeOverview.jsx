@@ -63,12 +63,12 @@ function ProgrammeOverview() {
         setChecking(false)
     }
 
-    if (loading) return <p className="text-slate-500">Loading…</p>
+    if (loading) return <p className="text-text-muted">Loading…</p>
 
     return (
         <div>
-            <h2 className="text-2xl font-bold text-slate-800 mb-2">Programme Overview</h2>
-            <p className="text-sm text-slate-500 mb-6">
+            <h2 className="text-2xl font-bold text-text mb-2">Programme Overview</h2>
+            <p className="text-sm text-text-muted mb-6">
                 Select a programme and level to monitor students, courses and academic
                 standing. Level Advisers see this for their own programme.
             </p>
@@ -87,7 +87,7 @@ function ProgrammeOverview() {
                         className={`px-4 py-2 rounded-md text-sm font-medium ${
                             String(programmeId) === String(p.id)
                                 ? 'bg-blue-600 text-white'
-                                : 'bg-white text-slate-600 border border-slate-300'
+                                : 'bg-surface text-text-muted border border-border'
                         }`}
                     >
                         {p.name}
@@ -105,7 +105,7 @@ function ProgrammeOverview() {
                                 className={`px-4 py-2 rounded-md text-sm font-medium ${
                                     level === l
                                         ? 'bg-slate-800 text-white'
-                                        : 'bg-white text-slate-600 border border-slate-300'
+                                        : 'bg-surface text-text-muted border border-border'
                                 }`}
                             >
                                 {l} Level
@@ -113,8 +113,8 @@ function ProgrammeOverview() {
                         ))}
                     </div>
 
-                    <div className="bg-white rounded-lg shadow p-4 mb-6 flex justify-between items-center">
-            <span className="text-sm text-slate-600">
+                    <div className="bg-surface rounded-lg shadow p-4 mb-6 flex justify-between items-center">
+            <span className="text-sm text-text-muted">
               {filteredStudents.length} student(s) in this programme/level
             </span>
                         <button
@@ -128,44 +128,44 @@ function ProgrammeOverview() {
 
                     {standing && (
                         <div className="grid grid-cols-3 gap-4">
-                            <div className="bg-white rounded-lg shadow overflow-hidden">
+                            <div className="bg-surface rounded-lg shadow overflow-hidden">
                                 <div className="bg-green-600 text-white px-4 py-2 text-sm font-semibold">
                                     Good Standing ({standing.goodStanding.length})
                                 </div>
-                                <ul className="divide-y divide-slate-100">
+                                <ul className="divide-y divide-border">
                                     {standing.goodStanding.map(({ student, cgpa }) => (
                                         <li key={student.id} className="px-4 py-2 text-sm">
                                             <Link to={`/students/${student.id}/results`} className="text-blue-600 hover:underline">
                                                 {student.matricNumber}
                                             </Link>
-                                            <span className="text-slate-500 ml-2">CGPA {cgpa}</span>
+                                            <span className="text-text-muted ml-2">CGPA {cgpa}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
-                            <div className="bg-white rounded-lg shadow overflow-hidden">
+                            <div className="bg-surface rounded-lg shadow overflow-hidden">
                                 <div className="bg-red-600 text-white px-4 py-2 text-sm font-semibold">
                                     Not in Good Standing ({standing.notGoodStanding.length})
                                 </div>
-                                <ul className="divide-y divide-slate-100">
+                                <ul className="divide-y divide-border">
                                     {standing.notGoodStanding.map(({ student, remark, cgpa }) => (
                                         <li key={student.id} className="px-4 py-2 text-sm">
                                             <Link to={`/students/${student.id}/results`} className="text-blue-600 hover:underline">
                                                 {student.matricNumber}
                                             </Link>
-                                            <span className="text-slate-500 ml-2">CGPA {cgpa}</span>
+                                            <span className="text-text-muted ml-2">CGPA {cgpa}</span>
                                             <p className="text-xs text-red-600">{remark}</p>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
 
-                            <div className="bg-white rounded-lg shadow overflow-hidden">
+                            <div className="bg-surface rounded-lg shadow overflow-hidden">
                                 <div className="bg-slate-500 text-white px-4 py-2 text-sm font-semibold">
                                     No Results Yet ({standing.noResults.length})
                                 </div>
-                                <ul className="divide-y divide-slate-100">
+                                <ul className="divide-y divide-border">
                                     {standing.noResults.map((student) => (
                                         <li key={student.id} className="px-4 py-2 text-sm">
                                             <Link to={`/students/${student.id}/results`} className="text-blue-600 hover:underline">
