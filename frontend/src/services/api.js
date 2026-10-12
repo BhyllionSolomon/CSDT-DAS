@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+// Local development continues to use localhost. Set VITE_API_BASE_URL on Render
+// to the deployed backend URL ending in /api.
 const api = axios.create({
-    baseURL: 'http://localhost:8081/api',
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/api',
     headers: { 'Content-Type': 'application/json' },
 })
 
