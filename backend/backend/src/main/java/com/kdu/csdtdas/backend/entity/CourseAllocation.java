@@ -4,12 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "course_allocations",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"course_id", "academic_session_id", "semester"})
-        }
-)
+@Table(name = "course_allocations")
 public class CourseAllocation {
 
     @Id
@@ -28,6 +23,12 @@ public class CourseAllocation {
 
     @Column(length = 10)
     private String status;
+
+    /** DOCUMENT, HOD or CLAIM: where this entry came from. */
+    @Column(length = 20)
+    private String source;
+
+    private LocalDateTime claimedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "course_id", nullable = false)
@@ -62,7 +63,6 @@ public class CourseAllocation {
     }
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
     public User getLecturer() { return lecturer; }
     public void setLecturer(User lecturer) { this.lecturer = lecturer; }
     public String getLecturerName() { return lecturerName; }
@@ -71,6 +71,10 @@ public class CourseAllocation {
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    public String getSource() { return source; }
+    public void setSource(String source) { this.source = source; }
+    public LocalDateTime getClaimedAt() { return claimedAt; }
+    public void setClaimedAt(LocalDateTime claimedAt) { this.claimedAt = claimedAt; }
     public Course getCourse() { return course; }
     public void setCourse(Course course) { this.course = course; }
     public AcademicSession getAcademicSession() { return academicSession; }

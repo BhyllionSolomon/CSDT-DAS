@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './context/ThemeContext'
 import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Layout from './components/Layout'
@@ -23,15 +24,17 @@ import LecturerStudents from './pages/LecturerStudents'
 import BulkUploadCourses from './pages/BulkUploadCourses'
 import ManageLecturers from './pages/ManageLecturers'
 import ManageAdvisers from './pages/ManageAdvisers'
-import { ThemeProvider } from './context/ThemeContext'
+import ManageLabStaff from './pages/ManageLabStaff'
 import ExamScoresheet from './pages/ExamScoresheet'
 import StudentCarryOvers from './pages/StudentCarryOvers'
 import UploadMyResults from './pages/UploadMyResults'
 import RegistrationStatus from './pages/RegistrationStatus'
-import LecturerTeaching from './pages/LecturerTeaching'
-import StudentLearning from './pages/StudentLearning'
+import StudentsPerSession from './pages/StudentsPerSession'
 import Reports from './pages/Reports'
 import StudentReport from './pages/StudentReport'
+import LecturerTeaching from './pages/LecturerTeaching'
+import StudentLearning from './pages/StudentLearning'
+import MyLevelAdviser from './pages/MyLevelAdviser'
 
 function App() {
     return (
@@ -52,33 +55,34 @@ function App() {
                             <Route index element={<RoleDashboard />} />
                             <Route path="students" element={<Students />} />
                             <Route path="students/:studentId/results" element={<StudentResults />} />
+                            <Route path="students-per-session" element={<StudentsPerSession />} />
                             <Route path="bulk-upload-students" element={<BulkUploadStudents />} />
                             <Route path="courses" element={<Courses />} />
                             <Route path="create-course" element={<CreateCourse />} />
+                            <Route path="bulk-upload-courses" element={<BulkUploadCourses />} />
                             <Route path="sessions" element={<Sessions />} />
                             <Route path="enter-result" element={<EnterResult />} />
                             <Route path="bulk-enter-results" element={<BulkEnterResults />} />
                             <Route path="upload-results-csv" element={<UploadResultsCsv />} />
                             <Route path="verification" element={<ResultVerification />} />
                             <Route path="register-courses" element={<StudentCourseRegistration />} />
+                            <Route path="registration-status" element={<RegistrationStatus />} />
                             <Route path="programme-overview" element={<ProgrammeOverview />} />
                             <Route path="course-allocations" element={<CourseAllocations />} />
                             <Route path="claim-courses" element={<ClaimCourses />} />
                             <Route path="set-unit-requirements" element={<SetUnitRequirements />} />
                             <Route path="lecturer-students" element={<LecturerStudents />} />
-                            <Route path="bulk-upload-courses" element={<BulkUploadCourses />} />
                             <Route path="users" element={<ManageLecturers />} />
                             <Route path="advisers" element={<ManageAdvisers />} />
+                            <Route path="lab-staff" element={<ManageLabStaff />} />
                             <Route path="exam-scoresheet" element={<ExamScoresheet />} />
                             <Route path="my-carryovers" element={<StudentCarryOvers />} />
                             <Route path="upload-my-results" element={<UploadMyResults />} />
-                            <Route path="registration-status" element={<RegistrationStatus />} />
-                            <Route path="teaching" element={<LecturerTeaching />} />
-                            <Route path="my-learning" element={<StudentLearning />} />
                             <Route path="reports" element={<Reports />} />
                             <Route path="student-report" element={<StudentReport />} />
-
-
+                            <Route path="teaching" element={<LecturerTeaching />} />
+                            <Route path="my-learning" element={<StudentLearning />} />
+                            <Route path="my-adviser" element={<MyLevelAdviser />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

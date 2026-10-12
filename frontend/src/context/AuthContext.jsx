@@ -17,13 +17,14 @@ export function AuthProvider({ children }) {
     }
 
     async function login(username, password) {
-        const data = await loginRequest(username, password)
-        await afterAuth(data)
+        await afterAuth(await loginRequest(username, password))
     }
 
+    // Staff accounts wait for the H.O.D, so sign-up may not log the person in.
     async function signup(idNumber, fullName, email, username, password) {
-        const data = await signupRequest(idNumber, fullName, email, username, password)
-        await afterAuth(data)
+        const result = await signupRequest(idNumber, fullName, email, username, password)
+        if (!result.pendingApproval) await afterAuth(result.login)
+        return result
     }
 
     function logout() {
@@ -32,11 +33,7 @@ export function AuthProvider({ children }) {
         setUser(null)
     }
 
-    return (
-        <AuthContext.Provider value={{ user, login, signup, logout }}>
-            {children}
-        </AuthContext.Provider>
-    )
+    return <AuthContext.Provider value={{ user, login, signup, logout }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {

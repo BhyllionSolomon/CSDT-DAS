@@ -25,14 +25,14 @@ public class TeachingAccessService {
         return "HOD".equalsIgnoreCase(user.getRole()) || "ADMIN".equalsIgnoreCase(user.getRole());
     }
 
-    /** True for the H.O.D/admin, or the lecturer allocated to this exact course slot. */
+    /** True for the H.O.D/admin, or any lecturer who has claimed this exact course slot. */
     public boolean canTeach(User user, Long courseId, Long sessionId, String semester) {
         if (isPrivileged(user)) return true;
 
-        return allocationRepository
-                .findByCourseIdAndAcademicSessionIdAndSemester(courseId, sessionId, semester)
-                .map(a -> a.getLecturer() != null && a.getLecturer().getId().equals(user.getId()))
-                .orElse(false);
+        String sem = semester == null ? "" : semester.trim().toUpperCase();
+
+        return allocationRepository.findForCourse(courseId, sessionId, sem).stream()
+                .anyMatch(a -> a.getLecturer() != null && a.getLecturer().getId().equals(user.getId()));
     }
 
     public void requireTeachingRights(User user, Long courseId, Long sessionId, String semester) {

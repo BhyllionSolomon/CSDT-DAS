@@ -11,24 +11,23 @@ import java.util.Optional;
 public interface CourseAllocationRepository extends JpaRepository<CourseAllocation, Long> {
 
     @Query("""
-        SELECT ca
-        FROM CourseAllocation ca
-        LEFT JOIN FETCH ca.lecturer l
+        SELECT ca FROM CourseAllocation ca
+        LEFT JOIN FETCH ca.lecturer
         JOIN FETCH ca.course c
+        JOIN FETCH c.level
         JOIN FETCH ca.academicSession s
-        ORDER BY s.startDate DESC, ca.semester, c.code
+        ORDER BY s.startDate DESC, ca.semester, c.code, ca.id
     """)
     List<CourseAllocation> findAllWithDetails();
 
     @Query("""
-        SELECT ca
-        FROM CourseAllocation ca
-        LEFT JOIN FETCH ca.lecturer l
+        SELECT ca FROM CourseAllocation ca
+        LEFT JOIN FETCH ca.lecturer
         JOIN FETCH ca.course c
+        JOIN FETCH c.level
         JOIN FETCH ca.academicSession s
-        WHERE s.id = :sessionId
-          AND ca.semester = :semester
-        ORDER BY c.code
+        WHERE s.id = :sessionId AND ca.semester = :semester
+        ORDER BY c.code, ca.id
     """)
     List<CourseAllocation> findByAcademicSessionIdAndSemester(
             @Param("sessionId") Long sessionId,
@@ -36,17 +35,38 @@ public interface CourseAllocationRepository extends JpaRepository<CourseAllocati
     );
 
     @Query("""
-        SELECT ca
-        FROM CourseAllocation ca
-        LEFT JOIN FETCH ca.lecturer l
+        SELECT ca FROM CourseAllocation ca
+        JOIN FETCH ca.lecturer l
         JOIN FETCH ca.course c
+        JOIN FETCH c.level
         JOIN FETCH ca.academicSession s
         WHERE l.id = :lecturerId
         ORDER BY s.startDate DESC, ca.semester, c.code
     """)
     List<CourseAllocation> findByLecturerId(@Param("lecturerId") Long lecturerId);
 
-    Optional<CourseAllocation> findByCourseIdAndAcademicSessionIdAndSemester(
-            Long courseId, Long academicSessionId, String semester
+    @Query("""
+        SELECT ca FROM CourseAllocation ca
+        LEFT JOIN FETCH ca.lecturer
+        JOIN FETCH ca.course c
+        JOIN FETCH c.level
+        JOIN FETCH ca.academicSession s
+        WHERE c.id = :courseId AND s.id = :sessionId AND ca.semester = :semester
+        ORDER BY ca.id
+    """)
+    List<CourseAllocation> findForCourse(
+            @Param("courseId") Long courseId,
+            @Param("sessionId") Long sessionId,
+            @Param("semester") String semester
     );
+
+    @Query("""
+        SELECT ca FROM CourseAllocation ca
+        LEFT JOIN FETCH ca.lecturer
+        JOIN FETCH ca.course c
+        JOIN FETCH c.level
+        JOIN FETCH ca.academicSession s
+        WHERE ca.id = :id
+    """)
+    Optional<CourseAllocation> findByIdWithDetails(@Param("id") Long id);
 }

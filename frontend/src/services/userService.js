@@ -1,17 +1,25 @@
 import api from './api'
 
 export async function getAllUsers() {
-    const response = await api.get('/users')
-    return response.data
+    return (await api.get('/users')).data
 }
+
 export async function createUser(payload) {
-    const response = await api.post('/users', payload)
-    return response.data
+    return (await api.post('/users', payload)).data
 }
+
 export async function updateUser(id, payload) {
-    const response = await api.put(`/users/${id}`, payload)
-    return response.data
+    return (await api.put(`/users/${id}`, payload)).data
 }
+
 export async function deleteUser(id) {
     await api.delete(`/users/${id}`)
+}
+
+export async function setUserPhone(id, phoneNumber) {
+    return (await api.put(`/users/${id}/phone`, { phoneNumber })).data
+}
+
+export async function resetUserPassword(id, newPassword) {
+    return (await api.put(`/users/${id}/reset-password`, { newPassword })).data
 }

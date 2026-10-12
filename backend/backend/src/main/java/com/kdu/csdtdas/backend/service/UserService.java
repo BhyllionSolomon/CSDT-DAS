@@ -138,6 +138,7 @@ public class UserService {
             user.setStudent(student);
         } else {
             user.setRole("LECTURER");
+            user.setActive(false); // staff accounts wait for the H.O.D's approval
         }
 
         return userRepository.save(user);

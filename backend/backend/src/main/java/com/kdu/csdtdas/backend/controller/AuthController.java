@@ -1,8 +1,14 @@
 package com.kdu.csdtdas.backend.controller;
 
-import com.kdu.csdtdas.backend.dto.*;
+import com.kdu.csdtdas.backend.dto.AuthDTOs;
+import com.kdu.csdtdas.backend.dto.CurrentUserResponse;
+import com.kdu.csdtdas.backend.dto.LoginRequest;
+import com.kdu.csdtdas.backend.dto.LoginResponse;
+import com.kdu.csdtdas.backend.dto.ResetPasswordRequest;
+import com.kdu.csdtdas.backend.dto.SignupRequest;
 import com.kdu.csdtdas.backend.entity.User;
-import com.kdu.csdtdas.backend.service.CourseAllocationService;
+import com.kdu.csdtdas.backend.service.AccountService;
+import com.kdu.csdtdas.backend.service.CurrentUserService;
 import com.kdu.csdtdas.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -14,40 +20,43 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserService userService;
-    private final CourseAllocationService courseAllocationService;
+    private final CurrentUserService currentUserService;
+    private final AccountService accountService;
 
-    public AuthController(UserService userService, CourseAllocationService courseAllocationService) {
+    public AuthController(
+            UserService userService,
+            CurrentUserService currentUserService,
+            AccountService accountService
+    ) {
         this.userService = userService;
-        this.courseAllocationService = courseAllocationService;
+        this.currentUserService = currentUserService;
+        this.accountService = accountService;
     }
-
-
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
-        String token = userService.authenticate(request.getUsername(), request.getPassword());
-        User user = userService.getByUsername(request.getUsername());
-
-        LoginResponse response = new LoginResponse(token, user.getUsername(), user.getFullName(), user.getRole());
-        if (user.getProgramme() != null) {
-            response.setProgrammeId(user.getProgramme().getId());
-            response.setProgrammeName(user.getProgramme().getName());
-        }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(loginFor(request.getUsername(), request.getPassword()));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<LoginResponse> signup(@RequestBody SignupRequest request) {
-        userService.signup(
+    public ResponseEntity<AuthDTOs.SignupResult> signup(@RequestBody SignupRequest request) {
+
+        User created = userService.signup(
                 request.getIdNumber(), request.getFullName(), request.getEmail(),
                 request.getUsername(), request.getPassword()
         );
 
-        String token = userService.authenticate(request.getUsername(), request.getPassword());
-        User user = userService.getByUsername(request.getUsername());
+        if (!Boolean.TRUE.equals(created.getActive())) {
+            return ResponseEntity.ok(new AuthDTOs.SignupResult(
+                    true,
+                    "Account created. The H.O.D must approve staff accounts before you can sign in.",
+                    null
+            ));
+        }
 
-        LoginResponse response = new LoginResponse(token, user.getUsername(), user.getFullName(), user.getRole());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new AuthDTOs.SignupResult(
+                false, "Account created.", loginFor(request.getUsername(), request.getPassword())
+        ));
     }
 
     @GetMapping("/me")
@@ -55,53 +64,25 @@ public class AuthController {
         if (authentication == null || !authentication.isAuthenticated()
                 || "anonymousUser".equals(authentication.getPrincipal())) {
             throw new IllegalArgumentException("Not authenticated.");
-
-
         }
+        return ResponseEntity.ok(currentUserService.build(authentication.getName()));
+    }
 
-        User user = userService.getByUsername(authentication.getName());
+    @PostMapping("/reset-password")
+    public ResponseEntity<AuthDTOs.Message> resetPassword(@RequestBody ResetPasswordRequest request) {
+        accountService.resetPassword(request.identifier(), request.email(), request.newPassword());
+        return ResponseEntity.ok(new AuthDTOs.Message("Password updated. You can now sign in."));
+    }
 
-        CurrentUserResponse response = new CurrentUserResponse();
-        response.setId(user.getId());
-        response.setUsername(user.getUsername());
-        response.setFullName(user.getFullName());
-        response.setEmail(user.getEmail());
-        response.setRole(user.getRole());
+    private LoginResponse loginFor(String username, String password) {
+        String token = userService.authenticate(username, password);
+        User user = userService.getByUsername(username);
 
+        LoginResponse response = new LoginResponse(token, user.getUsername(), user.getFullName(), user.getRole());
         if (user.getProgramme() != null) {
             response.setProgrammeId(user.getProgramme().getId());
             response.setProgrammeName(user.getProgramme().getName());
         }
-
-
-
-        if (user.getStudent() != null) {
-
-            if (user.getStudent().getLevel() != null) {
-                response.setLevelId(user.getStudent().getLevel().getId());
-                response.setLevelName(user.getStudent().getLevel().getName());
-            }
-            response.setStudentId(user.getStudent().getId());
-            response.setMatricNumber(user.getStudent().getMatricNumber());
-
-
-        }
-
-        boolean assigned = "LEVEL_ADVISER".equalsIgnoreCase(user.getRole())
-                || "HOD".equalsIgnoreCase(user.getRole())
-                || "ADMIN".equalsIgnoreCase(user.getRole())
-                || !courseAllocationService.getAllForLecturer(user.getId()).isEmpty();
-
-        response.setAssigned(assigned);
-
-        return ResponseEntity.ok(response);
+        return response;
     }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
-        userService.resetPassword(request.getMatricNumber(), request.getNewPassword());
-        return ResponseEntity.ok().build();
-    }
-
-
 }
