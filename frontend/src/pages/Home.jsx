@@ -87,7 +87,7 @@ function Home() {
             <Sparkles size={12} /> CSDT-Das
           </span>
                     <h1 className="text-4xl font-bold leading-tight mb-4">
-                        Department of Computing Science and Digital Technology <br />department, <span className="accent-text">Departmental Assistsant System.</span>
+                        Department of Computing Science and Digital Technology <br /> <span className="accent-text">Departmental Assistsant System.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
                         Faculty of Applied Science  — KolaDaisi University , Ibadan
