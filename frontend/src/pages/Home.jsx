@@ -87,11 +87,10 @@ function Home() {
             <Sparkles size={12} /> Departmental Academic System
           </span>
                     <h1 className="text-4xl font-bold leading-tight mb-4">
-                        Manage your whole<br />department, <span className="accent-text">effortlessly.</span>
+                        Department of Computing Science and Digital Technology <br />department, <span className="accent-text">effortlessly.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
-                        Computing Science &amp; Digital Technology — course allocation, result processing,
-                        CGPA tracking and student monitoring, all in one place.
+                        Faculty of Applied Science  — KolaDaisi University , Ibadan
                     </p>
                     <div className="space-y-3">
                         {FEATURES.map((item, i) => (
