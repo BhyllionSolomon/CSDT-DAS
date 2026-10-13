@@ -86,8 +86,8 @@ function Home() {
           <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-white/10 px-3 py-1 rounded-full mb-4">
             <Sparkles size={12} />  Department of Computing(KDU)
           </span>
-                    <h1 className="text-4xl font-bold leading-tight mb-4">
-                       Computing Science and Digital Technology <br /> <span className="accent-text">Departmental Assistant System.</span>
+                    <h1 className="text-4xl font-bold leading-tight mb-3">
+                       Computing Science and Digital Technology <br /> <span className="accent-text">Department Assistant System.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
                         Faculty of Applied Science  — KolaDaisi University , Ibadan
