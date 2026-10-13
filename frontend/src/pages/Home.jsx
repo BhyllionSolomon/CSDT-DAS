@@ -84,14 +84,13 @@ function Home() {
 
                 <div className="animate-in relative z-10">
           <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-white/10 px-3 py-1 rounded-full mb-4">
-            <Sparkles size={12} /> Departmental Academic System
+            <Sparkles size={12} />  Department of Computing(KDU)
           </span>
                     <h1 className="text-4xl font-bold leading-tight mb-4">
-                        Manage your whole<br />department, <span className="accent-text">effortlessly.</span>
+                       Computing Science and Digital Technology <br /> <span className="accent-text">Departmental Assistant System.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
-                        Computing Science &amp; Digital Technology — course allocation, result processing,
-                        CGPA tracking and student monitoring, all in one place.
+                        Faculty of Applied Science  — KolaDaisi University , Ibadan
                     </p>
                     <div className="space-y-3">
                         {FEATURES.map((item, i) => (
