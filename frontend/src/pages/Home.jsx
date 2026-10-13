@@ -84,10 +84,10 @@ function Home() {
 
                 <div className="animate-in relative z-10">
           <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-white/10 px-3 py-1 rounded-full mb-4">
-            <Sparkles size={12} /> Departmental Academic System
+            <Sparkles size={12} /> CSDT-Das
           </span>
                     <h1 className="text-4xl font-bold leading-tight mb-4">
-                        Department of Computing Science and Digital Technology <br />department, <span className="accent-text">effortlessly.</span>
+                        Department of Computing Science and Digital Technology <br />department, <span className="accent-text">Departmental Assistsant System.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
                         Faculty of Applied Science  — KolaDaisi University , Ibadan
