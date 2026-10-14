@@ -65,16 +65,26 @@ public final class AllocationDTOs {
 
     public record PreviewRow(
             int rowNumber, String codeText, String titleText, Integer unit, String status,
-            List<String> lecturers, List<MatchedCourse> matches, List<NewCourse> newCourses,
-            List<String> warnings
+            List<String> lecturers, List<String> phones,
+            List<MatchedCourse> matches, List<NewCourse> newCourses, List<String> warnings
     ) {}
 
-    public record CommitRow(List<Long> courseIds, List<NewCourse> newCourses, List<String> lecturers) {}
+    public record CommitRow(
+            List<Long> courseIds, List<NewCourse> newCourses, List<String> lecturers, List<String> phones
+    ) {}
 
     public record CommitRequest(Long academicSessionId, String semester, List<CommitRow> rows) {}
 
+    public record CourseRef(Long id, String code, String title) {}
+
     public record CommitResult(
             int coursesCreated, int courseSlotsOpened, int lecturersListed, int alreadyListed,
-            List<String> notes
+            List<String> notes, List<CourseRef> needProgramme
+    ) {}
+
+    public record ImportResult(
+            Long academicSessionId, String sessionName, String semester, int rowsRead,
+            int coursesCreated, int courseSlotsOpened, int lecturersListed, int alreadyListed,
+            List<String> notes, List<CourseRef> needProgramme
     ) {}
 }

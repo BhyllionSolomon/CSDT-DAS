@@ -32,6 +32,7 @@ const hodGroups = [
         ] },
     { label: 'Lecturers', items: [
             { to: '/course-allocations', label: 'Course Allocations' },
+            { to: '/bulk-upload-allocation', label: 'Bulk Upload Allocation' },
             { to: '/users', label: 'Manage Lecturers' },
             { to: '/teaching', label: 'Teaching Activity' },
         ] },

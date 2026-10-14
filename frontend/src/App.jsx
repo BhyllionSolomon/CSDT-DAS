@@ -18,6 +18,7 @@ import BulkEnterResults from './pages/BulkEnterResults'
 import StudentCourseRegistration from './pages/StudentCourseRegistration'
 import ProgrammeOverview from './pages/ProgrammeOverview'
 import CourseAllocations from './pages/CourseAllocations'
+import BulkUploadAllocation from './pages/BulkUploadAllocation'
 import ClaimCourses from './pages/ClaimCourses'
 import SetUnitRequirements from './pages/SetUnitRequirements'
 import LecturerStudents from './pages/LecturerStudents'
@@ -69,6 +70,7 @@ function App() {
                             <Route path="registration-status" element={<RegistrationStatus />} />
                             <Route path="programme-overview" element={<ProgrammeOverview />} />
                             <Route path="course-allocations" element={<CourseAllocations />} />
+                            <Route path="bulk-upload-allocation" element={<BulkUploadAllocation />} />
                             <Route path="claim-courses" element={<ClaimCourses />} />
                             <Route path="set-unit-requirements" element={<SetUnitRequirements />} />
                             <Route path="lecturer-students" element={<LecturerStudents />} />
