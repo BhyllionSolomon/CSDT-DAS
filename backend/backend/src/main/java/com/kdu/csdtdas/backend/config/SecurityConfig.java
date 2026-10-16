@@ -50,6 +50,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
 
+                        // Every signed-in person (all roles) manages their own account.
+                        .requestMatchers("/api/account/**").authenticated()
+
                         // Own phone number (the controller checks self-or-H.O.D).
                         .requestMatchers(HttpMethod.PUT, "/api/users/*/phone").hasAnyRole(ACADEMIC)
 
