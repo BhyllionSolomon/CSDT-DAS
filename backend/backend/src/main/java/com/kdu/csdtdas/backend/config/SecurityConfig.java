@@ -47,8 +47,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Spring's own error page. Without this, every error message arrives empty.
+                        .requestMatchers("/error").permitAll()
+
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
+
+                        // Only the simple "is it running" check is public. Every other actuator page is shut.
+                        .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/**").denyAll()
 
                         // Every signed-in person (all roles) manages their own account.
                         .requestMatchers("/api/account/**").authenticated()

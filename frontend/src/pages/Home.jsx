@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { GraduationCap, ShieldCheck, LineChart, Users2, Sparkles } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import { resetPassword } from '../services/authService'
+import { requestPasswordReset, confirmPasswordReset } from '../services/authService'
+import { API_URL } from '../services/api'
 import Logo from '../components/Logo'
 import ThemeSwitcher from '../components/ThemeSwitcher'
 
@@ -25,10 +26,16 @@ function Field({ label, hint, ...props }) {
     )
 }
 
-const TITLES = {
-    signin: ['Welcome back 👋', 'Sign in to continue'],
-    signup: ['Create your account', 'Students sign up with a matric number already on the roster'],
-    forgot: ['Reset your password', 'Enter your matric number or username and the email you signed up with'],
+// Says exactly what is wrong, including which server the page is trying to reach.
+function explain(err) {
+    if (!err.isAxiosError) return err.message || 'Something went wrong.'
+    if (!API_URL) {
+        return 'This site is not connected to its server yet: the server address has not been set. Please tell the administrator.'
+    }
+    if (!err.response) {
+        return `Cannot reach the server at ${API_URL}. Check your internet connection. If the server was idle, wait a minute and try again.`
+    }
+    return err.response.data?.message || 'Something went wrong. Please try again.'
 }
 
 function Home() {
@@ -36,6 +43,7 @@ function Home() {
     const navigate = useNavigate()
 
     const [view, setView] = useState('signin')
+    const [step, setStep] = useState(1)
     const [f, setF] = useState({})
     const [error, setError] = useState(null)
     const [notice, setNotice] = useState(null)
@@ -44,7 +52,7 @@ function Home() {
     const bind = (name) => ({ value: f[name] || '', onChange: (e) => setF({ ...f, [name]: e.target.value }) })
 
     function go(next, message = null) {
-        setView(next); setF({}); setError(null); setNotice(message)
+        setView(next); setStep(1); setF({}); setError(null); setNotice(message)
     }
 
     async function submit(e) {
@@ -58,18 +66,41 @@ function Home() {
                 const result = await signup(f.idNumber, f.fullName, f.email, f.username, f.password)
                 if (result.pendingApproval) go('signin', result.message)
                 else navigate('/')
+            } else if (step === 1) {
+                const result = await requestPasswordReset(f.identifier)
+                setStep(2)
+                setNotice(result.message)
             } else {
                 if (f.newPassword !== f.confirm) throw new Error('The two passwords do not match.')
-                const result = await resetPassword(f.identifier, f.email, f.newPassword)
+                const result = await confirmPasswordReset(f.identifier, f.code, f.newPassword)
                 go('signin', result.message)
             }
         } catch (err) {
-            setError(err.response?.data?.message || err.message || 'Something went wrong.')
+            setError(explain(err))
         } finally { setBusy(false) }
     }
 
-    const [title, subtitle] = TITLES[view]
-    const buttonLabel = { signin: 'Sign In', signup: 'Create Account ✨', forgot: 'Reset Password' }[view]
+    async function resend() {
+        setError(null); setNotice(null); setBusy(true)
+        try {
+            const result = await requestPasswordReset(f.identifier)
+            setNotice(result.message)
+        } catch (err) {
+            setError(explain(err))
+        } finally { setBusy(false) }
+    }
+
+    const titles = {
+        signin: ['Welcome back 👋', 'Sign in to continue'],
+        signup: ['Create your account', 'Students sign up with a matric number already on the roster'],
+        forgot: step === 1
+            ? ['Reset your password', 'Enter your matric number or username. We will email a 6-digit code to the address on your account.']
+            : ['Enter your code', 'Type the code we emailed you, then choose a new password.'],
+    }
+    const [title, subtitle] = titles[view]
+    const buttonLabel = view === 'signin' ? 'Sign In'
+        : view === 'signup' ? 'Create Account ✨'
+            : step === 1 ? 'Send Code' : 'Reset Password'
 
     return (
         <div className="min-h-screen flex">
@@ -84,13 +115,14 @@ function Home() {
 
                 <div className="animate-in relative z-10">
           <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-white/10 px-3 py-1 rounded-full mb-4">
-            <Sparkles size={12} />  Department of Computing(KDU)
+            <Sparkles size={12} /> Departmental Academic System
           </span>
-                    <h1 className="text-4xl font-bold leading-tight mb-3">
-                        Computing Science and Digital Technology <br /> <span className="accent-text">Department Assistant System.</span>
+                    <h1 className="text-4xl font-bold leading-tight mb-4">
+                        Manage your whole<br />department, <span className="accent-text">effortlessly.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
-                        Faculty of Applied Science  — KolaDaisi University , Ibadan
+                        Computing Science &amp; Digital Technology — course allocation, result processing,
+                        CGPA tracking and student monitoring, all in one place.
                     </p>
                     <div className="space-y-3">
                         {FEATURES.map((item, i) => (
@@ -152,16 +184,27 @@ function Home() {
                                 <Field label="Full Name" {...bind('fullName')} />
                                 <Field label="Email" type="email" {...bind('email')} />
                                 <Field label="Username" {...bind('username')} autoComplete="username" />
-                                <Field label="Password" type="password" minLength={6} {...bind('password')} autoComplete="new-password" />
+                                <Field label="Password" type="password" minLength={8} {...bind('password')} autoComplete="new-password" />
                             </>
                         )}
 
-                        {view === 'forgot' && (
+                        {view === 'forgot' && step === 1 && (
+                            <Field label="Matric Number or Username" {...bind('identifier')} />
+                        )}
+
+                        {view === 'forgot' && step === 2 && (
                             <>
-                                <Field label="Matric Number or Username" {...bind('identifier')} />
-                                <Field label="Email on your account" type="email" {...bind('email')} />
-                                <Field label="New Password" type="password" minLength={6} {...bind('newPassword')} autoComplete="new-password" />
-                                <Field label="Confirm New Password" type="password" minLength={6} {...bind('confirm')} autoComplete="new-password" />
+                                <Field label="6-digit code" {...bind('code')} inputMode="numeric" maxLength={6} autoComplete="one-time-code" />
+                                <Field label="New Password" type="password" minLength={8} {...bind('newPassword')} autoComplete="new-password" />
+                                <Field label="Confirm New Password" type="password" minLength={8} {...bind('confirm')} autoComplete="new-password" />
+                                <div className="flex justify-between text-xs">
+                                    <button type="button" onClick={resend} disabled={busy} className="font-medium" style={{ color: 'var(--accent)' }}>
+                                        Send a new code
+                                    </button>
+                                    <button type="button" onClick={() => { setStep(1); setError(null); setNotice(null) }} className="theme-text-muted hover:underline">
+                                        Use a different account
+                                    </button>
+                                </div>
                             </>
                         )}
 

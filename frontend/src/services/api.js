@@ -1,7 +1,16 @@
 import axios from 'axios'
 
+const LOCAL_API = 'http://localhost:8081/api'
+const onThisComputer = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+
+// On your computer: the local server. On the live site: the address set as VITE_API_URL
+// on Render's frontend service. The same code works in both places.
+export const API_URL = String(
+    import.meta.env.VITE_API_URL || (onThisComputer ? LOCAL_API : '')
+).replace(/\/+$/, '')
+
 const api = axios.create({
-    baseURL: 'http://localhost:8081/api',
+    baseURL: API_URL || '/api',
     headers: { 'Content-Type': 'application/json' },
 })
 

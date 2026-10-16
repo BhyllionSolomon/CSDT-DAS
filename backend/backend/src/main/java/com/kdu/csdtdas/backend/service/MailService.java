@@ -27,12 +27,17 @@ public class MailService {
             @Value("${app.mail.api-key:}") String apiKey,
             @Value("${app.mail.from-email:}") String fromEmail,
             @Value("${app.mail.from-name:CSDT-DAS}") String fromName,
-            @Value("${app.verification.devlog:false}") boolean devLog
+            @Value("${app.verification.devlog:}") String devLogSetting
     ) {
         this.apiKey = apiKey.trim();
         this.fromEmail = fromEmail.trim();
         this.fromName = fromName.isBlank() ? "CSDT-DAS" : fromName.trim();
-        this.devLog = devLog;
+
+        // Render always sets a RENDER variable, so its absence means this is your own computer.
+        // Codes are printed in the console there, and never on Render.
+        this.devLog = devLogSetting.isBlank()
+                ? System.getenv("RENDER") == null
+                : Boolean.parseBoolean(devLogSetting.trim());
     }
 
     public void send(String to, String subject, String text) {
@@ -43,8 +48,7 @@ public class MailService {
         }
 
         if (devLog) {
-            // Local testing only. Never switch this on for the live site.
-            log.warn("DEV MODE: no email was sent. To: {} | {} | {}", to, subject, text);
+            log.warn("LOCAL MODE: no email was sent. To: {} | {} | {}", to, subject, text);
             return;
         }
 
