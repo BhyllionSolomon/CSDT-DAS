@@ -77,6 +77,8 @@ export const lecturerGroups = [
         ] },
 ]
 
+// A level adviser is also a lecturer, so every lecturer tool is here as well.
+// "My Courses" lives at /my-courses because "/" is the adviser's programme home.
 export const adviserGroups = [
     { label: 'Programme', items: [{ to: '/', label: 'My Programme' }] },
     { label: 'Reports', items: [
@@ -87,8 +89,28 @@ export const adviserGroups = [
     { label: 'Students', items: [
             { to: '/register-courses', label: 'Course Registration' },
             { to: '/registration-status', label: 'Registration Status' },
+            { to: '/lecturer-students', label: 'My Students' },
         ] },
     { label: 'Results', items: [{ to: '/verification', label: 'Result Verification' }] },
+    { label: 'Courses', items: [
+            { to: '/my-courses', label: 'My Courses' },
+            { to: '/claim-courses', label: 'Claim Course' },
+        ] },
+    { label: 'Teaching', items: [
+            { to: '/teaching', label: 'Materials & Online Classes' },
+        ] },
+    { label: 'Attendance', items: [
+            { to: '/attendance', label: 'Take Attendance', disabled: true },
+        ] },
+    { label: 'Continuous Assessment', items: [
+            { to: '/ca/practicals', label: 'Practicals', disabled: true },
+            { to: '/ca/assignments', label: 'Assignments', disabled: true },
+            { to: '/ca/presentation', label: 'Class Presentation', disabled: true },
+            { to: '/ca/test', label: 'Test', disabled: true },
+        ] },
+    { label: 'Exam Scoresheet', items: [
+            { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
+        ] },
 ]
 
 export const studentGroups = [

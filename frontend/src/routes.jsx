@@ -1,4 +1,5 @@
 import RoleDashboard from './pages/RoleDashboard'
+import LecturerDashboard from './pages/LecturerDashboard'
 import MyAccount from './pages/MyAccount'
 import Students from './pages/Students'
 import StudentResults from './pages/StudentResults'
@@ -36,6 +37,7 @@ import PerformanceAnalytics from './pages/PerformanceAnalytics'
 // Every page behind the sign-in is registered here. A new page = one new line.
 export const protectedRoutes = [
     { index: true, element: <RoleDashboard /> },
+    { path: 'my-courses', element: <LecturerDashboard /> },
     { path: 'my-account', element: <MyAccount /> },
     { path: 'students', element: <Students /> },
     { path: 'students/:studentId/results', element: <StudentResults /> },
