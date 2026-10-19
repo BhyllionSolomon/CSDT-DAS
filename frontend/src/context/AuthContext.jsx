@@ -27,13 +27,25 @@ export function AuthProvider({ children }) {
         return result
     }
 
+    // Reloads the signed-in person's details. A new token is passed when the username changed.
+    async function refreshUser(newToken) {
+        if (newToken) sessionStorage.setItem('csdtdas_token', newToken)
+        const profile = await getCurrentUser()
+        sessionStorage.setItem('csdtdas_user', JSON.stringify(profile))
+        setUser(profile)
+    }
+
     function logout() {
         sessionStorage.removeItem('csdtdas_token')
         sessionStorage.removeItem('csdtdas_user')
         setUser(null)
     }
 
-    return <AuthContext.Provider value={{ user, login, signup, logout }}>{children}</AuthContext.Provider>
+    return (
+        <AuthContext.Provider value={{ user, login, signup, logout, refreshUser }}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
 
 export function useAuth() {
