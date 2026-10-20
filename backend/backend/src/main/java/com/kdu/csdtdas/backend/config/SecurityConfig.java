@@ -24,9 +24,11 @@ public class SecurityConfig {
             {"HOD", "ADMIN", "LECTURER", "ADJUNCT", "LEVEL_ADVISER"};
 
     private final JwtAuthFilter jwtAuthFilter;
+    private final RegistrationGateFilter registrationGateFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter, RegistrationGateFilter registrationGateFilter) {
         this.jwtAuthFilter = jwtAuthFilter;
+        this.registrationGateFilter = registrationGateFilter;
     }
 
     @Bean
@@ -63,6 +65,10 @@ public class SecurityConfig {
                         // Own phone number (the controller checks self-or-H.O.D).
                         .requestMatchers(HttpMethod.PUT, "/api/users/*/phone").hasAnyRole(ACADEMIC)
 
+                        // Registration clearance: students submit, the H.O.D decides.
+                        .requestMatchers("/api/clearance/mine", "/api/clearance/submit").hasRole("STUDENT")
+                        .requestMatchers("/api/clearance/**").hasAnyRole("HOD", "ADMIN")
+
                         // H.O.D only
                         .requestMatchers("/api/users/**").hasAnyRole("HOD", "ADMIN")
                         .requestMatchers("/api/advisers/mine").hasRole("STUDENT")
@@ -89,7 +95,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").hasAnyRole(ACADEMIC)
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                // Runs after the sign-in is read: blocks students whose registration is not approved.
+                .addFilterAfter(registrationGateFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -110,19 +110,19 @@ function Home() {
 
                 <div className="flex items-center gap-3 relative z-10">
                     <Logo className="w-10 h-10" />
-                    <span className="text-xl font-bold">CSDT-DAS</span>
+                    <span className="text-xl font-bold">MCS-DAS</span>
                 </div>
 
                 <div className="animate-in relative z-10">
           <span className="inline-flex items-center gap-1.5 text-xs font-medium bg-white/10 px-3 py-1 rounded-full mb-4">
-            <Sparkles size={12} /> Departmental Academic System
+            <Sparkles size={2} /> MCS-DAS
           </span>
                     <h1 className="text-4xl font-bold leading-tight mb-4">
-                        Manage your whole<br />department, <span className="accent-text">effortlessly.</span>
+                        Department of Mathematical and Computing Science<br />DAS, <span className="accent-text">Department Assistant System.</span>
                     </h1>
                     <p className="text-white/60 max-w-md mb-8">
                         Computing Science &amp; Digital Technology — course allocation, result processing,
-                        CGPA tracking and student monitoring, all in one place.
+                        CGPA tracking and Student monitoring.
                     </p>
                     <div className="space-y-3">
                         {FEATURES.map((item, i) => (
