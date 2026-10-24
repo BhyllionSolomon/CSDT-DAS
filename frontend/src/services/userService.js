@@ -20,6 +20,10 @@ export async function setUserPhone(id, phoneNumber) {
     return (await api.put(`/users/${id}/phone`, { phoneNumber })).data
 }
 
-export async function resetUserPassword(id, newPassword) {
-    return (await api.put(`/users/${id}/reset-password`, { newPassword })).data
+export async function getUnlinkedStudents() {
+    return (await api.get('/users/unlinked-students')).data
+}
+
+export async function linkStudentAccount(userId, studentId) {
+    return (await api.put(`/users/${userId}/link-student/${studentId}`)).data
 }

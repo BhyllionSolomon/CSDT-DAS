@@ -6,14 +6,21 @@ import StudentResults from './pages/StudentResults'
 import StudentsPerSession from './pages/StudentsPerSession'
 import BulkUploadStudents from './pages/BulkUploadStudents'
 import Courses from './pages/Courses'
+import CourseCurriculum from './pages/CurriculumPlanner'
 import CreateCourse from './pages/CreateCourse'
 import BulkUploadCourses from './pages/BulkUploadCourses'
 import Sessions from './pages/Sessions'
+import StartNewSession from './pages/StartNewSession'
+import TimetableAdmin from './pages/TimetableAdmin'
+import LecturerTimetable from './pages/LecturerTimetable'
+import TimetableView from './pages/TimetableView'
 import EnterResult from './pages/EnterResult'
 import BulkEnterResults from './pages/BulkEnterResults'
 import UploadResultsCsv from './pages/UploadResultsCsv'
 import ResultVerification from './pages/ResultVerification'
-import StudentCourseRegistration from './pages/StudentCourseRegistration'
+import RegistrationEntry from './pages/RegistrationEntry'
+import MyRegistration from './pages/MyRegistration'
+import RegistrationApprovals from './pages/RegistrationApprovals'
 import RegistrationStatus from './pages/RegistrationStatus'
 import ProgrammeOverview from './pages/ProgrammeOverview'
 import CourseAllocations from './pages/CourseAllocations'
@@ -44,14 +51,21 @@ export const protectedRoutes = [
     { path: 'students-per-session', element: <StudentsPerSession /> },
     { path: 'bulk-upload-students', element: <BulkUploadStudents /> },
     { path: 'courses', element: <Courses /> },
+    { path: 'curriculum', element: <CourseCurriculum /> },
     { path: 'create-course', element: <CreateCourse /> },
     { path: 'bulk-upload-courses', element: <BulkUploadCourses /> },
     { path: 'sessions', element: <Sessions /> },
+    { path: 'start-session', element: <StartNewSession /> },
+    { path: 'timetable-admin', element: <TimetableAdmin /> },
+    { path: 'my-timetable', element: <LecturerTimetable /> },
+    { path: 'timetable', element: <TimetableView /> },
     { path: 'enter-result', element: <EnterResult /> },
     { path: 'bulk-enter-results', element: <BulkEnterResults /> },
     { path: 'upload-results-csv', element: <UploadResultsCsv /> },
     { path: 'verification', element: <ResultVerification /> },
-    { path: 'register-courses', element: <StudentCourseRegistration /> },
+    { path: 'register-courses', element: <RegistrationEntry /> },
+    { path: 'my-registration', element: <MyRegistration /> },
+    { path: 'registration-approvals', element: <RegistrationApprovals /> },
     { path: 'registration-status', element: <RegistrationStatus /> },
     { path: 'programme-overview', element: <ProgrammeOverview /> },
     { path: 'course-allocations', element: <CourseAllocations /> },

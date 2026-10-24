@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
-import { Settings, LogOut, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Settings, LogOut, ChevronRight, Lock } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { getGroupsForRole, GROUP_ICONS, LAB_ROLES } from '../navConfig'
+import { getMyClearance } from '../services/clearanceService'
 import Logo from './Logo'
 import ThemeSwitcher from './ThemeSwitcher'
 
-function NavGroup({ group }) {
+function NavGroup({ group, locked }) {
     const [open, setOpen] = useState(false)
     const Icon = GROUP_ICONS[group.label] || Settings
 
@@ -29,26 +30,35 @@ function NavGroup({ group }) {
                 style={{ maxHeight: open ? `${group.items.length * 40 + 16}px` : '0px', opacity: open ? 1 : 0 }}
             >
                 <div className="space-y-0.5 pb-2 pl-4">
-                    {group.items.map((item) =>
-                        item.disabled ? (
-                            <div key={item.to}
-                                 className="flex justify-between items-center px-4 py-1.5 text-sm text-white/25 cursor-not-allowed">
-                                {item.label}
-                                <span className="text-[10px] uppercase bg-white/10 text-white/40 px-1.5 py-0.5 rounded">soon</span>
-                            </div>
-                        ) : (
-                            <NavLink key={item.to} to={item.to} end={item.to === '/'}
+                    {group.items.map((item) => {
+                        if (item.disabled) {
+                            return (
+                                <div key={item.to}
+                                     className="flex justify-between items-center px-4 py-1.5 text-sm text-white/25 cursor-not-allowed">
+                                    {item.label}
+                                    <span className="text-[10px] uppercase bg-white/10 text-white/40 px-1.5 py-0.5 rounded">soon</span>
+                                </div>
+                            )
+                        }
+
+                        const isLocked = locked && item.gated
+
+                        return (
+                            <NavLink key={item.to} to={isLocked ? '/my-registration' : item.to} end={item.to === '/'}
                                      className={({ isActive }) =>
-                                         `block px-4 py-1.5 rounded-lg text-sm font-medium transition-all btn-press ${
-                                             isActive
-                                                 ? 'accent-gradient text-white shadow-lg shadow-black/20'
-                                                 : 'text-white/60 hover:bg-white/5 hover:text-white'
+                                         `flex items-center justify-between px-4 py-1.5 rounded-lg text-sm font-medium transition-all btn-press ${
+                                             isLocked
+                                                 ? 'text-white/35 hover:bg-white/5'
+                                                 : isActive
+                                                     ? 'accent-gradient text-white shadow-lg shadow-black/20'
+                                                     : 'text-white/60 hover:bg-white/5 hover:text-white'
                                          }`
                                      }>
                                 {item.label}
+                                {isLocked && <Lock size={12} />}
                             </NavLink>
                         )
-                    )}
+                    })}
                 </div>
             </div>
         </div>
@@ -57,9 +67,20 @@ function NavGroup({ group }) {
 
 function Layout() {
     const { user, logout } = useAuth()
+    const location = useLocation()
+    const [clearance, setClearance] = useState(null)
+
     const groups = getGroupsForRole(user?.role)
     const initials = (user?.fullName || '?').split(' ').map((n) => n[0]).slice(0, 2).join('')
     const subtitle = LAB_ROLES.includes(user?.role) ? 'Laboratory' : 'Academic Results'
+
+    // Students: find out whether the H.O.D has approved their registration.
+    useEffect(() => {
+        if (user?.role !== 'STUDENT') return
+        getMyClearance().then(setClearance).catch(() => setClearance(null))
+    }, [user?.role, location.pathname])
+
+    const locked = user?.role === 'STUDENT' && !!clearance && clearance.gateEnabled && !clearance.cleared
 
     return (
         <div className="min-h-screen flex">
@@ -75,7 +96,7 @@ function Layout() {
                 <nav className="flex-1 py-2 overflow-y-auto min-h-0"
                      style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.15) transparent' }}>
                     {groups.map((group) => (
-                        <NavGroup key={group.label} group={group} />
+                        <NavGroup key={group.label} group={group} locked={locked} />
                     ))}
                 </nav>
 
@@ -102,6 +123,12 @@ function Layout() {
             </aside>
 
             <main className="flex-1 p-8 overflow-y-auto animate-in">
+                {locked && (
+                    <div className="no-print mb-6 px-4 py-3 rounded-lg bg-amber-50 text-amber-700 text-sm">
+                        {clearance.message}{' '}
+                        <NavLink to="/my-registration" className="underline font-medium">Open Registration &amp; Payment</NavLink>
+                    </div>
+                )}
                 <Outlet />
             </main>
         </div>

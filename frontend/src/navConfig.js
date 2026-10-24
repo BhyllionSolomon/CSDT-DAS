@@ -11,6 +11,8 @@ export const hodGroups = [
     { label: 'Department', items: [
             { to: '/programme-overview', label: 'Programme Overview' },
             { to: '/sessions', label: 'Academic Sessions' },
+            { to: '/start-session', label: 'Start New Session' },
+            { to: '/timetable-admin', label: 'Timetable' },
             { to: '/students-per-session', label: 'Students Per Session' },
         ] },
     { label: 'Reports', items: [
@@ -21,10 +23,12 @@ export const hodGroups = [
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
-            { to: '/register-courses', label: 'Course Registration' },
+            { to: '/registration-approvals', label: 'Registration Approvals' },
+            { to: '/register-courses', label: 'Register in Person' },
             { to: '/registration-status', label: 'Registration Status' },
         ] },
     { label: 'Courses', items: [
+            { to: '/curriculum', label: 'Curriculum by Level' },
             { to: '/courses', label: 'All Courses' },
             { to: '/create-course', label: 'Create Course' },
             { to: '/bulk-upload-courses', label: 'Bulk Upload Courses' },
@@ -59,6 +63,8 @@ export const lecturerGroups = [
         ] },
     { label: 'Teaching', items: [
             { to: '/teaching', label: 'Materials & Online Classes' },
+            { to: '/my-timetable', label: 'My Timetable Choices' },
+            { to: '/timetable', label: 'Department Timetable' },
         ] },
     { label: 'Students', items: [
             { to: '/lecturer-students', label: 'My Students' },
@@ -87,7 +93,7 @@ export const adviserGroups = [
         ] },
     { label: 'Analytics', items: [performance] },
     { label: 'Students', items: [
-            { to: '/register-courses', label: 'Course Registration' },
+            { to: '/register-courses', label: 'Register in Person' },
             { to: '/registration-status', label: 'Registration Status' },
             { to: '/lecturer-students', label: 'My Students' },
         ] },
@@ -98,6 +104,8 @@ export const adviserGroups = [
         ] },
     { label: 'Teaching', items: [
             { to: '/teaching', label: 'Materials & Online Classes' },
+            { to: '/my-timetable', label: 'My Timetable Choices' },
+            { to: '/timetable', label: 'Department Timetable' },
         ] },
     { label: 'Attendance', items: [
             { to: '/attendance', label: 'Take Attendance', disabled: true },
@@ -113,14 +121,17 @@ export const adviserGroups = [
         ] },
 ]
 
+// "gated" items are locked for a student until the H.O.D approves their registration.
 export const studentGroups = [
     { label: 'Academics', items: [
             { to: '/register-courses', label: 'Course Registration' },
+            { to: '/my-registration', label: 'Registration & Payment' },
+            { to: '/timetable', label: 'Timetable' },
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
         ] },
     { label: 'Learning', items: [
-            { to: '/my-learning', label: 'Class Materials & Online Classes' },
+            { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
         ] },
     { label: 'Attendance', items: [
             { to: '/attendance', label: 'My Attendance', disabled: true },
@@ -129,7 +140,7 @@ export const studentGroups = [
             { to: '/my-ca', label: 'My C.A. Scores', disabled: true },
         ] },
     { label: 'My Results', items: [
-            { to: '/upload-my-results', label: 'Upload & Analyse Results' },
+            { to: '/upload-my-results', label: 'Upload & Analyse Results', gated: true },
         ] },
 ]
 

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -207,6 +209,15 @@ public class CourseRegistrationService {
             String semester,
             List<Long> courseIds
     ) {
+        if (courseIds == null || courseIds.isEmpty()) {
+            throw new IllegalArgumentException("Select at least one course to register.");
+        }
+        if (semester == null || semester.isBlank()) {
+            throw new IllegalArgumentException("Semester is required.");
+        }
+
+        List<Long> ids = courseIds.stream().distinct().toList();
+
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found."));
 
@@ -215,11 +226,22 @@ public class CourseRegistrationService {
 
         String cleanSemester = semester.trim().toUpperCase();
 
-        List<Course> outstanding = resultCalculationService.getOutstandingCourses(studentId);
-        List<Long> mandatoryIds = outstanding.stream().map(Course::getId).toList();
+        // A course failed in a semester is registered first in the same semester of the next session.
+        List<Course> outstanding = resultCalculationService.getOutstandingCourses(studentId).stream()
+                .filter(c -> c.getSemester() != null && c.getSemester().equalsIgnoreCase(cleanSemester))
+                .toList();
 
-        List<Long> missing = mandatoryIds.stream()
-                .filter(id -> !courseIds.contains(id))
+        // Carry-overs already registered for this session and semester need not be sent again.
+        Set<Long> alreadyRegisteredIds = courseRegistrationRepository
+                .findByStudentIdAndAcademicSessionId(studentId, academicSessionId).stream()
+                .filter(r -> "REGISTERED".equalsIgnoreCase(r.getStatus())
+                        && cleanSemester.equalsIgnoreCase(r.getSemester()))
+                .map(r -> r.getCourse().getId())
+                .collect(Collectors.toSet());
+
+        List<Long> missing = outstanding.stream()
+                .map(Course::getId)
+                .filter(id -> !ids.contains(id) && !alreadyRegisteredIds.contains(id))
                 .toList();
 
         if (!missing.isEmpty()) {
@@ -228,8 +250,8 @@ public class CourseRegistrationService {
                     .map(Course::getCode)
                     .toList();
             throw new IllegalArgumentException(
-                    "Outstanding carryover course(s) must be registered first: "
-                            + String.join(", ", codes)
+                    "Courses you failed in the " + cleanSemester.toLowerCase()
+                            + " semester must be registered first: " + String.join(", ", codes)
             );
         }
 
@@ -239,7 +261,7 @@ public class CourseRegistrationService {
 
         int totalUnits = 0;
         List<Course> coursesToRegister = new ArrayList<>();
-        for (Long courseId : courseIds) {
+        for (Long courseId : ids) {
             Course course = courseRepository.findById(courseId)
                     .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseId));
             totalUnits += course.getCreditUnit();

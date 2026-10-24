@@ -24,10 +24,19 @@ public class SecurityConfig {
             {"HOD", "ADMIN", "LECTURER", "ADJUNCT", "LEVEL_ADVISER"};
 
     private final JwtAuthFilter jwtAuthFilter;
+    private final AuthRateLimitFilter authRateLimitFilter;
+    private final AccessControlFilter accessControlFilter;
     private final RegistrationGateFilter registrationGateFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter, RegistrationGateFilter registrationGateFilter) {
+    public SecurityConfig(
+            JwtAuthFilter jwtAuthFilter,
+            AuthRateLimitFilter authRateLimitFilter,
+            AccessControlFilter accessControlFilter,
+            RegistrationGateFilter registrationGateFilter
+    ) {
         this.jwtAuthFilter = jwtAuthFilter;
+        this.authRateLimitFilter = authRateLimitFilter;
+        this.accessControlFilter = accessControlFilter;
         this.registrationGateFilter = registrationGateFilter;
     }
 
@@ -62,6 +71,9 @@ public class SecurityConfig {
                         // Every signed-in person (all roles) manages their own account.
                         .requestMatchers("/api/account/**").authenticated()
 
+                        // Nobody, including the H.O.D, can set another person's password.
+                        .requestMatchers("/api/users/*/reset-password").denyAll()
+
                         // Own phone number (the controller checks self-or-H.O.D).
                         .requestMatchers(HttpMethod.PUT, "/api/users/*/phone").hasAnyRole(ACADEMIC)
 
@@ -95,9 +107,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").hasAnyRole(ACADEMIC)
                         .anyRequest().authenticated()
                 )
+                // Order: limit sign-in attempts, read the sign-in, check access to the specific record, then the registration lock.
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                // Runs after the sign-in is read: blocks students whose registration is not approved.
-                .addFilterAfter(registrationGateFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(authRateLimitFilter, JwtAuthFilter.class)
+                .addFilterAfter(accessControlFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(registrationGateFilter, AccessControlFilter.class);
 
         return http.build();
     }

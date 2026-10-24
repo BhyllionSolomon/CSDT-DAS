@@ -1,203 +1,193 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import api from '../services/api'
 import { getAllCourses } from '../services/courseService'
 import { getAllSessions } from '../services/sessionService'
-import { getOutstandingCourses, registerMultiple, getRequiredUnits } from '../services/registrationService'
+import { getOutstandingCourses, registerMultiple } from '../services/registrationService'
+import { carryOversFor, currentSessionOf } from '../utils/registrationHelpers'
+
+const msg = (err) => err.response?.data?.message || err.message
 
 function StudentCourseRegistration() {
     const { user } = useAuth()
-    const [allCourses, setAllCourses] = useState([])
+
+    const [courses, setCourses] = useState([])
     const [sessions, setSessions] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
-
-    const [academicSessionId, setAcademicSessionId] = useState('')
-    const [semester, setSemester] = useState('FIRST')
-
     const [outstanding, setOutstanding] = useState([])
-    const [selectedCourses, setSelectedCourses] = useState({})
-    const [checkedIn, setCheckedIn] = useState(false)
-    const [requiredUnits, setRequired] = useState(null)
-
-    const [submitting, setSubmitting] = useState(false)
-    const [outcome, setOutcome] = useState(null)
+    const [sessionId, setSessionId] = useState('')
+    const [semester, setSemester] = useState('FIRST')
+    const [picked, setPicked] = useState({})
+    const [required, setRequired] = useState(null)
+    const [registered, setRegistered] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [busy, setBusy] = useState(false)
+    const [error, setError] = useState(null)
+    const [notice, setNotice] = useState(null)
 
     useEffect(() => {
-        Promise.all([getAllCourses(), getAllSessions()])
-            .then(([c, s]) => { setAllCourses(c); setSessions(s) })
-            .catch((err) => setError(err.message))
+        if (!user.studentId) { setLoading(false); return }
+        Promise.all([getAllCourses(), getAllSessions(), getOutstandingCourses(user.studentId)])
+            .then(([c, s, o]) => {
+                setCourses(c); setSessions(s); setOutstanding(o)
+                const current = currentSessionOf(s)
+                if (current) setSessionId(String(current.id))
+            })
+            .catch((e) => setError(msg(e)))
             .finally(() => setLoading(false))
-    }, [])
+    }, [user.studentId])
+
+    useEffect(() => {
+        if (!user.studentId || !user.programmeId || !user.levelId) return
+        api.get(`/unit-limits/programme/${user.programmeId}/level/${user.levelId}/semester/${semester}`)
+            .then((res) => setRequired(res.data?.requiredUnits ?? res.data?.required ?? null))
+            .catch(() => setRequired(null))
+    }, [user.studentId, user.programmeId, user.levelId, semester])
+
+    async function loadRegistered() {
+        if (!sessionId) return
+        try {
+            const res = await api.get(`/course-registrations/student/${user.studentId}/session/${sessionId}`)
+            setRegistered(
+                res.data
+                    .filter((r) => String(r.status).toUpperCase() === 'REGISTERED')
+                    .map((r) => ({ id: r.courseId ?? r.course?.id, semester: String(r.semester || '').toUpperCase() }))
+            )
+        } catch (e) { setRegistered([]) }
+    }
+
+    useEffect(() => { loadRegistered() }, [sessionId, user.studentId])
+
+    if (loading) return <p className="theme-text-muted">Loading…</p>
 
     if (!user.studentId) {
         return (
-            <div className="card p-6">
-                <p className="theme-text-muted">
-                    Your account isn't linked to a student record yet. Contact your Level Adviser or the H.O.D.
+            <div className="card p-6 max-w-xl">
+                <h2 className="text-xl font-bold mb-2">Course Registration</h2>
+                <p className="text-sm theme-text-muted">
+                    Your account isn't linked to a student record yet. If you have just been added to the department's roster,
+                    sign up with your matric number. Otherwise contact your Level Adviser or the H.O.D.
                 </p>
             </div>
         )
     }
 
-    const currentSemesterCourses = allCourses.filter(
-        (c) =>
-            c.levelId === user.levelId &&
-            c.semester === semester &&
-            c.programmes &&
-            c.programmes.some((p) => p.id === user.programmeId)
-    )
+    const registeredIds = new Set(registered.filter((r) => r.semester === semester).map((r) => r.id))
+    const carry = carryOversFor(outstanding, semester)
+    const carryIds = new Set(carry.map((c) => c.id))
 
-    const outstandingIds = new Set(outstanding.map((c) => c.id))
+    const offered = courses.filter((c) =>
+        c.active !== false && c.levelId === user.levelId && c.semester === semester &&
+        c.programmes?.some((p) => p.id === user.programmeId) && !carryIds.has(c.id))
 
-    async function handleCheckIn() {
-        setError(null)
-        setOutcome(null)
+    const chosen = new Map()
+    carry.forEach((c) => chosen.set(c.id, c.unit))
+    offered.forEach((c) => {
+        if (picked[c.id] || registeredIds.has(c.id)) chosen.set(c.id, c.creditUnit || 0)
+    })
+
+    const ids = [...chosen.keys()]
+    const total = [...chosen.values()].reduce((a, b) => a + b, 0)
+    const matches = required !== null && total === required
+
+    async function register() {
+        setError(null); setNotice(null); setBusy(true)
         try {
-            const carryovers = await getOutstandingCourses(user.studentId)
-            setOutstanding(carryovers)
-
-            const preselect = {}
-            carryovers.forEach((c) => { preselect[c.id] = true })
-            setSelectedCourses(preselect)
-
-            try {
-                const limit = await getRequiredUnits(user.programmeId, user.levelId, semester)
-                setRequired(limit.requiredUnits)
-            } catch { setRequired(null) }
-
-            setCheckedIn(true)
-        } catch (err) {
-            setError(err.response?.data?.message || err.message)
-        }
+            await registerMultiple(user.studentId, Number(sessionId), semester, ids)
+            setNotice('Your courses are registered. Next, open Registration & Payment and enter your invoice code.')
+            setPicked({})
+            await loadRegistered()
+        } catch (err) { setError(msg(err)) } finally { setBusy(false) }
     }
-
-    async function handleSemesterChange(newSemester) {
-        setSemester(newSemester)
-        setRequired(null)
-        if (checkedIn) {
-            try {
-                const limit = await getRequiredUnits(user.programmeId, user.levelId, newSemester)
-                setRequired(limit.requiredUnits)
-            } catch { setRequired(null) }
-        }
-    }
-
-    function toggleCourse(courseId) {
-        if (outstandingIds.has(courseId)) return
-        setSelectedCourses((prev) => ({ ...prev, [courseId]: !prev[courseId] }))
-    }
-
-    const selectedIds = Object.entries(selectedCourses).filter(([, c]) => c).map(([id]) => Number(id))
-    const allSelectedCourses = [...outstanding, ...currentSemesterCourses]
-        .filter((c, i, arr) => arr.findIndex((x) => x.id === c.id) === i)
-        .filter((c) => selectedIds.includes(c.id))
-    const runningTotal = allSelectedCourses.reduce((sum, c) => sum + c.creditUnit, 0)
-
-    async function handleSubmit() {
-        setError(null)
-        setOutcome(null)
-        if (selectedIds.length === 0) { setError('Select at least one course.'); return }
-        setSubmitting(true)
-        try {
-            const result = await registerMultiple(user.studentId, Number(academicSessionId), semester, selectedIds)
-            setOutcome(result)
-        } catch (err) {
-            setError(err.response?.data?.message || err.message)
-        } finally { setSubmitting(false) }
-    }
-
-    if (loading) return <p className="theme-text-muted">Loading…</p>
 
     return (
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
             <h2 className="text-2xl font-bold mb-1">Course Registration</h2>
             <p className="theme-text-muted text-sm mb-6">
-                {user.fullName} — {user.matricNumber} · {user.programmeName}
+                {user.fullName} · {user.programmeName} · {user.levelName}
             </p>
 
-            {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm whitespace-pre-line">{error}</div>}
-            {outcome && (
+            {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
+            {notice && (
                 <div className="mb-4 px-4 py-3 rounded-lg bg-green-50 text-green-700 text-sm">
-                    Registered {outcome.registered} course(s) ({outcome.skipped} already registered).
-                    Total units: {outcome.totalUnits} / {outcome.maxUnits}
+                    {notice}{' '}
+                    <Link to="/my-registration" className="underline font-medium">Registration &amp; Payment</Link>
                 </div>
             )}
 
-            <div className="card p-6 space-y-4">
-                {!checkedIn ? (
-                    <div>
-                        <div className="grid grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Academic Session</label>
-                                <select value={academicSessionId} onChange={(e) => setAcademicSessionId(e.target.value)}
-                                        className="w-full border theme-border rounded-lg px-3 py-2 text-sm">
-                                    <option value="">Select…</option>
-                                    {sessions.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Semester</label>
-                                <select value={semester} onChange={(e) => handleSemesterChange(e.target.value)}
-                                        className="w-full border theme-border rounded-lg px-3 py-2 text-sm">
-                                    <option value="FIRST">First</option>
-                                    <option value="SECOND">Second</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button onClick={handleCheckIn} disabled={!academicSessionId}
-                                className="w-full accent-gradient text-white rounded-lg py-2.5 text-sm font-semibold btn-press disabled:opacity-50">
-                            Continue to Course Selection
-                        </button>
+            <div className="card p-4 mb-6 flex gap-4 flex-wrap">
+                <div>
+                    <label className="block text-sm font-medium mb-1">Session</label>
+                    <select value={sessionId} onChange={(e) => setSessionId(e.target.value)}
+                            className="border theme-border rounded-lg px-3 py-2 text-sm">
+                        {sessions.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-1">Semester</label>
+                    <select value={semester} onChange={(e) => { setSemester(e.target.value); setPicked({}) }}
+                            className="border theme-border rounded-lg px-3 py-2 text-sm">
+                        <option value="FIRST">First</option>
+                        <option value="SECOND">Second</option>
+                    </select>
+                </div>
+            </div>
+
+            {carry.length > 0 && (
+                <div className="card overflow-hidden mb-6">
+                    <div className="bg-amber-500 text-white px-4 py-2 text-sm font-semibold">
+                        Carry-over courses: you failed these, so they come first ({carry.length})
                     </div>
+                    <ul className="divide-y theme-border">
+                        {carry.map((c) => (
+                            <li key={c.id} className="px-4 py-2 flex items-center gap-3 text-sm">
+                                <input type="checkbox" checked disabled />
+                                <span className="font-medium">{c.code}</span>
+                                <span className="flex-1">{c.title}</span>
+                                <span className="theme-text-muted">{c.unit} unit(s)</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            <div className="card overflow-hidden mb-6">
+                <div className="theme-sidebar text-white px-4 py-2 text-sm font-semibold">
+                    {user.levelName} {semester === 'FIRST' ? 'first' : 'second'} semester courses
+                </div>
+                {offered.length === 0 ? (
+                    <p className="p-4 text-sm theme-text-muted">
+                        No courses have been set up for your programme and level this semester yet. Please check with the H.O.D.
+                    </p>
                 ) : (
-                    <>
-                        {outstanding.length > 0 && (
-                            <div>
-                                <p className="text-sm font-semibold text-amber-700 mb-2">Outstanding Carryover Courses (must be registered)</p>
-                                <div className="border border-amber-300 bg-amber-50 rounded-lg divide-y divide-amber-200">
-                                    {outstanding.map((c) => (
-                                        <div key={c.id} className="flex items-center gap-3 px-3 py-2 text-sm">
-                                            <input type="checkbox" checked disabled />
-                                            <span className="font-medium">{c.code}</span>
-                                            <span className="text-slate-600">{c.title}</span>
-                                            <span className="theme-text-muted ml-auto">{c.creditUnit} units</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        <div>
-                            <p className="text-sm font-semibold mb-2">
-                                {semester === 'FIRST' ? 'First' : 'Second'} Semester Courses — {user.levelName}
-                            </p>
-                            {currentSemesterCourses.length === 0 ? (
-                                <p className="text-sm theme-text-muted">No matching courses found.</p>
-                            ) : (
-                                <div className="border theme-border rounded-lg divide-y theme-border max-h-72 overflow-y-auto">
-                                    {currentSemesterCourses.map((c) => (
-                                        <label key={c.id} className="flex items-center gap-3 px-3 py-2 text-sm hover:bg-black/5 cursor-pointer">
-                                            <input type="checkbox" checked={!!selectedCourses[c.id]} onChange={() => toggleCourse(c.id)} />
-                                            <span className="font-medium">{c.code}</span>
-                                            <span>{c.title}</span>
-                                            <span className="theme-text-muted ml-auto">{c.creditUnit} units</span>
-                                        </label>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        <div className="flex justify-between items-center pt-2 border-t theme-border">
-              <span className={`text-sm font-medium ${requiredUnits !== null && runningTotal === requiredUnits ? 'text-green-700' : ''}`}>
-                Total selected: {runningTotal}{requiredUnits !== null ? ` / ${requiredUnits} required` : ' units'}
-              </span>
-                            <button onClick={handleSubmit} disabled={submitting || selectedIds.length === 0}
-                                    className="accent-gradient text-white rounded-lg px-6 py-2 text-sm font-semibold btn-press disabled:opacity-50">
-                                {submitting ? 'Registering…' : 'Register Selected Courses'}
-                            </button>
-                        </div>
-                    </>
+                    <ul className="divide-y theme-border">
+                        {offered.map((c) => {
+                            const done = registeredIds.has(c.id)
+                            return (
+                                <li key={c.id} className="px-4 py-2">
+                                    <label className="flex items-center gap-3 text-sm">
+                                        <input type="checkbox" checked={done || !!picked[c.id]} disabled={done}
+                                               onChange={(e) => setPicked({ ...picked, [c.id]: e.target.checked })} />
+                                        <span className="font-medium">{c.code}</span>
+                                        <span className="flex-1">{c.title}</span>
+                                        <span className="theme-text-muted">{c.creditUnit} unit(s) · {c.status || 'C'}</span>
+                                        {done && <span className="text-xs text-green-700 font-medium">Registered</span>}
+                                    </label>
+                                </li>
+                            )
+                        })}
+                    </ul>
                 )}
+            </div>
+
+            <div className="flex items-center gap-4 flex-wrap">
+                <button onClick={register} disabled={busy || !sessionId || ids.length === 0}
+                        className="accent-gradient text-white rounded-lg px-5 py-2 text-sm font-medium btn-press disabled:opacity-50">
+                    {busy ? 'Please wait…' : 'Register courses'}
+                </button>
+                <p className={`text-sm ${matches ? 'text-green-700' : 'theme-text-muted'}`}>
+                    Selected: {total} unit(s) · Required: {required ?? 'not set yet'}
+                </p>
             </div>
         </div>
     )
