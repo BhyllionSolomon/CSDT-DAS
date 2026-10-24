@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Settings, LogOut, ChevronRight, Lock } from 'lucide-react'
+import { Settings, LogOut, ChevronRight, Lock, ExternalLink } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { getGroupsForRole, GROUP_ICONS, LAB_ROLES } from '../navConfig'
 import { getMyClearance } from '../services/clearanceService'
 import Logo from './Logo'
 import ThemeSwitcher from './ThemeSwitcher'
+
+const RELATED_SYSTEMS = [
+    { label: 'SIWES (Industrial Training)', url: 'https://ems-frontend-fv32.onrender.com' },
+]
 
 function NavGroup({ group, locked }) {
     const [open, setOpen] = useState(false)
@@ -71,8 +75,9 @@ function Layout() {
     const [clearance, setClearance] = useState(null)
 
     const groups = getGroupsForRole(user?.role)
+    const isLab = LAB_ROLES.includes(user?.role)
     const initials = (user?.fullName || '?').split(' ').map((n) => n[0]).slice(0, 2).join('')
-    const subtitle = LAB_ROLES.includes(user?.role) ? 'Laboratory' : 'Academic Results'
+    const subtitle = isLab ? 'Laboratory' : 'Academic Results'
 
     // Students: find out whether the H.O.D has approved their registration.
     useEffect(() => {
@@ -99,6 +104,18 @@ function Layout() {
                         <NavGroup key={group.label} group={group} locked={locked} />
                     ))}
                 </nav>
+
+                {!isLab && (
+                    <div className="px-6 py-3 border-t border-white/10 shrink-0">
+                        <p className="text-[10px] font-semibold uppercase tracking-wide text-white/40 mb-1">Related systems</p>
+                        {RELATED_SYSTEMS.map((s) => (
+                            <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer"
+                               className="flex items-center gap-2 py-1 text-sm text-white/70 hover:text-white">
+                                <ExternalLink size={13} /> {s.label}
+                            </a>
+                        ))}
+                    </div>
+                )}
 
                 <div className="p-4 mx-3 mb-3 rounded-xl bg-white/5 space-y-3 shrink-0">
                     <div className="flex items-center gap-3">
