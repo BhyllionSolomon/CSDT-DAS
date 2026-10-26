@@ -3,10 +3,12 @@ import axios from 'axios'
 const LOCAL_API = 'http://localhost:8081/api'
 const onThisComputer = ['localhost', '127.0.0.1'].includes(window.location.hostname)
 
-// On your computer: the local server. On the live site: the address set as VITE_API_URL
-// on Render's frontend service. The same code works in both places.
+// On your computer: the local server. On the live site: the address set on Render's website service,
+// under either name (VITE_API_URL or the older VITE_API_BASE_URL). The same code works in both places.
 export const API_URL = String(
-    import.meta.env.VITE_API_URL || (onThisComputer ? LOCAL_API : '')
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_API_BASE_URL ||
+    (onThisComputer ? LOCAL_API : '')
 ).replace(/\/+$/, '')
 
 const api = axios.create({
