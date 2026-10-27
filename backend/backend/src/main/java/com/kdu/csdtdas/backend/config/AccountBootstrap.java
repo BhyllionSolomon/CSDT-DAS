@@ -39,71 +39,96 @@ public class AccountBootstrap implements ApplicationRunner {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.seeds = List.of(
-                new Seed("ADMIN", adminUsername.trim(), adminPassword,
-                        or(adminFullName, "System Administrator"), adminEmail.trim()),
-                new Seed("HOD", hodUsername.trim(), hodPassword,
-                        or(hodFullName, "Head of Department"), hodEmail.trim())
+                new Seed("ADMIN", clean(adminUsername), safe(adminPassword),
+                        or(adminFullName, "System Administrator"), clean(adminEmail)),
+                new Seed("HOD", clean(hodUsername), safe(hodPassword),
+                        or(hodFullName, "Head of Department"), clean(hodEmail))
         );
     }
 
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
+        log.info("ACCOUNT_BOOTSTRAP_START: checking configured initial ADMIN and HOD accounts.");
         for (Seed seed : seeds) {
             try {
                 ensure(seed);
             } catch (RuntimeException e) {
-                log.error("Account bootstrap for {} failed: {}", seed.role(), e.getMessage());
+                log.error("ACCOUNT_BOOTSTRAP_FAILED: role={}, reason={}", seed.role(), e.getMessage(), e);
             }
         }
+        log.info("ACCOUNT_BOOTSTRAP_FINISHED.");
     }
 
     private void ensure(Seed seed) {
+        if (seed.username().isBlank()) {
+            log.error("ACCOUNT_BOOTSTRAP_SKIPPED: role={} because its username setting is blank. "
+                    + "Check APP_BOOTSTRAP_{}_USERNAME in Render.", seed.role(), seed.role());
+            return;
+        }
 
-        // Not configured: nothing to do.
-        if (seed.username().isBlank()) return;
+        if (seed.password().isBlank()) {
+            log.error("ACCOUNT_BOOTSTRAP_SKIPPED: role={} because its password setting is blank. "
+                    + "Check APP_BOOTSTRAP_{}_PASSWORD in Render.", seed.role(), seed.role());
+            return;
+        }
+
+        if (seed.email().isBlank()) {
+            log.error("ACCOUNT_BOOTSTRAP_SKIPPED: role={} because its email setting is blank. "
+                    + "Check APP_BOOTSTRAP_{}_EMAIL in Render.", seed.role(), seed.role());
+            return;
+        }
+
+        if (seed.password().length() < 10) {
+            log.error("ACCOUNT_BOOTSTRAP_SKIPPED: role={} because its configured password is shorter than 10 characters.",
+                    seed.role());
+            return;
+        }
 
         List<User> users = userRepository.findAll();
 
-        // This role already has an account: never touch it.
-        if (users.stream().anyMatch(u -> seed.role().equalsIgnoreCase(u.getRole()))) return;
-
-        User sameUsername = users.stream()
-                .filter(u -> u.getUsername().equalsIgnoreCase(seed.username()))
+        User sameRole = users.stream()
+                .filter(u -> seed.role().equalsIgnoreCase(safe(u.getRole())))
                 .findFirst()
                 .orElse(null);
 
-        // The person already signed up: promote that account, but only if the email matches.
+        if (sameRole != null) {
+            log.info("ACCOUNT_BOOTSTRAP_EXISTS: role={} username='{}'. No account was changed.",
+                    seed.role(), sameRole.getUsername());
+            return;
+        }
+
+        User sameUsername = users.stream()
+                .filter(u -> seed.username().equalsIgnoreCase(safe(u.getUsername())))
+                .findFirst()
+                .orElse(null);
+
         if (sameUsername != null) {
-            boolean sameEmail = !seed.email().isBlank()
-                    && sameUsername.getEmail() != null
+            boolean sameEmail = sameUsername.getEmail() != null
                     && sameUsername.getEmail().trim().equalsIgnoreCase(seed.email());
 
             if (!sameEmail) {
-                log.warn("Account bootstrap: username '{}' already belongs to a different account, so no {} account "
-                        + "was created. Choose another username in the settings.", seed.username(), seed.role());
+                log.error("ACCOUNT_BOOTSTRAP_SKIPPED: configured username '{}' already belongs to a different email. "
+                        + "Choose a different APP_BOOTSTRAP_{}_USERNAME in Render.",
+                        seed.username(), seed.role());
                 return;
             }
 
             sameUsername.setRole(seed.role());
             sameUsername.setActive(true);
             userRepository.save(sameUsername);
-            log.info("Account bootstrap: promoted existing account '{}' to {}.", seed.username(), seed.role());
+            log.info("ACCOUNT_BOOTSTRAP_PROMOTED: username='{}', role={}.",
+                    sameUsername.getUsername(), seed.role());
             return;
         }
 
-        if (seed.password().length() < 10) {
-            log.warn("Account bootstrap: the {} password must be at least 10 characters. No account was created.",
-                    seed.role());
-            return;
-        }
-        if (seed.email().isBlank()) {
-            log.warn("Account bootstrap: the {} email is missing. No account was created.", seed.role());
-            return;
-        }
-        if (users.stream().anyMatch(u -> u.getEmail() != null && u.getEmail().trim().equalsIgnoreCase(seed.email()))) {
-            log.warn("Account bootstrap: that {} email already belongs to another account. No account was created.",
-                    seed.role());
+        boolean emailUsed = users.stream()
+                .anyMatch(u -> u.getEmail() != null
+                        && u.getEmail().trim().equalsIgnoreCase(seed.email()));
+
+        if (emailUsed) {
+            log.error("ACCOUNT_BOOTSTRAP_SKIPPED: configured email for role={} already belongs to another account. "
+                    + "Use a different APP_BOOTSTRAP_{}_EMAIL in Render.", seed.role(), seed.role());
             return;
         }
 
@@ -114,9 +139,18 @@ public class AccountBootstrap implements ApplicationRunner {
         user.setEmail(seed.email());
         user.setRole(seed.role());
         user.setActive(true);
-        userRepository.save(user);
 
-        log.info("Account bootstrap: created {} account '{}'.", seed.role(), seed.username());
+        User saved = userRepository.saveAndFlush(user);
+        log.info("ACCOUNT_BOOTSTRAP_CREATED: role={}, username='{}', id={}.",
+                seed.role(), saved.getUsername(), saved.getId());
+    }
+
+    private static String clean(String value) {
+        return value == null ? "" : value.trim();
+    }
+
+    private static String safe(String value) {
+        return value == null ? "" : value;
     }
 
     private static String or(String value, String fallback) {
