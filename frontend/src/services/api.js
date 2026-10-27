@@ -1,18 +1,19 @@
 import axios from 'axios'
 
 const LOCAL_API = 'http://localhost:8081/api'
+const PRODUCTION_API = 'https://csdt-das-csdt-das-backend.onrender.com/api'
 const onThisComputer = ['localhost', '127.0.0.1'].includes(window.location.hostname)
 
-// On your computer: the local server. On the live site: the address set on Render's website service,
-// under either name (VITE_API_URL or the older VITE_API_BASE_URL). The same code works in both places.
+// Local development uses localhost. The deployed site uses the Render backend by default.
+// VITE_API_URL / VITE_API_BASE_URL can override the production endpoint when needed.
 export const API_URL = String(
     import.meta.env.VITE_API_URL ||
     import.meta.env.VITE_API_BASE_URL ||
-    (onThisComputer ? LOCAL_API : '')
+    (onThisComputer ? LOCAL_API : PRODUCTION_API)
 ).replace(/\/+$/, '')
 
 const api = axios.create({
-    baseURL: API_URL || '/api',
+    baseURL: API_URL,
     headers: { 'Content-Type': 'application/json' },
 })
 
