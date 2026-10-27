@@ -9,7 +9,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -47,7 +46,6 @@ public class AccountBootstrap implements ApplicationRunner {
     }
 
     @Override
-    @Transactional
     public void run(ApplicationArguments args) {
         log.info("ACCOUNT_BOOTSTRAP_START: checking configured initial ADMIN and HOD accounts.");
         for (Seed seed : seeds) {
