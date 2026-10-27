@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react'
-import { getAllUsers, createUser, updateUser, setUserPhone, resetUserPassword } from '../services/userService'
+import { getAllUsers, createUser, updateUser, setUserPhone } from '../services/userService'
 
 const msg = (err) => err.response?.data?.message || err.message
 const ROLE_LABEL = { LECTURER: 'Lecturer', ADJUNCT: 'Adjunct', LEVEL_ADVISER: 'Level Adviser' }
-const EMPTY = { fullName: '', email: '', username: '', password: '', role: 'LECTURER' }
+const EMPTY = { fullName: '', email: '', username: '', role: 'LECTURER' }
+
+// A password nobody ever sees. The person sets their own through "Forgot your password?".
+function unseenPassword() {
+    const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'
+    const bytes = new Uint8Array(32)
+    crypto.getRandomValues(bytes)
+    return Array.from(bytes, (b) => alphabet[b % alphabet.length]).join('') + 'aA1!'
+}
 
 function ManageLecturers() {
     const [users, setUsers] = useState([])
@@ -34,21 +42,13 @@ function ManageLecturers() {
 
     function handleCreate(e) {
         e.preventDefault()
-        if (form.password.length < 6) { setError('Choose a temporary password of at least 6 characters.'); return }
         act(async () => {
             await createUser({
-                username: form.username.trim(), password: form.password,
+                username: form.username.trim(), password: unseenPassword(),
                 fullName: form.fullName.trim(), email: form.email.trim(), role: form.role,
             })
             setForm(EMPTY)
-        }, 'Account created. Give them the username and temporary password.')
-    }
-
-    function handleReset(u) {
-        const password = window.prompt(`Temporary password for ${u.fullName} (at least 6 characters):`)
-        if (password === null) return
-        if (password.length < 6) { setError('The password must be at least 6 characters.'); return }
-        act(() => resetUserPassword(u.id, password), `Password for ${u.fullName} has been reset. Share the temporary password with them privately.`)
+        }, 'Account created. Ask them to open the sign-in page, choose "Forgot your password?", enter their username, and set their own password with the code emailed to them. Nobody else can see or set it.')
     }
 
     function handlePhone(u) {
@@ -63,7 +63,8 @@ function ManageLecturers() {
         <div>
             <h2 className="text-2xl font-bold mb-2">Manage Lecturers</h2>
             <p className="theme-text-muted text-sm mb-6">
-                New lecturer sign-ups stay inactive until you activate them. You can also create accounts, reset a forgotten password, and set phone numbers.
+                New lecturer sign-ups stay inactive until you activate them. You can also add accounts and activate or deactivate them.
+                Passwords belong to their owners: nobody, including you, can see or set them.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
@@ -77,11 +78,9 @@ function ManageLecturers() {
             <form onSubmit={handleCreate} className="card p-4 mb-6 flex gap-3 items-end flex-wrap">
                 <input value={form.fullName} onChange={set('fullName')} placeholder="Full name" required
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
-                <input type="email" value={form.email} onChange={set('email')} placeholder="Email" required
+                <input type="email" value={form.email} onChange={set('email')} placeholder="Their own email" required
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
                 <input value={form.username} onChange={set('username')} placeholder="Username" required
-                       className="border theme-border rounded-lg px-3 py-2 text-sm" />
-                <input type="password" value={form.password} onChange={set('password')} placeholder="Temporary password" required
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
                 <select value={form.role} onChange={set('role')} className="border theme-border rounded-lg px-3 py-2 text-sm">
                     <option value="LECTURER">Lecturer</option>
@@ -122,9 +121,6 @@ function ManageLecturers() {
                   </span>
                             </td>
                             <td className="px-4 py-2 text-right whitespace-nowrap">
-                                <button disabled={busy} onClick={() => handleReset(u)} className="text-xs font-medium mr-3" style={{ color: 'var(--accent)' }}>
-                                    Reset password
-                                </button>
                                 <button disabled={busy}
                                         onClick={() => act(() => updateUser(u.id, { active: !u.active }), u.active ? 'Account deactivated.' : 'Account activated.')}
                                         className={`text-xs font-medium ${u.active ? 'text-red-600' : ''}`} style={u.active ? undefined : { color: 'var(--accent)' }}>

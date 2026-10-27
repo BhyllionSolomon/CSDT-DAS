@@ -24,9 +24,20 @@ public class SecurityConfig {
             {"HOD", "ADMIN", "LECTURER", "ADJUNCT", "LEVEL_ADVISER"};
 
     private final JwtAuthFilter jwtAuthFilter;
+    private final AuthRateLimitFilter authRateLimitFilter;
+    private final AccessControlFilter accessControlFilter;
+    private final RegistrationGateFilter registrationGateFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
+    public SecurityConfig(
+            JwtAuthFilter jwtAuthFilter,
+            AuthRateLimitFilter authRateLimitFilter,
+            AccessControlFilter accessControlFilter,
+            RegistrationGateFilter registrationGateFilter
+    ) {
         this.jwtAuthFilter = jwtAuthFilter;
+        this.authRateLimitFilter = authRateLimitFilter;
+        this.accessControlFilter = accessControlFilter;
+        this.registrationGateFilter = registrationGateFilter;
     }
 
     @Bean
@@ -47,11 +58,28 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        // Spring's own error page. Without this, every error message arrives empty.
+                        .requestMatchers("/error").permitAll()
+
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/actuator/**").permitAll()
+
+                        // Only the simple "is it running" check is public. Every other actuator page is shut.
+                        .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/**").denyAll()
+
+                        // Every signed-in person (all roles) manages their own account.
+                        .requestMatchers("/api/account/**").authenticated()
+
+                        // Nobody, including the H.O.D, can set another person's password.
+                        .requestMatchers("/api/users/*/reset-password").denyAll()
 
                         // Own phone number (the controller checks self-or-H.O.D).
                         .requestMatchers(HttpMethod.PUT, "/api/users/*/phone").hasAnyRole(ACADEMIC)
+
+                        // Registration clearance: students submit, the H.O.D decides.
+                        .requestMatchers("/api/clearance/mine", "/api/clearance/submit").hasRole("STUDENT")
+                        .requestMatchers("/api/clearance/**").hasAnyRole("HOD", "ADMIN")
 
                         // H.O.D only
                         .requestMatchers("/api/users/**").hasAnyRole("HOD", "ADMIN")
@@ -79,7 +107,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").hasAnyRole(ACADEMIC)
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                // Order: limit sign-in attempts, read the sign-in, check access to the specific record, then the registration lock.
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(authRateLimitFilter, JwtAuthFilter.class)
+                .addFilterAfter(accessControlFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(registrationGateFilter, AccessControlFilter.class);
 
         return http.build();
     }

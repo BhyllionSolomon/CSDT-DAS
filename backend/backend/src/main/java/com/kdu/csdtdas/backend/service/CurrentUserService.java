@@ -41,6 +41,12 @@ public class CurrentUserService {
         if (s != null) {
             r.setStudentId(s.getId());
             r.setMatricNumber(s.getMatricNumber());
+
+            // A student's programme and level come from their student record.
+            if (s.getProgramme() != null) {
+                r.setProgrammeId(s.getProgramme().getId());
+                r.setProgrammeName(s.getProgramme().getName());
+            }
             if (s.getLevel() != null) {
                 r.setLevelId(s.getLevel().getId());
                 r.setLevelName(s.getLevel().getName());
