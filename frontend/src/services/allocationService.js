@@ -41,3 +41,13 @@ export async function previewAllocationDoc(file) {
 export async function commitAllocationDoc(payload) {
     return (await api.post('/allocations/docx/commit', payload)).data
 }
+
+export async function importAllocationDoc(file, academicSessionId, semester) {
+    const formData = new FormData()
+    formData.append('file', file)
+    if (academicSessionId) formData.append('academicSessionId', academicSessionId)
+    if (semester) formData.append('semester', semester)
+    return (await api.post('/allocations/docx/import', formData, {
+        headers: { 'Content-Type': undefined },
+    })).data
+}

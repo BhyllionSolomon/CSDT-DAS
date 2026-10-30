@@ -1,161 +1,17 @@
-import { useState } from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
-import {
-    LayoutDashboard, GraduationCap, BookOpen, Users, UserCog, ClipboardCheck,
-    FileSpreadsheet, Settings, LogOut, ChevronRight, Video, FlaskConical,
-} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Settings, LogOut, ChevronRight, Lock, ExternalLink } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import { getGroupsForRole, GROUP_ICONS, LAB_ROLES } from '../navConfig'
+import { getMyClearance } from '../services/clearanceService'
 import Logo from './Logo'
 import ThemeSwitcher from './ThemeSwitcher'
 
-const hodGroups = [
-    { label: 'Department', items: [
-            { to: '/programme-overview', label: 'Programme Overview' },
-            { to: '/sessions', label: 'Academic Sessions' },
-            { to: '/students-per-session', label: 'Students Per Session' },
-        ] },
-    { label: 'Reports', items: [
-            { to: '/reports', label: 'Broadsheet & Lists' },
-            { to: '/student-report', label: 'Student Result' },
-        ] },
-    { label: 'Students', items: [
-            { to: '/students', label: 'All Students' },
-            { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
-            { to: '/register-courses', label: 'Course Registration' },
-            { to: '/registration-status', label: 'Registration Status' },
-        ] },
-    { label: 'Courses', items: [
-            { to: '/courses', label: 'All Courses' },
-            { to: '/create-course', label: 'Create Course' },
-            { to: '/bulk-upload-courses', label: 'Bulk Upload Courses' },
-            { to: '/set-unit-requirements', label: 'Set Required Units' },
-        ] },
-    { label: 'Lecturers', items: [
-            { to: '/course-allocations', label: 'Course Allocations' },
-            { to: '/users', label: 'Manage Lecturers' },
-            { to: '/teaching', label: 'Teaching Activity' },
-        ] },
-    { label: 'Level Advisers', items: [
-            { to: '/advisers', label: 'Manage Advisers' },
-        ] },
-    { label: 'Results', items: [
-            { to: '/enter-result', label: 'Enter Result' },
-            { to: '/bulk-enter-results', label: 'Bulk Enter Results' },
-            { to: '/upload-results-csv', label: 'Upload Results' },
-        ] },
-    { label: 'Exams', items: [
-            { to: '/verification', label: 'Result Verification' },
-        ] },
-    { label: 'Laboratory', items: [
-            { to: '/lab-staff', label: 'Manage Lab Staff' },
-        ] },
+const RELATED_SYSTEMS = [
+    { label: 'SIWES (Industrial Training)', url: 'https://ems-frontend-fv32.onrender.com' },
 ]
 
-const lecturerGroups = [
-    { label: 'Courses', items: [
-            { to: '/', label: 'My Courses' },
-            { to: '/claim-courses', label: 'Claim Course' },
-        ] },
-    { label: 'Teaching', items: [
-            { to: '/teaching', label: 'Materials & Online Classes' },
-        ] },
-    { label: 'Students', items: [
-            { to: '/lecturer-students', label: 'My Students' },
-        ] },
-    { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance', disabled: true },
-        ] },
-    { label: 'Continuous Assessment', items: [
-            { to: '/ca/practicals', label: 'Practicals', disabled: true },
-            { to: '/ca/assignments', label: 'Assignments', disabled: true },
-            { to: '/ca/presentation', label: 'Class Presentation', disabled: true },
-            { to: '/ca/test', label: 'Test', disabled: true },
-        ] },
-    { label: 'Exam Scoresheet', items: [
-            { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
-        ] },
-]
-
-const adviserGroups = [
-    { label: 'Programme', items: [{ to: '/', label: 'My Programme' }] },
-    { label: 'Reports', items: [
-            { to: '/reports', label: 'Broadsheet & Lists' },
-            { to: '/student-report', label: 'Student Result' },
-        ] },
-    { label: 'Students', items: [
-            { to: '/register-courses', label: 'Course Registration' },
-            { to: '/registration-status', label: 'Registration Status' },
-        ] },
-    { label: 'Results', items: [{ to: '/verification', label: 'Result Verification' }] },
-]
-
-const studentGroups = [
-    { label: 'Academics', items: [
-            { to: '/register-courses', label: 'Course Registration' },
-            { to: '/my-carryovers', label: 'Carry-Over Courses' },
-            { to: '/my-adviser', label: 'My Level Adviser' },
-        ] },
-    { label: 'Learning', items: [
-            { to: '/my-learning', label: 'Class Materials & Online Classes' },
-        ] },
-    { label: 'Attendance', items: [
-            { to: '/attendance', label: 'My Attendance', disabled: true },
-        ] },
-    { label: 'Continuous Assessment', items: [
-            { to: '/my-ca', label: 'My C.A. Scores', disabled: true },
-        ] },
-    { label: 'My Results', items: [
-            { to: '/upload-my-results', label: 'Upload & Analyse Results' },
-        ] },
-]
-
-const labGroups = [
-    { label: 'Laboratory', items: [{ to: '/', label: 'Lab Home' }] },
-]
-
-const LAB_ROLES = ['LAB_OFFICER', 'TECHNICAL_STAFF']
-
-function getGroupsForRole(role) {
-    switch (role) {
-        case 'HOD':
-        case 'ADMIN':
-            return hodGroups
-        case 'LECTURER':
-        case 'ADJUNCT':
-            return lecturerGroups
-        case 'LEVEL_ADVISER':
-            return adviserGroups
-        case 'STUDENT':
-            return studentGroups
-        case 'LAB_OFFICER':
-        case 'TECHNICAL_STAFF':
-            return labGroups
-        default:
-            return []
-    }
-}
-
-const GROUP_ICONS = {
-    'Department': LayoutDashboard,
-    'Reports': FileSpreadsheet,
-    'Students': GraduationCap,
-    'Courses': BookOpen,
-    'Lecturers': Users,
-    'Level Advisers': UserCog,
-    'Results': ClipboardCheck,
-    'Exams': FileSpreadsheet,
-    'Teaching': Video,
-    'Learning': Video,
-    'Attendance': ClipboardCheck,
-    'Continuous Assessment': ClipboardCheck,
-    'Exam Scoresheet': FileSpreadsheet,
-    'Programme': BookOpen,
-    'Academics': GraduationCap,
-    'My Results': FileSpreadsheet,
-    'Laboratory': FlaskConical,
-}
-
-function NavGroup({ group }) {
+function NavGroup({ group, locked }) {
     const [open, setOpen] = useState(false)
     const Icon = GROUP_ICONS[group.label] || Settings
 
@@ -178,26 +34,35 @@ function NavGroup({ group }) {
                 style={{ maxHeight: open ? `${group.items.length * 40 + 16}px` : '0px', opacity: open ? 1 : 0 }}
             >
                 <div className="space-y-0.5 pb-2 pl-4">
-                    {group.items.map((item) =>
-                        item.disabled ? (
-                            <div key={item.to}
-                                 className="flex justify-between items-center px-4 py-1.5 text-sm text-white/25 cursor-not-allowed">
-                                {item.label}
-                                <span className="text-[10px] uppercase bg-white/10 text-white/40 px-1.5 py-0.5 rounded">soon</span>
-                            </div>
-                        ) : (
-                            <NavLink key={item.to} to={item.to} end={item.to === '/'}
+                    {group.items.map((item) => {
+                        if (item.disabled) {
+                            return (
+                                <div key={item.to}
+                                     className="flex justify-between items-center px-4 py-1.5 text-sm text-white/25 cursor-not-allowed">
+                                    {item.label}
+                                    <span className="text-[10px] uppercase bg-white/10 text-white/40 px-1.5 py-0.5 rounded">soon</span>
+                                </div>
+                            )
+                        }
+
+                        const isLocked = locked && item.gated
+
+                        return (
+                            <NavLink key={item.to} to={isLocked ? '/my-registration' : item.to} end={item.to === '/'}
                                      className={({ isActive }) =>
-                                         `block px-4 py-1.5 rounded-lg text-sm font-medium transition-all btn-press ${
-                                             isActive
-                                                 ? 'accent-gradient text-white shadow-lg shadow-black/20'
-                                                 : 'text-white/60 hover:bg-white/5 hover:text-white'
+                                         `flex items-center justify-between px-4 py-1.5 rounded-lg text-sm font-medium transition-all btn-press ${
+                                             isLocked
+                                                 ? 'text-white/35 hover:bg-white/5'
+                                                 : isActive
+                                                     ? 'accent-gradient text-white shadow-lg shadow-black/20'
+                                                     : 'text-white/60 hover:bg-white/5 hover:text-white'
                                          }`
                                      }>
                                 {item.label}
+                                {isLocked && <Lock size={12} />}
                             </NavLink>
                         )
-                    )}
+                    })}
                 </div>
             </div>
         </div>
@@ -206,9 +71,21 @@ function NavGroup({ group }) {
 
 function Layout() {
     const { user, logout } = useAuth()
+    const location = useLocation()
+    const [clearance, setClearance] = useState(null)
+
     const groups = getGroupsForRole(user?.role)
+    const isLab = LAB_ROLES.includes(user?.role)
     const initials = (user?.fullName || '?').split(' ').map((n) => n[0]).slice(0, 2).join('')
-    const subtitle = LAB_ROLES.includes(user?.role) ? 'Laboratory' : 'Academic Results'
+    const subtitle = isLab ? 'Laboratory' : 'Academic Results'
+
+    // Students: find out whether the H.O.D has approved their registration.
+    useEffect(() => {
+        if (user?.role !== 'STUDENT') return
+        getMyClearance().then(setClearance).catch(() => setClearance(null))
+    }, [user?.role, location.pathname])
+
+    const locked = user?.role === 'STUDENT' && !!clearance && clearance.gateEnabled && !clearance.cleared
 
     return (
         <div className="min-h-screen flex">
@@ -224,9 +101,21 @@ function Layout() {
                 <nav className="flex-1 py-2 overflow-y-auto min-h-0"
                      style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.15) transparent' }}>
                     {groups.map((group) => (
-                        <NavGroup key={group.label} group={group} />
+                        <NavGroup key={group.label} group={group} locked={locked} />
                     ))}
                 </nav>
+
+                {!isLab && (
+                    <div className="px-6 py-3 border-t border-white/10 shrink-0">
+                        <p className="text-[10px] font-semibold uppercase tracking-wide text-white/40 mb-1">Related systems</p>
+                        {RELATED_SYSTEMS.map((s) => (
+                            <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer"
+                               className="flex items-center gap-2 py-1 text-sm text-white/70 hover:text-white">
+                                <ExternalLink size={13} /> {s.label}
+                            </a>
+                        ))}
+                    </div>
+                )}
 
                 <div className="p-4 mx-3 mb-3 rounded-xl bg-white/5 space-y-3 shrink-0">
                     <div className="flex items-center gap-3">
@@ -236,6 +125,9 @@ function Layout() {
                         <div className="min-w-0">
                             <p className="text-sm font-medium truncate">{user?.fullName}</p>
                             <p className="text-xs text-white/40">{user?.role}</p>
+                            <NavLink to="/my-account" className="text-xs text-white/60 hover:text-white underline">
+                                My Account
+                            </NavLink>
                         </div>
                     </div>
                     <div className="flex items-center justify-between">
@@ -248,6 +140,12 @@ function Layout() {
             </aside>
 
             <main className="flex-1 p-8 overflow-y-auto animate-in">
+                {locked && (
+                    <div className="no-print mb-6 px-4 py-3 rounded-lg bg-amber-50 text-amber-700 text-sm">
+                        {clearance.message}{' '}
+                        <NavLink to="/my-registration" className="underline font-medium">Open Registration &amp; Payment</NavLink>
+                    </div>
+                )}
                 <Outlet />
             </main>
         </div>

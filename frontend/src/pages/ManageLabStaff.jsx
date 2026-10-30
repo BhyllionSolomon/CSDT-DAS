@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react'
-import { getAllUsers, createUser, updateUser, setUserPhone, resetUserPassword } from '../services/userService'
+import { getAllUsers, createUser, updateUser, setUserPhone } from '../services/userService'
 
 const msg = (err) => err.response?.data?.message || err.message
 const ROLES = { LAB_OFFICER: 'Lab Officer', TECHNICAL_STAFF: 'Technical Staff' }
-const EMPTY = { fullName: '', email: '', phone: '', username: '', password: '', role: 'LAB_OFFICER' }
+const EMPTY = { fullName: '', email: '', phone: '', username: '', role: 'LAB_OFFICER' }
+
+// A password nobody ever sees. The person sets their own through "Forgot your password?".
+function unseenPassword() {
+    const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'
+    const bytes = new Uint8Array(32)
+    crypto.getRandomValues(bytes)
+    return Array.from(bytes, (b) => alphabet[b % alphabet.length]).join('') + 'aA1!'
+}
 
 function ManageLabStaff() {
     const [users, setUsers] = useState([])
@@ -33,22 +41,14 @@ function ManageLabStaff() {
 
     function handleCreate(e) {
         e.preventDefault()
-        if (form.password.length < 6) { setError('Choose a temporary password of at least 6 characters.'); return }
         act(async () => {
             const created = await createUser({
-                username: form.username.trim(), password: form.password,
+                username: form.username.trim(), password: unseenPassword(),
                 fullName: form.fullName.trim(), email: form.email.trim(), role: form.role,
             })
             if (form.phone.trim()) await setUserPhone(created.id, form.phone.trim())
             setForm(EMPTY)
-        }, 'Account created. Give them the username and temporary password; they can change it later with "Forgot your password?".')
-    }
-
-    function handleReset(u) {
-        const password = window.prompt(`Temporary password for ${u.fullName} (at least 6 characters):`)
-        if (password === null) return
-        if (password.length < 6) { setError('The password must be at least 6 characters.'); return }
-        act(() => resetUserPassword(u.id, password), `Password for ${u.fullName} has been reset. Share it with them privately.`)
+        }, 'Account created. Ask them to open the sign-in page, choose "Forgot your password?", enter their username, and set their own password with the code emailed to them. Nobody else can see or set it.')
     }
 
     if (loading) return <p className="theme-text-muted">Loading…</p>
@@ -58,7 +58,7 @@ function ManageLabStaff() {
             <h2 className="text-2xl font-bold mb-2">Manage Lab Staff</h2>
             <p className="theme-text-muted text-sm mb-6">
                 Lab Officers and Technical Staff work in a separate laboratory area. They cannot see students, courses, results
-                or any other academic page, and only you can create their accounts.
+                or any other academic page, and only you can create their accounts. Passwords belong to their owners: nobody, including you, can see or set them.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
@@ -67,13 +67,11 @@ function ManageLabStaff() {
             <form onSubmit={handleCreate} className="card p-4 mb-6 flex gap-3 items-end flex-wrap">
                 <input value={form.fullName} onChange={set('fullName')} placeholder="Full name" required
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
-                <input type="email" value={form.email} onChange={set('email')} placeholder="Email" required
+                <input type="email" value={form.email} onChange={set('email')} placeholder="Their own email" required
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
                 <input value={form.phone} onChange={set('phone')} placeholder="Phone number"
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
                 <input value={form.username} onChange={set('username')} placeholder="Username" required
-                       className="border theme-border rounded-lg px-3 py-2 text-sm" />
-                <input type="password" value={form.password} onChange={set('password')} placeholder="Temporary password" required
                        className="border theme-border rounded-lg px-3 py-2 text-sm" />
                 <select value={form.role} onChange={set('role')} className="border theme-border rounded-lg px-3 py-2 text-sm">
                     <option value="LAB_OFFICER">Lab Officer</option>
@@ -111,9 +109,6 @@ function ManageLabStaff() {
                   </span>
                             </td>
                             <td className="px-4 py-2 text-right whitespace-nowrap">
-                                <button disabled={busy} onClick={() => handleReset(u)} className="text-xs font-medium mr-3" style={{ color: 'var(--accent)' }}>
-                                    Reset password
-                                </button>
                                 <button disabled={busy}
                                         onClick={() => act(() => updateUser(u.id, { active: !u.active }), u.active ? 'Account deactivated.' : 'Account activated.')}
                                         className={`text-xs font-medium ${u.active ? 'text-red-600' : ''}`} style={u.active ? undefined : { color: 'var(--accent)' }}>

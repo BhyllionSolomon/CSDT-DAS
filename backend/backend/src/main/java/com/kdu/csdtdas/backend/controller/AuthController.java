@@ -4,10 +4,8 @@ import com.kdu.csdtdas.backend.dto.AuthDTOs;
 import com.kdu.csdtdas.backend.dto.CurrentUserResponse;
 import com.kdu.csdtdas.backend.dto.LoginRequest;
 import com.kdu.csdtdas.backend.dto.LoginResponse;
-import com.kdu.csdtdas.backend.dto.ResetPasswordRequest;
 import com.kdu.csdtdas.backend.dto.SignupRequest;
 import com.kdu.csdtdas.backend.entity.User;
-import com.kdu.csdtdas.backend.service.AccountService;
 import com.kdu.csdtdas.backend.service.CurrentUserService;
 import com.kdu.csdtdas.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +19,10 @@ public class AuthController {
 
     private final UserService userService;
     private final CurrentUserService currentUserService;
-    private final AccountService accountService;
 
-    public AuthController(
-            UserService userService,
-            CurrentUserService currentUserService,
-            AccountService accountService
-    ) {
+    public AuthController(UserService userService, CurrentUserService currentUserService) {
         this.userService = userService;
         this.currentUserService = currentUserService;
-        this.accountService = accountService;
     }
 
     @PostMapping("/login")
@@ -66,12 +58,6 @@ public class AuthController {
             throw new IllegalArgumentException("Not authenticated.");
         }
         return ResponseEntity.ok(currentUserService.build(authentication.getName()));
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<AuthDTOs.Message> resetPassword(@RequestBody ResetPasswordRequest request) {
-        accountService.resetPassword(request.identifier(), request.email(), request.newPassword());
-        return ResponseEntity.ok(new AuthDTOs.Message("Password updated. You can now sign in."));
     }
 
     private LoginResponse loginFor(String username, String password) {

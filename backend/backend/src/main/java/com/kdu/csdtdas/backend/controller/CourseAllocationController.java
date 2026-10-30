@@ -92,6 +92,15 @@ public class CourseAllocationController {
         return documentService.commit(body);
     }
 
+    @PostMapping(value = "/docx/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AllocationDTOs.ImportResult importDocument(
+            @RequestParam MultipartFile file,
+            @RequestParam(required = false) Long academicSessionId,
+            @RequestParam(required = false) String semester
+    ) {
+        return documentService.importDocument(file, academicSessionId, semester);
+    }
+
     private String username(Authentication authentication) {
         if (authentication == null || "anonymousUser".equals(authentication.getPrincipal())) {
             throw new IllegalArgumentException("You must be logged in.");

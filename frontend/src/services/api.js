@@ -1,9 +1,24 @@
+
 import axios from 'axios'
 
-// Local development continues to use localhost. Set VITE_API_BASE_URL on Render
-// to the deployed backend URL ending in /api.
+const LOCAL_API = 'http://localhost:8081/api'
+const PRODUCTION_API = 'https://csdt-das-csdt-das-backend.onrender.com/api'
+
+const onThisComputer = ['localhost', '127.0.0.1'].includes(
+    window.location.hostname
+)
+
+// Local development uses localhost.
+// The deployed site uses the Render backend by default.
+// Environment variables can override the API endpoint.
+export const API_URL = String(
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_API_BASE_URL ||
+    (onThisComputer ? LOCAL_API : PRODUCTION_API)
+).replace(/\/+$/, '')
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8081/api',
+    baseURL: API_URL,
     headers: { 'Content-Type': 'application/json' },
 })
 
@@ -18,11 +33,16 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         const url = error.config?.url || ''
+
         if (error.response?.status === 401 && !url.startsWith('/auth/')) {
             sessionStorage.removeItem('csdtdas_token')
             sessionStorage.removeItem('csdtdas_user')
-            if (window.location.pathname !== '/login') window.location.assign('/login')
+
+            if (window.location.pathname !== '/login') {
+                window.location.assign('/login')
+            }
         }
+
         return Promise.reject(error)
     }
 )
