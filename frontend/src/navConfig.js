@@ -1,6 +1,6 @@
 import {
     LayoutDashboard, GraduationCap, BookOpen, Users, UserCog, ClipboardCheck,
-    FileSpreadsheet, Video, FlaskConical, Activity,
+    FileSpreadsheet, Video, FlaskConical, Activity, Award,
 } from 'lucide-react'
 
 export const LAB_ROLES = ['LAB_OFFICER', 'TECHNICAL_STAFF']
@@ -43,6 +43,9 @@ export const hodGroups = [
     { label: 'Level Advisers', items: [
             { to: '/advisers', label: 'Manage Advisers' },
         ] },
+    { label: 'Final-Year Projects', items: [
+            { to: '/final-year-projects', label: 'Assign Supervisors' },
+        ] },
     { label: 'Results', items: [
             { to: '/enter-result', label: 'Enter Result' },
             { to: '/bulk-enter-results', label: 'Bulk Enter Results' },
@@ -65,6 +68,7 @@ export const lecturerGroups = [
             { to: '/teaching', label: 'Materials & Online Classes' },
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
+            { to: '/my-project-students', label: 'My Project Students' },
         ] },
     { label: 'Students', items: [
             { to: '/lecturer-students', label: 'My Students' },
@@ -106,6 +110,7 @@ export const adviserGroups = [
             { to: '/teaching', label: 'Materials & Online Classes' },
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
+            { to: '/my-project-students', label: 'My Project Students' },
         ] },
     { label: 'Attendance', items: [
             { to: '/attendance', label: 'Take Attendance', disabled: true },
@@ -129,6 +134,7 @@ export const studentGroups = [
             { to: '/timetable', label: 'Timetable' },
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
+            { to: '/my-project-supervisor', label: 'My Project Supervisor' },
         ] },
     { label: 'Learning', items: [
             { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
@@ -176,6 +182,7 @@ export const GROUP_ICONS = {
     'Courses': BookOpen,
     'Lecturers': Users,
     'Level Advisers': UserCog,
+    'Final-Year Projects': Award,
     'Results': ClipboardCheck,
     'Exams': FileSpreadsheet,
     'Teaching': Video,

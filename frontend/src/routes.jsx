@@ -14,6 +14,9 @@ import StartNewSession from './pages/StartNewSession'
 import TimetableAdmin from './pages/TimetableAdmin'
 import LecturerTimetable from './pages/LecturerTimetable'
 import TimetableView from './pages/TimetableView'
+import FinalYearProjects from './pages/FinalYearProjects'
+import MyProjectStudents from './pages/MyProjectStudents'
+import MyProjectSupervisor from './pages/MyProjectSupervisor'
 import EnterResult from './pages/EnterResult'
 import BulkEnterResults from './pages/BulkEnterResults'
 import UploadResultsCsv from './pages/UploadResultsCsv'
@@ -59,6 +62,9 @@ export const protectedRoutes = [
     { path: 'timetable-admin', element: <TimetableAdmin /> },
     { path: 'my-timetable', element: <LecturerTimetable /> },
     { path: 'timetable', element: <TimetableView /> },
+    { path: 'final-year-projects', element: <FinalYearProjects /> },
+    { path: 'my-project-students', element: <MyProjectStudents /> },
+    { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
     { path: 'enter-result', element: <EnterResult /> },
     { path: 'bulk-enter-results', element: <BulkEnterResults /> },
     { path: 'upload-results-csv', element: <UploadResultsCsv /> },
