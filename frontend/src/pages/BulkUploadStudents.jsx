@@ -12,7 +12,7 @@ async function getAllLevels() {
     return response.data
 }
 
-const LEVEL_CODES = ['100', '200', '300', '400']
+const LEVEL_CODES = [100, 200, 300, 400]
 
 function BulkUploadStudents() {
     const [programmes, setProgrammes] = useState([])
