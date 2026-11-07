@@ -19,7 +19,10 @@ export const hodGroups = [
             { to: '/reports', label: 'Broadsheet & Lists' },
             { to: '/student-report', label: 'Student Result' },
         ] },
-    { label: 'Analytics', items: [performance] },
+    { label: 'Analytics', items: [
+            performance,
+            { to: '/feedback-admin', label: 'Lecturer Feedback' },
+        ] },
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
@@ -69,6 +72,7 @@ export const lecturerGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/my-feedback', label: 'My Feedback' },
         ] },
     { label: 'Students', items: [
             { to: '/lecturer-students', label: 'My Students' },
@@ -111,6 +115,7 @@ export const adviserGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/my-feedback', label: 'My Feedback' },
         ] },
     { label: 'Attendance', items: [
             { to: '/attendance', label: 'Take Attendance', disabled: true },
@@ -135,6 +140,7 @@ export const studentGroups = [
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
             { to: '/my-project-supervisor', label: 'My Project Supervisor' },
+            { to: '/rate-lecturers', label: 'Rate My Lecturers' },
         ] },
     { label: 'Learning', items: [
             { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
