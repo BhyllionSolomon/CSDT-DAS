@@ -14,6 +14,7 @@ export const hodGroups = [
             { to: '/start-session', label: 'Start New Session' },
             { to: '/timetable-admin', label: 'Timetable' },
             { to: '/students-per-session', label: 'Students Per Session' },
+            { to: '/home-slides', label: 'Home Page Images' },
         ] },
     { label: 'Reports', items: [
             { to: '/reports', label: 'Broadsheet & Lists' },
