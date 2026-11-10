@@ -21,6 +21,7 @@ export const hodGroups = [
         ] },
     { label: 'Analytics', items: [
             performance,
+            { to: '/lecturer-performance', label: 'Lecturer Performance' },
             { to: '/feedback-admin', label: 'Lecturer Feedback' },
         ] },
     { label: 'Students', items: [
@@ -59,6 +60,8 @@ export const hodGroups = [
         ] },
     { label: 'Laboratory', items: [
             { to: '/lab-staff', label: 'Manage Lab Staff' },
+            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
+            { to: '/lab-finance', label: 'Manual Finance' },
         ] },
 ]
 
@@ -73,6 +76,7 @@ export const lecturerGroups = [
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
             { to: '/my-feedback', label: 'My Feedback' },
+            { to: '/lecturer-performance', label: 'My Performance' },
         ] },
     { label: 'Students', items: [
             { to: '/lecturer-students', label: 'My Students' },
@@ -116,6 +120,7 @@ export const adviserGroups = [
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
             { to: '/my-feedback', label: 'My Feedback' },
+            { to: '/lecturer-performance', label: 'My Performance' },
         ] },
     { label: 'Attendance', items: [
             { to: '/attendance', label: 'Take Attendance', disabled: true },
@@ -152,12 +157,25 @@ export const studentGroups = [
             { to: '/my-ca', label: 'My C.A. Scores', disabled: true },
         ] },
     { label: 'My Results', items: [
+            { to: '/my-progress', label: 'My Progress', gated: true },
             { to: '/upload-my-results', label: 'Upload & Analyse Results', gated: true },
         ] },
 ]
 
 export const labGroups = [
-    { label: 'Laboratory', items: [{ to: '/', label: 'Lab Home' }] },
+    { label: 'Laboratory', items: [
+            { to: '/', label: 'Lab Home' },
+            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
+            { to: '/lab-finance', label: 'Manual Finance' },
+        ] },
+]
+
+// Technical staff record sales but never see the money or the finance page.
+export const technicalGroups = [
+    { label: 'Laboratory', items: [
+            { to: '/', label: 'Lab Home' },
+            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
+        ] },
 ]
 
 export function getGroupsForRole(role) {
@@ -173,8 +191,9 @@ export function getGroupsForRole(role) {
         case 'STUDENT':
             return studentGroups
         case 'LAB_OFFICER':
-        case 'TECHNICAL_STAFF':
             return labGroups
+        case 'TECHNICAL_STAFF':
+            return technicalGroups
         default:
             return []
     }
