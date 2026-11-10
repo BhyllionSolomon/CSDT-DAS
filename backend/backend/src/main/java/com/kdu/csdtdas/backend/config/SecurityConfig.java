@@ -93,6 +93,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/allocations/claim").hasAnyRole("LECTURER", "ADJUNCT", "LEVEL_ADVISER")
 
                         // Laboratory area (separate from academics)
+
                         .requestMatchers("/api/lab/**").hasAnyRole("HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
 
                         // Results: only the H.O.D verifies; staff enter scores; students cannot write.
