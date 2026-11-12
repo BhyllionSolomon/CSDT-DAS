@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-/** Read-only queries over approved results, for statistics. */
+/** Read-only queries over results, for statistics and the Today panel. */
 public interface ResultStatsRepository extends JpaRepository<Result, Long> {
 
     @Query("""
@@ -18,4 +18,7 @@ public interface ResultStatsRepository extends JpaRepository<Result, Long> {
         WHERE r.status = 'APPROVED' AND s.id = :sessionId
     """)
     List<Result> findApprovedForSession(@Param("sessionId") Long sessionId);
+
+    @Query("SELECT COUNT(r) FROM Result r WHERE r.status = 'PENDING'")
+    long countPending();
 }
