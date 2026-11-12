@@ -15,6 +15,7 @@ export const hodGroups = [
             { to: '/timetable-admin', label: 'Timetable' },
             { to: '/students-per-session', label: 'Students Per Session' },
             { to: '/home-slides', label: 'Home Page Images' },
+            { to: '/security-log', label: 'Security Log' },
         ] },
     { label: 'Reports', items: [
             { to: '/reports', label: 'Broadsheet & Lists' },
@@ -24,9 +25,12 @@ export const hodGroups = [
             performance,
             { to: '/lecturer-performance', label: 'Lecturer Performance' },
             { to: '/feedback-admin', label: 'Lecturer Feedback' },
+            { to: '/attendance', label: 'Attendance' },
+            { to: '/continuous-assessment', label: 'Continuous Assessment' },
         ] },
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
+            { to: '/graduates', label: 'Graduates' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
             { to: '/registration-approvals', label: 'Registration Approvals' },
             { to: '/register-courses', label: 'Register in Person' },
@@ -83,13 +87,10 @@ export const lecturerGroups = [
             { to: '/lecturer-students', label: 'My Students' },
         ] },
     { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance', disabled: true },
+            { to: '/attendance', label: 'Take Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/ca/practicals', label: 'Practicals', disabled: true },
-            { to: '/ca/assignments', label: 'Assignments', disabled: true },
-            { to: '/ca/presentation', label: 'Class Presentation', disabled: true },
-            { to: '/ca/test', label: 'Test', disabled: true },
+            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
@@ -124,13 +125,10 @@ export const adviserGroups = [
             { to: '/lecturer-performance', label: 'My Performance' },
         ] },
     { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance', disabled: true },
+            { to: '/attendance', label: 'Take Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/ca/practicals', label: 'Practicals', disabled: true },
-            { to: '/ca/assignments', label: 'Assignments', disabled: true },
-            { to: '/ca/presentation', label: 'Class Presentation', disabled: true },
-            { to: '/ca/test', label: 'Test', disabled: true },
+            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
@@ -152,10 +150,10 @@ export const studentGroups = [
             { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
         ] },
     { label: 'Attendance', items: [
-            { to: '/attendance', label: 'My Attendance', disabled: true },
+            { to: '/my-attendance', label: 'My Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/my-ca', label: 'My C.A. Scores', disabled: true },
+            { to: '/my-ca', label: 'My C.A. Scores' },
         ] },
     { label: 'My Results', items: [
             { to: '/my-progress', label: 'My Progress', gated: true },

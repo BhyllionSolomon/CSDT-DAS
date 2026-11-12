@@ -25,6 +25,12 @@ import LabManuals from './pages/LabManuals'
 import LabFinance from './pages/LabFinance'
 import MyProgress from './pages/MyProgress'
 import HomeSlidesAdmin from './pages/HomeSlidesAdmin'
+import Attendance from './pages/Attendance'
+import MyAttendance from './pages/MyAttendance'
+import ContinuousAssessment from './pages/ContinuousAssessment'
+import MyCaScores from './pages/MyCaScores'
+import Graduates from './pages/Graduates'
+import SecurityLog from './pages/SecurityLog'
 import EnterResult from './pages/EnterResult'
 import BulkEnterResults from './pages/BulkEnterResults'
 import UploadResultsCsv from './pages/UploadResultsCsv'
@@ -81,6 +87,12 @@ export const protectedRoutes = [
     { path: 'lab-finance', element: <LabFinance /> },
     { path: 'my-progress', element: <MyProgress /> },
     { path: 'home-slides', element: <HomeSlidesAdmin /> },
+    { path: 'attendance', element: <Attendance /> },
+    { path: 'my-attendance', element: <MyAttendance /> },
+    { path: 'continuous-assessment', element: <ContinuousAssessment /> },
+    { path: 'my-ca', element: <MyCaScores /> },
+    { path: 'graduates', element: <Graduates /> },
+    { path: 'security-log', element: <SecurityLog /> },
     { path: 'enter-result', element: <EnterResult /> },
     { path: 'bulk-enter-results', element: <BulkEnterResults /> },
     { path: 'upload-results-csv', element: <UploadResultsCsv /> },
