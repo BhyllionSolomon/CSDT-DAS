@@ -12,6 +12,7 @@ export const hodGroups = [
             { to: '/programme-overview', label: 'Programme Overview' },
             { to: '/sessions', label: 'Academic Sessions' },
             { to: '/start-session', label: 'Start New Session' },
+            { to: '/cohort-guide', label: 'Cohort Guide' },
             { to: '/timetable-admin', label: 'Timetable' },
             { to: '/students-per-session', label: 'Students Per Session' },
             { to: '/home-slides', label: 'Home Page Images' },
@@ -27,6 +28,7 @@ export const hodGroups = [
             { to: '/feedback-admin', label: 'Lecturer Feedback' },
             { to: '/attendance', label: 'Attendance' },
             { to: '/continuous-assessment', label: 'Continuous Assessment' },
+            { to: '/carryover-monitor', label: 'Carry-Over Monitor' },
         ] },
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
@@ -105,7 +107,10 @@ export const adviserGroups = [
             { to: '/reports', label: 'Broadsheet & Lists' },
             { to: '/student-report', label: 'Student Result' },
         ] },
-    { label: 'Analytics', items: [performance] },
+    { label: 'Analytics', items: [
+            performance,
+            { to: '/carryover-monitor', label: 'Carry-Over Monitor' },
+        ] },
     { label: 'Students', items: [
             { to: '/register-courses', label: 'Register in Person' },
             { to: '/registration-status', label: 'Registration Status' },

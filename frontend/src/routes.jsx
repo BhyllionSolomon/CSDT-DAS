@@ -11,6 +11,8 @@ import CreateCourse from './pages/CreateCourse'
 import BulkUploadCourses from './pages/BulkUploadCourses'
 import Sessions from './pages/Sessions'
 import StartNewSession from './pages/StartNewSession'
+import CohortGuide from './pages/CohortGuide'
+import CarryOverMonitor from './pages/CarryOverMonitor'
 import TimetableAdmin from './pages/TimetableAdmin'
 import LecturerTimetable from './pages/LecturerTimetable'
 import TimetableView from './pages/TimetableView'
@@ -73,6 +75,8 @@ export const protectedRoutes = [
     { path: 'bulk-upload-courses', element: <BulkUploadCourses /> },
     { path: 'sessions', element: <Sessions /> },
     { path: 'start-session', element: <StartNewSession /> },
+    { path: 'cohort-guide', element: <CohortGuide /> },
+    { path: 'carryover-monitor', element: <CarryOverMonitor /> },
     { path: 'timetable-admin', element: <TimetableAdmin /> },
     { path: 'my-timetable', element: <LecturerTimetable /> },
     { path: 'timetable', element: <TimetableView /> },
