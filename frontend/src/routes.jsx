@@ -17,6 +17,20 @@ import TimetableView from './pages/TimetableView'
 import FinalYearProjects from './pages/FinalYearProjects'
 import MyProjectStudents from './pages/MyProjectStudents'
 import MyProjectSupervisor from './pages/MyProjectSupervisor'
+import RateLecturers from './pages/RateLecturers'
+import FeedbackAdmin from './pages/FeedbackAdmin'
+import MyFeedback from './pages/MyFeedback'
+import LecturerPerformance from './pages/LecturerPerformance'
+import LabManuals from './pages/LabManuals'
+import LabFinance from './pages/LabFinance'
+import MyProgress from './pages/MyProgress'
+import HomeSlidesAdmin from './pages/HomeSlidesAdmin'
+import Attendance from './pages/Attendance'
+import MyAttendance from './pages/MyAttendance'
+import ContinuousAssessment from './pages/ContinuousAssessment'
+import MyCaScores from './pages/MyCaScores'
+import Graduates from './pages/Graduates'
+import SecurityLog from './pages/SecurityLog'
 import EnterResult from './pages/EnterResult'
 import BulkEnterResults from './pages/BulkEnterResults'
 import UploadResultsCsv from './pages/UploadResultsCsv'
@@ -65,6 +79,20 @@ export const protectedRoutes = [
     { path: 'final-year-projects', element: <FinalYearProjects /> },
     { path: 'my-project-students', element: <MyProjectStudents /> },
     { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
+    { path: 'rate-lecturers', element: <RateLecturers /> },
+    { path: 'feedback-admin', element: <FeedbackAdmin /> },
+    { path: 'my-feedback', element: <MyFeedback /> },
+    { path: 'lecturer-performance', element: <LecturerPerformance /> },
+    { path: 'lab-manuals', element: <LabManuals /> },
+    { path: 'lab-finance', element: <LabFinance /> },
+    { path: 'my-progress', element: <MyProgress /> },
+    { path: 'home-slides', element: <HomeSlidesAdmin /> },
+    { path: 'attendance', element: <Attendance /> },
+    { path: 'my-attendance', element: <MyAttendance /> },
+    { path: 'continuous-assessment', element: <ContinuousAssessment /> },
+    { path: 'my-ca', element: <MyCaScores /> },
+    { path: 'graduates', element: <Graduates /> },
+    { path: 'security-log', element: <SecurityLog /> },
     { path: 'enter-result', element: <EnterResult /> },
     { path: 'bulk-enter-results', element: <BulkEnterResults /> },
     { path: 'upload-results-csv', element: <UploadResultsCsv /> },

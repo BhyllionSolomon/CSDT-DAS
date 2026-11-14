@@ -21,4 +21,13 @@ public interface StudentLevelHistoryRepository extends JpaRepository<StudentLeve
     List<StudentLevelHistory> findByAcademicSessionId(@Param("sessionId") Long sessionId);
 
     Optional<StudentLevelHistory> findByStudentIdAndAcademicSessionId(Long studentId, Long academicSessionId);
+
+    @Query("""
+        SELECT h FROM StudentLevelHistory h
+        JOIN FETCH h.student s
+        JOIN FETCH h.level
+        JOIN FETCH h.programme
+        JOIN FETCH h.academicSession
+    """)
+    List<StudentLevelHistory> findAllWithDetails();
 }

@@ -14,14 +14,23 @@ export const hodGroups = [
             { to: '/start-session', label: 'Start New Session' },
             { to: '/timetable-admin', label: 'Timetable' },
             { to: '/students-per-session', label: 'Students Per Session' },
+            { to: '/home-slides', label: 'Home Page Images' },
+            { to: '/security-log', label: 'Security Log' },
         ] },
     { label: 'Reports', items: [
             { to: '/reports', label: 'Broadsheet & Lists' },
             { to: '/student-report', label: 'Student Result' },
         ] },
-    { label: 'Analytics', items: [performance] },
+    { label: 'Analytics', items: [
+            performance,
+            { to: '/lecturer-performance', label: 'Lecturer Performance' },
+            { to: '/feedback-admin', label: 'Lecturer Feedback' },
+            { to: '/attendance', label: 'Attendance' },
+            { to: '/continuous-assessment', label: 'Continuous Assessment' },
+        ] },
     { label: 'Students', items: [
             { to: '/students', label: 'All Students' },
+            { to: '/graduates', label: 'Graduates' },
             { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
             { to: '/registration-approvals', label: 'Registration Approvals' },
             { to: '/register-courses', label: 'Register in Person' },
@@ -56,6 +65,8 @@ export const hodGroups = [
         ] },
     { label: 'Laboratory', items: [
             { to: '/lab-staff', label: 'Manage Lab Staff' },
+            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
+            { to: '/lab-finance', label: 'Manual Finance' },
         ] },
 ]
 
@@ -69,18 +80,17 @@ export const lecturerGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/my-feedback', label: 'My Feedback' },
+            { to: '/lecturer-performance', label: 'My Performance' },
         ] },
     { label: 'Students', items: [
             { to: '/lecturer-students', label: 'My Students' },
         ] },
     { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance', disabled: true },
+            { to: '/attendance', label: 'Take Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/ca/practicals', label: 'Practicals', disabled: true },
-            { to: '/ca/assignments', label: 'Assignments', disabled: true },
-            { to: '/ca/presentation', label: 'Class Presentation', disabled: true },
-            { to: '/ca/test', label: 'Test', disabled: true },
+            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
@@ -111,15 +121,14 @@ export const adviserGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/my-feedback', label: 'My Feedback' },
+            { to: '/lecturer-performance', label: 'My Performance' },
         ] },
     { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance', disabled: true },
+            { to: '/attendance', label: 'Take Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/ca/practicals', label: 'Practicals', disabled: true },
-            { to: '/ca/assignments', label: 'Assignments', disabled: true },
-            { to: '/ca/presentation', label: 'Class Presentation', disabled: true },
-            { to: '/ca/test', label: 'Test', disabled: true },
+            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
@@ -135,23 +144,37 @@ export const studentGroups = [
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
             { to: '/my-project-supervisor', label: 'My Project Supervisor' },
+            { to: '/rate-lecturers', label: 'Rate My Lecturers' },
         ] },
     { label: 'Learning', items: [
             { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
         ] },
     { label: 'Attendance', items: [
-            { to: '/attendance', label: 'My Attendance', disabled: true },
+            { to: '/my-attendance', label: 'My Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/my-ca', label: 'My C.A. Scores', disabled: true },
+            { to: '/my-ca', label: 'My C.A. Scores' },
         ] },
     { label: 'My Results', items: [
+            { to: '/my-progress', label: 'My Progress', gated: true },
             { to: '/upload-my-results', label: 'Upload & Analyse Results', gated: true },
         ] },
 ]
 
 export const labGroups = [
-    { label: 'Laboratory', items: [{ to: '/', label: 'Lab Home' }] },
+    { label: 'Laboratory', items: [
+            { to: '/', label: 'Lab Home' },
+            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
+            { to: '/lab-finance', label: 'Manual Finance' },
+        ] },
+]
+
+// Technical staff record sales but never see the money or the finance page.
+export const technicalGroups = [
+    { label: 'Laboratory', items: [
+            { to: '/', label: 'Lab Home' },
+            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
+        ] },
 ]
 
 export function getGroupsForRole(role) {
@@ -167,8 +190,9 @@ export function getGroupsForRole(role) {
         case 'STUDENT':
             return studentGroups
         case 'LAB_OFFICER':
-        case 'TECHNICAL_STAFF':
             return labGroups
+        case 'TECHNICAL_STAFF':
+            return technicalGroups
         default:
             return []
     }

@@ -17,7 +17,7 @@ async function getCoursesByProgramme(programmeId) {
     return response.data
 }
 
-const LEVEL_CODES = ['100', '200', '300', '400']
+const LEVEL_CODES = ['100L', '200L', '300L', '400L']
 const BLOCKED_TOTALS = [34, 44, 49, 59, 69, 79]
 
 function BulkEnterResults() {

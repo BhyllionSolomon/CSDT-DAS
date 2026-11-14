@@ -33,6 +33,17 @@ public class StudentLevelHistory {
     @Column(nullable = false)
     private LocalDateTime recordedAt;
 
+    /** How this record came to exist: SYNCED (from live data) or ESTIMATED. Empty on older rows, which count as SYNCED. */
+    @Column(length = 15)
+    private String source;
+
+    /** The student's status when this record was saved (ACTIVE, GRADUATED, ...). */
+    @Column(length = 20)
+    private String status;
+
+    @Column(length = 200)
+    private String note;
+
     public StudentLevelHistory() {}
 
     @PrePersist
@@ -49,4 +60,11 @@ public class StudentLevelHistory {
     public Programme getProgramme() { return programme; }
     public void setProgramme(Programme programme) { this.programme = programme; }
     public LocalDateTime getRecordedAt() { return recordedAt; }
+    public void setRecordedAt(LocalDateTime recordedAt) { this.recordedAt = recordedAt; }
+    public String getSource() { return source; }
+    public void setSource(String source) { this.source = source; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+    public String getNote() { return note; }
+    public void setNote(String note) { this.note = note; }
 }

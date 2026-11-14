@@ -1,32 +1,40 @@
 import { useAuth } from '../context/AuthContext'
+import TodayPanel from '../components/TodayPanel'
 import Dashboard from './Dashboard'
-import LecturerDashboard from './LecturerDashboard'
 import AdviserDashboard from './AdviserDashboard'
+import LecturerDashboard from './LecturerDashboard'
 import StudentDashboard from './StudentDashboard'
 import LabDashboard from './LabDashboard'
 
 function RoleDashboard() {
     const { user } = useAuth()
 
-    if (!user) return null
-
+    let page
     switch (user.role) {
-        case 'HOD':
-        case 'ADMIN':
-            return <Dashboard />
         case 'LEVEL_ADVISER':
-            return <AdviserDashboard />
+            page = <AdviserDashboard />
+            break
         case 'LECTURER':
         case 'ADJUNCT':
-            return <LecturerDashboard />
+            page = <LecturerDashboard />
+            break
         case 'STUDENT':
-            return <StudentDashboard />
+            page = <StudentDashboard />
+            break
         case 'LAB_OFFICER':
         case 'TECHNICAL_STAFF':
-            return <LabDashboard />
+            page = <LabDashboard />
+            break
         default:
-            return <p className="theme-text-muted">No dashboard is available for this role.</p>
+            page = <Dashboard />
     }
+
+    return (
+        <>
+            <TodayPanel />
+            {page}
+        </>
+    )
 }
 
 export default RoleDashboard
