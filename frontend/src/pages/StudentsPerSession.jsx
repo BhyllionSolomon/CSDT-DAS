@@ -84,8 +84,12 @@ function StudentsPerSession() {
         try { setRows(await recordsForSession(id)) } catch (err) { setError(msg(err)) }
     }
 
-    const levels = useMemo(() => (rows ? [...new Set(rows.map((r) => r.level))].sort() : []), [rows])
-    const shown = (rows || []).filter((r) =>
+    // A session roster contains active students only. Graduated students remain in
+    // the saved session history and are displayed on the separate Graduates page.
+    const graduated = rows ? rows.filter((r) => String(r.status || '').toUpperCase() === 'GRADUATED') : []
+    const activeRows = (rows || []).filter((r) => String(r.status || '').toUpperCase() !== 'GRADUATED')
+    const levels = useMemo(() => [...new Set(activeRows.map((r) => r.level))].sort(), [rows])
+    const shown = activeRows.filter((r) =>
         (level === 'ALL' || r.level === level) &&
         (!query.trim() || `${r.matricNumber} ${r.fullName}`.toLowerCase().includes(query.trim().toLowerCase())))
     const estimated = rows ? rows.filter((r) => r.source === 'ESTIMATED').length : 0
@@ -215,12 +219,18 @@ function StudentsPerSession() {
                 </div>
 
                 {rows && rows.length === 0 && (
-                    <p className="text-sm theme-text-muted">No records for this session yet. If students are in it, run steps 2 and 3. For earlier sessions, use step 4.</p>
+                    <p className="text-sm theme-text-muted">No records for this session yet. If students are in it, contact the administrator to check the saved records. Do not run Sync or Move students just to view a session.</p>
+                )}
+                {rows && rows.length > 0 && activeRows.length === 0 && (
+                    <p className="text-sm theme-text-muted">This session has no active students. Its graduated students are listed separately on the Graduates page.</p>
                 )}
 
                 {rows && rows.length > 0 && (
                     <div className="overflow-x-auto">
-                        <p className="text-xs theme-text-muted mb-2">{shown.length} student(s). Programme and level are as they were in this session, not as they are now.</p>
+                        <p className="text-xs theme-text-muted mb-2">
+                            {shown.length} active student(s) shown. Programme and level are as they were in this session.
+                            {graduated.length > 0 && ` ${graduated.length} graduated student(s) are excluded from this roster and remain available on the Graduates page.`}
+                        </p>
                         <table className="w-full text-sm text-left">
                             <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted uppercase text-xs">
                             <tr>
