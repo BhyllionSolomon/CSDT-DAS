@@ -99,8 +99,12 @@ public class PromotionService {
             historyService.recordSnapshot(s);              // keeps the session they are leaving on record
 
             if ("GRADUATE".equals(row.action())) {
+                // Keep the outgoing 400 Level snapshot, then place the graduate in
+                // the destination session so the graduating cohort is session-aware.
+                s.setAcademicSession(to);
                 s.setStatus("GRADUATED");
-                studentRepository.save(s);
+                Student saved = studentRepository.save(s);
+                historyService.recordSnapshot(saved);
                 graduated++;
                 continue;
             }
