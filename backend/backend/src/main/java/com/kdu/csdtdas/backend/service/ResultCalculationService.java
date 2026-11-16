@@ -121,9 +121,7 @@ public class ResultCalculationService {
                 resultRepository.findFullAcademicHistory(studentId);
 
         if (allResults.isEmpty()) {
-            throw new IllegalArgumentException(
-                    "No academic results found for this student"
-            );
+            return List.of();
         }
 
         Map<String, List<Result>> grouped =
