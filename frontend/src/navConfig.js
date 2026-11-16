@@ -17,6 +17,7 @@ export const hodGroups = [
             { to: '/students-per-session', label: 'Students Per Session' },
             { to: '/home-slides', label: 'Home Page Images' },
             { to: '/security-log', label: 'Security Log' },
+            { to: '/system-check', label: 'System Check' },
         ] },
     { label: 'Reports', items: [
             { to: '/reports', label: 'Broadsheet & Lists' },
@@ -56,6 +57,7 @@ export const hodGroups = [
         ] },
     { label: 'Final-Year Projects', items: [
             { to: '/final-year-projects', label: 'Assign Supervisors' },
+            { to: '/supervisor-export', label: 'Allocation to Word' },
         ] },
     { label: 'Results', items: [
             { to: '/enter-result', label: 'Enter Result' },
@@ -82,6 +84,7 @@ export const lecturerGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
         ] },
@@ -126,6 +129,7 @@ export const adviserGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
         ] },

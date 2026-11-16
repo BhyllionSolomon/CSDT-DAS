@@ -13,6 +13,8 @@ import Sessions from './pages/Sessions'
 import StartNewSession from './pages/StartNewSession'
 import CohortGuide from './pages/CohortGuide'
 import CarryOverMonitor from './pages/CarryOverMonitor'
+import SystemCheck from './pages/SystemCheck'
+import SupervisorExport from './pages/SupervisorExport'
 import TimetableAdmin from './pages/TimetableAdmin'
 import LecturerTimetable from './pages/LecturerTimetable'
 import TimetableView from './pages/TimetableView'
@@ -77,6 +79,8 @@ export const protectedRoutes = [
     { path: 'start-session', element: <StartNewSession /> },
     { path: 'cohort-guide', element: <CohortGuide /> },
     { path: 'carryover-monitor', element: <CarryOverMonitor /> },
+    { path: 'system-check', element: <SystemCheck /> },
+    { path: 'supervisor-export', element: <SupervisorExport /> },
     { path: 'timetable-admin', element: <TimetableAdmin /> },
     { path: 'my-timetable', element: <LecturerTimetable /> },
     { path: 'timetable', element: <TimetableView /> },
