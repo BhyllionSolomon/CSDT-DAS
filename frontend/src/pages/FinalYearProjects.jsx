@@ -107,11 +107,14 @@ export default function FinalYearProjects() {
     }
 
     const supervisors = useMemo(() => staff.filter(s => s.eligible), [staff])
-    const groups = useMemo(() => supervisors.map(s => ({
-        ...s, items: draftItems.filter(i => i.supervisorId === s.userId),
-    })), [supervisors, draft])
+    // Declare these derived arrays before the memo that consumes them.
+    // Referencing draftItems inside groups' useMemo before its initialization
+    // triggers a temporal-dead-zone ReferenceError in the browser.
     const draftItems = Array.isArray(draft?.items) ? draft.items : []
     const draftHistory = Array.isArray(draft?.history) ? draft.history : []
+    const groups = useMemo(() => supervisors.map(s => ({
+        ...s, items: draftItems.filter(i => i.supervisorId === s.userId),
+    })), [supervisors, draftItems])
     const firstCount = draftItems.filter(i => isFirst(i.classification)).length
 
     if (loading) return <p className="theme-text-muted">Loading project allocation…</p>
