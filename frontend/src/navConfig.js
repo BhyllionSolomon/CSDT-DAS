@@ -57,6 +57,7 @@ export const hodGroups = [
         ] },
     { label: 'Final-Year Projects', items: [
             { to: '/final-year-projects', label: 'Assign Supervisors' },
+            { to: '/project-allocation-schedule', label: 'Published Allocation' },
             { to: '/supervisor-export', label: 'Allocation to Word' },
         ] },
     { label: 'Results', items: [
@@ -84,6 +85,8 @@ export const lecturerGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/final-year-projects', label: 'Project Allocation Review' },
+            { to: '/project-allocation-schedule', label: 'Published Project Allocation' },
             { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
@@ -129,6 +132,8 @@ export const adviserGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/final-year-projects', label: 'Project Allocation Review' },
+            { to: '/project-allocation-schedule', label: 'Published Project Allocation' },
             { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
@@ -153,6 +158,7 @@ export const studentGroups = [
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
             { to: '/my-project-supervisor', label: 'My Project Supervisor' },
+            { to: '/project-allocation-schedule', label: 'Published Project Allocation' },
             { to: '/rate-lecturers', label: 'Rate My Lecturers' },
         ] },
     { label: 'Learning', items: [

@@ -18,6 +18,24 @@ export async function getAssignments(sessionId) {
 export async function removeAssignment(id) {
     await api.delete(`/projects/assignments/${id}`)
 }
+export async function createDraft(sessionId) {
+    return (await api.post('/projects/drafts', null, { params: sessionId ? { sessionId } : {} })).data
+}
+export async function getDraft(id) {
+    return (await api.get(`/projects/drafts/${id}`)).data
+}
+export async function getLatestDraft(sessionId) {
+    return (await api.get('/projects/drafts/latest', { params: sessionId ? { sessionId } : {} })).data
+}
+export async function moveDraftItem(draftId, itemId, supervisorId, note = '') {
+    return (await api.patch(`/projects/drafts/${draftId}/items/${itemId}`, { supervisorId, note })).data
+}
+export async function publishDraft(id) {
+    return (await api.post(`/projects/drafts/${id}/publish`)).data
+}
+export async function getPublicSchedule(sessionId) {
+    return (await api.get('/projects/public-schedule', { params: sessionId ? { sessionId } : {} })).data
+}
 export async function getMyStudents() {
     return (await api.get('/projects/my-students')).data
 }

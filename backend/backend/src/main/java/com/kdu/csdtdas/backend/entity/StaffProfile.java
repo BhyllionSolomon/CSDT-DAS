@@ -21,6 +21,10 @@ public class StaffProfile {
     @Column(nullable = false)
     private boolean supervisionEligible;
 
+    /** HOD-selected subset eligible to receive First Class students. */
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean firstClassEligible;
+
     @Column(nullable = false)
     private boolean projectCoordinator;
 
@@ -36,6 +40,8 @@ public class StaffProfile {
     public void setDesignation(String designation) { this.designation = designation; }
     public boolean isSupervisionEligible() { return supervisionEligible; }
     public void setSupervisionEligible(boolean supervisionEligible) { this.supervisionEligible = supervisionEligible; }
+    public boolean isFirstClassEligible() { return firstClassEligible; }
+    public void setFirstClassEligible(boolean firstClassEligible) { this.firstClassEligible = firstClassEligible; }
     public boolean isProjectCoordinator() { return projectCoordinator; }
     public void setProjectCoordinator(boolean projectCoordinator) { this.projectCoordinator = projectCoordinator; }
     public boolean isAssistantCoordinator() { return assistantCoordinator; }

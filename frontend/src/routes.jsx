@@ -19,6 +19,7 @@ import TimetableAdmin from './pages/TimetableAdmin'
 import LecturerTimetable from './pages/LecturerTimetable'
 import TimetableView from './pages/TimetableView'
 import FinalYearProjects from './pages/FinalYearProjects'
+import ProjectAllocationSchedule from './pages/ProjectAllocationSchedule'
 import MyProjectStudents from './pages/MyProjectStudents'
 import MyProjectSupervisor from './pages/MyProjectSupervisor'
 import RateLecturers from './pages/RateLecturers'
@@ -85,6 +86,7 @@ export const protectedRoutes = [
     { path: 'my-timetable', element: <LecturerTimetable /> },
     { path: 'timetable', element: <TimetableView /> },
     { path: 'final-year-projects', element: <FinalYearProjects /> },
+    { path: 'project-allocation-schedule', element: <ProjectAllocationSchedule /> },
     { path: 'my-project-students', element: <MyProjectStudents /> },
     { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
     { path: 'rate-lecturers', element: <RateLecturers /> },

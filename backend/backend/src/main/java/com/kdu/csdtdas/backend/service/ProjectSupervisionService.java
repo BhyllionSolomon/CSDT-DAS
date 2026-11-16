@@ -5,11 +5,17 @@ import com.kdu.csdtdas.backend.dto.ProjectDTOs;
 import com.kdu.csdtdas.backend.dto.SemesterResultDTO;
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.ProjectSupervision;
+import com.kdu.csdtdas.backend.entity.ProjectAllocationDraft;
+import com.kdu.csdtdas.backend.entity.ProjectAllocationDraftItem;
+import com.kdu.csdtdas.backend.entity.ProjectAllocationEvent;
 import com.kdu.csdtdas.backend.entity.StaffProfile;
 import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
 import com.kdu.csdtdas.backend.repository.ProjectSupervisionRepository;
+import com.kdu.csdtdas.backend.repository.ProjectAllocationDraftRepository;
+import com.kdu.csdtdas.backend.repository.ProjectAllocationDraftItemRepository;
+import com.kdu.csdtdas.backend.repository.ProjectAllocationEventRepository;
 import com.kdu.csdtdas.backend.repository.StaffProfileRepository;
 import com.kdu.csdtdas.backend.repository.StudentRepository;
 import com.kdu.csdtdas.backend.repository.UserRepository;
@@ -65,6 +71,9 @@ public class ProjectSupervisionService {
     }
 
     private final ProjectSupervisionRepository repository;
+    private final ProjectAllocationDraftRepository draftRepository;
+    private final ProjectAllocationDraftItemRepository draftItemRepository;
+    private final ProjectAllocationEventRepository eventRepository;
     private final StaffProfileRepository profileRepository;
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
@@ -74,6 +83,9 @@ public class ProjectSupervisionService {
 
     public ProjectSupervisionService(
             ProjectSupervisionRepository repository,
+            ProjectAllocationDraftRepository draftRepository,
+            ProjectAllocationDraftItemRepository draftItemRepository,
+            ProjectAllocationEventRepository eventRepository,
             StaffProfileRepository profileRepository,
             StudentRepository studentRepository,
             UserRepository userRepository,
@@ -82,6 +94,9 @@ public class ProjectSupervisionService {
             RegistrationClearanceService clearanceService
     ) {
         this.repository = repository;
+        this.draftRepository = draftRepository;
+        this.draftItemRepository = draftItemRepository;
+        this.eventRepository = eventRepository;
         this.profileRepository = profileRepository;
         this.studentRepository = studentRepository;
         this.userRepository = userRepository;
@@ -93,7 +108,7 @@ public class ProjectSupervisionService {
     // ---------------------------------------------------------- staff settings
 
     public List<ProjectDTOs.StaffRow> staff(String username) {
-        requireHod(username);
+        requireProjectManager(username);
 
         AcademicSession session = clearanceService.currentSession();
         Map<Long, Integer> load = new HashMap<>();
@@ -108,7 +123,7 @@ public class ProjectSupervisionService {
             StaffProfile p = profileFor(u);
             rows.add(new ProjectDTOs.StaffRow(
                     u.getId(), u.getFullName(), u.getRole(), p.getDesignation(),
-                    p.isSupervisionEligible(), p.isProjectCoordinator(), p.isAssistantCoordinator(),
+                    p.isSupervisionEligible(), p.isFirstClassEligible(), p.isProjectCoordinator(), p.isAssistantCoordinator(),
                     load.getOrDefault(u.getId(), 0)
             ));
         }
@@ -138,6 +153,7 @@ public class ProjectSupervisionService {
             StaffProfile p = profileFor(u);
             p.setDesignation(designation);
             p.setSupervisionEligible(Boolean.TRUE.equals(up.eligible()));
+            p.setFirstClassEligible(Boolean.TRUE.equals(up.firstClassEligible()) && Boolean.TRUE.equals(up.eligible()));
             p.setProjectCoordinator(Boolean.TRUE.equals(up.coordinator()));
             p.setAssistantCoordinator(Boolean.TRUE.equals(up.assistantCoordinator()));
             profileRepository.save(p);
@@ -149,7 +165,7 @@ public class ProjectSupervisionService {
     // --------------------------------------------------------------- proposal
 
     public ProjectDTOs.Proposal propose(String username, Long sessionId) {
-        requireHod(username);
+        requireProjectManager(username);
         AcademicSession session = session(sessionId);
 
         List<Sup> sups = supervisors(session.getId());
@@ -188,43 +204,194 @@ public class ProjectSupervisionService {
                 session.getId(), session.getName(), students.size(), sups.size(),
                 (int) students.stream().filter(r -> r.cls().equals("FIRST")).count(),
                 (int) students.stream().filter(r -> r.cls().equals("UPPER")).count(),
-                (int) students.stream().filter(r -> r.cls().equals("OTHER")).count(),
+                (int) students.stream().filter(r -> !r.cls().equals("FIRST") && !r.cls().equals("UPPER")).count(),
                 groups, notes
         );
     }
 
     /**
-     * First Class, then Upper Second, then everyone else.
-     * For a class: whoever holds the fewest of that class goes next, then the lowest total workload,
-     * then the higher-priority supervisor (head, senior or coordinator), then name.
-     * For everyone else: lowest total workload, then priority, then name.
+     * First Class students use strict round-robin across the H.O.D-selected subset.
+     * Remaining classifications are handled in academic order and assigned to the
+     * currently least-loaded eligible supervisor.
      */
     private void allocate(List<Ranked> students, List<Sup> sups) {
-
         Comparator<Ranked> strongest = Comparator
-                .comparing((Ranked r) -> r.cgpa() == null ? BigDecimal.valueOf(-1) : r.cgpa(), Comparator.<BigDecimal>reverseOrder())
+                .comparing((Ranked r) -> r.cgpa() == null ? BigDecimal.valueOf(-1) : r.cgpa(),
+                        Comparator.<BigDecimal>reverseOrder())
                 .thenComparing(r -> r.student().getMatricNumber());
 
-        for (String cls : List.of("FIRST", "UPPER")) {
+        List<Sup> firstEligible = sups.stream().filter(s -> s.profile.isFirstClassEligible()).toList();
+        List<Ranked> firsts = students.stream().filter(r -> r.cls().equals("FIRST")).sorted(strongest).toList();
+        if (!firsts.isEmpty() && firstEligible.isEmpty()) {
+            throw bad("First Class students are available, but the H.O.D has not selected any First Class-eligible supervisors. Update supervisor settings first.");
+        }
+        // Strict round-robin: every selected supervisor receives one before anyone receives a second.
+        for (Ranked r : firsts) {
+            Sup chosen = firstEligible.stream().min(Comparator
+                    .comparingInt((Sup s) -> s.byClass.getOrDefault("FIRST", 0))
+                    .thenComparing(s -> s.user.getFullName().toLowerCase())).orElseThrow();
+            chosen.take(r, "FIRST");
+        }
+
+        // Remaining classes are processed in order and balanced across all supervisors.
+        for (String cls : List.of("UPPER", "LOWER", "THIRD", "OTHER")) {
             List<Ranked> group = students.stream().filter(r -> r.cls().equals(cls)).sorted(strongest).toList();
             for (Ranked r : group) {
                 Sup chosen = sups.stream().min(Comparator
-                        .comparingInt((Sup s) -> s.byClass.getOrDefault(cls, 0))
-                        .thenComparingInt(s -> s.total)
-                        .thenComparingInt(s -> s.tier)
+                        .comparingInt((Sup s) -> s.total)
                         .thenComparing(s -> s.user.getFullName().toLowerCase())).orElseThrow();
                 chosen.take(r, cls);
             }
         }
+    }
 
-        List<Ranked> rest = students.stream().filter(r -> r.cls().equals("OTHER")).sorted(strongest).toList();
-        for (Ranked r : rest) {
-            Sup chosen = sups.stream().min(Comparator
-                    .comparingInt((Sup s) -> s.total)
-                    .thenComparingInt(s -> s.tier)
-                    .thenComparing(s -> s.user.getFullName().toLowerCase())).orElseThrow();
-            chosen.take(r, "OTHER");
+    // --------------------------------------------- draft, review, edit and publish
+
+    public ProjectDTOs.DraftView createDraft(String username, Long sessionId) {
+        requireProjectCoordinator(username);
+        ProjectDTOs.Proposal proposal = propose(username, sessionId);
+        AcademicSession academicSession = session(proposal.sessionId());
+        draftRepository.findFirstByAcademicSessionIdAndStatusOrderByCreatedAtDesc(academicSession.getId(), "DRAFT")
+                .ifPresent(previous -> previous.setStatus("SUPERSEDED"));
+
+        ProjectAllocationDraft draft = new ProjectAllocationDraft();
+        draft.setAcademicSession(academicSession);
+        draft.setCreatedBy(username);
+        draft.setStatus("DRAFT");
+        draftRepository.save(draft);
+
+        Map<Long, Student> studentsById = eligibleStudents(academicSession.getId()).stream()
+                .collect(Collectors.toMap(Student::getId, s -> s));
+        Map<Long, User> supervisorsById = supsById(supervisors(academicSession.getId()));
+        List<ProjectAllocationDraftItem> items = new ArrayList<>();
+        for (ProjectDTOs.SupervisorGroup group : proposal.groups()) {
+            User supervisor = supervisorsById.get(group.supervisorId());
+            for (ProjectDTOs.StudentLine line : group.students()) {
+                Student student = studentsById.get(line.studentId());
+                if (student == null) throw bad("The student list changed while the draft was being generated. Generate it again.");
+                ProjectAllocationDraftItem item = new ProjectAllocationDraftItem();
+                item.setDraft(draft); item.setStudent(student); item.setSupervisor(supervisor);
+                item.setClassification(line.classification()); item.setCgpa(line.cgpa());
+                items.add(item);
+            }
         }
+        draftItemRepository.saveAll(items);
+        logEvent(draft, null, "DRAFT_GENERATED", null, null, username,
+                "Generated " + items.size() + " proposed student assignments.");
+        return draftView(draft);
+    }
+
+    public ProjectDTOs.DraftView getDraft(String username, Long draftId) {
+        requireProjectManager(username);
+        return draftView(loadDraft(draftId));
+    }
+
+    public ProjectDTOs.DraftView latestDraft(String username, Long sessionId) {
+        requireProjectManager(username);
+        AcademicSession academicSession = session(sessionId);
+        return draftRepository.findFirstByAcademicSessionIdOrderByCreatedAtDesc(academicSession.getId())
+                .map(this::draftView).orElse(null);
+    }
+
+    public ProjectDTOs.DraftView moveDraftItem(String username, Long draftId, Long itemId, ProjectDTOs.MoveRequest request) {
+        requireProjectCoordinator(username);
+        if (request == null || request.supervisorId() == null) throw bad("Select a supervisor.");
+        ProjectAllocationDraft draft = loadDraft(draftId); ensureDraftOpen(draft);
+        ProjectAllocationDraftItem item = draftItemRepository.findById(itemId)
+                .filter(i -> i.getDraft().getId().equals(draftId))
+                .orElseThrow(() -> bad("Draft student assignment not found."));
+        Sup selected = supervisors(draft.getAcademicSession().getId()).stream()
+                .filter(s -> s.user.getId().equals(request.supervisorId())).findFirst()
+                .orElseThrow(() -> bad("The selected lecturer is not currently eligible to supervise."));
+        if ("FIRST".equals(item.getClassification()) && !selected.profile.isFirstClassEligible()) {
+            throw bad("This student is First Class. The H.O.D has not marked the selected lecturer as First Class-eligible.");
+        }
+        String previous = item.getSupervisor().getFullName();
+        item.setSupervisor(selected.user); draftItemRepository.save(item);
+        logEvent(draft, item.getStudent(), "STUDENT_MOVED", previous, selected.user.getFullName(), username, request.note());
+        return draftView(draft);
+    }
+
+    public ProjectDTOs.DraftView publishDraft(String username, Long draftId) {
+        requireProjectCoordinator(username);
+        ProjectAllocationDraft draft = loadDraft(draftId); ensureDraftOpen(draft);
+        List<ProjectAllocationDraftItem> items = draftItemRepository.findByDraftId(draftId);
+        if (items.isEmpty()) throw bad("The draft has no student assignments to publish.");
+        Set<Long> stillUnassigned = eligibleStudents(draft.getAcademicSession().getId()).stream()
+                .map(Student::getId).collect(Collectors.toSet());
+        if (items.stream().anyMatch(i -> !stillUnassigned.contains(i.getStudent().getId()))) {
+            throw bad("One or more students have been assigned since this draft was created. Generate a fresh draft before publishing.");
+        }
+        List<ProjectSupervision> published = new ArrayList<>();
+        for (ProjectAllocationDraftItem item : items) {
+            if ("FIRST".equals(item.getClassification()) && !profileFor(item.getSupervisor()).isFirstClassEligible())
+                throw bad("A First Class student is assigned to a supervisor who is no longer First Class-eligible.");
+            ProjectSupervision p = new ProjectSupervision();
+            p.setStudent(item.getStudent()); p.setSupervisor(item.getSupervisor());
+            p.setAcademicSession(draft.getAcademicSession()); p.setClassification(item.getClassification());
+            p.setCgpa(item.getCgpa()); p.setStatus("PUBLISHED"); p.setAssignedAt(LocalDateTime.now()); p.setAssignedBy(username);
+            published.add(p);
+        }
+        try {
+            repository.saveAll(published);
+            repository.flush();
+            // Include previously confirmed assignments in the official schedule once this session is published.
+            List<ProjectSupervision> sessionRows = repository.findForSession(draft.getAcademicSession().getId());
+            for (ProjectSupervision row : sessionRows) row.setStatus("PUBLISHED");
+            repository.saveAll(sessionRows);
+        } catch (DataIntegrityViolationException e) {
+            throw bad("The allocation could not be published because some students already have assignments. Generate a fresh draft.");
+        }
+        draft.setStatus("PUBLISHED"); draft.setPublishedAt(LocalDateTime.now()); draft.setPublishedBy(username);
+        logEvent(draft, null, "PUBLISHED", null, null, username,
+                "Published " + published.size() + " student assignments for " + draft.getAcademicSession().getName() + ".");
+        return draftView(draft);
+    }
+
+    /** Public schedule DTO intentionally contains no CGPA or degree classification. */
+    public List<ProjectDTOs.PublicScheduleRow> publicSchedule(Long sessionId) {
+        AcademicSession academicSession = session(sessionId);
+        return repository.findForSession(academicSession.getId()).stream()
+                .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
+                .map(p -> new ProjectDTOs.PublicScheduleRow(academicSession.getName(),
+                        p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
+                        p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
+                        p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation()))
+                .toList();
+    }
+
+    private Map<Long, User> supsById(List<Sup> sups) {
+        return sups.stream().collect(Collectors.toMap(s -> s.user.getId(), s -> s.user));
+    }
+    private ProjectAllocationDraft loadDraft(Long id) {
+        return draftRepository.findById(id).orElseThrow(() -> bad("Allocation draft not found."));
+    }
+    private void ensureDraftOpen(ProjectAllocationDraft draft) {
+        if (!"DRAFT".equals(draft.getStatus())) throw bad("This allocation is no longer a draft and cannot be edited.");
+    }
+    private ProjectDTOs.DraftView draftView(ProjectAllocationDraft draft) {
+        List<ProjectDTOs.DraftItemRow> rows = draftItemRepository.findByDraftIdOrderByStudentFullNameAsc(draft.getId())
+                .stream().map(i -> new ProjectDTOs.DraftItemRow(i.getId(), i.getStudent().getId(),
+                        i.getStudent().getMatricNumber(), i.getStudent().getFullName(),
+                        i.getStudent().getProgramme() != null ? i.getStudent().getProgramme().getName() : "",
+                        i.getClassification(), i.getCgpa(), i.getSupervisor().getId(), i.getSupervisor().getFullName()))
+                .toList();
+        List<ProjectDTOs.AllocationEventRow> history = eventRepository.findByDraftIdOrderByChangedAtAsc(draft.getId())
+                .stream().map(e -> new ProjectDTOs.AllocationEventRow(e.getAction(),
+                        e.getStudent() != null ? e.getStudent().getMatricNumber() : null,
+                        e.getPreviousSupervisor(), e.getNewSupervisor(), e.getChangedBy(), e.getChangedAt(), e.getNote()))
+                .toList();
+        return new ProjectDTOs.DraftView(draft.getId(), draft.getAcademicSession().getId(),
+                draft.getAcademicSession().getName(), draft.getStatus(), draft.getCreatedAt(),
+                draft.getUpdatedAt(), draft.getPublishedAt(), rows, history);
+    }
+    private void logEvent(ProjectAllocationDraft draft, Student student, String action,
+                          String previous, String next, String username, String note) {
+        ProjectAllocationEvent event = new ProjectAllocationEvent();
+        event.setDraft(draft); event.setStudent(student); event.setAction(action);
+        event.setPreviousSupervisor(previous); event.setNewSupervisor(next);
+        event.setChangedBy(username); event.setChangedAt(LocalDateTime.now()); event.setNote(note);
+        eventRepository.save(event);
     }
 
     // ---------------------------------------------------------------- confirm
@@ -283,7 +450,7 @@ public class ProjectSupervisionService {
     }
 
     public List<ProjectDTOs.AssignmentRow> all(String username, Long sessionId) {
-        requireHod(username);
+        requireProjectManager(username);
         AcademicSession session = session(sessionId);
 
         return repository.findForSession(session.getId()).stream().map(p -> new ProjectDTOs.AssignmentRow(
@@ -363,7 +530,10 @@ public class ProjectSupervisionService {
             CumulativeSummaryDTO c = history.get(history.size() - 1).currentCumulative();
             String label = c.degreeClass() == null ? "" : c.degreeClass().toUpperCase();
 
-            String cls = label.contains("FIRST") ? "FIRST" : label.contains("UPPER") ? "UPPER" : "OTHER";
+            String cls = label.contains("FIRST") ? "FIRST"
+                    : label.contains("UPPER") ? "UPPER"
+                    : label.contains("LOWER") ? "LOWER"
+                    : label.contains("THIRD") ? "THIRD" : "OTHER";
             return new Ranked(s, cls, c.cgpa());
         } catch (RuntimeException e) {
             return new Ranked(s, "OTHER", null);
@@ -440,6 +610,24 @@ public class ProjectSupervisionService {
     private void requireHod(String username) {
         String role = String.valueOf(getUser(username).getRole()).toUpperCase();
         if (!role.equals("HOD") && !role.equals("ADMIN")) throw bad("Only the H.O.D can do this.");
+    }
+
+    private void requireProjectManager(String username) {
+        User user = getUser(username);
+        String role = String.valueOf(user.getRole()).toUpperCase();
+        StaffProfile profile = profileFor(user);
+        if (!role.equals("HOD") && !role.equals("ADMIN") && !profile.isProjectCoordinator()
+                && !profile.isAssistantCoordinator())
+            throw bad("Only the H.O.D or a Project Coordinator can manage project allocations.");
+    }
+
+    private void requireProjectCoordinator(String username) {
+        User user = getUser(username);
+        String role = String.valueOf(user.getRole()).toUpperCase();
+        StaffProfile profile = profileFor(user);
+        if (!role.equals("HOD") && !role.equals("ADMIN") && !profile.isProjectCoordinator()
+                && !profile.isAssistantCoordinator())
+            throw bad("Only the Project Coordinator, Assistant Project Coordinator or H.O.D can do this.");
     }
 
     private IllegalArgumentException bad(String message) {

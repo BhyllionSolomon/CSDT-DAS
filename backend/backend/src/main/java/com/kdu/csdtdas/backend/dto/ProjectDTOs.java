@@ -10,11 +10,11 @@ public final class ProjectDTOs {
 
     public record StaffRow(
             Long userId, String fullName, String role, String designation,
-            boolean eligible, boolean coordinator, boolean assistantCoordinator, int currentLoad
+            boolean eligible, boolean firstClassEligible, boolean coordinator, boolean assistantCoordinator, int currentLoad
     ) {}
 
     public record StaffUpdate(
-            Long userId, String designation, Boolean eligible, Boolean coordinator, Boolean assistantCoordinator
+            Long userId, String designation, Boolean eligible, Boolean firstClassEligible, Boolean coordinator, Boolean assistantCoordinator
     ) {}
 
     public record StudentLine(
@@ -56,5 +56,29 @@ public final class ProjectDTOs {
     public record MyStudent(
             Long studentId, String matricNumber, String fullName, String programme,
             String classification, String sessionName, LocalDateTime assignedAt
+    ) {}
+
+    public record DraftItemRow(
+            Long itemId, Long studentId, String matricNumber, String fullName, String programme,
+            String classification, BigDecimal cgpa, Long supervisorId, String supervisorName
+    ) {}
+
+    public record AllocationEventRow(
+            String action, String matricNumber, String previousSupervisor, String newSupervisor,
+            String changedBy, LocalDateTime changedAt, String note
+    ) {}
+
+    public record DraftView(
+            Long draftId, Long sessionId, String sessionName, String status,
+            LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt,
+            List<DraftItemRow> items, List<AllocationEventRow> history
+    ) {}
+
+    public record MoveRequest(Long supervisorId, String note) {}
+
+    /** Deliberately excludes CGPA and degree classification. */
+    public record PublicScheduleRow(
+            String sessionName, String matricNumber, String fullName, String programme,
+            String supervisorName, String designation
     ) {}
 }
