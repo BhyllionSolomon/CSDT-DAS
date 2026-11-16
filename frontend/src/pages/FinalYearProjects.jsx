@@ -36,9 +36,15 @@ export default function FinalYearProjects() {
 
     const refresh = useCallback(async () => {
         const [s, a, latest] = await Promise.all([getStaff(), getAssignments(sessionId), getLatestDraft(sessionId)])
-        setStaff(s)
-        setAssignments(a)
-        setDraft(latest)
+        // API responses are normalised before rendering so an empty or unexpected
+        // response cannot cause .filter/.map crashes in the allocation screen.
+        setStaff(Array.isArray(s) ? s : [])
+        setAssignments(Array.isArray(a) ? a : [])
+        setDraft(latest && typeof latest === 'object' ? {
+            ...latest,
+            items: Array.isArray(latest.items) ? latest.items : [],
+            history: Array.isArray(latest.history) ? latest.history : [],
+        } : null)
     }, [sessionId])
 
     useEffect(() => {
@@ -102,9 +108,11 @@ export default function FinalYearProjects() {
 
     const supervisors = useMemo(() => staff.filter(s => s.eligible), [staff])
     const groups = useMemo(() => supervisors.map(s => ({
-        ...s, items: (draft?.items || []).filter(i => i.supervisorId === s.userId),
+        ...s, items: draftItems.filter(i => i.supervisorId === s.userId),
     })), [supervisors, draft])
-    const firstCount = draft?.items.filter(i => isFirst(i.classification)).length || 0
+    const draftItems = Array.isArray(draft?.items) ? draft.items : []
+    const draftHistory = Array.isArray(draft?.history) ? draft.history : []
+    const firstCount = draftItems.filter(i => isFirst(i.classification)).length
 
     if (loading) return <p className="theme-text-muted">Loading project allocation…</p>
 
@@ -151,10 +159,10 @@ export default function FinalYearProjects() {
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
                             {[
-                                ['Students', draft.items.length],
-                                ['Supervisors used', new Set(draft.items.map(i => i.supervisorId)).size],
+                                ['Students', draftItems.length],
+                                ['Supervisors used', new Set(draftItems.map(i => i.supervisorId)).size],
                                 ['First Class', firstCount],
-                                ['Other classifications', draft.items.length - firstCount],
+                                ['Other classifications', draftItems.length - firstCount],
                             ].map(([label, value]) => <div key={label} className="rounded-lg p-3" style={{ background: 'var(--surface-soft)' }}>
                                 <p className="text-2xl font-bold">{value}</p><p className="text-xs theme-text-muted">{label}</p>
                             </div>)}
@@ -208,10 +216,10 @@ export default function FinalYearProjects() {
                     )}
                     <div className="card p-4">
                         <button onClick={() => setShowHistory(v => !v)} className="font-semibold text-sm">
-                            {showHistory ? 'Hide' : 'View'} allocation history ({draft.history.length})
+                            {showHistory ? 'Hide' : 'View'} allocation history ({draftHistory.length})
                         </button>
                         {showHistory && <div className="mt-3 space-y-2">
-                            {draft.history.map((h, i) => <div key={i} className="text-xs border-l-2 theme-border pl-3 py-1">
+                            {draftHistory.map((h, i) => <div key={i} className="text-xs border-l-2 theme-border pl-3 py-1">
                                 <strong>{h.action.replaceAll('_', ' ')}</strong> · {h.matricNumber || 'Whole draft'} · {h.previousSupervisor || '—'} → {h.newSupervisor || '—'}
                                 <div className="theme-text-muted">{h.changedBy} · {when(h.changedAt)} {h.note ? `· ${h.note}` : ''}</div>
                             </div>)}
