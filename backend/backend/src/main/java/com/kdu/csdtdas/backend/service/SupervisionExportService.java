@@ -196,7 +196,7 @@ public class SupervisionExportService {
     }
 
     private String studentTable(List<Row> rows) {
-        int[] widths = {650, 3900, 2600, 4200, 1000};
+        int[] widths = {600, 3400, 2200, 3000, 800};
         String[] heads = {"S/N", "Student name", "Matriculation number", "Department", "CGPA"};
         StringBuilder x = new StringBuilder("<w:tbl><w:tblPr><w:tblW w:w=\"12350\" w:type=\"dxa\"/><w:tblBorders>");
         for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
