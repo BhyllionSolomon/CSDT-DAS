@@ -74,13 +74,13 @@ function SupervisorExport() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
                             <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted uppercase text-xs">
-                            <tr><th className="px-4 py-2">Supervisor</th><th className="px-4 py-2">Student name</th><th className="px-4 py-2">Matriculation number</th><th className="px-4 py-2">Department</th></tr>
+                            <tr><th className="px-4 py-2">Supervisor</th><th className="px-4 py-2">Student name</th><th className="px-4 py-2">Matriculation number</th><th className="px-4 py-2">Programme</th></tr>
                             </thead>
                             <tbody className="divide-y theme-border">
                             {data.rows.map((r, i) => (
                                 <tr key={i}>
                                     <td className="px-4 py-2 font-medium">{r.supervisor}</td><td className="px-4 py-2">{r.student}</td>
-                                    <td className="px-4 py-2">{r.matric}</td><td className="px-4 py-2">{r.department}</td>
+                                    <td className="px-4 py-2">{r.matric}</td><td className="px-4 py-2">{r.programme}</td>
                                 </tr>
                             ))}
                             </tbody>
