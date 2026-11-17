@@ -582,11 +582,17 @@ public class ProjectSupervisionService {
 
         if (!uploaded.isEmpty()) {
             BigDecimal cgpa = uploaded.get(0).getCgpa();
-            if (cgpa != null
-                    && cgpa.compareTo(BigDecimal.ZERO) >= 0
-                    && cgpa.compareTo(BigDecimal.valueOf(5.00)) <= 0) {
-                return rankedFromCgpa(s, cgpa);
-            }
+            if (isValidCgpa(cgpa)) return rankedFromCgpa(s, cgpa);
+        }
+
+        // The roster may have been uploaded against the preceding academic
+        // session before students were promoted. CGPA is cumulative, so use
+        // the latest matric-matched upload from any session as a fallback.
+        List<ReportedCgpa> anySession = reportedCgpaRepository.findLatestForAllocationAnySession(
+                s.getMatricNumber()
+        );
+        if (!anySession.isEmpty() && isValidCgpa(anySession.get(0).getCgpa())) {
+            return rankedFromCgpa(s, anySession.get(0).getCgpa());
         }
 
         try {
@@ -600,6 +606,11 @@ public class ProjectSupervisionService {
             // for the rest of the cohort. The proposal reports this student as unclassified.
             return new Ranked(s, "OTHER", null);
         }
+    }
+
+    private boolean isValidCgpa(BigDecimal cgpa) {
+        return cgpa != null && cgpa.compareTo(BigDecimal.ZERO) >= 0
+                && cgpa.compareTo(BigDecimal.valueOf(5.00)) <= 0;
     }
 
     private Ranked rankedFromCgpa(Student student, BigDecimal cgpa) {
