@@ -116,6 +116,7 @@ export default function FinalYearProjects() {
         ...s, items: draftItems.filter(i => i.supervisorId === s.userId),
     })), [supervisors, draftItems])
     const firstCount = draftItems.filter(i => isFirst(i.classification)).length
+    const missingCgpaCount = draftItems.filter(i => i.cgpa == null).length
 
     if (loading) return <p className="theme-text-muted">Loading project allocation…</p>
 
@@ -171,6 +172,14 @@ export default function FinalYearProjects() {
                             </div>)}
                         </div>
                     </div>
+
+                    {missingCgpaCount > 0 && (
+                        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                            <strong>{missingCgpaCount} student(s) have no CGPA available.</strong>
+                            {' '}They are marked Unclassified and allocated after students with known classifications.
+                            Upload the correct CGPA roster for this academic session and generate a new draft to classify them automatically.
+                        </div>
+                    )}
 
                     {groups.map(g => (
                         <div className="card overflow-hidden" key={g.userId}>
