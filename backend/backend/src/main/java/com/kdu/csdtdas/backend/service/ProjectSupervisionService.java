@@ -396,7 +396,7 @@ public class ProjectSupervisionService {
                 .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
                 .map(p -> new ProjectDTOs.PublicScheduleRow(academicSession.getName(),
                         p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
-                        p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
+                        p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : "",
                         p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation()))
                 .toList();
     }
@@ -414,8 +414,8 @@ public class ProjectSupervisionService {
         List<ProjectDTOs.DraftItemRow> rows = draftItemRepository.findByDraftIdOrderByStudentFullNameAsc(draft.getId())
                 .stream().map(i -> new ProjectDTOs.DraftItemRow(i.getId(), i.getStudent().getId(),
                         i.getStudent().getMatricNumber(), i.getStudent().getFullName(),
-                        i.getStudent().getProgramme() != null ? i.getStudent().getProgramme().getName() : "",
-                        i.getClassification(), i.getCgpa(), i.getSupervisor().getId(), i.getSupervisor().getFullName()))
+                        i.getStudent().getDepartment() != null ? i.getStudent().getDepartment().getName() : "",
+                        i.getSupervisor().getId(), i.getSupervisor().getFullName()))
                 .toList();
         List<ProjectDTOs.AllocationEventRow> history = eventRepository.findByDraftIdOrderByChangedAtAsc(draft.getId())
                 .stream().map(e -> new ProjectDTOs.AllocationEventRow(e.getAction(),
@@ -496,8 +496,7 @@ public class ProjectSupervisionService {
 
         return repository.findForSession(session.getId()).stream().map(p -> new ProjectDTOs.AssignmentRow(
                 p.getId(), p.getStudent().getId(), p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
-                p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
-                p.getClassification(), p.getCgpa(),
+                p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : "",
                 p.getSupervisor().getId(), p.getSupervisor().getFullName(),
                 profileFor(p.getSupervisor()).getDesignation(),
                 p.getStatus(), p.getAcademicSession().getName(), p.getAssignedAt()
@@ -542,8 +541,8 @@ public class ProjectSupervisionService {
                 .filter(p -> p.getSupervisor().getId().equals(user.getId()))
                 .map(p -> new ProjectDTOs.MyStudent(
                         p.getStudent().getId(), p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
-                        p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
-                        p.getClassification(), p.getAcademicSession().getName(), p.getAssignedAt()
+                        p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : "",
+                        p.getAcademicSession().getName(), p.getAssignedAt()
                 ))
                 .toList();
     }
@@ -629,8 +628,7 @@ public class ProjectSupervisionService {
     private ProjectDTOs.StudentLine line(Ranked r) {
         return new ProjectDTOs.StudentLine(
                 r.student().getId(), r.student().getMatricNumber(), r.student().getFullName(),
-                r.student().getProgramme() != null ? r.student().getProgramme().getName() : "",
-                r.cls(), r.cgpa()
+                r.student().getDepartment() != null ? r.student().getDepartment().getName() : ""
         );
     }
 
