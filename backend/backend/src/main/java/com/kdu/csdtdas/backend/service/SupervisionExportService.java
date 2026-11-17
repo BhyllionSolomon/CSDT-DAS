@@ -106,57 +106,127 @@ public class SupervisionExportService {
     }
 
     private String document(String sessionName, List<Row> rows) {
-        int[] widths = {3400, 3600, 2600, 3800, 1200};
-        String[] heads = {"Supervisor", "Student name", "Matriculation number", "Department", "CGPA"};
-
         StringBuilder x = new StringBuilder();
         x.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
                 .append("<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:body>");
 
-        x.append(paragraph("KOLA DAISI UNIVERSITY", true, 28, "center"));
-        x.append(paragraph("DEPARTMENT OF COMPUTING SCIENCE AND DIGITAL TECHNOLOGY", true, 24, "center"));
-        x.append(paragraph("FINAL-YEAR PROJECT SUPERVISION ALLOCATION, " + sessionName + " SESSION", true, 24, "center"));
-        x.append(paragraph(" ", false, 20, "left"));
+        x.append(paragraph("KOLA DAISI UNIVERSITY", true, 32, "center", "17365D", 120));
+        x.append(paragraph("DEPARTMENT OF COMPUTING SCIENCE AND DIGITAL TECHNOLOGY", true, 22, "center", "287C91", 100));
+        x.append(paragraph("FINAL-YEAR PROJECT SUPERVISOR–SUPERVISEE ALLOCATION", true, 27, "center", "17365D", 70));
+        x.append(paragraph(sessionName + " ACADEMIC SESSION", true, 22, "center", "287C91", 220));
+        x.append(paragraph("This document presents the approved project supervision allocation for the academic session.", false, 19, "center", "555555", 180));
 
-        x.append("<w:tbl><w:tblPr><w:tblW w:w=\"14600\" w:type=\"dxa\"/><w:tblBorders>");
-        for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
-            x.append("<w:").append(side).append(" w:val=\"single\" w:sz=\"4\" w:space=\"0\" w:color=\"000000\"/>");
+        int supervisors = (int) rows.stream().map(Row::supervisor).distinct().count();
+        x.append(summaryTable(rows.size(), supervisors));
+        x.append(paragraph(" ", false, 12, "left", "FFFFFF", 100));
+
+        Map<String, List<Row>> grouped = new LinkedHashMap<>();
+        for (Row row : rows) grouped.computeIfAbsent(row.supervisor(), key -> new java.util.ArrayList<>()).add(row);
+
+        for (Map.Entry<String, List<Row>> entry : grouped.entrySet()) {
+            x.append(supervisorHeading(entry.getKey(), entry.getValue().size()));
+            x.append(studentTable(entry.getValue()));
+            x.append(paragraph(" ", false, 10, "left", "FFFFFF", 100));
         }
-        x.append("</w:tblBorders></w:tblPr><w:tblGrid>");
-        for (int w : widths) x.append("<w:gridCol w:w=\"").append(w).append("\"/>");
-        x.append("</w:tblGrid>");
 
-        x.append("<w:tr><w:trPr><w:tblHeader/></w:trPr>");
-        for (int i = 0; i < heads.length; i++) x.append(cell(heads[i], widths[i], true));
-        x.append("</w:tr>");
+        x.append(paragraph("TOTAL: " + rows.size() + " STUDENT(S)  |  " + supervisors + " SUPERVISOR(S)", true, 20, "left", "17365D", 100));
+        x.append(paragraph("Generated on " + LocalDate.now() + ".", false, 16, "left", "666666", 80));
+        x.append(paragraph("For departmental use and record.", false, 16, "left", "666666", 180));
 
-        for (Row r : rows) {
-            String[] values = {r.supervisor(), r.student(), r.matric(), r.department(), r.cgpa()};
-            x.append("<w:tr>");
-            for (int i = 0; i < values.length; i++) x.append(cell(values[i], widths[i], false));
-            x.append("</w:tr>");
-        }
-        x.append("</w:tbl>");
-
-        x.append(paragraph(" ", false, 20, "left"));
-        x.append(paragraph(rows.size() + " student(s). Generated on " + LocalDate.now() + ".", false, 18, "left"));
-
-        x.append("<w:sectPr><w:pgSz w:w=\"16838\" w:h=\"11906\" w:orient=\"landscape\"/>")
-                .append("<w:pgMar w:top=\"1000\" w:right=\"1000\" w:bottom=\"1000\" w:left=\"1000\" w:header=\"500\" w:footer=\"500\" w:gutter=\"0\"/></w:sectPr>")
+        x.append("<w:sectPr><w:pgSz w:w=\"11906\" w:h=\"16838\"/>")
+                .append("<w:pgMar w:top=\"850\" w:right=\"850\" w:bottom=\"850\" w:left=\"850\" w:header=\"400\" w:footer=\"400\" w:gutter=\"0\"/></w:sectPr>")
                 .append("</w:body></w:document>");
         return x.toString();
     }
 
-    private String paragraph(String text, boolean bold, int size, String align) {
-        return "<w:p><w:pPr><w:jc w:val=\"" + align + "\"/></w:pPr><w:r><w:rPr>" + (bold ? "<w:b/>" : "")
-                + "<w:sz w:val=\"" + size + "\"/></w:rPr><w:t xml:space=\"preserve\">" + esc(text) + "</w:t></w:r></w:p>";
+    private String supervisorHeading(String supervisor, int count) {
+        String[] details = supervisorDetails(supervisor);
+        return "<w:p><w:pPr><w:spacing w:before=\"180\" w:after=\"60\"/><w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"DCEAF2\"/>"
+                + "<w:ind w:left=\"100\" w:right=\"100\"/></w:pPr><w:r><w:rPr><w:b/><w:color w:val=\"17365D\"/><w:sz w:val=\"22\"/></w:rPr><w:t>"
+                + esc(details[0]) + "</w:t></w:r><w:r><w:rPr><w:color w:val=\"287C91\"/><w:sz w:val=\"18\"/></w:rPr><w:t xml:space=\"preserve\">  "
+                + esc(details[1]) + "  |  " + count + " student(s)</w:t></w:r></w:p>";
     }
 
-    private String cell(String text, int width, boolean header) {
-        return "<w:tc><w:tcPr><w:tcW w:w=\"" + width + "\" w:type=\"dxa\"/>"
-                + (header ? "<w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"D9E2F3\"/>" : "")
-                + "</w:tcPr><w:p><w:r><w:rPr>" + (header ? "<w:b/>" : "") + "<w:sz w:val=\"20\"/></w:rPr><w:t xml:space=\"preserve\">"
-                + esc(text) + "</w:t></w:r></w:p></w:tc>";
+    private String[] supervisorDetails(String supervisorName) {
+        User supervisor = userRepository.findAll().stream()
+                .filter(u -> supervisorName.equals(u.getFullName()))
+                .findFirst().orElse(null);
+        if (supervisor == null) return new String[]{supervisorName, "Project Supervisor"};
+
+        var profile = profileRepository.findByUserId(supervisor.getId()).orElse(null);
+        if (profile == null) return new String[]{supervisorName, "Project Supervisor"};
+
+        String designation = profile.getDesignation() == null ? "" : profile.getDesignation().toUpperCase();
+        String prefix = switch (designation) {
+            case "PROFESSOR" -> "Prof. ";
+            case "ASSOCIATE_PROFESSOR" -> "Associate Prof. ";
+            case "SENIOR_LECTURER" -> "Senior Lecturer ";
+            case "LECTURER_I" -> "Lecturer I ";
+            case "LECTURER_II" -> "Lecturer II ";
+            case "ASSISTANT_LECTURER" -> "Assistant Lecturer ";
+            case "ADJUNCT" -> "Adjunct Lecturer ";
+            default -> "";
+        };
+        String name = supervisorName;
+        if (!prefix.isBlank() && !supervisorName.matches("(?i)^(prof\\.?|professor|dr\\.?|mr\\.?|mrs\\.?|miss|associate prof\\.?|senior lecturer|lecturer|assistant lecturer|adjunct lecturer).*")) {
+            name = prefix + supervisorName;
+        }
+        String role = profile.isProjectCoordinator() ? "Project Coordinator"
+                : profile.isAssistantCoordinator() ? "Assistant Project Coordinator"
+                : designation.equals("HEAD_OF_DEPARTMENT") ? "Head of Department"
+                : "Project Supervisor";
+        return new String[]{name, role};
+    }
+
+    private String summaryTable(int studentCount, int supervisorCount) {
+        StringBuilder s = new StringBuilder("<w:tbl><w:tblPr><w:tblW w:w=\"5000\" w:type=\"dxa\"/><w:tblBorders>");
+        for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
+            s.append("<w:").append(side).append(" w:val=\"single\" w:sz=\"4\" w:color=\"B7C9D6\"/>");
+        }
+        s.append("</w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w=\"2500\"/><w:gridCol w:w=\"2500\"/></w:tblGrid><w:tr>")
+                .append(cell("TOTAL STUDENTS", 2500, true, "DCEAF2"))
+                .append(cell("SUPERVISORS", 2500, true, "DCEAF2"))
+                .append("</w:tr><w:tr>")
+                .append(cell(String.valueOf(studentCount), 2500, false, "F3F7FA"))
+                .append(cell(String.valueOf(supervisorCount), 2500, false, "F3F7FA"))
+                .append("</w:tr></w:tbl>");
+        return s.toString();
+    }
+
+    private String studentTable(List<Row> rows) {
+        int[] widths = {650, 3900, 2600, 4200, 1000};
+        String[] heads = {"S/N", "Student name", "Matriculation number", "Department", "CGPA"};
+        StringBuilder x = new StringBuilder("<w:tbl><w:tblPr><w:tblW w:w=\"12350\" w:type=\"dxa\"/><w:tblBorders>");
+        for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
+            x.append("<w:").append(side).append(" w:val=\"single\" w:sz=\"4\" w:color=\"C7D5DF\"/>");
+        }
+        x.append("</w:tblBorders></w:tblPr><w:tblGrid>");
+        for (int width : widths) x.append("<w:gridCol w:w=\"").append(width).append("\"/>");
+        x.append("</w:tblGrid><w:tr><w:trPr><w:tblHeader/></w:trPr>");
+        for (int i = 0; i < heads.length; i++) x.append(cell(heads[i], widths[i], true, "287C91"));
+        x.append("</w:tr>");
+
+        for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+            Row row = rows.get(rowIndex);
+            String fill = rowIndex % 2 == 0 ? "FFFFFF" : "F3F7FA";
+            String[] values = {String.valueOf(rowIndex + 1), row.student(), row.matric(), row.department(), row.cgpa()};
+            x.append("<w:tr>");
+            for (int i = 0; i < values.length; i++) x.append(cell(values[i], widths[i], false, fill));
+            x.append("</w:tr>");
+        }
+        return x.append("</w:tbl>").toString();
+    }
+
+    private String paragraph(String text, boolean bold, int size, String align, String colour, int after) {
+        return "<w:p><w:pPr><w:jc w:val=\"" + align + "\"/><w:spacing w:after=\"" + after + "\"/></w:pPr><w:r><w:rPr>"
+                + (bold ? "<w:b/>" : "") + "<w:color w:val=\"" + colour + "\"/><w:sz w:val=\"" + size + "\"/></w:rPr><w:t xml:space=\"preserve\">"
+                + esc(text) + "</w:t></w:r></w:p>";
+    }
+
+    private String cell(String text, int width, boolean header, String fill) {
+        return "<w:tc><w:tcPr><w:tcW w:w=\"" + width + "\" w:type=\"dxa\"/><w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"" + fill + "\"/>"
+                + "</w:tcPr><w:p><w:r><w:rPr>" + (header ? "<w:b/><w:color w:val=\"FFFFFF\"/>" : "<w:color w:val=\"263746\"/>")
+                + "<w:sz w:val=\"18\"/></w:rPr><w:t xml:space=\"preserve\">" + esc(text) + "</w:t></w:r></w:p></w:tc>";
     }
 
     private void put(ZipOutputStream zip, String name, String content) throws IOException {
