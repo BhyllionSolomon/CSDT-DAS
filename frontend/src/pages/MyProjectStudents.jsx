@@ -31,7 +31,7 @@ function MyProjectStudents() {
                         <tr>
                             <th className="px-4 py-2">Student name</th>
                             <th className="px-4 py-2">Matric number</th>
-                            <th className="px-4 py-2">Department</th>
+                            <th className="px-4 py-2">Programme</th>
                         </tr>
                         </thead>
                         <tbody className="divide-y theme-border">
@@ -39,7 +39,7 @@ function MyProjectStudents() {
                             <tr key={r.studentId}>
                                 <td className="px-4 py-2 font-medium">{r.fullName}</td>
                                 <td className="px-4 py-2">{r.matricNumber}</td>
-                                <td className="px-4 py-2">{r.department}</td>
+                                <td className="px-4 py-2">{r.programme}</td>
                             </tr>
                         ))}
                         </tbody>
