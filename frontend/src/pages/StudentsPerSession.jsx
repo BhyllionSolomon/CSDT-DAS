@@ -108,7 +108,7 @@ function StudentsPerSession() {
         <div className="max-w-5xl">
             <h2 className="text-2xl font-bold mb-2">Students Per Session</h2>
             <p className="theme-text-muted text-sm mb-6">
-                Which students were in which programme and level during each academic session. Records are only ever added. Nothing here deletes or changes another session's record.
+                Current active counts show where students are assigned now. Historical records are preserved snapshots of who was in each session; they remain after promotion and are not additional current students.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
@@ -129,12 +129,13 @@ function StudentsPerSession() {
                         <div className="overflow-x-auto">
                             <table className="w-full text-sm text-left">
                                 <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted uppercase text-xs">
-                                <tr><th className="px-3 py-2">Session</th><th className="px-3 py-2">Students currently in it</th><th className="px-3 py-2">Saved records</th><th className="px-3 py-2">Missing</th></tr>
+                                <tr><th className="px-3 py-2">Session</th><th className="px-3 py-2">Current active</th><th className="px-3 py-2">Other status</th><th className="px-3 py-2">Graduated</th><th className="px-3 py-2">Historical records</th><th className="px-3 py-2">Missing</th></tr>
                                 </thead>
                                 <tbody className="divide-y theme-border">
                                 {check.sessions.map((s) => (
                                     <tr key={s.sessionId}>
-                                        <td className="px-3 py-2 font-medium">{s.name}</td><td className="px-3 py-2">{s.studentsInSession}</td>
+                                        <td className="px-3 py-2 font-medium">{s.name}</td><td className="px-3 py-2 font-semibold">{s.activeStudents}</td>
+                                        <td className="px-3 py-2">{s.otherStatusStudents}</td><td className="px-3 py-2">{s.graduatedStudents}</td>
                                         <td className="px-3 py-2">{s.records}</td><td className={`px-3 py-2 ${s.missing ? 'text-red-600 font-semibold' : ''}`}>{s.missing}</td>
                                     </tr>
                                 ))}
@@ -199,7 +200,8 @@ function StudentsPerSession() {
                 )}
             </Step>
 
-            <Step n="5" title="View a session">
+            <Step n="5" title="View historical records for a session">
+                <p className="text-xs theme-text-muted mb-3">This is the saved historical roster for the selected session. Students who have since been promoted remain listed here by design. Use the current active counts in Step 1 to see where students are assigned now.</p>
                 <div className="flex gap-3 flex-wrap items-end mb-3">
                     <select value={viewId} onChange={(e) => show(e.target.value)} className="border theme-border rounded-lg px-3 py-2 text-sm">
                         <option value="">Choose a session…</option>
