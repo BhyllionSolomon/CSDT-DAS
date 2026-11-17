@@ -44,10 +44,10 @@ export default function ProjectAllocationSchedule() {
             {rows.length === 0 ? <p className="p-5 text-sm theme-text-muted">No published allocation is available for this session yet.</p> :
                 <div className="overflow-x-auto"><table className="w-full text-sm">
                     <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                        <tr><th className="p-3 text-left">Supervisor</th><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Department</th></tr>
+                        <tr><th className="p-3 text-left">S/N</th><th className="p-3 text-left">Supervisor</th><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th></tr>
                     </thead>
                     <tbody className="divide-y theme-border">{rows.map((r,i) => <tr key={`${r.matricNumber}-${i}`}>
-                        <td className="p-3">{r.supervisorName}</td><td className="p-3 font-medium">{r.fullName}</td><td className="p-3">{r.matricNumber}</td><td className="p-3">{r.department}</td>
+                        <td className="p-3">{i + 1}</td><td className="p-3">{r.supervisorName}</td><td className="p-3 font-medium">{r.fullName}</td><td className="p-3">{r.matricNumber}</td><td className="p-3">{r.programme}</td>
                     </tr>)}</tbody>
                 </table></div>}
         </div>
