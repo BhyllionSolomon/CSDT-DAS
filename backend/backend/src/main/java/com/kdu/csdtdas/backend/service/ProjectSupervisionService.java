@@ -171,20 +171,45 @@ public class ProjectSupervisionService {
     // --------------------------------------------------------------- proposal
 
     public ProjectDTOs.Proposal propose(String username, Long sessionId) {
-        requireProjectManager(username);
         AcademicSession session = session(sessionId);
+        return buildProposal(username, session, eligibleStudents(session.getId()), true);
+    }
+
+    /**
+     * A draft is a complete proposed allocation, not just an allocation for
+     * students who have never been assigned. Rebuild the full active 400-level
+     * cohort so updated CGPAs can correct earlier supervisor allocations.
+     */
+    private ProjectDTOs.Proposal proposeFullCohort(String username, Long sessionId) {
+        AcademicSession session = session(sessionId);
+        return buildProposal(username, session, allocationStudents(session.getId()), false);
+    }
+
+    private ProjectDTOs.Proposal buildProposal(
+            String username, AcademicSession session, List<Student> cohort, boolean includeExistingLoad
+    ) {
+        requireProjectManager(username);
 
         List<Sup> sups = supervisors(session.getId());
         if (sups.isEmpty()) {
             throw bad("No lecturer is marked as a project supervisor yet. Open the supervisor settings and tick the lecturers who supervise.");
         }
 
-        List<Ranked> students = eligibleStudents(session.getId()).stream()
+        // When rebuilding the whole cohort, previous assignments are being
+        // reconsidered; they must not count as extra load in the new balancing.
+        if (!includeExistingLoad) {
+            for (Sup supervisor : sups) {
+                supervisor.total = 0;
+                supervisor.byClass.clear();
+            }
+        }
+
+        List<Ranked> students = cohort.stream()
                 .map(student -> rank(student, session.getId())).toList();
         List<String> notes = new ArrayList<>();
 
         if (students.isEmpty()) {
-            notes.add("There are no unassigned 400 level students for this session.");
+            notes.add("There are no active 400 level students to allocate for this session.");
         }
         long unranked = students.stream().filter(r -> r.cgpa() == null).count();
         if (unranked > 0) {
@@ -194,15 +219,16 @@ public class ProjectSupervisionService {
         allocate(students, sups);
 
         List<ProjectDTOs.SupervisorGroup> groups = new ArrayList<>();
-        for (Sup s : sups) {
-            int first = (int) s.proposed.stream().filter(r -> r.cls().equals("FIRST")).count();
-            int upper = (int) s.proposed.stream().filter(r -> r.cls().equals("UPPER")).count();
+        for (Sup supervisor : sups) {
+            int first = (int) supervisor.proposed.stream().filter(r -> r.cls().equals("FIRST")).count();
+            int upper = (int) supervisor.proposed.stream().filter(r -> r.cls().equals("UPPER")).count();
 
             groups.add(new ProjectDTOs.SupervisorGroup(
-                    s.user.getId(), s.user.getFullName(), s.profile.getDesignation(),
-                    s.profile.isProjectCoordinator(), s.profile.isAssistantCoordinator(),
-                    s.existing, s.proposed.size(), first, upper, s.proposed.size() - first - upper,
-                    s.proposed.stream().map(this::line).toList()
+                    supervisor.user.getId(), supervisor.user.getFullName(), supervisor.profile.getDesignation(),
+                    supervisor.profile.isProjectCoordinator(), supervisor.profile.isAssistantCoordinator(),
+                    supervisor.existing, supervisor.proposed.size(), first, upper,
+                    supervisor.proposed.size() - first - upper,
+                    supervisor.proposed.stream().map(this::line).toList()
             ));
         }
         groups.sort(Comparator.comparing(g -> g.fullName().toLowerCase()));
@@ -256,7 +282,7 @@ public class ProjectSupervisionService {
 
     public ProjectDTOs.DraftView createDraft(String username, Long sessionId) {
         requireProjectCoordinator(username);
-        ProjectDTOs.Proposal proposal = propose(username, sessionId);
+        ProjectDTOs.Proposal proposal = proposeFullCohort(username, sessionId);
         AcademicSession academicSession = session(proposal.sessionId());
         draftRepository.findFirstByAcademicSessionIdAndStatusOrderByCreatedAtDesc(academicSession.getId(), "DRAFT")
                 .ifPresent(previous -> previous.setStatus("SUPERSEDED"));
@@ -267,7 +293,7 @@ public class ProjectSupervisionService {
         draft.setStatus("DRAFT");
         draftRepository.save(draft);
 
-        Map<Long, Student> studentsById = eligibleStudents(academicSession.getId()).stream()
+        Map<Long, Student> studentsById = allocationStudents(academicSession.getId()).stream()
                 .collect(Collectors.toMap(Student::getId, s -> s));
         Map<Long, User> supervisorsById = supsById(supervisors(academicSession.getId()));
         List<ProjectAllocationDraftItem> items = new ArrayList<>();
@@ -324,16 +350,24 @@ public class ProjectSupervisionService {
         ProjectAllocationDraft draft = loadDraft(draftId); ensureDraftOpen(draft);
         List<ProjectAllocationDraftItem> items = draftItemRepository.findByDraftId(draftId);
         if (items.isEmpty()) throw bad("The draft has no student assignments to publish.");
-        Set<Long> stillUnassigned = eligibleStudents(draft.getAcademicSession().getId()).stream()
-                .map(Student::getId).collect(Collectors.toSet());
-        if (items.stream().anyMatch(i -> !stillUnassigned.contains(i.getStudent().getId()))) {
-            throw bad("One or more students have been assigned since this draft was created. Generate a fresh draft before publishing.");
+        List<Student> currentCohort = allocationStudents(draft.getAcademicSession().getId());
+        Set<Long> currentCohortIds = currentCohort.stream().map(Student::getId).collect(Collectors.toSet());
+        Set<Long> draftStudentIds = items.stream().map(i -> i.getStudent().getId()).collect(Collectors.toSet());
+        if (draftStudentIds.size() != items.size()
+                || !draftStudentIds.equals(currentCohortIds)) {
+            throw bad("The active 400 level cohort has changed since this draft was generated. Generate a fresh draft before publishing.");
         }
+
+        Map<Long, ProjectSupervision> existingByStudent = repository.findForSession(draft.getAcademicSession().getId())
+                .stream().collect(Collectors.toMap(p -> p.getStudent().getId(), p -> p));
         List<ProjectSupervision> published = new ArrayList<>();
         for (ProjectAllocationDraftItem item : items) {
             if ("FIRST".equals(item.getClassification()) && !profileFor(item.getSupervisor()).isFirstClassEligible())
                 throw bad("A First Class student is assigned to a supervisor who is no longer First Class-eligible.");
-            ProjectSupervision p = new ProjectSupervision();
+
+            // Update an existing assignment in place when rebuilding the cohort;
+            // otherwise create the first official assignment for this student.
+            ProjectSupervision p = existingByStudent.getOrDefault(item.getStudent().getId(), new ProjectSupervision());
             p.setStudent(item.getStudent()); p.setSupervisor(item.getSupervisor());
             p.setAcademicSession(draft.getAcademicSession()); p.setClassification(item.getClassification());
             p.setCgpa(item.getCgpa()); p.setStatus("PUBLISHED"); p.setAssignedAt(LocalDateTime.now()); p.setAssignedBy(username);
@@ -516,14 +550,19 @@ public class ProjectSupervisionService {
 
     // ---------------------------------------------------------------- helpers
 
+    private List<Student> allocationStudents(Long sessionId) {
+        return studentRepository.findAll().stream()
+                .filter(s -> "ACTIVE".equalsIgnoreCase(s.getStatus()))
+                .filter(s -> s.getLevel() != null && Integer.valueOf(400).equals(s.getLevel().getLevelNumber()))
+                .toList();
+    }
+
+    /** Students who do not yet have an official assignment; used by the legacy confirm endpoint. */
     private List<Student> eligibleStudents(Long sessionId) {
         Set<Long> assigned = repository.findForSession(sessionId).stream()
                 .map(p -> p.getStudent().getId())
                 .collect(Collectors.toSet());
-
-        return studentRepository.findAll().stream()
-                .filter(s -> "ACTIVE".equalsIgnoreCase(s.getStatus()))
-                .filter(s -> s.getLevel() != null && Integer.valueOf(400).equals(s.getLevel().getLevelNumber()))
+        return allocationStudents(sessionId).stream()
                 .filter(s -> !assigned.contains(s.getId()))
                 .toList();
     }
