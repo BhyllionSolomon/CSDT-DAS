@@ -34,6 +34,7 @@ import MyFeedback from './pages/MyFeedback'
 import LecturerPerformance from './pages/LecturerPerformance'
 import LabManuals from './pages/LabManuals'
 import LabFinance from './pages/LabFinance'
+import LabAssets from './pages/LabAssets'
 import MyProgress from './pages/MyProgress'
 import HomeSlidesAdmin from './pages/HomeSlidesAdmin'
 import Attendance from './pages/Attendance'
@@ -101,6 +102,7 @@ const protectedRoutes = [
     { path: 'my-feedback', element: <MyFeedback /> },
     { path: 'lecturer-performance', element: <LecturerPerformance /> },
     { path: 'lab-manuals', element: <LabManuals /> },
+    { path: 'lab-assets', element: <LabAssets /> },
     { path: 'lab-finance', element: <LabFinance /> },
     { path: 'my-progress', element: <MyProgress /> },
     { path: 'home-slides', element: <HomeSlidesAdmin /> },
