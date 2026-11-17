@@ -118,6 +118,19 @@ function StartNewSession() {
                 </div>
             )}
 
+            {plan && plan.excluded?.length > 0 && (
+                <div className="card p-4 mb-4 border border-amber-300">
+                    <p className="font-semibold text-amber-700 mb-1">{plan.excluded.length} student(s) were not included in the promotion</p>
+                    <p className="text-xs theme-text-muted mb-3">These students remain in the source session. Check the reason shown for each student before correcting their records. No excluded student is changed by this preview.</p>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-sm text-left">
+                            <thead className="theme-text-muted text-xs uppercase"><tr><th className="px-2 py-2">Matric</th><th className="px-2 py-2">Name</th><th className="px-2 py-2">Programme</th><th className="px-2 py-2">Current level</th><th className="px-2 py-2">Status</th><th className="px-2 py-2">Reason excluded</th></tr></thead>
+                            <tbody className="divide-y theme-border">{plan.excluded.map((r) => <tr key={r.studentId}><td className="px-2 py-2">{r.matricNumber}</td><td className="px-2 py-2">{r.fullName}</td><td className="px-2 py-2">{r.programme}</td><td className="px-2 py-2">{r.level || 'Missing'}</td><td className="px-2 py-2">{r.status || 'Blank'}</td><td className="px-2 py-2 text-amber-700">{r.reason}</td></tr>)}</tbody>
+                        </table>
+                    </div>
+                </div>
+            )}
+
             {plan && plan.rows.length > 0 && (
                 <>
                     <div className="grid grid-cols-3 gap-3 mb-6">
