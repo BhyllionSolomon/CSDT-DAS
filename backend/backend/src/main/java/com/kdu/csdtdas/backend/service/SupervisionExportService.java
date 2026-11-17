@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.zip.ZipOutputStream;
 @Transactional(readOnly = true)
 public class SupervisionExportService {
 
-    public record Row(String supervisor, String student, String matric, String department, String cgpa) {}
+    public record Row(String supervisor, String student, String matric, String department) {}
 
     public record Preview(String session, int count, List<Row> rows) {}
 
@@ -72,18 +71,16 @@ public class SupervisionExportService {
     // ---------------------------------------------------------------- data
 
     private List<Row> rows(AcademicSession session) {
-        return repository.findForSession(session.getId()).stream().map(p -> new Row(
+        return repository.findForSession(session.getId()).stream()
+                .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
+                .map(p -> new Row(
                 p.getSupervisor().getFullName(),
                 p.getStudent().getFullName(),
                 p.getStudent().getMatricNumber(),
-                p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : DEFAULT_DEPARTMENT,
-                cgpa(p)
+                p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : DEFAULT_DEPARTMENT
         )).toList();
     }
 
-    private String cgpa(ProjectSupervision p) {
-        return p.getCgpa() == null ? "—" : p.getCgpa().setScale(2, RoundingMode.HALF_UP).toPlainString();
-    }
 
     // ---------------------------------------------------------------- Word
 
