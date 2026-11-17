@@ -177,14 +177,14 @@ export default function FinalYearProjects() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Department</th><th className="p-3 text-left">Supervisor</th></tr>
+                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Supervisor</th></tr>
                                         </thead>
                                         <tbody className="divide-y theme-border">
                                             {g.items.map(item => (
                                                 <tr key={item.itemId}>
                                                     <td className="p-3 font-medium">{item.fullName}</td>
                                                     <td className="p-3">{item.matricNumber}</td>
-                                                    <td className="p-3">{item.department}</td>
+                                                    <td className="p-3">{item.programme}</td>
                                                     <td className="p-3">
                                                         <select disabled={busy || draft.status !== 'DRAFT'} value={item.supervisorId}
                                                             onChange={e => move(item, e.target.value)}
