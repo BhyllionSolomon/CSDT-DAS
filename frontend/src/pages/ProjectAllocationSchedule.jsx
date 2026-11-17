@@ -29,7 +29,7 @@ export default function ProjectAllocationSchedule() {
 
     return <div className="max-w-6xl">
         <h2 className="text-2xl font-bold mb-2">Published Final-Year Project Supervisors</h2>
-        <p className="theme-text-muted text-sm mb-5">This is the official published allocation. It displays student and supervisor details only; CGPA and degree classification are not included.</p>
+        <p className="theme-text-muted text-sm mb-5">Official project supervision allocation for the selected academic session.</p>
         {error && <p className="p-3 rounded bg-red-50 text-red-700 text-sm mb-4">{error}</p>}
         <div className="card p-4 mb-4">
             <label className="block text-sm font-medium mb-1">Academic session</label>
@@ -44,10 +44,10 @@ export default function ProjectAllocationSchedule() {
             {rows.length === 0 ? <p className="p-5 text-sm theme-text-muted">No published allocation is available for this session yet.</p> :
                 <div className="overflow-x-auto"><table className="w-full text-sm">
                     <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                        <tr><th className="p-3 text-left">S/N</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Supervisor</th></tr>
+                        <tr><th className="p-3 text-left">Supervisor</th><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Department</th></tr>
                     </thead>
                     <tbody className="divide-y theme-border">{rows.map((r,i) => <tr key={`${r.matricNumber}-${i}`}>
-                        <td className="p-3">{i+1}</td><td className="p-3">{r.matricNumber}</td><td className="p-3 font-medium">{r.fullName}</td><td className="p-3">{r.programme}</td><td className="p-3">{r.supervisorName}</td>
+                        <td className="p-3">{r.supervisorName}</td><td className="p-3 font-medium">{r.fullName}</td><td className="p-3">{r.matricNumber}</td><td className="p-3">{r.department}</td>
                     </tr>)}</tbody>
                 </table></div>}
         </div>
