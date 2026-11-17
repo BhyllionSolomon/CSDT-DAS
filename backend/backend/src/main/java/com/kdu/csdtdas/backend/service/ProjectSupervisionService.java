@@ -553,6 +553,8 @@ public class ProjectSupervisionService {
     private List<Student> allocationStudents(Long sessionId) {
         return studentRepository.findAll().stream()
                 .filter(s -> "ACTIVE".equalsIgnoreCase(s.getStatus()))
+                .filter(s -> s.getAcademicSession() != null
+                        && s.getAcademicSession().getId().equals(sessionId))
                 .filter(s -> s.getLevel() != null && Integer.valueOf(400).equals(s.getLevel().getLevelNumber()))
                 .toList();
     }
