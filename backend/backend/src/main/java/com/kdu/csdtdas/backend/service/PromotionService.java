@@ -41,8 +41,10 @@ public class PromotionService {
 
     public record Preview(
             String from, String to, int total, int toMove, int toGraduate,
-            List<Line> lines, List<Row> rows, List<String> warnings, List<String> elsewhere
+            List<Line> lines, List<Row> rows, List<ExcludedRow> excluded, List<String> warnings, List<String> elsewhere
     ) {}
+
+    public record ExcludedRow(Long studentId, String matricNumber, String fullName, String programme, String level, String status, String reason) {}
 
     public record Result(int moved, int graduated, int skipped, String message) {}
 
@@ -156,6 +158,7 @@ public class PromotionService {
 
         Map<Integer, Level> levels = levels();
         List<Row> rows = new ArrayList<>();
+        List<ExcludedRow> excluded = new ArrayList<>();
         Map<String, Line> lines = new LinkedHashMap<>();
         Map<String, Integer> elsewhere = new LinkedHashMap<>();
         int toMove = 0, toGraduate = 0;
@@ -175,12 +178,19 @@ public class PromotionService {
             String currentStatus = s.getStatus() == null ? "" : s.getStatus().trim();
             if (!"ACTIVE".equalsIgnoreCase(currentStatus)) {
                 inactiveSourceStudents++;
+                excluded.add(new ExcludedRow(s.getId(), s.getMatricNumber(), s.getFullName(),
+                        s.getProgramme() == null ? "" : s.getProgramme().getName(),
+                        s.getLevel() == null ? "" : s.getLevel().getName(), currentStatus,
+                        "Student status is not ACTIVE."));
                 continue;
             }
             activeSourceStudents++;
 
             if (s.getLevel() == null || s.getLevel().getLevelNumber() == null) {
                 missingLevelStudents++;
+                excluded.add(new ExcludedRow(s.getId(), s.getMatricNumber(), s.getFullName(),
+                        s.getProgramme() == null ? "" : s.getProgramme().getName(), "", currentStatus,
+                        "Student has no valid level configured."));
                 continue;
             }
 
@@ -189,6 +199,9 @@ public class PromotionService {
             Level next = graduating ? null : levels.get(projected);
             if (!graduating && next == null) {
                 missingNextLevelStudents++;
+                excluded.add(new ExcludedRow(s.getId(), s.getMatricNumber(), s.getFullName(),
+                        s.getProgramme() == null ? "" : s.getProgramme().getName(), s.getLevel().getName(), currentStatus,
+                        "The next level (" + projected + ") is not configured."));
                 continue;
             }
 
@@ -212,6 +225,7 @@ public class PromotionService {
         }
 
         rows.sort(Comparator.comparing(Row::programme).thenComparing(Row::fullName));
+        excluded.sort(Comparator.comparing(ExcludedRow::programme).thenComparing(ExcludedRow::fullName));
         List<Line> lineList = new ArrayList<>(lines.values());
         lineList.sort(Comparator.comparing(Line::programme).thenComparing(Line::fromLevel));
 
@@ -234,7 +248,7 @@ public class PromotionService {
             }
         }
 
-        return new Preview(from.getName(), to.getName(), rows.size(), toMove, toGraduate, lineList, rows, warnings, notes);
+        return new Preview(from.getName(), to.getName(), rows.size(), toMove, toGraduate, lineList, rows, excluded, warnings, notes);
     }
 
     private List<String> dateWarning(AcademicSession s) {
