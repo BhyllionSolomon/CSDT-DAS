@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class SessionRecordsService {
 
-    public record SessionLine(Long sessionId, String name, int studentsInSession, int records, int missing) {}
+    public record SessionLine(Long sessionId, String name, int studentsInSession, int activeStudents, int graduatedStudents, int otherStatusStudents, int records, int missing) {}
 
     public record Check(
             int students, int active, int graduated, int noSession, int noLevel, int noProgramme,
@@ -104,15 +104,20 @@ public class SessionRecordsService {
         List<SessionLine> lines = new ArrayList<>();
         int missingTotal = 0;
         for (AcademicSession session : sessionsNewestFirst()) {
-            int inSession = 0, missing = 0;
+            int inSession = 0, activeInSession = 0, graduatedInSession = 0, otherStatusInSession = 0, missing = 0;
             for (Student s : students) {
                 if (s.getAcademicSession() == null || !s.getAcademicSession().getId().equals(session.getId())) continue;
                 inSession++;
+                String status = s.getStatus() == null ? "" : s.getStatus().trim();
+                if ("ACTIVE".equalsIgnoreCase(status)) activeInSession++;
+                else if ("GRADUATED".equalsIgnoreCase(status)) graduatedInSession++;
+                else otherStatusInSession++;
                 if (!have.contains(key(s.getId(), session.getId()))) missing++;
             }
             int records = (int) rows.stream().filter(h -> h.getAcademicSession().getId().equals(session.getId())).count();
             missingTotal += missing;
-            lines.add(new SessionLine(session.getId(), session.getName(), inSession, records, missing));
+            lines.add(new SessionLine(session.getId(), session.getName(), inSession, activeInSession,
+                    graduatedInSession, otherStatusInSession, records, missing));
         }
 
         List<String> findings = new ArrayList<>();
