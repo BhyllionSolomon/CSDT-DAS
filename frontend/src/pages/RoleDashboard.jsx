@@ -1,5 +1,6 @@
 import { useAuth } from '../context/AuthContext'
 import TodayPanel from '../components/TodayPanel'
+import NoticeStrip from '../components/NoticeStrip'
 import Dashboard from './Dashboard'
 import AdviserDashboard from './AdviserDashboard'
 import LecturerDashboard from './LecturerDashboard'
@@ -32,6 +33,7 @@ function RoleDashboard() {
     return (
         <>
             <TodayPanel />
+            <NoticeStrip />
             {page}
         </>
     )

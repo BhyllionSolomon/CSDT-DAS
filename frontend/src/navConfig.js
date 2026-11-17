@@ -1,13 +1,15 @@
 import {
     LayoutDashboard, GraduationCap, BookOpen, Users, UserCog, ClipboardCheck,
-    FileSpreadsheet, Video, FlaskConical, Activity, Award,
+    FileSpreadsheet, Video, FlaskConical, Activity, Award, Bell,
 } from 'lucide-react'
 
 export const LAB_ROLES = ['LAB_OFFICER', 'TECHNICAL_STAFF']
 
 const performance = { to: '/analytics/performance', label: 'Performance' }
+const notices = { label: 'Notices', items: [{ to: '/notices', label: 'Notice Board' }] }
 
 export const hodGroups = [
+    notices,
     { label: 'Department', items: [
             { to: '/programme-overview', label: 'Programme Overview' },
             { to: '/sessions', label: 'Academic Sessions' },
@@ -57,7 +59,6 @@ export const hodGroups = [
         ] },
     { label: 'Final-Year Projects', items: [
             { to: '/final-year-projects', label: 'Assign Supervisors' },
-            { to: '/project-allocation-schedule', label: 'Published Allocation' },
             { to: '/supervisor-export', label: 'Allocation to Word' },
         ] },
     { label: 'Results', items: [
@@ -76,6 +77,7 @@ export const hodGroups = [
 ]
 
 export const lecturerGroups = [
+    notices,
     { label: 'Courses', items: [
             { to: '/', label: 'My Courses' },
             { to: '/claim-courses', label: 'Claim Course' },
@@ -85,8 +87,6 @@ export const lecturerGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
-            { to: '/final-year-projects', label: 'Project Allocation Review' },
-            { to: '/project-allocation-schedule', label: 'Published Project Allocation' },
             { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
@@ -108,6 +108,7 @@ export const lecturerGroups = [
 // A level adviser is also a lecturer, so every lecturer tool is here as well.
 // "My Courses" lives at /my-courses because "/" is the adviser's programme home.
 export const adviserGroups = [
+    notices,
     { label: 'Programme', items: [{ to: '/', label: 'My Programme' }] },
     { label: 'Reports', items: [
             { to: '/reports', label: 'Broadsheet & Lists' },
@@ -132,8 +133,6 @@ export const adviserGroups = [
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
-            { to: '/final-year-projects', label: 'Project Allocation Review' },
-            { to: '/project-allocation-schedule', label: 'Published Project Allocation' },
             { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
@@ -151,6 +150,7 @@ export const adviserGroups = [
 
 // "gated" items are locked for a student until the H.O.D approves their registration.
 export const studentGroups = [
+    notices,
     { label: 'Academics', items: [
             { to: '/register-courses', label: 'Course Registration' },
             { to: '/my-registration', label: 'Registration & Payment' },
@@ -158,7 +158,6 @@ export const studentGroups = [
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
             { to: '/my-project-supervisor', label: 'My Project Supervisor' },
-            { to: '/project-allocation-schedule', label: 'Published Project Allocation' },
             { to: '/rate-lecturers', label: 'Rate My Lecturers' },
         ] },
     { label: 'Learning', items: [
@@ -177,6 +176,7 @@ export const studentGroups = [
 ]
 
 export const labGroups = [
+    notices,
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
@@ -186,6 +186,7 @@ export const labGroups = [
 
 // Technical staff record sales but never see the money or the finance page.
 export const technicalGroups = [
+    notices,
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
@@ -214,6 +215,7 @@ export function getGroupsForRole(role) {
 }
 
 export const GROUP_ICONS = {
+    'Notices': Bell,
     'Department': LayoutDashboard,
     'Reports': FileSpreadsheet,
     'Analytics': Activity,
