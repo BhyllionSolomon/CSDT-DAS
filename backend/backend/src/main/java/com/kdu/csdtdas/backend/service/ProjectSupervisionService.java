@@ -541,7 +541,7 @@ public class ProjectSupervisionService {
                 .filter(p -> p.getSupervisor().getId().equals(user.getId()))
                 .map(p -> new ProjectDTOs.MyStudent(
                         p.getStudent().getId(), p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
-                        p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : "",
+                        p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
                         p.getAcademicSession().getName(), p.getAssignedAt()
                 ))
                 .toList();
