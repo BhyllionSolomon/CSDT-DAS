@@ -86,7 +86,7 @@ export default function FinalYearProjects() {
         const result = await run(() => createDraft(Number(sessionId)))
         if (result) {
             setDraft(result)
-            setMessage(`Draft generated with ${result.items.length} proposed assignments. Nothing has been published.`)
+            setMessage(`Full-cohort draft generated with ${result.items.length} proposed assignments. Existing official assignments remain unchanged until you publish.`)
         }
     }
 
@@ -125,9 +125,9 @@ export default function FinalYearProjects() {
             <div>
                 <h2 className="text-2xl font-bold mb-1">Final-Year Project Allocation</h2>
                 <p className="theme-text-muted text-sm">
-                    First Class students are assigned first, round-robin among the supervisors selected by the H.O.D.
-                    Upper Second, Lower Second and Third Class students are then distributed across all eligible supervisors
-                    to balance total workloads. The Project Coordinator reviews and edits the draft before publication.
+                    The draft recalculates allocations for the full active 400-level cohort, including students already assigned.
+                    First Class students go first, round-robin among H.O.D.-approved supervisors; other classifications are balanced
+                    across all eligible supervisors. Existing official assignments remain unchanged until the reviewed draft is published.
                 </p>
             </div>
 
@@ -144,7 +144,7 @@ export default function FinalYearProjects() {
                 </div>
                 <button onClick={generate} disabled={busy || !sessionId}
                         className="accent-gradient text-white rounded-lg px-5 py-2.5 text-sm font-semibold disabled:opacity-50">
-                    {busy ? 'Working…' : 'Assign / Generate Draft'}
+                    {busy ? 'Working…' : 'Generate / Rebuild Full Allocation Draft'}
                 </button>
                 <span className="text-xs theme-text-muted pb-2">{supervisors.length} eligible supervisors · {assignments.length} published/previous assignments</span>
             </div>
