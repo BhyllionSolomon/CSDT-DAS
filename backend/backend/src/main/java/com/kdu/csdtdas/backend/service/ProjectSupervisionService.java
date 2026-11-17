@@ -267,7 +267,7 @@ public class ProjectSupervisionService {
         }
 
         // Remaining classes are processed in order and balanced across all supervisors.
-        for (String cls : List.of("UPPER", "LOWER", "THIRD", "OTHER")) {
+        for (String cls : List.of("UPPER", "LOWER", "THIRD", "FAIL", "OTHER")) {
             List<Ranked> group = students.stream().filter(r -> r.cls().equals(cls)).sorted(strongest).toList();
             for (Ranked r : group) {
                 Sup chosen = sups.stream().min(Comparator
@@ -609,7 +609,8 @@ public class ProjectSupervisionService {
         String classification = normalized.contains("FIRST") ? "FIRST"
                 : normalized.contains("UPPER") ? "UPPER"
                 : normalized.contains("LOWER") ? "LOWER"
-                : normalized.contains("THIRD") ? "THIRD" : "OTHER";
+                : normalized.contains("THIRD") ? "THIRD"
+                : normalized.contains("FAIL") ? "FAIL" : "OTHER";
 
         return new Ranked(student, classification, cgpa);
     }
