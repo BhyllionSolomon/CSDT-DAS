@@ -54,12 +54,12 @@ public final class ProjectDTOs {
     ) {}
 
     public record MyStudent(
-            Long studentId, String matricNumber, String fullName, String department,
+            Long studentId, String matricNumber, String fullName, String programme,
             String sessionName, LocalDateTime assignedAt
     ) {}
 
     public record DraftItemRow(
-            Long itemId, Long studentId, String matricNumber, String fullName, String department,
+            Long itemId, Long studentId, String matricNumber, String fullName, String programme,
             String classification, BigDecimal cgpa, Long supervisorId, String supervisorName
     ) {}
 
@@ -78,7 +78,7 @@ public final class ProjectDTOs {
 
     /** Deliberately excludes CGPA and degree classification. */
     public record PublicScheduleRow(
-            String sessionName, String matricNumber, String fullName, String department,
+            String sessionName, String matricNumber, String fullName, String programme,
             String supervisorName, String designation
     ) {}
 }
