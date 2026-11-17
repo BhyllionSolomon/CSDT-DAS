@@ -575,8 +575,6 @@ public class ProjectSupervisionService {
     private Ranked rank(Student s, Long sessionId) {
         List<ReportedCgpa> uploaded = reportedCgpaRepository.findLatestForAllocation(
                 s.getMatricNumber(),
-                s.getProgramme().getId(),
-                s.getLevel().getId(),
                 sessionId
         );
 
