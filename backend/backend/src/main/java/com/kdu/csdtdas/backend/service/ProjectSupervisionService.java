@@ -5,6 +5,7 @@ import com.kdu.csdtdas.backend.dto.ProjectDTOs;
 import com.kdu.csdtdas.backend.dto.SemesterResultDTO;
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.ProjectSupervision;
+import com.kdu.csdtdas.backend.entity.ReportedCgpa;
 import com.kdu.csdtdas.backend.entity.ProjectAllocationDraft;
 import com.kdu.csdtdas.backend.entity.ProjectAllocationDraftItem;
 import com.kdu.csdtdas.backend.entity.ProjectAllocationEvent;
@@ -13,12 +14,14 @@ import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
 import com.kdu.csdtdas.backend.repository.ProjectSupervisionRepository;
+import com.kdu.csdtdas.backend.repository.ReportedCgpaRepository;
 import com.kdu.csdtdas.backend.repository.ProjectAllocationDraftRepository;
 import com.kdu.csdtdas.backend.repository.ProjectAllocationDraftItemRepository;
 import com.kdu.csdtdas.backend.repository.ProjectAllocationEventRepository;
 import com.kdu.csdtdas.backend.repository.StaffProfileRepository;
 import com.kdu.csdtdas.backend.repository.StudentRepository;
 import com.kdu.csdtdas.backend.repository.UserRepository;
+import com.kdu.csdtdas.backend.util.DegreeClassUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,6 +74,7 @@ public class ProjectSupervisionService {
     }
 
     private final ProjectSupervisionRepository repository;
+    private final ReportedCgpaRepository reportedCgpaRepository;
     private final ProjectAllocationDraftRepository draftRepository;
     private final ProjectAllocationDraftItemRepository draftItemRepository;
     private final ProjectAllocationEventRepository eventRepository;
@@ -83,6 +87,7 @@ public class ProjectSupervisionService {
 
     public ProjectSupervisionService(
             ProjectSupervisionRepository repository,
+            ReportedCgpaRepository reportedCgpaRepository,
             ProjectAllocationDraftRepository draftRepository,
             ProjectAllocationDraftItemRepository draftItemRepository,
             ProjectAllocationEventRepository eventRepository,
@@ -94,6 +99,7 @@ public class ProjectSupervisionService {
             RegistrationClearanceService clearanceService
     ) {
         this.repository = repository;
+        this.reportedCgpaRepository = reportedCgpaRepository;
         this.draftRepository = draftRepository;
         this.draftItemRepository = draftItemRepository;
         this.eventRepository = eventRepository;
@@ -173,7 +179,8 @@ public class ProjectSupervisionService {
             throw bad("No lecturer is marked as a project supervisor yet. Open the supervisor settings and tick the lecturers who supervise.");
         }
 
-        List<Ranked> students = eligibleStudents(session.getId()).stream().map(this::rank).toList();
+        List<Ranked> students = eligibleStudents(session.getId()).stream()
+                .map(student -> rank(student, session.getId())).toList();
         List<String> notes = new ArrayList<>();
 
         if (students.isEmpty()) {
@@ -181,7 +188,7 @@ public class ProjectSupervisionService {
         }
         long unranked = students.stream().filter(r -> r.cgpa() == null).count();
         if (unranked > 0) {
-            notes.add(unranked + " student(s) have no approved results yet, so they are treated as ordinary students.");
+            notes.add(unranked + " student(s) have no matching uploaded CGPA or approved result history, so they are treated as unclassified students.");
         }
 
         allocate(students, sups);
@@ -425,7 +432,7 @@ public class ProjectSupervisionService {
                 throw bad("A supervisor in this list is no longer eligible. Please generate the proposal again.");
             }
 
-            Ranked r = rank(s);
+            Ranked r = rank(s, session.getId());
 
             ProjectSupervision p = new ProjectSupervision();
             p.setStudent(s);
@@ -521,23 +528,51 @@ public class ProjectSupervisionService {
                 .toList();
     }
 
-    /** Uses the CGPA engine's own classification for the student's latest cumulative result. */
-    private Ranked rank(Student s) {
+    /**
+     * Uses the latest CGPA uploaded for this student, programme, level and
+     * selected academic session. If no valid uploaded value exists, it falls
+     * back to the cumulative CGPA calculated from approved academic results.
+     */
+    private Ranked rank(Student s, Long sessionId) {
+        List<ReportedCgpa> uploaded = reportedCgpaRepository.findLatestForAllocation(
+                s.getMatricNumber(),
+                s.getProgramme().getId(),
+                s.getLevel().getId(),
+                sessionId
+        );
+
+        if (!uploaded.isEmpty()) {
+            BigDecimal cgpa = uploaded.get(0).getCgpa();
+            if (cgpa != null
+                    && cgpa.compareTo(BigDecimal.ZERO) >= 0
+                    && cgpa.compareTo(BigDecimal.valueOf(5.00)) <= 0) {
+                return rankedFromCgpa(s, cgpa);
+            }
+        }
+
         try {
             List<SemesterResultDTO> history = calculationService.calculateFullAcademicHistory(s.getId());
             if (history.isEmpty()) return new Ranked(s, "OTHER", null);
 
-            CumulativeSummaryDTO c = history.get(history.size() - 1).currentCumulative();
-            String label = c.degreeClass() == null ? "" : c.degreeClass().toUpperCase();
-
-            String cls = label.contains("FIRST") ? "FIRST"
-                    : label.contains("UPPER") ? "UPPER"
-                    : label.contains("LOWER") ? "LOWER"
-                    : label.contains("THIRD") ? "THIRD" : "OTHER";
-            return new Ranked(s, cls, c.cgpa());
+            CumulativeSummaryDTO cumulative = history.get(history.size() - 1).currentCumulative();
+            return rankedFromCgpa(s, cumulative.cgpa());
         } catch (RuntimeException e) {
+            // Do not let a missing or incomplete result history stop allocation
+            // for the rest of the cohort. The proposal reports this student as unclassified.
             return new Ranked(s, "OTHER", null);
         }
+    }
+
+    private Ranked rankedFromCgpa(Student student, BigDecimal cgpa) {
+        String label = DegreeClassUtil.classify(cgpa);
+        String normalized = label == null ? "" : label.toUpperCase();
+
+        String classification = normalized.contains("FIRST") ? "FIRST"
+                : normalized.contains("UPPER") ? "UPPER"
+                : normalized.contains("LOWER") ? "LOWER"
+                : normalized.contains("THIRD") ? "THIRD" : "OTHER";
+
+        return new Ranked(student, classification, cgpa);
     }
 
     private ProjectDTOs.StudentLine line(Ranked r) {
