@@ -2,14 +2,13 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { getAllSessions } from '../services/sessionService'
 import { currentSessionOf } from '../utils/registrationHelpers'
-import { DESIGNATIONS, designationLabel, classLabel, CLASS_STYLE } from '../utils/projects'
+import { DESIGNATIONS, designationLabel } from '../utils/projects'
 import {
     getStaff, saveStaff, getAssignments, getLatestDraft, createDraft, moveDraftItem, publishDraft,
 } from '../services/projectService'
 
 const msg = (err) => err.response?.data?.message || err.message
 const when = (v) => (v ? new Date(v).toLocaleString('en-GB') : '—')
-const isFirst = (cls) => cls === 'FIRST'
 
 export default function FinalYearProjects() {
     const { user } = useAuth()
@@ -115,8 +114,6 @@ export default function FinalYearProjects() {
     const groups = useMemo(() => supervisors.map(s => ({
         ...s, items: draftItems.filter(i => i.supervisorId === s.userId),
     })), [supervisors, draftItems])
-    const firstCount = draftItems.filter(i => isFirst(i.classification)).length
-    const missingCgpaCount = draftItems.filter(i => i.cgpa == null).length
 
     if (loading) return <p className="theme-text-muted">Loading project allocation…</p>
 
@@ -126,8 +123,7 @@ export default function FinalYearProjects() {
                 <h2 className="text-2xl font-bold mb-1">Final-Year Project Allocation</h2>
                 <p className="theme-text-muted text-sm">
                     The draft recalculates allocations for the full active 400-level cohort, including students already assigned.
-                    First Class students go first, round-robin among H.O.D.-approved supervisors; other classifications are balanced
-                    across all eligible supervisors. Existing official assignments remain unchanged until the reviewed draft is published.
+                    Supervisors are balanced across the full active 400-level cohort. Existing official assignments remain unchanged until the reviewed draft is published.
                 </p>
             </div>
 
@@ -165,21 +161,11 @@ export default function FinalYearProjects() {
                             {[
                                 ['Students', draftItems.length],
                                 ['Supervisors used', new Set(draftItems.map(i => i.supervisorId)).size],
-                                ['First Class', firstCount],
-                                ['Other classifications', draftItems.length - firstCount],
                             ].map(([label, value]) => <div key={label} className="rounded-lg p-3" style={{ background: 'var(--surface-soft)' }}>
                                 <p className="text-2xl font-bold">{value}</p><p className="text-xs theme-text-muted">{label}</p>
                             </div>)}
                         </div>
                     </div>
-
-                    {missingCgpaCount > 0 && (
-                        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
-                            <strong>{missingCgpaCount} student(s) have no CGPA available.</strong>
-                            {' '}They are marked Unclassified and allocated after students with known classifications.
-                            Upload the correct CGPA roster for this academic session and generate a new draft to classify them automatically.
-                        </div>
-                    )}
 
                     {groups.map(g => (
                         <div className="card overflow-hidden" key={g.userId}>
@@ -191,21 +177,19 @@ export default function FinalYearProjects() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                                            <tr><th className="p-3 text-left">Student</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Classification</th>{draft.status === 'DRAFT' && <th className="p-3 text-left">CGPA</th>}<th className="p-3 text-left">Change supervisor</th></tr>
+                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Department</th><th className="p-3 text-left">Supervisor</th></tr>
                                         </thead>
                                         <tbody className="divide-y theme-border">
                                             {g.items.map(item => (
                                                 <tr key={item.itemId}>
-                                                    <td className="p-3"><span className="font-medium">{item.fullName}</span><br/><span className="text-xs theme-text-muted">{item.matricNumber}</span></td>
-                                                    <td className="p-3">{item.programme}</td>
-                                                    <td className="p-3"><span className={`text-xs px-2 py-1 rounded-full ${CLASS_STYLE[item.classification]}`}>{classLabel(item.classification)}</span></td>
-                                                    {draft.status === 'DRAFT' && <td className="p-3">{item.cgpa == null ? '—' : Number(item.cgpa).toFixed(2)}</td>}
+                                                    <td className="p-3 font-medium">{item.fullName}</td>
+                                                    <td className="p-3">{item.matricNumber}</td>
+                                                    <td className="p-3">{item.department}</td>
                                                     <td className="p-3">
                                                         <select disabled={busy || draft.status !== 'DRAFT'} value={item.supervisorId}
                                                             onChange={e => move(item, e.target.value)}
                                                             className="border theme-border rounded-lg px-2 py-1.5 text-xs max-w-56">
-                                                            {supervisors.filter(s => !isFirst(item.classification) || s.firstClassEligible)
-                                                                .map(s => <option key={s.userId} value={s.userId}>{s.fullName}</option>)}
+                                                            {supervisors.map(s => <option key={s.userId} value={s.userId}>{s.fullName}</option>)}
                                                         </select>
                                                     </td>
                                                 </tr>
