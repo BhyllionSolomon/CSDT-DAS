@@ -159,21 +159,38 @@ public class PromotionService {
         Map<String, Line> lines = new LinkedHashMap<>();
         Map<String, Integer> elsewhere = new LinkedHashMap<>();
         int toMove = 0, toGraduate = 0;
+        int sourceStudents = 0, activeSourceStudents = 0;
+        int inactiveSourceStudents = 0, missingLevelStudents = 0, missingNextLevelStudents = 0;
 
         for (Student s : studentRepository.findAll()) {
-            if (!"ACTIVE".equalsIgnoreCase(s.getStatus())) continue;
-
             AcademicSession recorded = s.getAcademicSession();
             if (recorded == null || !recorded.getId().equals(from.getId())) {
-                elsewhere.merge(recorded == null ? "no session" : recorded.getName(), 1, Integer::sum);
+                if ("ACTIVE".equalsIgnoreCase(s.getStatus() == null ? "" : s.getStatus().trim())) {
+                    elsewhere.merge(recorded == null ? "no session" : recorded.getName(), 1, Integer::sum);
+                }
                 continue;
             }
-            if (s.getLevel() == null || s.getLevel().getLevelNumber() == null) continue;
+
+            sourceStudents++;
+            String currentStatus = s.getStatus() == null ? "" : s.getStatus().trim();
+            if (!"ACTIVE".equalsIgnoreCase(currentStatus)) {
+                inactiveSourceStudents++;
+                continue;
+            }
+            activeSourceStudents++;
+
+            if (s.getLevel() == null || s.getLevel().getLevelNumber() == null) {
+                missingLevelStudents++;
+                continue;
+            }
 
             int projected = s.getLevel().getLevelNumber() + 100;
             boolean graduating = projected > 400;
             Level next = graduating ? null : levels.get(projected);
-            if (!graduating && next == null) continue;
+            if (!graduating && next == null) {
+                missingNextLevelStudents++;
+                continue;
+            }
 
             String programme = s.getProgramme() != null ? s.getProgramme().getName() : "";
             int outstanding = graduating ? outstanding(s.getId()) : 0;
@@ -205,7 +222,16 @@ public class PromotionService {
                 .forEach(e -> notes.add(e.getValue() + " active student(s) are recorded under " + e.getKey() + ". They are not touched."));
 
         if (rows.isEmpty() && warnings.isEmpty()) {
-            warnings.add("No active student is recorded in " + from.getName() + ". Place your students in it first (Students Per Session, step 2).");
+            if (sourceStudents == 0) {
+                warnings.add("No student is currently assigned to " + from.getName() + ". Check the current session assignment on the All Students page; historical session records do not change a student's current session.");
+            } else {
+                warnings.add("Promotion found " + sourceStudents + " student(s) currently assigned to " + from.getName()
+                        + ", but produced no eligible rows. Current ACTIVE: " + activeSourceStudents
+                        + "; other statuses: " + inactiveSourceStudents
+                        + "; missing level: " + missingLevelStudents
+                        + "; no configured next level: " + missingNextLevelStudents
+                        + ". Check the current student records and configured levels. No students have been changed.");
+            }
         }
 
         return new Preview(from.getName(), to.getName(), rows.size(), toMove, toGraduate, lineList, rows, warnings, notes);
