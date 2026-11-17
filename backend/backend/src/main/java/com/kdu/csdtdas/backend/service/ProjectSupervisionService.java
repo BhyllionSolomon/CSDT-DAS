@@ -496,8 +496,8 @@ public class ProjectSupervisionService {
 
         return repository.findForSession(session.getId()).stream().map(p -> new ProjectDTOs.AssignmentRow(
                 p.getId(), p.getStudent().getId(), p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
-                p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : "",
-                p.getSupervisor().getId(), p.getSupervisor().getFullName(),
+                p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
+                p.getClassification(), p.getCgpa(), p.getSupervisor().getId(), p.getSupervisor().getFullName(),
                 profileFor(p.getSupervisor()).getDesignation(),
                 p.getStatus(), p.getAcademicSession().getName(), p.getAssignedAt()
         )).toList();
@@ -628,7 +628,8 @@ public class ProjectSupervisionService {
     private ProjectDTOs.StudentLine line(Ranked r) {
         return new ProjectDTOs.StudentLine(
                 r.student().getId(), r.student().getMatricNumber(), r.student().getFullName(),
-                r.student().getDepartment() != null ? r.student().getDepartment().getName() : ""
+                r.student().getProgramme() != null ? r.student().getProgramme().getName() : "",
+                r.cls(), r.cgpa()
         );
     }
 
