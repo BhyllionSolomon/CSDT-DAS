@@ -25,11 +25,11 @@ import java.util.zip.ZipOutputStream;
 @Transactional(readOnly = true)
 public class SupervisionExportService {
 
-    public record Row(String supervisor, String student, String matric, String department) {}
+    public record Row(String supervisor, String student, String matric, String programme) {}
 
     public record Preview(String session, int count, List<Row> rows) {}
 
-    private static final String DEFAULT_DEPARTMENT = "Computing Science and Digital Technology";
+    private static final String DEFAULT_PROGRAMME = "Not specified";
 
     private final ProjectSupervisionRepository repository;
     private final AcademicSessionRepository sessionRepository;
@@ -77,7 +77,7 @@ public class SupervisionExportService {
                 p.getSupervisor().getFullName(),
                 p.getStudent().getFullName(),
                 p.getStudent().getMatricNumber(),
-                p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : DEFAULT_DEPARTMENT
+                p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : DEFAULT_PROGRAMME
         )).toList();
     }
 
@@ -194,7 +194,7 @@ public class SupervisionExportService {
 
     private String studentTable(List<Row> rows) {
         int[] widths = {700, 3900, 2800, 4200};
-        String[] heads = {"S/N", "Student name", "Matriculation number", "Department"};
+        String[] heads = {"S/N", "Student name", "Matriculation number", "Programme"};
         StringBuilder x = new StringBuilder("<w:tbl><w:tblPr><w:tblW w:w=\"12350\" w:type=\"dxa\"/><w:tblBorders>");
         for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
             x.append("<w:").append(side).append(" w:val=\"single\" w:sz=\"4\" w:color=\"C7D5DF\"/>");
@@ -208,7 +208,7 @@ public class SupervisionExportService {
         for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
             Row row = rows.get(rowIndex);
             String fill = rowIndex % 2 == 0 ? "FFFFFF" : "F3F7FA";
-            String[] values = {String.valueOf(rowIndex + 1), row.student(), row.matric(), row.department()};
+            String[] values = {String.valueOf(rowIndex + 1), row.student(), row.matric(), row.programme()};
             x.append("<w:tr>");
             for (int i = 0; i < values.length; i++) x.append(cell(values[i], widths[i], false, fill));
             x.append("</w:tr>");
