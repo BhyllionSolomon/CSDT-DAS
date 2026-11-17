@@ -415,7 +415,7 @@ public class ProjectSupervisionService {
                 .stream().map(i -> new ProjectDTOs.DraftItemRow(i.getId(), i.getStudent().getId(),
                         i.getStudent().getMatricNumber(), i.getStudent().getFullName(),
                         i.getStudent().getDepartment() != null ? i.getStudent().getDepartment().getName() : "",
-                        i.getSupervisor().getId(), i.getSupervisor().getFullName()))
+                        i.getClassification(), i.getCgpa(), i.getSupervisor().getId(), i.getSupervisor().getFullName()))
                 .toList();
         List<ProjectDTOs.AllocationEventRow> history = eventRepository.findByDraftIdOrderByChangedAtAsc(draft.getId())
                 .stream().map(e -> new ProjectDTOs.AllocationEventRow(e.getAction(),
