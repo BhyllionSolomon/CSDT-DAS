@@ -71,6 +71,7 @@ export const hodGroups = [
         ] },
     { label: 'Laboratory', items: [
             { to: '/lab-staff', label: 'Manage Lab Staff' },
+            { to: '/lab-assets', label: 'Equipment & Assets' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
             { to: '/lab-finance', label: 'Manual Finance' },
         ] },
@@ -179,6 +180,7 @@ export const labGroups = [
     notices,
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
+            { to: '/lab-assets', label: 'Equipment & Assets' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
             { to: '/lab-finance', label: 'Manual Finance' },
         ] },
