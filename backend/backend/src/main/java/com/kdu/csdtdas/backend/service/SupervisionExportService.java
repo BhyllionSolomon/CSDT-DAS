@@ -21,7 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/** The final-year supervisor allocation as a Word document: Supervisor, Student name, Matric number, Department, CGPA. */
+/** The final-year supervisor allocation as a Word document. CGPA is retained for internal allocation review, not publication. */
 @Service
 @Transactional(readOnly = true)
 public class SupervisionExportService {
@@ -196,8 +196,8 @@ public class SupervisionExportService {
     }
 
     private String studentTable(List<Row> rows) {
-        int[] widths = {600, 3400, 2200, 3000, 800};
-        String[] heads = {"S/N", "Student name", "Matriculation number", "Department", "CGPA"};
+        int[] widths = {700, 3900, 2800, 4200};
+        String[] heads = {"S/N", "Student name", "Matriculation number", "Department"};
         StringBuilder x = new StringBuilder("<w:tbl><w:tblPr><w:tblW w:w=\"12350\" w:type=\"dxa\"/><w:tblBorders>");
         for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
             x.append("<w:").append(side).append(" w:val=\"single\" w:sz=\"4\" w:color=\"C7D5DF\"/>");
@@ -211,7 +211,7 @@ public class SupervisionExportService {
         for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
             Row row = rows.get(rowIndex);
             String fill = rowIndex % 2 == 0 ? "FFFFFF" : "F3F7FA";
-            String[] values = {String.valueOf(rowIndex + 1), row.student(), row.matric(), row.department(), row.cgpa()};
+            String[] values = {String.valueOf(rowIndex + 1), row.student(), row.matric(), row.department()};
             x.append("<w:tr>");
             for (int i = 0; i < values.length; i++) x.append(cell(values[i], widths[i], false, fill));
             x.append("</w:tr>");
