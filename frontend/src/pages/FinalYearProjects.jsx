@@ -191,7 +191,7 @@ export default function FinalYearProjects() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                                            <tr><th className="p-3 text-left">Student</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Classification</th><th className="p-3 text-left">CGPA</th><th className="p-3 text-left">Change supervisor</th></tr>
+                                            <tr><th className="p-3 text-left">Student</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Classification</th>{draft.status === 'DRAFT' && <th className="p-3 text-left">CGPA</th>}<th className="p-3 text-left">Change supervisor</th></tr>
                                         </thead>
                                         <tbody className="divide-y theme-border">
                                             {g.items.map(item => (
@@ -199,7 +199,7 @@ export default function FinalYearProjects() {
                                                     <td className="p-3"><span className="font-medium">{item.fullName}</span><br/><span className="text-xs theme-text-muted">{item.matricNumber}</span></td>
                                                     <td className="p-3">{item.programme}</td>
                                                     <td className="p-3"><span className={`text-xs px-2 py-1 rounded-full ${CLASS_STYLE[item.classification]}`}>{classLabel(item.classification)}</span></td>
-                                                    <td className="p-3">{item.cgpa == null ? '—' : Number(item.cgpa).toFixed(2)}</td>
+                                                    {draft.status === 'DRAFT' && <td className="p-3">{item.cgpa == null ? '—' : Number(item.cgpa).toFixed(2)}</td>}
                                                     <td className="p-3">
                                                         <select disabled={busy || draft.status !== 'DRAFT'} value={item.supervisorId}
                                                             onChange={e => move(item, e.target.value)}
