@@ -92,8 +92,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/allocations/**").hasAnyRole("HOD", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/allocations/claim").hasAnyRole("LECTURER", "ADJUNCT", "LEVEL_ADVISER")
 
-                        // Laboratory area (separate from academics)
+                        // Student manual catalogue and order requests are isolated from laboratory staff APIs.
+                        .requestMatchers("/api/lab/student/manuals/**").hasRole("STUDENT")
 
+                        // Laboratory management area (separate from academics).
                         .requestMatchers("/api/lab/**").hasAnyRole("HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
 
                         // Results: only the H.O.D verifies; staff enter scores; students cannot write.
