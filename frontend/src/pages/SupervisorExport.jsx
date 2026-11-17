@@ -46,7 +46,7 @@ function SupervisorExport() {
         <div className="max-w-5xl">
             <h2 className="text-2xl font-bold mb-2">Project Allocation (Word)</h2>
             <p className="theme-text-muted text-sm mb-6">
-                The final-year supervisor allocation for a session, as a Word document with Supervisor, Student name, Matriculation number, Department and CGPA.
+                The approved final-year supervisor allocation for a session. Download the Word document to print or share.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
@@ -74,13 +74,13 @@ function SupervisorExport() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
                             <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted uppercase text-xs">
-                            <tr><th className="px-4 py-2">Supervisor</th><th className="px-4 py-2">Student name</th><th className="px-4 py-2">Matriculation number</th><th className="px-4 py-2">Department</th><th className="px-4 py-2">CGPA</th></tr>
+                            <tr><th className="px-4 py-2">Supervisor</th><th className="px-4 py-2">Student name</th><th className="px-4 py-2">Matriculation number</th><th className="px-4 py-2">Department</th></tr>
                             </thead>
                             <tbody className="divide-y theme-border">
                             {data.rows.map((r, i) => (
                                 <tr key={i}>
                                     <td className="px-4 py-2 font-medium">{r.supervisor}</td><td className="px-4 py-2">{r.student}</td>
-                                    <td className="px-4 py-2">{r.matric}</td><td className="px-4 py-2">{r.department}</td><td className="px-4 py-2">{r.cgpa}</td>
+                                    <td className="px-4 py-2">{r.matric}</td><td className="px-4 py-2">{r.department}</td>
                                 </tr>
                             ))}
                             </tbody>
