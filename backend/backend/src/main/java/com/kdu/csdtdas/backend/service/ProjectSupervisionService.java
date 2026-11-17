@@ -414,7 +414,7 @@ public class ProjectSupervisionService {
         List<ProjectDTOs.DraftItemRow> rows = draftItemRepository.findByDraftIdOrderByStudentFullNameAsc(draft.getId())
                 .stream().map(i -> new ProjectDTOs.DraftItemRow(i.getId(), i.getStudent().getId(),
                         i.getStudent().getMatricNumber(), i.getStudent().getFullName(),
-                        i.getStudent().getDepartment() != null ? i.getStudent().getDepartment().getName() : "",
+                        i.getStudent().getProgramme() != null ? i.getStudent().getProgramme().getName() : "",
                         i.getClassification(), i.getCgpa(), i.getSupervisor().getId(), i.getSupervisor().getFullName()))
                 .toList();
         List<ProjectDTOs.AllocationEventRow> history = eventRepository.findByDraftIdOrderByChangedAtAsc(draft.getId())
