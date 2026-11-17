@@ -396,7 +396,7 @@ public class ProjectSupervisionService {
                 .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
                 .map(p -> new ProjectDTOs.PublicScheduleRow(academicSession.getName(),
                         p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
-                        p.getStudent().getDepartment() != null ? p.getStudent().getDepartment().getName() : "",
+                        p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
                         p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation()))
                 .toList();
     }
