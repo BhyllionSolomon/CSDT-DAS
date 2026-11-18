@@ -196,6 +196,7 @@ export const labGroups = [
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
             { to: '/lab-manual-workflow', label: 'Incoming Course Manuals' },
+            { to: '/exam-operations', label: 'Assigned Exam Dispatch' },
             { to: '/lab-assets', label: 'Equipment & Assets' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
             { to: '/lab-finance', label: 'Manual Finance' },
@@ -208,6 +209,7 @@ export const technicalGroups = [
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
             { to: '/lab-manual-workflow', label: 'Incoming Course Manuals' },
+            { to: '/exam-operations', label: 'Assigned Exam Dispatch' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
         ] },
 ]
