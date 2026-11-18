@@ -162,7 +162,7 @@ export const studentGroups = [
             { to: '/rate-lecturers', label: 'Rate My Lecturers' },
         ] },
     { label: 'Learning', items: [
-            { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
+            { to: '/my-learning', label: 'Learning & Get Lab Manual', gated: true },
         ] },
     { label: 'Attendance', items: [
             { to: '/my-attendance', label: 'My Attendance' },
