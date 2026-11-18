@@ -82,6 +82,6 @@ public final class ProjectDTOs {
             String supervisorName, String designation, String displayTitle, int displayOrder
     ) {}
 
-    public record AllocationExportRow(String supervisor, String student, String matric, String department) {}
+    public record AllocationExportRow(String supervisor, String student, String matric, String programme) {}
     public record AllocationExportPreview(String session, int count, List<AllocationExportRow> rows) {}
 }
