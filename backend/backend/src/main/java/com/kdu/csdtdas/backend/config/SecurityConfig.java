@@ -95,6 +95,9 @@ public class SecurityConfig {
                         // Student manual catalogue and order requests are isolated from laboratory staff APIs.
                         .requestMatchers("/api/lab/student/manuals/**").hasRole("STUDENT")
 
+                        // Purchase request details are limited to finance-capable laboratory roles.
+                        .requestMatchers("/api/lab/orders/**").hasAnyRole("HOD", "ADMIN", "LAB_OFFICER")
+
                         // Laboratory management area (separate from academics).
                         .requestMatchers("/api/lab/**").hasAnyRole("HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
 
