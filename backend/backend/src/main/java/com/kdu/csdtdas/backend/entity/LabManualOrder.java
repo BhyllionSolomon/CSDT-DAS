@@ -22,12 +22,25 @@ public class LabManualOrder {
     private BigDecimal amount;
     @Column(nullable = false, length = 30)
     private String status = "AWAITING_PAYMENT";
+    @Column(name = "paystack_reference", unique = true, length = 100)
+    private String paystackReference;
+    @Column(name = "gateway_transaction_id", length = 80)
+    private String gatewayTransactionId;
+    @Column(name = "payment_channel", length = 40)
+    private String paymentChannel;
+    @Column(name = "receipt_number", unique = true, length = 80)
+    private String receiptNumber;
+    private LocalDateTime paidAt;
+    private LocalDateTime issuedAt;
+    @Column(length = 100)
+    private String issuedBy;
     @Column(nullable = false)
     private LocalDateTime createdAt;
     @Column(length = 100)
     private String updatedBy;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
     public LabManualOrder() {}
     @PrePersist public void beforeInsert() { LocalDateTime n=LocalDateTime.now(); createdAt=n; updatedAt=n; }
     @PreUpdate public void beforeUpdate() { updatedAt=LocalDateTime.now(); }
@@ -37,6 +50,13 @@ public class LabManualOrder {
     public AcademicSession getAcademicSession(){return academicSession;} public void setAcademicSession(AcademicSession v){academicSession=v;}
     public BigDecimal getAmount(){return amount;} public void setAmount(BigDecimal v){amount=v;}
     public String getStatus(){return status;} public void setStatus(String v){status=v;}
+    public String getPaystackReference(){return paystackReference;} public void setPaystackReference(String v){paystackReference=v;}
+    public String getGatewayTransactionId(){return gatewayTransactionId;} public void setGatewayTransactionId(String v){gatewayTransactionId=v;}
+    public String getPaymentChannel(){return paymentChannel;} public void setPaymentChannel(String v){paymentChannel=v;}
+    public String getReceiptNumber(){return receiptNumber;} public void setReceiptNumber(String v){receiptNumber=v;}
+    public LocalDateTime getPaidAt(){return paidAt;} public void setPaidAt(LocalDateTime v){paidAt=v;}
+    public LocalDateTime getIssuedAt(){return issuedAt;} public void setIssuedAt(LocalDateTime v){issuedAt=v;}
+    public String getIssuedBy(){return issuedBy;} public void setIssuedBy(String v){issuedBy=v;}
     public LocalDateTime getCreatedAt(){return createdAt;}
     public String getUpdatedBy(){return updatedBy;} public void setUpdatedBy(String v){updatedBy=v;}
     public LocalDateTime getUpdatedAt(){return updatedAt;}
