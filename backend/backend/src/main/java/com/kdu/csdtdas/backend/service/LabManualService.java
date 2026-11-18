@@ -198,6 +198,26 @@ public class LabManualService {
         return new LabDTOs.Message("Sold " + m.getTitle() + " to " + s.getFullName() + " for " + m.getUnitPrice().toPlainString() + ".");
     }
 
+    /**
+     * Records an online-paid manual only when the laboratory physically issues it.
+     * Uses the order's original academic session, not whichever session is current on issue day.
+     */
+    public LabDTOs.Message recordPaidSale(String username, Long manualId, Long studentId, Long sessionId) {
+        User user = require(username, LAB);
+        LabManual m = manualRepository.findById(manualId).orElseThrow(() -> bad("Manual not found."));
+        if (stockOf(m.getId()) < 1) throw bad("There are no copies of " + m.getTitle() + " left in stock.");
+        Student s = studentRepository.findById(studentId).orElseThrow(() -> bad("Student not found."));
+        AcademicSession session = sessionRepository.findById(sessionId).orElseThrow(() -> bad("Academic session not found."));
+        if (saleRepository.existsByManualIdAndStudentIdAndAcademicSessionIdAndVoidedFalse(m.getId(), s.getId(), session.getId()))
+            throw bad("A sale for this student and manual already exists in this session.");
+        LabManualSale sale = new LabManualSale();
+        sale.setManual(m); sale.setStudent(s); sale.setAcademicSession(session);
+        sale.setUnitPrice(m.getUnitPrice()); sale.setQuantity(1);
+        sale.setSoldAt(LocalDateTime.now()); sale.setRecordedBy(user.getUsername());
+        saleRepository.save(sale);
+        return new LabDTOs.Message("Paid lab manual issued and stock updated.");
+    }
+
     @Transactional(readOnly = true)
     public List<LabDTOs.SaleRow> sales(String username) {
         require(username, LAB);
