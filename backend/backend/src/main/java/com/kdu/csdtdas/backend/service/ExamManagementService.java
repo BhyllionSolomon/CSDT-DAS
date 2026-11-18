@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.security.MessageDigest;
 
 @Service
 @Transactional
@@ -70,11 +71,11 @@ public class ExamManagementService {
       String type=file.getContentType()==null?"":file.getContentType().toLowerCase(),name=file.getOriginalFilename()==null?"":file.getOriginalFilename().toLowerCase();
       if(!(name.endsWith(".pdf")||name.endsWith(".docx"))||!(type.contains("pdf")||type.contains("wordprocessingml")||type.equals("application/octet-stream")))throw bad("Only PDF and DOCX files are accepted.");
       if(!crypto.configured())throw bad("Secure examination storage is not configured. Contact the HOD.");
-      try{ExamCryptoService.Encrypted encrypted=crypto.encrypt(file.getBytes());
+      try{byte[] plain=file.getBytes();ExamCryptoService.Encrypted encrypted=crypto.encrypt(plain);
         int version=papers.findByTaskIdOrderByVersionDesc(taskId).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).mapToInt(ExamPaper::getVersion).max().orElse(0)+1;
         ExamPaper paper=new ExamPaper();paper.setTask(task);paper.setLecturer(lecturer);paper.setFileName(file.getOriginalFilename().replaceAll("[^a-zA-Z0-9._-]","_"));
         paper.setContentType(type.contains("pdf")?"application/pdf":"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-        paper.setEncryptedFile(encrypted.ciphertext());paper.setWrappedDataKey(encrypted.wrappedKey());paper.setVersion(version);paper.setStatus("SUBMITTED");papers.save(paper);audit(lecturer,"PAPER_SUBMITTED","EXAM_PAPER",paper.getId(),"Task "+taskId+" version "+version);
+        paper.setEncryptedFile(encrypted.ciphertext());paper.setWrappedDataKey(encrypted.wrappedKey());paper.setContentSha256(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(plain)));paper.setVersion(version);paper.setStatus("SUBMITTED");papers.save(paper);audit(lecturer,"PAPER_SUBMITTED","EXAM_PAPER",paper.getId(),"Task "+taskId+" version "+version);
         return Map.of("paperId",paper.getId(),"version",version,"status",paper.getStatus(),"submittedAt",paper.getSubmittedAt());
       }catch(IOException e){throw bad("Uploaded file could not be read.");}
     }
