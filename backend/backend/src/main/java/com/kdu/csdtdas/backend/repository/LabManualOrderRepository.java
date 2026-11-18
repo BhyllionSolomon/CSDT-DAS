@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LabManualOrderRepository extends JpaRepository<LabManualOrder, Long> {
+    Optional<LabManualOrder> findByPaystackReference(String reference);
+    Optional<LabManualOrder> findByIdAndStudentId(Long id, Long studentId);
     List<LabManualOrder> findAllByOrderByCreatedAtDesc();
     List<LabManualOrder> findAllByStudentIdAndAcademicSessionIdOrderByCreatedAtDesc(Long studentId, Long sessionId);
     Optional<LabManualOrder> findFirstByManualIdAndStudentIdAndAcademicSessionIdAndStatusIn(Long manualId, Long studentId, Long sessionId, List<String> statuses);
