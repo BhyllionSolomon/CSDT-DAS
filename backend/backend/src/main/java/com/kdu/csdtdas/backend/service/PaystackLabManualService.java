@@ -31,6 +31,7 @@ public class PaystackLabManualService {
     private final LabManualOrderRepository orders;
     private final StudentRepository students;
     private final LabManualService manualService;
+    private final SensitiveFieldEncryptionService encryption;
     private final RestClient http = RestClient.create();
     private final ObjectMapper mapper;
     private final String secretKey;
@@ -38,17 +39,17 @@ public class PaystackLabManualService {
     private final String callbackUrl;
 
     public PaystackLabManualService(LabManualOrderRepository orders, StudentRepository students,
-            LabManualService manualService, ObjectMapper mapper,
+            LabManualService manualService, SensitiveFieldEncryptionService encryption, ObjectMapper mapper,
             @Value("${paystack.secret-key:}") String secretKey,
             @Value("${paystack.webhook-secret:}") String webhookSecret,
             @Value("${paystack.callback-url:}") String callbackUrl) {
-        this.orders=orders; this.students=students; this.manualService=manualService; this.mapper=mapper;
+        this.orders=orders; this.students=students; this.manualService=manualService; this.encryption=encryption; this.mapper=mapper;
         this.secretKey=secretKey; this.webhookSecret=webhookSecret; this.callbackUrl=callbackUrl;
     }
 
     @Transactional
     public LabStudentDTOs.PaymentInit initialise(String username, Long orderId) {
-        requireConfigured();
+        requireCheckoutConfigured();
         Student student = student(username);
         LabManualOrder order = orders.findByIdAndStudentId(orderId, student.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Manual purchase request not found."));
@@ -61,8 +62,8 @@ public class PaystackLabManualService {
             throw new IllegalArgumentException("Your student account must have a valid email address before payment.");
 
         if (order.getPaystackReference() != null) {
-            if (order.getPaystackAuthorizationUrl() != null && !order.getPaystackAuthorizationUrl().isBlank())
-                return new LabStudentDTOs.PaymentInit(order.getId(), order.getPaystackReference(), order.getPaystackAuthorizationUrl());
+            if (order.getPaystackAuthorizationUrlEncrypted() != null && !order.getPaystackAuthorizationUrlEncrypted().isBlank())
+                return new LabStudentDTOs.PaymentInit(order.getId(), order.getPaystackReference(), encryption.decrypt(order.getPaystackAuthorizationUrlEncrypted()));
             throw new IllegalStateException("A payment attempt already exists. Please contact the laboratory office before retrying.");
         }
 
@@ -88,7 +89,7 @@ public class PaystackLabManualService {
                 || response.path("data").path("authorization_url").asText("").isBlank())
             throw new IllegalStateException("Paystack could not initialise this payment. Please try again.");
         String authorizationUrl=response.path("data").path("authorization_url").asText();
-        order.setPaystackAuthorizationUrl(authorizationUrl);
+        order.setPaystackAuthorizationUrlEncrypted(encryption.encrypt(authorizationUrl));
         orders.save(order);
         return new LabStudentDTOs.PaymentInit(order.getId(), reference, authorizationUrl);
     }
@@ -111,7 +112,7 @@ public class PaystackLabManualService {
     }
 
     private void verifyAndApply(String reference) {
-        requireConfigured();
+        requireSecretConfigured();
         LabManualOrder order=orders.findByPaystackReference(reference)
                 .orElseThrow(() -> new IllegalArgumentException("Unknown payment reference."));
         if ("PAID".equals(order.getStatus()) || "ISSUED".equals(order.getStatus())) return;
@@ -224,8 +225,16 @@ public class PaystackLabManualService {
                 o.getManual().getTitle(), o.getAmount(), "NGN", o.getPaystackReference(),
                 o.getPaymentChannel(), o.getPaidAt(), o.getStatus(), o.getIssuedAt(), o.getIssuedBy());
     }
-    private void requireConfigured() {
-        if (secretKey == null || secretKey.isBlank() || callbackUrl == null || callbackUrl.isBlank())
-            throw new IllegalStateException("Online payment is not configured. Contact the department administrator.");
+    private void requireSecretConfigured() {
+        if (secretKey == null || secretKey.isBlank())
+            throw new IllegalStateException("Paystack secret key is not configured.");
+    }
+
+    private void requireCheckoutConfigured() {
+        requireSecretConfigured();
+        if (callbackUrl == null || callbackUrl.isBlank())
+            throw new IllegalStateException("Paystack callback URL is not configured.");
+        if (!encryption.isConfigured())
+            throw new IllegalStateException("APP_DATA_ENCRYPTION_KEY is not configured. Online payments are disabled until sensitive payment data can be encrypted.");
     }
 }
