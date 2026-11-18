@@ -38,6 +38,6 @@ public class ExamTimetableImportService{
  private LocalDate parseDate(String s){for(DateTimeFormatter f:List.of(DateTimeFormatter.ofPattern("d/M/uuuu"),DateTimeFormatter.ofPattern("d-M-uuuu"),DateTimeFormatter.ISO_LOCAL_DATE)){try{return LocalDate.parse(s,f);}catch(Exception ignored){}}return null;}
  private LocalTime parseTime(String s){String v=s.trim().toUpperCase(Locale.ROOT).replaceAll("\\s+","");for(DateTimeFormatter f:List.of(DateTimeFormatter.ofPattern("h:mma"),DateTimeFormatter.ofPattern("H:mm"))){try{return LocalTime.parse(v,f);}catch(Exception ignored){}}return null;}
  private User hod(String n){User u=users.findByUsername(n).orElseThrow(()->bad("Account not found."));if(!Set.of("HOD","ADMIN").contains(u.getRole().toUpperCase()))throw bad("Only HOD/ADMIN can import and confirm the timetable.");return u;}
- private void audit(User u,String a,String t,Long id,String d){ExamAuditEvent e=new ExamAuditEvent();e.setActor(u);e.setAction(a);e.setTargetType(t);e.setTargetId(id);e.setDetails(d);audit.save(e);}
+ private void audit(User u,String a,String t,Long id,String d){ExamAuditEvent e=new ExamAuditEvent();e.setActor(u);e.setOccurredAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));e.setAction(a);e.setTargetType(t);e.setTargetId(id);e.setDetails(d);audit.save(e);}
  private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
 }
