@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper } from '../services/examService'
+import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess } from '../services/examService'
 
 const blankTask = () => ({ courseId: '', examDate: '', deadline: '', vettingDate: '', correctionDeadline: '', noticeDays: 49 })
 
@@ -14,6 +14,9 @@ export default function ExaminationManagement() {
     const [notes, setNotes] = useState({})
     const [message, setMessage] = useState('')
     const [busy, setBusy] = useState(false)
+    const [accessUsers, setAccessUsers] = useState({})
+    const [policies, setPolicies] = useState({})
+    const [validationResults, setValidationResults] = useState({})
 
     const changeTask = (index, key, value) => setTasks(old => old.map((row, i) => i === index ? { ...row, [key]: value } : row))
     const loadBoard = async (id = cycleId) => {
@@ -53,6 +56,9 @@ export default function ExaminationManagement() {
         try { await reviewExamPaper(paperId, { decision: notes[paperId]?.decision || 'CORRECTION_REQUIRED', notes: notes[paperId]?.notes || '' }); setMessage('Review recorded.') }
         catch (e) { setMessage(e.response?.data?.message || 'Review could not be saved.') }
     }
+    const savePolicy = async taskId => { try { const p = policies[taskId] || {}; await saveQuestionPolicy(taskId, { questionCount: Number(p.questionCount), answerCount: Number(p.answerCount), totalMarks: Number(p.totalMarks), marksCsv: p.marksCsv || '', compulsoryCsv: p.compulsoryCsv || '', duration: p.duration || '' }); setMessage('Question policy saved.') } catch(e) { setMessage(e.response?.data?.message || 'Could not save policy.') } }
+    const validate = async (taskId, paperId) => { try { const result = await validateExamPaper(taskId, paperId); setValidationResults(old => ({ ...old, [paperId]: result })); setMessage(result.passed ? 'Automated checks passed; committee review is still required.' : 'Validation found issues.') } catch(e) { setMessage(e.response?.data?.message || 'Validation failed.') } }
+    const grant = async paperId => { try { await grantPaperAccess(paperId, Number(accessUsers[paperId])); setMessage('Paper access authorised.') } catch(e) { setMessage(e.response?.data?.message || 'Could not grant access.') } }
     const download = async paper => {
         try { const blob = await downloadExamPaper(paper.paperId); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `confidential-paper-${paper.paperId}`; a.click(); URL.revokeObjectURL(url) }
         catch (e) { setMessage(e.response?.data?.message || 'Download denied or failed.') }
