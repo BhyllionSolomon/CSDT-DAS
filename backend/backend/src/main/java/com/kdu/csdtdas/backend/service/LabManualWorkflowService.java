@@ -17,7 +17,8 @@ public class LabManualWorkflowService {
  private final LabManualSubmissionRepository submissions;
  private final CourseRepository courses;
  private final LabManualRepository manuals;
- public LabManualWorkflowService(LabManualSubmissionRepository s,CourseRepository c,LabManualRepository m){submissions=s;courses=c;manuals=m;}
+ private final LabManualOrderRepository orders;
+ public LabManualWorkflowService(LabManualSubmissionRepository s,CourseRepository c,LabManualRepository m,LabManualOrderRepository o){submissions=s;courses=c;manuals=m;orders=o;}
 
  public LabManualWorkflowDTO.Row upload(String username,String role,String title,Long courseId,Integer pages,BigDecimal suggested,MultipartFile file){
   if(!Set.of("LECTURER","ADJUNCT").contains(role)) throw denied();
@@ -37,6 +38,17 @@ public class LabManualWorkflowService {
  }
  @Transactional(readOnly=true) public List<LabManualWorkflowDTO.Row> mine(String username){return submissions.findAllByUploadedByOrderBySubmittedAtDesc(username).stream().map(this::row).toList();}
  @Transactional(readOnly=true) public List<LabManualWorkflowDTO.Row> hodQueue(String role){if(!Set.of("HOD","ADMIN").contains(role))throw denied();return submissions.findAllByStatusOrderBySubmittedAtAsc("SUBMITTED_TO_HOD").stream().map(this::row).toList();}
+ @Transactional(readOnly=true) public List<LabManualWorkflowDTO.Buyer> buyers(String username,String role,Long submissionId){
+  LabManualSubmission s=get(submissionId);
+  if(!Set.of("HOD","ADMIN").contains(role)&&!s.getUploadedBy().equals(username))throw denied();
+  LabManual manual=manuals.findAllWithCourse().stream().filter(m->m.getCourse()!=null&&m.getCourse().getId().equals(s.getCourse().getId())&&m.getTitle().equals(s.getTitle())).findFirst().orElse(null);
+  if(manual==null)return List.of();
+  return orders.findAllByManualIdOrderByCreatedAtDesc(manual.getId()).stream().map(o->new LabManualWorkflowDTO.Buyer(
+   o.getId(),o.getStudent().getMatricNumber(),o.getStudent().getFullName(),
+   o.getStudent().getProgramme()==null?"":o.getStudent().getProgramme().getName(),
+   o.getStudent().getLevel()==null?"":o.getStudent().getLevel().getName(),o.getAmount(),o.getStatus(),o.getPaidAt()
+  )).toList();
+ }
  @Transactional(readOnly=true) public List<LabManualWorkflowDTO.Row> labQueue(String role){if(!Set.of("LAB_OFFICER","TECHNICAL_STAFF","HOD","ADMIN").contains(role))throw denied();return submissions.findAll().stream().filter(s->"SENT_TO_LAB".equals(s.getStatus())||"RECEIVED".equals(s.getStatus())).map(this::row).toList();}
  public LabManualWorkflowDTO.Row review(String username,String role,Long id,LabManualWorkflowDTO.Review req,boolean approve){
   if(!Set.of("HOD","ADMIN").contains(role))throw denied();
