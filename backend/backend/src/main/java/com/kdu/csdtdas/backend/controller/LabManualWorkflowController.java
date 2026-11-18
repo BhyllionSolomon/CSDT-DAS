@@ -16,6 +16,7 @@ public class LabManualWorkflowController {
  @GetMapping("/mine") public List<LabManualWorkflowDTO.Row> mine(Authentication a){return service.mine(a.getName());}
  @GetMapping("/hod-queue") public List<LabManualWorkflowDTO.Row> hodQueue(Authentication a){return service.hodQueue(role(a));}
  @GetMapping("/lab-queue") public List<LabManualWorkflowDTO.Row> labQueue(Authentication a){return service.labQueue(role(a));}
+ @GetMapping("/{id}/buyers") public List<LabManualWorkflowDTO.Buyer> buyers(@PathVariable Long id,Authentication a){return service.buyers(a.getName(),role(a),id);}
  @PutMapping("/{id}/approve") public LabManualWorkflowDTO.Row approve(@PathVariable Long id,@RequestBody LabManualWorkflowDTO.Review r,Authentication a){return service.review(a.getName(),role(a),id,r,true);}
  @PutMapping("/{id}/return") public LabManualWorkflowDTO.Row sendBack(@PathVariable Long id,@RequestBody LabManualWorkflowDTO.Review r,Authentication a){return service.review(a.getName(),role(a),id,r,false);}
  @PutMapping("/{id}/dispatch") public LabManualWorkflowDTO.Row dispatch(@PathVariable Long id,@RequestBody LabManualWorkflowDTO.Dispatch d,Authentication a){return service.dispatch(a.getName(),role(a),id,d.targetLab());}
