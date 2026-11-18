@@ -47,6 +47,7 @@ public class ExamManagementService {
       if(!Set.of("LECTURER","ADJUNCT","LEVEL_ADVISER","HOD","ADMIN").contains(member.getRole().toUpperCase()))throw bad("Only academic staff can be appointed.");
       if(!committee.existsByCycleIdAndUserId(cycleId,memberId)){ExamCommitteeMember m=new ExamCommitteeMember();m.setCycle(cycle);m.setUser(member);m.setAppointedBy(hod);committee.save(m);audit(hod,"COMMITTEE_APPOINTED","EXAM_CYCLE",cycleId,"Appointed user ID "+memberId);}
     }
+    public void removeCommitteeMember(String username,Long cycleId,Long memberId){User hod=hod(username);if(!committee.existsByCycleIdAndUserId(cycleId,memberId))throw bad("Committee appointment not found.");committee.deleteByCycleIdAndUserId(cycleId,memberId);audit(hod,"COMMITTEE_REVOKED","EXAM_CYCLE",cycleId,"Revoked user ID "+memberId);}
     @Transactional(readOnly=true)
     public Map<String,Object> board(String username,Long cycleId){
       User viewer=user(username);ExamCycle cycle=cycles.findById(cycleId).orElseThrow(()->bad("Exam cycle not found."));
