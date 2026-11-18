@@ -2,7 +2,6 @@ package com.kdu.csdtdas.backend.controller;
 
 import com.kdu.csdtdas.backend.dto.StudentLabManualOption;
 import com.kdu.csdtdas.backend.repository.LabManualRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
