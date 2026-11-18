@@ -1,5 +1,6 @@
 package com.kdu.csdtdas.backend.controller;
 import com.kdu.csdtdas.backend.service.ExamManagementService;
+import com.kdu.csdtdas.backend.service.ExamQuestionValidationService;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
@@ -11,10 +12,14 @@ import java.time.LocalDateTime;
 @RequestMapping("/api/exams")
 @CrossOrigin(origins="*")
 public class ExamManagementController {
- private final ExamManagementService service;
- public ExamManagementController(ExamManagementService s){service=s;}
+ private final ExamManagementService service; private final ExamQuestionValidationService validation;
+ public ExamManagementController(ExamManagementService s,ExamQuestionValidationService v){service=s;validation=v;}
  @PostMapping("/cycles/{sessionId}/{semester}/tasks")
  public Object configure(@PathVariable Long sessionId,@PathVariable String semester,@RequestBody List<ExamManagementService.TaskInput> tasks,Authentication a){return service.configure(name(a),sessionId,semester,tasks);}
+ @PostMapping("/tasks/{taskId}/question-policy")
+ public Object policy(@PathVariable Long taskId,@RequestBody ExamQuestionValidationService.PolicyInput body,Authentication a){return validation.savePolicy(name(a),taskId,body);}
+ @PostMapping("/tasks/{taskId}/papers/{paperId}/validate")
+ public Object validate(@PathVariable Long taskId,@PathVariable Long paperId,Authentication a){return validation.validate(name(a),taskId,paperId);}
  @PostMapping("/cycles/{cycleId}/committee/{userId}")
  public ResponseEntity<Void> appoint(@PathVariable Long cycleId,@PathVariable Long userId,Authentication a){service.appoint(name(a),cycleId,userId);return ResponseEntity.noContent().build();}
  @GetMapping("/cycles/{cycleId}") public Object board(@PathVariable Long cycleId,Authentication a){return service.board(name(a),cycleId);}
