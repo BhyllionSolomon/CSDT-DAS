@@ -406,12 +406,13 @@ public class ProjectSupervisionService {
     /** Public schedule DTO intentionally contains no CGPA or degree classification. */
     public List<ProjectDTOs.PublicScheduleRow> publicSchedule(Long sessionId) {
         AcademicSession academicSession = session(sessionId);
-        return repository.findForSession(academicSession.getId()).stream()
+        return orderedAssignments(academicSession.getId()).stream()
                 .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
                 .map(p -> new ProjectDTOs.PublicScheduleRow(academicSession.getName(),
                         p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
                         p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
-                        p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation()))
+                        p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation(),
+                        profileFor(p.getSupervisor()).getDisplayTitle(), profileFor(p.getSupervisor()).getDisplayOrder()))
                 .toList();
     }
 
