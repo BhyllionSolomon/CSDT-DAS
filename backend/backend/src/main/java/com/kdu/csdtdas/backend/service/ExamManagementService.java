@@ -10,6 +10,10 @@ import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.security.MessageDigest;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import java.io.ByteArrayInputStream;
 
 @Service
 @Transactional
@@ -75,7 +79,10 @@ public class ExamManagementService {
       String type=file.getContentType()==null?"":file.getContentType().toLowerCase(),name=file.getOriginalFilename()==null?"":file.getOriginalFilename().toLowerCase();
       if(!(name.endsWith(".pdf")||name.endsWith(".docx"))||!(type.contains("pdf")||type.contains("wordprocessingml")||type.equals("application/octet-stream")))throw bad("Only PDF and DOCX files are accepted.");
       if(!crypto.configured())throw bad("Secure examination storage is not configured. Contact the HOD.");
-      try{byte[] plain=file.getBytes();ExamCryptoService.Encrypted encrypted=crypto.encrypt(plain);
+      try{byte[] plain=file.getBytes();
+        if(name.endsWith(".pdf")){try(PDDocument document=Loader.loadPDF(plain)){if(document.getNumberOfPages()<1)throw bad("PDF has no pages.");}}
+        else{try(XWPFDocument document=new XWPFDocument(new ByteArrayInputStream(plain))){if(document.getParagraphs().isEmpty()&&document.getTables().isEmpty())throw bad("DOCX contains no readable content.");}}
+        ExamCryptoService.Encrypted encrypted=crypto.encrypt(plain);
         int version=papers.findByTaskIdOrderByVersionDesc(taskId).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).mapToInt(ExamPaper::getVersion).max().orElse(0)+1;
         ExamPaper paper=new ExamPaper();paper.setTask(task);paper.setLecturer(lecturer);paper.setSubmittedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));paper.setFileName(file.getOriginalFilename().replaceAll("[^a-zA-Z0-9._-]","_"));
         paper.setContentType(type.contains("pdf")?"application/pdf":"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
