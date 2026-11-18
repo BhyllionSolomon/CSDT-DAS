@@ -39,6 +39,9 @@ public class StaffProfile {
     @Column(nullable = false)
     private boolean assistantCoordinator;
 
+    @Column(nullable = false, columnDefinition = "integer default 5")
+    private int maxSupervisionLoad = 5;
+
     public StaffProfile() {}
 
     public Long getId() { return id; }
@@ -57,5 +60,7 @@ public class StaffProfile {
     public boolean isProjectCoordinator() { return projectCoordinator; }
     public void setProjectCoordinator(boolean projectCoordinator) { this.projectCoordinator = projectCoordinator; }
     public boolean isAssistantCoordinator() { return assistantCoordinator; }
+    public int getMaxSupervisionLoad() { return maxSupervisionLoad; }
+    public void setMaxSupervisionLoad(int maxSupervisionLoad) { this.maxSupervisionLoad = maxSupervisionLoad; }
     public void setAssistantCoordinator(boolean assistantCoordinator) { this.assistantCoordinator = assistantCoordinator; }
 }
