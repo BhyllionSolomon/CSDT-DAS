@@ -29,3 +29,5 @@ export async function markExamNotificationRead(id) { return (await api.post(`/ex
 
 export async function rotateExamMasterKey() { return (await api.post('/exams/security/rewrap-all')).data }
 export async function getExamSubmissionReport() { return (await api.get('/exams/reports/submissions')).data }
+
+export async function notifyScriptsReady(taskId) { return (await api.post(`/exams/tasks/${taskId}/scripts-ready`)).data }
