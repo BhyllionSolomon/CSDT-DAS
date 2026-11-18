@@ -288,14 +288,17 @@ public class ContinuousAssessmentService {
     public List<CaDTOs.SubmissionRow> submissions(String username, Long itemId) {
         CaItem item = item(itemId);
         authorize(staff(username), item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
+        Map<Long, CaSubmission> submitted = submissionRepository.findByItemIdOrderBySubmittedAtAsc(itemId).stream()
+                .collect(Collectors.toMap(s -> s.getStudent().getId(), s -> s));
         Map<Long, CaScore> marks = scoreRepository.findByItemId(itemId).stream()
                 .collect(Collectors.toMap(s -> s.getStudent().getId(), s -> s));
-        return submissionRepository.findByItemIdOrderBySubmittedAtAsc(itemId).stream().map(sub -> {
-            CaScore mark = marks.get(sub.getStudent().getId());
-            return new CaDTOs.SubmissionRow(sub.getId(), sub.getStudent().getId(),
-                    sub.getStudent().getMatricNumber(), sub.getStudent().getFullName(), sub.getFileName(),
-                    sub.getSubmittedAt(), mark == null ? null : mark.getScore().doubleValue(),
-                    sub.getFeedback(), sub.getGradedAt());
+        return roster(item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester()).stream().map(student -> {
+            CaSubmission sub = submitted.get(student.getId());
+            CaScore mark = marks.get(student.getId());
+            return new CaDTOs.SubmissionRow(sub == null ? null : sub.getId(), student.getId(),
+                    student.getMatricNumber(), student.getFullName(), sub == null ? null : sub.getFileName(),
+                    sub == null ? null : sub.getSubmittedAt(), mark == null ? null : mark.getScore().doubleValue(),
+                    sub == null ? null : sub.getFeedback(), sub == null ? null : sub.getGradedAt());
         }).toList();
     }
 
