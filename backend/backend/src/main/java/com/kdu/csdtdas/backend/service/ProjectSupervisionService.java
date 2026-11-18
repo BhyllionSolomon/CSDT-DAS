@@ -130,7 +130,7 @@ public class ProjectSupervisionService {
             rows.add(new ProjectDTOs.StaffRow(
                     u.getId(), u.getUsername(), u.getFullName(), u.getRole(), p.getDesignation(), p.getDisplayTitle(), p.getDisplayOrder(),
                     p.isSupervisionEligible(), p.isFirstClassEligible(), p.isProjectCoordinator(), p.isAssistantCoordinator(),
-                    load.getOrDefault(u.getId(), 0), p.getMaxSupervisionLoad()
+                    load.getOrDefault(u.getId(), 0), maxLoad(p)
             ));
         }
         return rows;
@@ -264,7 +264,7 @@ public class ProjectSupervisionService {
                         Comparator.<BigDecimal>reverseOrder())
                 .thenComparing(r -> r.student().getMatricNumber());
 
-        List<Sup> firstEligible = sups.stream().filter(s -> s.profile.isFirstClassEligible() && s.total < s.profile.getMaxSupervisionLoad()).toList();
+        List<Sup> firstEligible = sups.stream().filter(s -> s.profile.isFirstClassEligible() && s.total < maxLoad(s.profile)).toList();
         List<Ranked> firsts = students.stream().filter(r -> r.cls().equals("FIRST")).sorted(strongest).toList();
         if (!firsts.isEmpty() && firstEligible.isEmpty()) {
             throw bad("First Class students are available, but the H.O.D has not selected any First Class-eligible supervisors. Update supervisor settings first.");
@@ -349,8 +349,8 @@ public class ProjectSupervisionService {
                 .orElseThrow(() -> bad("The selected lecturer is not currently eligible to supervise."));
         long selectedDraftLoad = draftItemRepository.findByDraftId(draftId).stream()
                 .filter(i -> !i.getItemId().equals(itemId) && i.getSupervisor().getId().equals(selected.user.getId())).count();
-        if (selectedDraftLoad >= selected.profile.getMaxSupervisionLoad()) {
-            throw bad("This supervisor has reached the configured allocation limit of " + selected.profile.getMaxSupervisionLoad() + ".");
+        if (selectedDraftLoad >= maxLoad(selected.profile)) {
+            throw bad("This supervisor has reached the configured allocation limit of " + maxLoad(selected.profile) + ".");
         }
         if ("FIRST".equals(item.getClassification()) && !selected.profile.isFirstClassEligible()) {
             throw bad("This student is First Class. The H.O.D has not marked the selected lecturer as First Class-eligible.");
@@ -367,7 +367,7 @@ public class ProjectSupervisionService {
         List<ProjectAllocationDraftItem> items = draftItemRepository.findByDraftId(draftId);
         Map<Long, Long> loadBySupervisor = items.stream().collect(Collectors.groupingBy(i -> i.getSupervisor().getId(), Collectors.counting()));
         for (Sup supervisor : supervisors(draft.getAcademicSession().getId())) {
-            if (loadBySupervisor.getOrDefault(supervisor.user.getId(), 0L) > supervisor.profile.getMaxSupervisionLoad())
+            if (loadBySupervisor.getOrDefault(supervisor.user.getId(), 0L) > maxLoad(supervisor.profile))
                 throw bad(supervisor.user.getFullName() + " exceeds the configured supervision limit. Review the draft before publishing.");
         }
         if (items.isEmpty()) throw bad("The draft has no student assignments to publish.");
@@ -697,6 +697,11 @@ public class ProjectSupervisionService {
                 .filter(u -> STAFF_ROLES.contains(String.valueOf(u.getRole()).toUpperCase()))
                 .sorted(Comparator.comparing((User u) -> u.getFullName().toLowerCase()))
                 .toList();
+    }
+
+    private int maxLoad(StaffProfile profile) {
+        if (profile.getMaxSupervisionLoad() != null) return profile.getMaxSupervisionLoad();
+        return "PROFESSOR".equals(profile.getDesignation()) ? 6 : 5;
     }
 
     private StaffProfile profileFor(User u) {
