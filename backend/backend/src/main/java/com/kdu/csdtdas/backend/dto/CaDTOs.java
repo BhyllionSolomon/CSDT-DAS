@@ -9,7 +9,7 @@ public final class CaDTOs {
     private CaDTOs() {}
     public record CourseInfo(Long courseId, String code, String title, int rosterSize, double allocated) {}
     public record ItemRow(Long id, String category, String title, double max, boolean released, int marked,
-                          String instructions, LocalDateTime dueAt, int submissionCount) {}
+                          String instructions, LocalDateTime dueAt, int submissionCount, String assignmentFileName) {}
     public record StudentRow(Long studentId, String matricNumber, String fullName, Map<Long, Double> scores,
                              double total, double rawTotal) {}
     public record Sheet(double cap, double allocated, List<ItemRow> items, List<StudentRow> students) {}
@@ -25,7 +25,7 @@ public final class CaDTOs {
     public record AggregateRequest(Long courseId, Long sessionId, String semester) {}
     public record FinalScoreRow(Long studentId, String matricNumber, String fullName, double rawTotal, double caScore) {}
     public record MyItem(Long id, String category, String title, double max, Double score, String instructions,
-                         LocalDateTime dueAt, String submissionStatus, String submissionFileName,
+                         LocalDateTime dueAt, String assignmentFileName, String submissionStatus, String submissionFileName,
                          LocalDateTime submittedAt, String feedback) {}
     public record MyCourse(Long courseId, String code, String title, List<MyItem> items, double earned, double releasedMax, boolean aggregated, Double finalScore, LocalDateTime aggregatedAt) {}
     public record Mine(double cap, List<MyCourse> courses) {}

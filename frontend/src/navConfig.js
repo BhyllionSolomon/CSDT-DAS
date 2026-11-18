@@ -105,7 +105,7 @@ export const lecturerGroups = [
             { to: '/attendance', label: 'Take Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
+            { to: '/continuous-assessment', label: 'Assignments, Submissions & C.A.' },
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
@@ -177,7 +177,7 @@ export const studentGroups = [
             { to: '/my-attendance', label: 'My Attendance' },
         ] },
     { label: 'Continuous Assessment', items: [
-            { to: '/my-ca', label: 'My C.A. Scores' },
+            { to: '/my-ca', label: 'Assignments & My C.A. Scores' },
         ] },
     { label: 'My Results', items: [
             { to: '/my-progress', label: 'My Progress', gated: true },

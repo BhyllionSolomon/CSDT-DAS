@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Upload, Clock, CheckCircle2, AlertCircle } from 'lucide-react'
 import SessionSemesterBar from '../components/SessionSemesterBar'
-import { getMyCa, submitCaFile, caLabel } from '../services/caService'
+import { getMyCa, submitCaFile, caLabel, downloadAssignmentBrief } from '../services/caService'
 
 const msg = (err) => err.response?.data?.message || err.message
 const dateText = (v) => v ? new Date(v).toLocaleString() : 'No deadline'
@@ -24,6 +24,15 @@ function MyCaScores() {
         setData(null); setError(null); setNotice(null)
         getMyCa(sel.sessionId, sel.semester).then(setData).catch((e) => setError(msg(e)))
     }, [sel])
+
+    async function downloadBrief(item) {
+        try {
+            const blob = await downloadAssignmentBrief(item.id, true)
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a'); a.href = url; a.download = item.assignmentFileName || 'assignment-brief'; a.click()
+            URL.revokeObjectURL(url)
+        } catch (e) { setError(msg(e)) }
+    }
 
     async function submit(item) {
         const file = files[item.id]
@@ -64,7 +73,7 @@ function MyCaScores() {
                                         <div><span className="text-[11px] uppercase theme-text-muted">{caLabel(item.category)}</span><h4 className="font-semibold">{item.title}</h4></div>
                                         <span className="text-sm font-semibold">{item.score == null ? 'Not marked' : `${item.score} / ${item.max}`}</span>
                                     </div>
-                                    {item.instructions && <p className="text-sm mt-2 whitespace-pre-wrap">{item.instructions}</p>}
+                                    {item.instructions && <p className="text-sm mt-2 whitespace-pre-wrap">{item.instructions}</p>}{item.assignmentFileName && <button onClick={() => downloadBrief(item)} className="text-sm underline mt-2 block">Download assignment brief: {item.assignmentFileName}</button>}
                                     <div className="flex items-center gap-2 text-xs mt-3 theme-text-muted"><Clock size={14}/> Deadline: {dateText(item.dueAt)}</div>
                                     {item.dueAt && isSoon(item.dueAt) && !submitted && <div className="mt-2 text-sm text-amber-700 bg-amber-50 rounded-lg p-2"><AlertCircle size={14} className="inline mr-1"/>Reminder: this assessment is due within 48 hours.</div>}
                                     {submitted ? <div className="mt-3 rounded-lg p-3 text-sm" style={{backgroundColor:'var(--surface-soft)'}}>

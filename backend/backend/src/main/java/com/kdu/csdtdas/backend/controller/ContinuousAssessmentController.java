@@ -61,6 +61,32 @@ public class ContinuousAssessmentController {
         return service.aggregate(name(a), body);
     }
 
+
+    @PostMapping(value = "/ca/items/{id}/brief", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadBrief(@PathVariable Long id, @RequestParam("file") MultipartFile file, Authentication a) {
+        return ResponseEntity.ok(service.uploadAssignmentBrief(name(a), id, file));
+    }
+
+    @GetMapping("/ca/items/{id}/brief")
+    public ResponseEntity<ByteArrayResource> staffBrief(@PathVariable Long id, Authentication a) {
+        return briefResponse(service.assignmentBriefForStaff(name(a), id));
+    }
+
+    @GetMapping("/academic-sessions/ca/items/{id}/brief")
+    public ResponseEntity<ByteArrayResource> studentBrief(@PathVariable Long id, Authentication a) {
+        return briefResponse(service.assignmentBriefForStudent(name(a), id));
+    }
+
+    private ResponseEntity<ByteArrayResource> briefResponse(com.kdu.csdtdas.backend.entity.CaItem item) {
+        String safeName = item.getAssignmentFileName().replaceAll("[^a-zA-Z0-9._-]", "_");
+        MediaType type = item.getAssignmentContentType() != null && item.getAssignmentContentType().equalsIgnoreCase("application/pdf")
+                ? MediaType.APPLICATION_PDF : MediaType.APPLICATION_OCTET_STREAM;
+        return ResponseEntity.ok().contentType(type)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + safeName + "\"")
+                .contentLength(item.getAssignmentFileData().length)
+                .body(new ByteArrayResource(item.getAssignmentFileData()));
+    }
+
     @PostMapping(value = "/ca/items/{id}/submissions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CaDTOs.SubmissionReceipt> submit(@PathVariable Long id,
             @RequestParam("file") MultipartFile file, Authentication a) {

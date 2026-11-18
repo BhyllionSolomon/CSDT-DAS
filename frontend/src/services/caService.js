@@ -31,6 +31,16 @@ export async function downloadCaSubmission(id) {
     const response = await api.get(`/ca/submissions/${id}/file`, { responseType: 'blob' })
     return response.data
 }
+export async function uploadAssignmentBrief(itemId, file) {
+    const body = new FormData()
+    body.append('file', file)
+    return (await api.post(`/ca/items/${itemId}/brief`, body, { headers: { 'Content-Type': 'multipart/form-data' } })).data
+}
+export async function downloadAssignmentBrief(itemId, student = false) {
+    const path = student ? `/academic-sessions/ca/items/${itemId}/brief` : `/ca/items/${itemId}/brief`
+    const response = await api.get(path, { responseType: 'blob' })
+    return response.data
+}
 export async function submitCaFile(itemId, file) {
     const body = new FormData()
     body.append('file', file)
