@@ -184,6 +184,11 @@ public class PaystackLabManualService {
         return false;
     }
 
+    public boolean isChargeSuccess(byte[] rawBody) {
+        try { return "charge.success".equals(mapper.readTree(rawBody).path("event").asText()); }
+        catch (Exception e) { return false; }
+    }
+
     public String extractReference(byte[] rawBody) {
         try { return mapper.readTree(rawBody).path("data").path("reference").asText(null); }
         catch (Exception e) { return null; }
