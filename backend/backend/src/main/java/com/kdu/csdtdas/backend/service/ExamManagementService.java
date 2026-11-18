@@ -147,7 +147,7 @@ public class ExamManagementService {
     private void audit(User actor,String action,String type,Long id,String details){ExamAuditEvent e=new ExamAuditEvent();e.setActor(actor);e.setOccurredAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));e.setAction(action);e.setTargetType(type);e.setTargetId(id);e.setDetails(details);audit.save(e);}
     private boolean assigned(User u,ExamCourseTask t){return allocations.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester()).stream().anyMatch(a->a.getLecturer()!=null&&a.getLecturer().getId().equals(u.getId()));}
     private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}
-    private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only HOD or ADMIN can perform this action.");return u;}
+    private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only the HOD can perform this action.");return u;}
     private boolean isHod(User u){return "HOD".equals(u.getRole().toUpperCase());}
     private String semester(String s){String v=s==null?"":s.trim().toUpperCase();if(!Set.of("FIRST","SECOND").contains(v))throw bad("Semester must be FIRST or SECOND.");return v;}
     private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
