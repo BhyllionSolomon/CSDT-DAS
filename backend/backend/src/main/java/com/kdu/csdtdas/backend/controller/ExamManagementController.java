@@ -22,6 +22,7 @@ public class ExamManagementController {
  public Object validate(@PathVariable Long taskId,@PathVariable Long paperId,Authentication a){return validation.validate(name(a),taskId,paperId);}
  @PostMapping("/cycles/{cycleId}/committee/{userId}")
  public ResponseEntity<Void> appoint(@PathVariable Long cycleId,@PathVariable Long userId,Authentication a){service.appoint(name(a),cycleId,userId);return ResponseEntity.noContent().build();}
+ @GetMapping("/reports/submissions") public Object submissionsReport(Authentication a){return service.submissionReport(name(a));}
  @GetMapping("/cycles/{cycleId}") public Object board(@PathVariable Long cycleId,Authentication a){return service.board(name(a),cycleId);}
  @PostMapping(value="/tasks/{taskId}/papers",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
  public Object submit(@PathVariable Long taskId,@RequestParam("file") MultipartFile file,Authentication a){return service.submit(name(a),taskId,file);}
