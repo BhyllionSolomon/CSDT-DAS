@@ -18,7 +18,7 @@ export async function deleteCaItem(id) {
 export async function saveCaScores(itemId, entries) {
     await api.put(`/ca/items/${itemId}/scores`, entries)
 }
-export async function getCaSubmissions(itemId) {
+export async function aggregateCa(payload) {\n    return (await api.post('/ca/aggregate', payload)).data\n}\nexport async function getCaSubmissions(itemId) {
     return (await api.get(`/ca/items/${itemId}/submissions`)).data
 }
 export async function gradeCaSubmission(id, payload) {
