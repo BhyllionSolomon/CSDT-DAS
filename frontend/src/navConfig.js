@@ -60,6 +60,9 @@ export const hodGroups = [
     { label: 'Final-Year Projects', items: [
             { to: '/final-year-projects', label: 'Assign Supervisors' },
             { to: '/supervisor-export', label: 'Allocation to Word' },
+            { to: '/project-cases', label: 'All Project Cases' },
+            { to: '/project-alerts', label: 'Project Alerts' },
+            { to: '/project-survey-admin', label: 'Integrity Form Results' },
         ] },
     { label: 'Results', items: [
             { to: '/enter-result', label: 'Enter Result' },
@@ -86,7 +89,8 @@ export const lecturerGroups = [
             { to: '/teaching', label: 'Materials & Online Classes' },
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
-            { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/project-cases', label: 'My Project Students' },
+            { to: '/project-alerts', label: 'Project Alerts' },
             { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
@@ -132,7 +136,8 @@ export const adviserGroups = [
             { to: '/teaching', label: 'Materials & Online Classes' },
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
-            { to: '/my-project-students', label: 'My Project Students' },
+            { to: '/project-cases', label: 'My Project Students' },
+            { to: '/project-alerts', label: 'Project Alerts' },
             { to: '/supervisor-export', label: 'Project Allocation (Word)' },
             { to: '/my-feedback', label: 'My Feedback' },
             { to: '/lecturer-performance', label: 'My Performance' },
@@ -158,6 +163,8 @@ export const studentGroups = [
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
             { to: '/my-project-supervisor', label: 'My Project Supervisor' },
+            { to: '/my-project', label: 'My Project' },
+            { to: '/project-survey', label: 'Project Integrity Form' },
             { to: '/rate-lecturers', label: 'Rate My Lecturers' },
         ] },
     { label: 'Learning', items: [

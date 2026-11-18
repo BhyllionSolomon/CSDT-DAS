@@ -1,238 +1,144 @@
-import {
-    LayoutDashboard, GraduationCap, BookOpen, Users, UserCog, ClipboardCheck,
-    FileSpreadsheet, Video, FlaskConical, Activity, Award, Bell,
-} from 'lucide-react'
+import RoleDashboard from './pages/RoleDashboard'
+import LecturerDashboard from './pages/LecturerDashboard'
+import MyAccount from './pages/MyAccount'
+import Students from './pages/Students'
+import StudentResults from './pages/StudentResults'
+import StudentsPerSession from './pages/StudentsPerSession'
+import BulkUploadStudents from './pages/BulkUploadStudents'
+import Courses from './pages/Courses'
+import CourseCurriculum from './pages/CurriculumPlanner'
+import CreateCourse from './pages/CreateCourse'
+import BulkUploadCourses from './pages/BulkUploadCourses'
+import Sessions from './pages/Sessions'
+import StartNewSession from './pages/StartNewSession'
+import CohortGuide from './pages/CohortGuide'
+import CarryOverMonitor from './pages/CarryOverMonitor'
+import SystemCheck from './pages/SystemCheck'
+import SupervisorExport from './pages/SupervisorExport'
+import NoticeBoard from './pages/NoticeBoard'
+import ProjectCases from './pages/ProjectCases'
+import ProjectCase from './pages/ProjectCase'
+import ProjectAlerts from './pages/ProjectAlerts'
+import MyProject from './pages/MyProject'
+import ProjectSurveyForm from './pages/ProjectSurveyForm'
+import ProjectSurveyAdmin from './pages/ProjectSurveyAdmin'
+import TimetableAdmin from './pages/TimetableAdmin'
+import LecturerTimetable from './pages/LecturerTimetable'
+import TimetableView from './pages/TimetableView'
+import FinalYearProjects from './pages/FinalYearProjects'
+import MyProjectStudents from './pages/MyProjectStudents'
+import MyProjectSupervisor from './pages/MyProjectSupervisor'
+import RateLecturers from './pages/RateLecturers'
+import FeedbackAdmin from './pages/FeedbackAdmin'
+import MyFeedback from './pages/MyFeedback'
+import LecturerPerformance from './pages/LecturerPerformance'
+import LabManuals from './pages/LabManuals'
+import LabFinance from './pages/LabFinance'
+import MyProgress from './pages/MyProgress'
+import HomeSlidesAdmin from './pages/HomeSlidesAdmin'
+import Attendance from './pages/Attendance'
+import MyAttendance from './pages/MyAttendance'
+import ContinuousAssessment from './pages/ContinuousAssessment'
+import MyCaScores from './pages/MyCaScores'
+import Graduates from './pages/Graduates'
+import SecurityLog from './pages/SecurityLog'
+import EnterResult from './pages/EnterResult'
+import BulkEnterResults from './pages/BulkEnterResults'
+import UploadResultsCsv from './pages/UploadResultsCsv'
+import ResultVerification from './pages/ResultVerification'
+import RegistrationEntry from './pages/RegistrationEntry'
+import MyRegistration from './pages/MyRegistration'
+import RegistrationApprovals from './pages/RegistrationApprovals'
+import RegistrationStatus from './pages/RegistrationStatus'
+import ProgrammeOverview from './pages/ProgrammeOverview'
+import CourseAllocations from './pages/CourseAllocations'
+import BulkUploadAllocation from './pages/BulkUploadAllocation'
+import ClaimCourses from './pages/ClaimCourses'
+import SetUnitRequirements from './pages/SetUnitRequirements'
+import LecturerStudents from './pages/LecturerStudents'
+import ManageLecturers from './pages/ManageLecturers'
+import ManageAdvisers from './pages/ManageAdvisers'
+import ManageLabStaff from './pages/ManageLabStaff'
+import ExamScoresheet from './pages/ExamScoresheet'
+import StudentCarryOvers from './pages/StudentCarryOvers'
+import UploadMyResults from './pages/UploadMyResults'
+import Reports from './pages/Reports'
+import StudentReport from './pages/StudentReport'
+import LecturerTeaching from './pages/LecturerTeaching'
+import StudentLearning from './pages/StudentLearning'
+import MyLevelAdviser from './pages/MyLevelAdviser'
+import PerformanceAnalytics from './pages/PerformanceAnalytics'
 
-export const LAB_ROLES = ['LAB_OFFICER', 'TECHNICAL_STAFF']
-
-const performance = { to: '/analytics/performance', label: 'Performance' }
-const notices = { label: 'Notices', items: [{ to: '/notices', label: 'Notice Board' }] }
-
-export const hodGroups = [
-    notices,
-    { label: 'Department', items: [
-            { to: '/programme-overview', label: 'Programme Overview' },
-            { to: '/sessions', label: 'Academic Sessions' },
-            { to: '/start-session', label: 'Start New Session' },
-            { to: '/cohort-guide', label: 'Cohort Guide' },
-            { to: '/timetable-admin', label: 'Timetable' },
-            { to: '/students-per-session', label: 'Students Per Session' },
-            { to: '/home-slides', label: 'Home Page Images' },
-            { to: '/security-log', label: 'Security Log' },
-            { to: '/system-check', label: 'System Check' },
-        ] },
-    { label: 'Reports', items: [
-            { to: '/reports', label: 'Broadsheet & Lists' },
-            { to: '/student-report', label: 'Student Result' },
-        ] },
-    { label: 'Analytics', items: [
-            performance,
-            { to: '/lecturer-performance', label: 'Lecturer Performance' },
-            { to: '/feedback-admin', label: 'Lecturer Feedback' },
-            { to: '/attendance', label: 'Attendance' },
-            { to: '/continuous-assessment', label: 'Continuous Assessment' },
-            { to: '/carryover-monitor', label: 'Carry-Over Monitor' },
-        ] },
-    { label: 'Students', items: [
-            { to: '/students', label: 'All Students' },
-            { to: '/graduates', label: 'Graduates' },
-            { to: '/bulk-upload-students', label: 'Bulk Upload Students' },
-            { to: '/registration-approvals', label: 'Registration Approvals' },
-            { to: '/register-courses', label: 'Register in Person' },
-            { to: '/registration-status', label: 'Registration Status' },
-        ] },
-    { label: 'Courses', items: [
-            { to: '/curriculum', label: 'Curriculum by Level' },
-            { to: '/courses', label: 'All Courses' },
-            { to: '/create-course', label: 'Create Course' },
-            { to: '/bulk-upload-courses', label: 'Bulk Upload Courses' },
-            { to: '/set-unit-requirements', label: 'Set Required Units' },
-        ] },
-    { label: 'Lecturers', items: [
-            { to: '/course-allocations', label: 'Course Allocations' },
-            { to: '/bulk-upload-allocation', label: 'Bulk Upload Allocation' },
-            { to: '/users', label: 'Manage Lecturers' },
-            { to: '/teaching', label: 'Teaching Activity' },
-        ] },
-    { label: 'Level Advisers', items: [
-            { to: '/advisers', label: 'Manage Advisers' },
-        ] },
-    { label: 'Final-Year Projects', items: [
-            { to: '/final-year-projects', label: 'Assign Supervisors' },
-            { to: '/supervisor-export', label: 'Allocation to Word' },
-        ] },
-    { label: 'Results', items: [
-            { to: '/enter-result', label: 'Enter Result' },
-            { to: '/bulk-enter-results', label: 'Bulk Enter Results' },
-            { to: '/upload-results-csv', label: 'Upload Results' },
-        ] },
-    { label: 'Exams', items: [
-            { to: '/verification', label: 'Result Verification' },
-        ] },
-    { label: 'Laboratory', items: [
-            { to: '/lab-staff', label: 'Manage Lab Staff' },
-            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
-            { to: '/lab-finance', label: 'Manual Finance' },
-        ] },
+// Every page behind the sign-in is registered here. A new page = one new line.
+export const protectedRoutes = [
+    { index: true, element: <RoleDashboard /> },
+    { path: 'notices', element: <NoticeBoard /> },
+    { path: 'my-courses', element: <LecturerDashboard /> },
+    { path: 'my-account', element: <MyAccount /> },
+    { path: 'students', element: <Students /> },
+    { path: 'students/:studentId/results', element: <StudentResults /> },
+    { path: 'students-per-session', element: <StudentsPerSession /> },
+    { path: 'bulk-upload-students', element: <BulkUploadStudents /> },
+    { path: 'courses', element: <Courses /> },
+    { path: 'curriculum', element: <CourseCurriculum /> },
+    { path: 'create-course', element: <CreateCourse /> },
+    { path: 'bulk-upload-courses', element: <BulkUploadCourses /> },
+    { path: 'sessions', element: <Sessions /> },
+    { path: 'start-session', element: <StartNewSession /> },
+    { path: 'cohort-guide', element: <CohortGuide /> },
+    { path: 'carryover-monitor', element: <CarryOverMonitor /> },
+    { path: 'system-check', element: <SystemCheck /> },
+    { path: 'supervisor-export', element: <SupervisorExport /> },
+    { path: 'project-cases', element: <ProjectCases /> },
+    { path: 'project-cases/:id', element: <ProjectCase /> },
+    { path: 'project-alerts', element: <ProjectAlerts /> },
+    { path: 'my-project', element: <MyProject /> },
+    { path: 'project-survey', element: <ProjectSurveyForm /> },
+    { path: 'project-survey-admin', element: <ProjectSurveyAdmin /> },
+    { path: 'timetable-admin', element: <TimetableAdmin /> },
+    { path: 'my-timetable', element: <LecturerTimetable /> },
+    { path: 'timetable', element: <TimetableView /> },
+    { path: 'final-year-projects', element: <FinalYearProjects /> },
+    { path: 'my-project-students', element: <MyProjectStudents /> },
+    { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
+    { path: 'rate-lecturers', element: <RateLecturers /> },
+    { path: 'feedback-admin', element: <FeedbackAdmin /> },
+    { path: 'my-feedback', element: <MyFeedback /> },
+    { path: 'lecturer-performance', element: <LecturerPerformance /> },
+    { path: 'lab-manuals', element: <LabManuals /> },
+    { path: 'lab-finance', element: <LabFinance /> },
+    { path: 'my-progress', element: <MyProgress /> },
+    { path: 'home-slides', element: <HomeSlidesAdmin /> },
+    { path: 'attendance', element: <Attendance /> },
+    { path: 'my-attendance', element: <MyAttendance /> },
+    { path: 'continuous-assessment', element: <ContinuousAssessment /> },
+    { path: 'my-ca', element: <MyCaScores /> },
+    { path: 'graduates', element: <Graduates /> },
+    { path: 'security-log', element: <SecurityLog /> },
+    { path: 'enter-result', element: <EnterResult /> },
+    { path: 'bulk-enter-results', element: <BulkEnterResults /> },
+    { path: 'upload-results-csv', element: <UploadResultsCsv /> },
+    { path: 'verification', element: <ResultVerification /> },
+    { path: 'register-courses', element: <RegistrationEntry /> },
+    { path: 'my-registration', element: <MyRegistration /> },
+    { path: 'registration-approvals', element: <RegistrationApprovals /> },
+    { path: 'registration-status', element: <RegistrationStatus /> },
+    { path: 'programme-overview', element: <ProgrammeOverview /> },
+    { path: 'course-allocations', element: <CourseAllocations /> },
+    { path: 'bulk-upload-allocation', element: <BulkUploadAllocation /> },
+    { path: 'claim-courses', element: <ClaimCourses /> },
+    { path: 'set-unit-requirements', element: <SetUnitRequirements /> },
+    { path: 'lecturer-students', element: <LecturerStudents /> },
+    { path: 'users', element: <ManageLecturers /> },
+    { path: 'advisers', element: <ManageAdvisers /> },
+    { path: 'lab-staff', element: <ManageLabStaff /> },
+    { path: 'exam-scoresheet', element: <ExamScoresheet /> },
+    { path: 'my-carryovers', element: <StudentCarryOvers /> },
+    { path: 'upload-my-results', element: <UploadMyResults /> },
+    { path: 'reports', element: <Reports /> },
+    { path: 'student-report', element: <StudentReport /> },
+    { path: 'teaching', element: <LecturerTeaching /> },
+    { path: 'my-learning', element: <StudentLearning /> },
+    { path: 'my-adviser', element: <MyLevelAdviser /> },
+    { path: 'analytics/performance', element: <PerformanceAnalytics /> },
 ]
-
-export const lecturerGroups = [
-    notices,
-    { label: 'Courses', items: [
-            { to: '/', label: 'My Courses' },
-            { to: '/claim-courses', label: 'Claim Course' },
-        ] },
-    { label: 'Teaching', items: [
-            { to: '/teaching', label: 'Materials & Online Classes' },
-            { to: '/my-timetable', label: 'My Timetable Choices' },
-            { to: '/timetable', label: 'Department Timetable' },
-            { to: '/my-project-students', label: 'My Project Students' },
-            { to: '/supervisor-export', label: 'Project Allocation (Word)' },
-            { to: '/my-feedback', label: 'My Feedback' },
-            { to: '/lecturer-performance', label: 'My Performance' },
-        ] },
-    { label: 'Students', items: [
-            { to: '/lecturer-students', label: 'My Students' },
-        ] },
-    { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance' },
-        ] },
-    { label: 'Continuous Assessment', items: [
-            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
-        ] },
-    { label: 'Exam Scoresheet', items: [
-            { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
-        ] },
-]
-
-// A level adviser is also a lecturer, so every lecturer tool is here as well.
-// "My Courses" lives at /my-courses because "/" is the adviser's programme home.
-export const adviserGroups = [
-    notices,
-    { label: 'Programme', items: [{ to: '/', label: 'My Programme' }] },
-    { label: 'Reports', items: [
-            { to: '/reports', label: 'Broadsheet & Lists' },
-            { to: '/student-report', label: 'Student Result' },
-        ] },
-    { label: 'Analytics', items: [
-            performance,
-            { to: '/carryover-monitor', label: 'Carry-Over Monitor' },
-        ] },
-    { label: 'Students', items: [
-            { to: '/register-courses', label: 'Register in Person' },
-            { to: '/registration-status', label: 'Registration Status' },
-            { to: '/lecturer-students', label: 'My Students' },
-        ] },
-    { label: 'Results', items: [{ to: '/verification', label: 'Result Verification' }] },
-    { label: 'Courses', items: [
-            { to: '/my-courses', label: 'My Courses' },
-            { to: '/claim-courses', label: 'Claim Course' },
-        ] },
-    { label: 'Teaching', items: [
-            { to: '/teaching', label: 'Materials & Online Classes' },
-            { to: '/my-timetable', label: 'My Timetable Choices' },
-            { to: '/timetable', label: 'Department Timetable' },
-            { to: '/my-project-students', label: 'My Project Students' },
-            { to: '/supervisor-export', label: 'Project Allocation (Word)' },
-            { to: '/my-feedback', label: 'My Feedback' },
-            { to: '/lecturer-performance', label: 'My Performance' },
-        ] },
-    { label: 'Attendance', items: [
-            { to: '/attendance', label: 'Take Attendance' },
-        ] },
-    { label: 'Continuous Assessment', items: [
-            { to: '/continuous-assessment', label: 'Record C.A. Scores' },
-        ] },
-    { label: 'Exam Scoresheet', items: [
-            { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
-        ] },
-]
-
-// "gated" items are locked for a student until the H.O.D approves their registration.
-export const studentGroups = [
-    notices,
-    { label: 'Academics', items: [
-            { to: '/register-courses', label: 'Course Registration' },
-            { to: '/my-registration', label: 'Registration & Payment' },
-            { to: '/timetable', label: 'Timetable' },
-            { to: '/my-carryovers', label: 'Carry-Over Courses' },
-            { to: '/my-adviser', label: 'My Level Adviser' },
-            { to: '/my-project-supervisor', label: 'My Project Supervisor' },
-            { to: '/rate-lecturers', label: 'Rate My Lecturers' },
-        ] },
-    { label: 'Learning', items: [
-            { to: '/my-learning', label: 'Class Materials & Online Classes', gated: true },
-        ] },
-    { label: 'Attendance', items: [
-            { to: '/my-attendance', label: 'My Attendance' },
-        ] },
-    { label: 'Continuous Assessment', items: [
-            { to: '/my-ca', label: 'My C.A. Scores' },
-        ] },
-    { label: 'My Results', items: [
-            { to: '/my-progress', label: 'My Progress', gated: true },
-            { to: '/upload-my-results', label: 'Upload & Analyse Results', gated: true },
-        ] },
-]
-
-export const labGroups = [
-    notices,
-    { label: 'Laboratory', items: [
-            { to: '/', label: 'Lab Home' },
-            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
-            { to: '/lab-finance', label: 'Manual Finance' },
-        ] },
-]
-
-// Technical staff record sales but never see the money or the finance page.
-export const technicalGroups = [
-    notices,
-    { label: 'Laboratory', items: [
-            { to: '/', label: 'Lab Home' },
-            { to: '/lab-manuals', label: 'Manual Sales & Stock' },
-        ] },
-]
-
-export function getGroupsForRole(role) {
-    switch (role) {
-        case 'HOD':
-        case 'ADMIN':
-            return hodGroups
-        case 'LECTURER':
-        case 'ADJUNCT':
-            return lecturerGroups
-        case 'LEVEL_ADVISER':
-            return adviserGroups
-        case 'STUDENT':
-            return studentGroups
-        case 'LAB_OFFICER':
-            return labGroups
-        case 'TECHNICAL_STAFF':
-            return technicalGroups
-        default:
-            return []
-    }
-}
-
-export const GROUP_ICONS = {
-    'Notices': Bell,
-    'Department': LayoutDashboard,
-    'Reports': FileSpreadsheet,
-    'Analytics': Activity,
-    'Students': GraduationCap,
-    'Courses': BookOpen,
-    'Lecturers': Users,
-    'Level Advisers': UserCog,
-    'Final-Year Projects': Award,
-    'Results': ClipboardCheck,
-    'Exams': FileSpreadsheet,
-    'Teaching': Video,
-    'Learning': Video,
-    'Attendance': ClipboardCheck,
-    'Continuous Assessment': ClipboardCheck,
-    'Exam Scoresheet': FileSpreadsheet,
-    'Programme': BookOpen,
-    'Academics': GraduationCap,
-    'My Results': FileSpreadsheet,
-    'Laboratory': FlaskConical,
-}
