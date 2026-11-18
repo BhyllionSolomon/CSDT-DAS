@@ -281,7 +281,7 @@ public class ProjectSupervisionService {
         for (String cls : List.of("UPPER", "LOWER", "THIRD", "FAIL", "OTHER")) {
             List<Ranked> group = students.stream().filter(r -> r.cls().equals(cls)).sorted(strongest).toList();
             for (Ranked r : group) {
-                Sup chosen = sups.stream().filter(s -> s.total < s.profile.getMaxSupervisionLoad()).min(Comparator
+                Sup chosen = sups.stream().filter(s -> s.total < maxLoad(s.profile)).min(Comparator
                         .comparingInt((Sup s) -> s.total)
                         .thenComparing(s -> s.user.getFullName().toLowerCase())).orElseThrow(() -> bad("Supervisor capacity is exhausted. Increase one or more supervisor limits before generating the allocation."));
                 chosen.take(r, cls);
