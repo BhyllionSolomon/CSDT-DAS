@@ -12,8 +12,7 @@ public class ExamOperationsService {
  private final UserRepository users;private final ExamCourseTaskRepository tasks;private final ExamSittingRepository sittings;
  private final ExamDispatchRecordRepository dispatches;private final ExamScriptBatchRepository batches;
  private final CourseRegistrationRepository registrations;private final ExamAuditEventRepository audit;
- public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,
-  ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;}
+ public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;allocationRepository=alloc;}
 
  public Map<String,Object> confirmSitting(String actor,Long taskId,String venue,LocalTime start,LocalTime end){
   User hod=hod(actor);ExamCourseTask task=task(taskId);if(start==null||end==null||!end.isAfter(start))throw bad("Valid examination start and end times are required.");
@@ -70,6 +69,4 @@ public class ExamOperationsService {
  private Map<String,Object> dispatchMap(ExamDispatchRecord d){Map<String,Object> m=new LinkedHashMap<>();m.put("id",d.getId());m.put("course",d.getTask().getCourse().getCode());m.put("examDate",d.getTask().getExamDate());m.put("venue",d.getVenue());m.put("assignedTo",d.getDispatchUser().getFullName());m.put("collectedAt",d.getCollectedAt());m.put("deliveredAt",d.getDeliveredAt());m.put("scriptsReceivedAt",d.getScriptsReceivedAt());m.put("scriptsCount",d.getScriptsCount());m.put("returnedBy",d.getReturnedByName());m.put("returnedByUnit",d.getReturnedByUnit());return m;}
  private Map<String,Object> batchMap(ExamScriptBatch b){Map<String,Object> m=new LinkedHashMap<>();m.put("id",b.getId());m.put("course",b.getTask().getCourse().getCode());m.put("lecturer",b.getLecturer().getFullName());m.put("quantityCollected",b.getQuantityCollected());m.put("quantityReturned",b.getQuantityReturned());m.put("outstanding",b.getQuantityCollected()-(b.getQuantityReturned()==null?0:b.getQuantityReturned()));m.put("collectedAt",b.getCollectedAt());m.put("returnedAt",b.getReturnedAt());m.put("notes",b.getNotes());return m;}
  private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
- public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc){this(u,t,s,d,b,r,a,alloc);}
- private ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;allocationRepository=alloc;}
 }
