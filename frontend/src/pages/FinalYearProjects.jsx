@@ -17,6 +17,7 @@ export default function FinalYearProjects() {
     const [sessionId, setSessionId] = useState('')
     const [staff, setStaff] = useState([])
     const canManageHierarchy = isHod || staff.some(s => s.username === user?.username && (s.coordinator || s.assistantCoordinator))
+    const canViewCgpa = canManageHierarchy
     const [assignments, setAssignments] = useState([])
     const [draft, setDraft] = useState(null)
     const [showSettings, setShowSettings] = useState(false)
@@ -178,7 +179,7 @@ export default function FinalYearProjects() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Supervisor</th></tr>
+                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th>{canViewCgpa && <th className="p-3 text-left">CGPA</th>}<th className="p-3 text-left">Supervisor</th></tr>
                                         </thead>
                                         <tbody className="divide-y theme-border">
                                             {g.items.map(item => (
@@ -186,6 +187,7 @@ export default function FinalYearProjects() {
                                                     <td className="p-3 font-medium">{item.fullName}</td>
                                                     <td className="p-3">{item.matricNumber}</td>
                                                     <td className="p-3">{item.programme}</td>
+                                                    {canViewCgpa && <td className="p-3 tabular-nums">{item.cgpa == null ? "—" : Number(item.cgpa).toFixed(2)}</td>}
                                                     <td className="p-3">
                                                         <select disabled={busy || draft.status !== 'DRAFT'} value={item.supervisorId}
                                                             onChange={e => move(item, e.target.value)}
