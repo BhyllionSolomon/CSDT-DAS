@@ -22,9 +22,11 @@ public final class CaDTOs {
     public record SubmissionReceipt(Long id, String fileName, LocalDateTime submittedAt, String status,
                                      Double score, String feedback) {}
     public record GradeRequest(BigDecimal score, String feedback) {}
+    public record AggregateRequest(Long courseId, Long sessionId, String semester) {}
+    public record FinalScoreRow(Long studentId, String matricNumber, String fullName, double rawTotal, double caScore) {}
     public record MyItem(Long id, String category, String title, double max, Double score, String instructions,
                          LocalDateTime dueAt, String submissionStatus, String submissionFileName,
                          LocalDateTime submittedAt, String feedback) {}
-    public record MyCourse(Long courseId, String code, String title, List<MyItem> items, double earned, double releasedMax) {}
+    public record MyCourse(Long courseId, String code, String title, List<MyItem> items, double earned, double releasedMax, boolean aggregated, Double finalScore, LocalDateTime aggregatedAt) {}
     public record Mine(double cap, List<MyCourse> courses) {}
 }
