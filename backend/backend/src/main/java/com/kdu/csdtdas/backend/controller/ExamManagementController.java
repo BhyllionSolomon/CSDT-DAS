@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
+import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/exams")
 @CrossOrigin(origins="*")
@@ -20,6 +21,10 @@ public class ExamManagementController {
  @PostMapping(value="/tasks/{taskId}/papers",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
  public Object submit(@PathVariable Long taskId,@RequestParam("file") MultipartFile file,Authentication a){return service.submit(name(a),taskId,file);}
  @GetMapping("/tasks/{taskId}/papers") public Object papers(@PathVariable Long taskId,Authentication a){return service.papers(name(a),taskId);}
+ @PostMapping("/papers/{paperId}/access/{userId}")
+ public ResponseEntity<Void> grant(@PathVariable Long paperId,@PathVariable Long userId,@RequestBody AccessRequest body,Authentication a){service.grantPaperAccess(name(a),paperId,userId,body.expiresAt());return ResponseEntity.noContent().build();}
+ @DeleteMapping("/papers/{paperId}/access/{userId}")
+ public ResponseEntity<Void> revoke(@PathVariable Long paperId,@PathVariable Long userId,Authentication a){service.revokePaperAccess(name(a),paperId,userId);return ResponseEntity.noContent().build();}
  @PutMapping("/papers/{paperId}/review")
  public ResponseEntity<Void> review(@PathVariable Long paperId,@RequestBody ReviewRequest b,Authentication a){service.review(name(a),paperId,b.decision(),b.notes());return ResponseEntity.noContent().build();}
  @GetMapping("/papers/{paperId}/file")
@@ -29,4 +34,5 @@ public class ExamManagementController {
  }
  private String name(Authentication a){if(a==null||!a.isAuthenticated()||"anonymousUser".equals(a.getPrincipal()))throw new IllegalArgumentException("Sign in required.");return a.getName();}
  public record ReviewRequest(String decision,String notes){}
+ public record AccessRequest(LocalDateTime expiresAt){}
 }
