@@ -5,19 +5,23 @@ import java.time.*;import java.util.*;
 @Component
 public class ExamReminderScheduler{
  private static final ZoneId LAGOS=ZoneId.of("Africa/Lagos");
- private final ExamCourseTaskRepository tasks;private final CourseAllocationRepository allocations;private final ExamNotificationRepository notifications;private final ExamScriptBatchRepository batches;
- public ExamReminderScheduler(ExamCourseTaskRepository t,CourseAllocationRepository a,ExamNotificationRepository n,ExamScriptBatchRepository b){tasks=t;allocations=a;notifications=n;batches=b;}
+ private final ExamCourseTaskRepository tasks;private final CourseAllocationRepository allocations;private final ExamNotificationRepository notifications;private final ExamScriptBatchRepository batches;private final ExamPaperRepository papers;private final UserRepository users;
+ public ExamReminderScheduler(ExamCourseTaskRepository t,CourseAllocationRepository a,ExamNotificationRepository n,ExamScriptBatchRepository b,ExamPaperRepository p,UserRepository u){tasks=t;allocations=a;notifications=n;batches=b;papers=p;users=u;}
  @Scheduled(cron="0 0 8 * * *",zone="Africa/Lagos") @Transactional
  public void sendDailyReminders(){LocalDate today=LocalDate.now(LAGOS);
   for(ExamCourseTask task:tasks.findAll()){
    long examDays=Duration.between(today.atStartOfDay(),task.getExamDate().atStartOfDay()).toDays();
    long deadlineDays=Duration.between(today.atStartOfDay(),task.getSubmissionDeadline().toLocalDate().atStartOfDay()).toDays();
    List<CourseAllocation> assigned=allocations.findForCourse(task.getCourse().getId(),task.getCycle().getAcademicSession().getId(),task.getCycle().getSemester());
+   boolean overdue=false;
    for(CourseAllocation ca:assigned){User recipient=ca.getLecturer();if(recipient==null)continue;
+    boolean hasPaper=papers.findByTaskIdOrderByVersionDesc(task.getId()).stream().anyMatch(p->p.getLecturer().getId().equals(recipient.getId()));
+    if(today.isAfter(task.getSubmissionDeadline().toLocalDate())&&!hasPaper)overdue=true;
     if(Set.of(49L,14L,7L,3L,1L,0L).contains(examDays)) create(recipient,task,"EXAM_D"+examDays,"Examination approaching","Your "+task.getCourse().getCode()+" examination is in "+examDays+" day(s).");
     if(Set.of(7L,3L,1L,0L).contains(deadlineDays)) create(recipient,task,"DEADLINE_D"+deadlineDays,"Question-paper deadline reminder","Submit the question paper for "+task.getCourse().getCode()+". Deadline: "+task.getSubmissionDeadline()+".");
     if(today.isAfter(task.getSubmissionDeadline().toLocalDate()))create(recipient,task,"OVERDUE_"+today,"Question paper overdue","The question-paper deadline for "+task.getCourse().getCode()+" has passed. Submit immediately and contact the HOD.");
    }
+   if(overdue){for(User hod:users.findByRoleIn(List.of("HOD","ADMIN")))create(hod,task,"HOD_OVERDUE_"+today,"Overdue examination question paper","At least one allocated lecturer has not submitted a question paper for "+task.getCourse().getCode()+". Review the submission report.");}
   }
   for(ExamScriptBatch batch:batches.findAll()){
    LocalDateTime deadline=batch.getTask().getMarkingDeadline();if(deadline==null)continue;
