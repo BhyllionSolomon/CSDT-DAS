@@ -37,18 +37,21 @@ public class PaystackLabManualService {
     private final String secretKey;
     private final String webhookSecret;
     private final String callbackUrl;
+    private final boolean paymentsEnabled;
 
     public PaystackLabManualService(LabManualOrderRepository orders, StudentRepository students,
             LabManualService manualService, SensitiveFieldEncryptionService encryption, ObjectMapper mapper,
             @Value("${paystack.secret-key:}") String secretKey,
             @Value("${paystack.webhook-secret:}") String webhookSecret,
-            @Value("${paystack.callback-url:}") String callbackUrl) {
+            @Value("${paystack.callback-url:}") String callbackUrl,
+            @Value("${paystack.enabled:false}") boolean paymentsEnabled) {
         this.orders=orders; this.students=students; this.manualService=manualService; this.encryption=encryption; this.mapper=mapper;
-        this.secretKey=secretKey; this.webhookSecret=webhookSecret; this.callbackUrl=callbackUrl;
+        this.secretKey=secretKey; this.webhookSecret=webhookSecret; this.callbackUrl=callbackUrl; this.paymentsEnabled=paymentsEnabled;
     }
 
     @Transactional
     public LabStudentDTOs.PaymentInit initialise(String username, Long orderId) {
+        if (!paymentsEnabled) throw new IllegalStateException("Online lab manual payment is not active yet. Please check back later.");
         requireCheckoutConfigured();
         Student student = student(username);
         LabManualOrder order = orders.findByIdAndStudentId(orderId, student.getId())
