@@ -15,7 +15,8 @@ public class LabManualOrderAdminService {
                 o.getStudent().getProgramme() == null ? "" : o.getStudent().getProgramme().getName(),
                 o.getStudent().getLevel() == null ? "" : o.getStudent().getLevel().getName(),
                 o.getManual().getCourse() == null ? "" : o.getManual().getCourse().getCode(),
-                o.getManual().getTitle(), o.getAmount(), o.getStatus(), o.getAcademicSession().getName(), o.getCreatedAt()
+                o.getManual().getTitle(), o.getAmount(), o.getStatus(), o.getAcademicSession().getName(), o.getCreatedAt(),
+                o.getReceiptNumber(), o.getPaystackReference(), o.getPaidAt(), o.getIssuedAt(), o.getIssuedBy()
         )).toList();
     }
 }
