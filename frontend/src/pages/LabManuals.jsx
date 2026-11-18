@@ -194,7 +194,7 @@ function LabManuals() {
             {tab === 'orders' && canFinance && (
                 <div className="card overflow-hidden">
                     <div className="theme-sidebar text-white px-4 py-3 text-sm font-semibold">Student lab manual requests</div>
-                    <p className="p-4 text-sm theme-text-muted">These are requests, not confirmed payments. Payment confirmation will only be recorded after secure gateway verification. Do not issue a manual based on this request alone.</p>
+                    <p className="p-4 text-sm theme-text-muted">Payment status is updated only after Paystack verification. Mark a manual as issued only after the student has physically collected it; this also updates the stock and sales ledger.</p>
                     {orders.length === 0 ? <p className="p-5 text-sm theme-text-muted">No student requests have been submitted.</p> :
                     <div className="overflow-x-auto"><table className="w-full text-sm text-left min-w-[780px]">
                         <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted text-xs uppercase"><tr>
