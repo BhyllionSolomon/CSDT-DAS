@@ -28,7 +28,7 @@ function LabManuals() {
     const [notice, setNotice] = useState(null)
 
     async function refresh() {
-        const [m, s, o] = await Promise.all([getManuals(), getSales(), getManualOrders()])
+        const [m, s, o] = await Promise.all([getManuals(), getSales(), canFinance ? getManualOrders() : Promise.resolve([])])
         setManuals(m); setSales(s); setOrders(o)
     }
 
