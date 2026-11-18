@@ -37,8 +37,8 @@ function StudentLearning() {
         if (reference) {
             setTab('manuals')
             verifyStudentLabManualPayment(reference)
-                .then(async () => { setPaymentNotice('Payment confirmed. Your receipt is ready.'); await load() })
-                .catch(async err => setError(await messageFrom(err)))
+                .then(async verified => { setPaymentNotice('Payment confirmed. Your receipt is ready.'); setReceipt(verified); await load() })
+                .catch(async err => { setError(await messageFrom(err)); await load() })
                 .finally(() => { window.history.replaceState({}, document.title, window.location.pathname); setLoading(false) })
         } else { load().finally(() => setLoading(false)) }
     }, [])
