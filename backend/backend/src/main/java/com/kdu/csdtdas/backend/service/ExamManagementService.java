@@ -77,7 +77,7 @@ public class ExamManagementService {
         paper.setContentType(type.contains("pdf")?"application/pdf":"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         paper.setEncryptedFile(encrypted.ciphertext());paper.setWrappedDataKey(encrypted.wrappedKey());paper.setContentSha256(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(plain)));paper.setVersion(version);paper.setStatus("SUBMITTED");papers.save(paper);audit(lecturer,"PAPER_SUBMITTED","EXAM_PAPER",paper.getId(),"Task "+taskId+" version "+version);
         return Map.of("paperId",paper.getId(),"version",version,"status",paper.getStatus(),"submittedAt",paper.getSubmittedAt());
-      }catch(IOException e){throw bad("Uploaded file could not be read.");}
+      }catch(Exception e){throw bad("Uploaded file could not be encrypted or read.");}
     }
     public List<Map<String,Object>> papers(String username,Long taskId){
       User viewer=user(username);ExamCourseTask task=tasks.findById(taskId).orElseThrow(()->bad("Exam task not found."));
