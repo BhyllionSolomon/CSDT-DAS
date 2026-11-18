@@ -9,12 +9,12 @@ public final class ProjectDTOs {
     private ProjectDTOs() {}
 
     public record StaffRow(
-            Long userId, String fullName, String role, String designation,
+            Long userId, String username, String fullName, String role, String designation, String displayTitle, int displayOrder,
             boolean eligible, boolean firstClassEligible, boolean coordinator, boolean assistantCoordinator, int currentLoad
     ) {}
 
     public record StaffUpdate(
-            Long userId, String designation, Boolean eligible, Boolean firstClassEligible, Boolean coordinator, Boolean assistantCoordinator
+            Long userId, String designation, String displayTitle, Integer displayOrder, Boolean eligible, Boolean firstClassEligible, Boolean coordinator, Boolean assistantCoordinator
     ) {}
 
     public record StudentLine(
@@ -79,6 +79,9 @@ public final class ProjectDTOs {
     /** Deliberately excludes CGPA and degree classification. */
     public record PublicScheduleRow(
             String sessionName, String matricNumber, String fullName, String programme,
-            String supervisorName, String designation
+            String supervisorName, String designation, String displayTitle, int displayOrder
     ) {}
+
+    public record AllocationExportRow(String supervisor, String student, String matric, String programme) {}
+    public record AllocationExportPreview(String session, int count, List<AllocationExportRow> rows) {}
 }

@@ -128,7 +128,7 @@ public class ProjectSupervisionService {
         for (User u : candidates()) {
             StaffProfile p = profileFor(u);
             rows.add(new ProjectDTOs.StaffRow(
-                    u.getId(), u.getFullName(), u.getRole(), p.getDesignation(),
+                    u.getId(), u.getUsername(), u.getFullName(), u.getRole(), p.getDesignation(), p.getDisplayTitle(), p.getDisplayOrder(),
                     p.isSupervisionEligible(), p.isFirstClassEligible(), p.isProjectCoordinator(), p.isAssistantCoordinator(),
                     load.getOrDefault(u.getId(), 0)
             ));
@@ -137,7 +137,7 @@ public class ProjectSupervisionService {
     }
 
     public List<ProjectDTOs.StaffRow> saveStaff(String username, List<ProjectDTOs.StaffUpdate> updates) {
-        requireHod(username);
+        requireProjectManager(username);
         if (updates == null) throw bad("Nothing to save.");
 
         if (updates.stream().filter(u -> Boolean.TRUE.equals(u.coordinator())).count() > 1) {
@@ -158,6 +158,11 @@ public class ProjectSupervisionService {
 
             StaffProfile p = profileFor(u);
             p.setDesignation(designation);
+            if (up.displayTitle() != null) p.setDisplayTitle(up.displayTitle());
+            if (up.displayOrder() != null) {
+                if (up.displayOrder() < 1 || up.displayOrder() > 9999) throw bad("Hierarchy order must be between 1 and 9999.");
+                p.setDisplayOrder(up.displayOrder());
+            }
             p.setSupervisionEligible(Boolean.TRUE.equals(up.eligible()));
             p.setFirstClassEligible(Boolean.TRUE.equals(up.firstClassEligible()) && Boolean.TRUE.equals(up.eligible()));
             p.setProjectCoordinator(Boolean.TRUE.equals(up.coordinator()));
@@ -392,13 +397,22 @@ public class ProjectSupervisionService {
     /** Public schedule DTO intentionally contains no CGPA or degree classification. */
     public List<ProjectDTOs.PublicScheduleRow> publicSchedule(Long sessionId) {
         AcademicSession academicSession = session(sessionId);
-        return repository.findForSession(academicSession.getId()).stream()
+        return orderedAssignments(academicSession.getId()).stream()
                 .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
                 .map(p -> new ProjectDTOs.PublicScheduleRow(academicSession.getName(),
                         p.getStudent().getMatricNumber(), p.getStudent().getFullName(),
                         p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : "",
-                        p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation()))
+                        p.getSupervisor().getFullName(), profileFor(p.getSupervisor()).getDesignation(),
+                        profileFor(p.getSupervisor()).getDisplayTitle(), profileFor(p.getSupervisor()).getDisplayOrder()))
                 .toList();
+    }
+
+    private List<ProjectSupervision> orderedAssignments(Long sessionId) {
+        return repository.findForSession(sessionId).stream().sorted(
+                Comparator.comparingInt((ProjectSupervision p) -> profileFor(p.getSupervisor()).getDisplayOrder())
+                        .thenComparing(p -> p.getSupervisor().getFullName(), String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(p -> p.getStudent().getFullName(), String.CASE_INSENSITIVE_ORDER)
+        ).toList();
     }
 
     private Map<Long, User> supsById(List<Sup> sups) {

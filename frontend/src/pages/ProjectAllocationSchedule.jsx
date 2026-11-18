@@ -47,7 +47,7 @@ export default function ProjectAllocationSchedule() {
                         <tr><th className="p-3 text-left">S/N</th><th className="p-3 text-left">Supervisor</th><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th></tr>
                     </thead>
                     <tbody className="divide-y theme-border">{rows.map((r,i) => <tr key={`${r.matricNumber}-${i}`}>
-                        <td className="p-3">{i + 1}</td><td className="p-3">{r.supervisorName}</td><td className="p-3 font-medium">{r.fullName}</td><td className="p-3">{r.matricNumber}</td><td className="p-3">{r.programme}</td>
+                        <td className="p-3">{i + 1}</td><td className="p-3">{r.displayTitle ? `${r.displayTitle} ` : ''}{r.supervisorName}</td><td className="p-3 font-medium">{r.fullName}</td><td className="p-3">{r.matricNumber}</td><td className="p-3">{r.programme}</td>
                     </tr>)}</tbody>
                 </table></div>}
         </div>

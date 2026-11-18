@@ -2,6 +2,7 @@ package com.kdu.csdtdas.backend.service;
 
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.ProjectSupervision;
+import com.kdu.csdtdas.backend.entity.StaffProfile;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
 import com.kdu.csdtdas.backend.repository.ProjectSupervisionRepository;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.util.zip.ZipEntry;
@@ -25,7 +27,7 @@ import java.util.zip.ZipOutputStream;
 @Transactional(readOnly = true)
 public class SupervisionExportService {
 
-    public record Row(String supervisor, String student, String matric, String programme) {}
+    public record Row(String supervisor, String student, String matric, String programme, int displayOrder) {}
 
     public record Preview(String session, int count, List<Row> rows) {}
 
@@ -73,12 +75,23 @@ public class SupervisionExportService {
     private List<Row> rows(AcademicSession session) {
         return repository.findForSession(session.getId()).stream()
                 .filter(p -> "PUBLISHED".equalsIgnoreCase(p.getStatus()))
-                .map(p -> new Row(
-                p.getSupervisor().getFullName(),
-                p.getStudent().getFullName(),
-                p.getStudent().getMatricNumber(),
-                p.getStudent().getProgramme() != null ? p.getStudent().getProgramme().getName() : DEFAULT_PROGRAMME
-        )).toList();
+                .sorted(Comparator
+                        .comparingInt((ProjectSupervision p) -> profile(p.getSupervisor()).map(StaffProfile::getDisplayOrder).orElse(9999))
+                        .thenComparing(p -> p.getSupervisor().getFullName(), String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(p -> p.getStudent().getFullName(), String.CASE_INSENSITIVE_ORDER))
+                .map(p -> {
+                    StaffProfile profile = profile(p.getSupervisor()).orElse(null);
+                    String prefix = profile == null || profile.getDisplayTitle() == null ? "" : profile.getDisplayTitle().trim();
+                    String supervisor = prefix.isBlank() ? p.getSupervisor().getFullName()
+                            : prefix + " " + p.getSupervisor().getFullName();
+                    return new Row(supervisor, p.getStudent().getFullName(), p.getStudent().getMatricNumber(),
+                            "Computing Science and Digital Technology",
+                            profile == null ? 9999 : profile.getDisplayOrder());
+                }).toList();
+    }
+
+    private java.util.Optional<StaffProfile> profile(User user) {
+        return profileRepository.findByUserId(user.getId());
     }
 
 
@@ -109,14 +122,11 @@ public class SupervisionExportService {
         x.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>")
                 .append("<w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\"><w:body>");
 
-        x.append(paragraph("KOLA DAISI UNIVERSITY", true, 32, "center", "17365D", 120));
+        x.append(paragraph("KOLADAISI UNIVERSITY", true, 32, "center", "17365D", 120));
         x.append(paragraph("DEPARTMENT OF COMPUTING SCIENCE AND DIGITAL TECHNOLOGY", true, 22, "center", "287C91", 100));
         x.append(paragraph("FINAL-YEAR PROJECT SUPERVISOR–SUPERVISEE ALLOCATION", true, 27, "center", "17365D", 70));
         x.append(paragraph(sessionName + " ACADEMIC SESSION", true, 22, "center", "287C91", 220));
-        x.append(paragraph("This document presents the approved project supervision allocation for the academic session.", false, 19, "center", "555555", 180));
-
         int supervisors = (int) rows.stream().map(Row::supervisor).distinct().count();
-        x.append(summaryTable(rows.size(), supervisors));
         x.append(paragraph(" ", false, 12, "left", "FFFFFF", 100));
 
         Map<String, List<Row>> grouped = new LinkedHashMap<>();
@@ -129,8 +139,6 @@ public class SupervisionExportService {
         }
 
         x.append(paragraph("TOTAL: " + rows.size() + " STUDENT(S)  |  " + supervisors + " SUPERVISOR(S)", true, 20, "left", "17365D", 100));
-        x.append(paragraph("Generated on " + LocalDate.now() + ".", false, 16, "left", "666666", 80));
-        x.append(paragraph("For departmental use and record.", false, 16, "left", "666666", 180));
 
         x.append("<w:sectPr><w:pgSz w:w=\"11906\" w:h=\"16838\"/>")
                 .append("<w:pgMar w:top=\"850\" w:right=\"850\" w:bottom=\"850\" w:left=\"850\" w:header=\"400\" w:footer=\"400\" w:gutter=\"0\"/></w:sectPr>")
@@ -139,42 +147,9 @@ public class SupervisionExportService {
     }
 
     private String supervisorHeading(String supervisor, int count) {
-        String[] details = supervisorDetails(supervisor);
-        return "<w:p><w:pPr><w:spacing w:before=\"180\" w:after=\"60\"/><w:shd w:val=\"clear\" w:color=\"auto\" w:fill=\"DCEAF2\"/>"
-                + "<w:ind w:left=\"100\" w:right=\"100\"/></w:pPr><w:r><w:rPr><w:b/><w:color w:val=\"17365D\"/><w:sz w:val=\"22\"/></w:rPr><w:t>"
-                + esc(details[0]) + "</w:t></w:r><w:r><w:rPr><w:color w:val=\"287C91\"/><w:sz w:val=\"18\"/></w:rPr><w:t xml:space=\"preserve\">  "
-                + esc(details[1]) + "  |  " + count + " student(s)</w:t></w:r></w:p>";
-    }
-
-    private String[] supervisorDetails(String supervisorName) {
-        User supervisor = userRepository.findAll().stream()
-                .filter(u -> supervisorName.equals(u.getFullName()))
-                .findFirst().orElse(null);
-        if (supervisor == null) return new String[]{supervisorName, "Project Supervisor"};
-
-        var profile = profileRepository.findByUserId(supervisor.getId()).orElse(null);
-        if (profile == null) return new String[]{supervisorName, "Project Supervisor"};
-
-        String designation = profile.getDesignation() == null ? "" : profile.getDesignation().toUpperCase();
-        String prefix = switch (designation) {
-            case "PROFESSOR" -> "Prof. ";
-            case "ASSOCIATE_PROFESSOR" -> "Associate Prof. ";
-            case "SENIOR_LECTURER" -> "Senior Lecturer ";
-            case "LECTURER_I" -> "Lecturer I ";
-            case "LECTURER_II" -> "Lecturer II ";
-            case "ASSISTANT_LECTURER" -> "Assistant Lecturer ";
-            case "ADJUNCT" -> "Adjunct Lecturer ";
-            default -> "";
-        };
-        String name = supervisorName;
-        if (!prefix.isBlank() && !supervisorName.matches("(?i)^(prof\\.?|professor|dr\\.?|mr\\.?|mrs\\.?|miss|associate prof\\.?|senior lecturer|lecturer|assistant lecturer|adjunct lecturer).*")) {
-            name = prefix + supervisorName;
-        }
-        String role = profile.isProjectCoordinator() ? "Project Coordinator"
-                : profile.isAssistantCoordinator() ? "Assistant Project Coordinator"
-                : designation.equals("HEAD_OF_DEPARTMENT") ? "Head of Department"
-                : "Project Supervisor";
-        return new String[]{name, role};
+        return "<w:p><w:pPr><w:spacing w:before=\"180\" w:after=\"60\"/></w:pPr>"
+                + "<w:r><w:rPr><w:b/><w:color w:val=\"17365D\"/><w:sz w:val=\"22\"/></w:rPr><w:t>"
+                + esc(supervisor) + "  |  " + count + " student(s)</w:t></w:r></w:p>";
     }
 
     private String summaryTable(int studentCount, int supervisorCount) {
@@ -194,7 +169,7 @@ public class SupervisionExportService {
 
     private String studentTable(List<Row> rows) {
         int[] widths = {700, 3900, 2800, 4200};
-        String[] heads = {"S/N", "Student name", "Matriculation number", "Programme"};
+        String[] heads = {"S/N", "Student name", "Matriculation number", "Department"};
         StringBuilder x = new StringBuilder("<w:tbl><w:tblPr><w:tblW w:w=\"12350\" w:type=\"dxa\"/><w:tblBorders>");
         for (String side : new String[]{"top", "left", "bottom", "right", "insideH", "insideV"}) {
             x.append("<w:").append(side).append(" w:val=\"single\" w:sz=\"4\" w:color=\"C7D5DF\"/>");
