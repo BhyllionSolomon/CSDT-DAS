@@ -18,10 +18,10 @@ public class ExamManagementService {
     private final ExamCommitteeMemberRepository committee; private final ExamPaperRepository papers;
     private final AcademicSessionRepository sessions; private final CourseRepository courses;
     private final UserRepository users; private final CourseAllocationRepository allocations;
-    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess; private final ExamNotificationRepository notifications; private final ExamWatermarkService watermark;
+    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess; private final ExamNotificationRepository notifications; private final ExamWatermarkService watermark; private final MailService mail;
     public ExamManagementService(ExamCycleRepository c,ExamCourseTaskRepository t,ExamCommitteeMemberRepository m,
       ExamPaperRepository p,AcademicSessionRepository s,CourseRepository co,UserRepository u,
-      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess,ExamNotificationRepository notifications,ExamWatermarkService watermark){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;this.notifications=notifications;this.watermark=watermark;}
+      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess,ExamNotificationRepository notifications,ExamWatermarkService watermark,MailService mail){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;this.notifications=notifications;this.watermark=watermark;this.mail=mail;}
 
     public Map<String,Object> configure(String username,Long sessionId,String semester,List<TaskInput> input){
       User hod=hod(username); AcademicSession session=sessions.findById(sessionId).orElseThrow(()->bad("Academic session not found."));
@@ -121,7 +121,7 @@ public class ExamManagementService {
     }
     private void notifyLecturer(User recipient,ExamCourseTask task,String key,String title,String message){
       if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(recipient.getId(),task.getId(),key))return;
-      ExamNotification n=new ExamNotification();n.setRecipient(recipient);n.setTask(task);n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);
+      ExamNotification n=new ExamNotification();n.setRecipient(recipient);n.setTask(task);n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);if(recipient.getEmail()!=null&&!recipient.getEmail().isBlank()){try{mail.send(recipient.getEmail(),title,message);}catch(RuntimeException ignored){/* In-app feedback remains available. */}}
     }
     public void grantPaperAccess(String username,Long paperId,Long memberId,LocalDateTime expiresAt){
       User hod=hod(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
