@@ -207,7 +207,7 @@ function LabManuals() {
                                 {o.status === 'AWAITING_PAYMENT' ? 'Awaiting payment' : o.status === 'PAID' ? 'Paid — awaiting collection' : o.status}
                                 {o.paidAt && <div className="text-xs theme-text-muted">{new Date(o.paidAt).toLocaleString('en-GB')}</div>}
                             </td><td className="px-4 py-3">
-                                {o.receiptNumber && <div className="text-xs">{o.receiptNumber}</div>}
+                                {o.receiptNumber && <div className="text-xs">Receipt: {o.receiptNumber}</div>}{o.paymentReference && <div className="text-[10px] theme-text-muted break-all">Ref: {o.paymentReference}</div>}
                                 {o.status === 'PAID' && <button disabled={busy} onClick={() => act(() => issueLabManualOrder(o.id), 'Manual marked as issued; stock updated.')} className="mt-1 text-xs underline disabled:opacity-50">Mark as issued</button>}
                                 {o.status === 'ISSUED' && <span className="text-xs theme-text-muted">Issued by {o.issuedBy || 'staff'}</span>}
                             </td>
