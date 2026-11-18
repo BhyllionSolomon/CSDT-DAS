@@ -115,6 +115,9 @@ public class SecurityConfig {
                         // Paystack webhooks are public but must pass cryptographic signature validation in the controller.
                         .requestMatchers(HttpMethod.POST, "/api/payments/paystack/webhook").permitAll()
 
+                        // Lecturers need the active course list for manual submissions.
+                        .requestMatchers(HttpMethod.GET, "/api/lab/courses").hasAnyRole("LECTURER", "ADJUNCT", "HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
+
                         // Lecturer -> HOD -> laboratory manual workflow.
                         .requestMatchers("/api/lab/manual-workflow/**").hasAnyRole("LECTURER", "ADJUNCT", "HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
 
