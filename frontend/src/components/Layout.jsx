@@ -12,6 +12,8 @@ import ThemeSwitcher from './ThemeSwitcher'
 
 const RELATED_SYSTEMS = [
     { label: 'SIWES (Industrial Training)', url: 'https://ems-frontend-fv32.onrender.com' },
+    { label: 'SCORAC (Code Review & Assessment)', url: 'https://scorac-frontend.vercel.app/dashboard' },
+    { label: 'File Repository', url: 'https://file-repository-seven.vercel.app/' },
 ]
 
 // Four shortcuts for the bottom bar on phones.
