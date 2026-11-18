@@ -68,7 +68,7 @@ export default function ExamOperations() {
   </section>
   <section className="space-y-3 rounded-xl border p-4">
    <div className="flex items-center justify-between"><h2 className="font-semibold">Management reports</h2><button className="rounded border px-3 py-1" onClick={loadReports}>Load reports</button></div>
-   {markingReport?.courses?.map((r,i)=><p key={i} className="text-sm">{r.course}: {r.collected} collected · {r.returned} returned · {r.outstanding} outstanding</p>)}
+   {markingReport?.courses?.map((r,i)=><div key={i} className="border-t py-2 text-sm"><strong>{r.course}</strong><p>{r.scriptsReceivedFromDispatch} received from dispatch · {r.collected} collected by lecturers · {r.returned} returned marked · {r.outstanding} outstanding</p>{r.lecturers?.map((l,j)=><p key={j} className="pl-3 text-xs">{l.lecturer}: {l.collected} collected, {l.returned} returned, {l.outstanding} outstanding {l.overdue?"— OVERDUE":""}</p>)}</div>)}
    {dispatchReport?.dispatches?.length>0&&<p className="text-sm">{dispatchReport.dispatches.length} dispatch records in the register.</p>}
   </section>
   <section className="space-y-3 rounded-xl border p-4"><h2 className="font-semibold">My examination notifications</h2>
