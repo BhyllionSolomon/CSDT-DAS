@@ -35,4 +35,23 @@ class ExamCryptoServiceTest {
         assertFalse(service.configured());
         assertThrows(IllegalStateException.class, () -> service.encrypt("paper".getBytes()));
     }
+    @Test
+    void rewrapsExistingPaperKeysDuringMasterKeyRotation() {
+        byte[] oldBytes = new byte[32];
+        byte[] newBytes = new byte[32];
+        java.util.Arrays.fill(oldBytes, (byte) 7);
+        java.util.Arrays.fill(newBytes, (byte) 9);
+        String oldKey = Base64.getEncoder().encodeToString(oldBytes);
+        String newKey = Base64.getEncoder().encodeToString(newBytes);
+        ExamCryptoService oldService = new ExamCryptoService(oldKey);
+        byte[] original = "Rotation test paper".getBytes();
+        ExamCryptoService.Encrypted encrypted = oldService.encrypt(original);
+
+        ExamCryptoService rotatingService = new ExamCryptoService(newKey, oldKey);
+        String rewrapped = rotatingService.rewrap(encrypted.wrappedKey());
+        assertArrayEquals(original, rotatingService.decrypt(encrypted.ciphertext(), rewrapped));
+        assertThrows(IllegalStateException.class,
+                () -> new ExamCryptoService(newKey).decrypt(encrypted.ciphertext(), encrypted.wrappedKey()));
+    }
+
 }
