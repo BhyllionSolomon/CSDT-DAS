@@ -57,7 +57,7 @@ public class ExamManagementService {
       for(ExamCourseTask t:visible){Map<String,Object> r=new LinkedHashMap<>();r.put("taskId",t.getId());r.put("courseId",t.getCourse().getId());
         r.put("courseCode",t.getCourse().getCode());r.put("courseTitle",t.getCourse().getTitle());r.put("creditUnit",t.getCourse().getCreditUnit());
         r.put("examDate",t.getExamDate());r.put("submissionDeadline",t.getSubmissionDeadline());r.put("taskOpensOn",t.getExamDate().minusDays(t.getNoticeDays()));
-        r.put("daysUntilExam",ChronoUnit.DAYS.between(LocalDate.now(),t.getExamDate()));r.put("canSubmit",assigned(viewer,t)&&!LocalDateTime.now(ZoneId.of("Africa/Lagos")).isAfter(t.getSubmissionDeadline()));
+        r.put("daysUntilExam",ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Africa/Lagos")),t.getExamDate()));r.put("canSubmit",assigned(viewer,t)&&!LocalDateTime.now(ZoneId.of("Africa/Lagos")).isAfter(t.getSubmissionDeadline()));
         if(privileged||member)r.put("vettingDate",t.getVettingDate());rows.add(r);}
       Map<String,Object> out=new LinkedHashMap<>();out.put("cycleId",cycleId);out.put("session",cycle.getAcademicSession().getName());out.put("semester",cycle.getSemester());out.put("tasks",rows);return out;
     }
@@ -65,8 +65,11 @@ public class ExamManagementService {
       User lecturer=user(username);if(!Set.of("LECTURER","ADJUNCT","LEVEL_ADVISER").contains(lecturer.getRole().toUpperCase()))throw bad("Only an assigned lecturer can submit.");
       ExamCourseTask task=tasks.findById(taskId).orElseThrow(()->bad("Exam task not found."));
       if(!assigned(lecturer,task))throw bad("You are not assigned to this course.");
-      if(LocalDate.now().isBefore(task.getExamDate().minusDays(task.getNoticeDays())))throw bad("This task opens "+task.getNoticeDays()+" days before the examination.");
-      if(LocalDateTime.now().isAfter(task.getSubmissionDeadline()))throw bad("Submission deadline has passed.");
+      if(LocalDate.now(ZoneId.of("Africa/Lagos")).isBefore(task.getExamDate().minusDays(task.getNoticeDays())))throw bad("This task opens "+task.getNoticeDays()+" days before the examination.");
+      LocalDateTime now=LocalDateTime.now(ZoneId.of("Africa/Lagos"));
+      ExamPaper latest=papers.findByTaskIdOrderByVersionDesc(taskId).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).max(Comparator.comparingInt(ExamPaper::getVersion)).orElse(null);
+      if(latest!=null && "ACCEPTED".equals(latest.getStatus()))throw bad("The latest paper has been accepted; contact the HOD if a further change is required.");
+      if(now.isAfter(task.getSubmissionDeadline()) && (latest==null || !"CORRECTION_REQUIRED".equals(latest.getStatus()) || task.getCorrectionDeadline()==null || now.isAfter(task.getCorrectionDeadline())))throw bad("The original submission deadline has passed. Resubmission is allowed only when corrections were requested and before the correction deadline.");
       if(file==null||file.isEmpty()||file.getSize()>15L*1024*1024)throw bad("Upload a non-empty PDF or DOCX file not exceeding 15 MB.");
       String type=file.getContentType()==null?"":file.getContentType().toLowerCase(),name=file.getOriginalFilename()==null?"":file.getOriginalFilename().toLowerCase();
       if(!(name.endsWith(".pdf")||name.endsWith(".docx"))||!(type.contains("pdf")||type.contains("wordprocessingml")||type.equals("application/octet-stream")))throw bad("Only PDF and DOCX files are accepted.");
@@ -94,7 +97,7 @@ public class ExamManagementService {
       if(!isHod(reviewer)&&(!member||!hasPaperAccess(paperId,reviewer.getId())))throw bad("HOD must grant you access to this paper before review.");
       String d=decision==null?"":decision.trim().toUpperCase();if(!Set.of("ACCEPTED","CORRECTION_REQUIRED").contains(d))throw bad("Choose ACCEPTED or CORRECTION_REQUIRED.");
       if(notes==null||notes.isBlank())throw bad("Review notes are required.");
-      paper.setStatus(d);paper.setReviewNotes(notes.trim());paper.setReviewedBy(reviewer);paper.setReviewedAt(LocalDateTime.now());audit(reviewer,"PAPER_REVIEWED","EXAM_PAPER",paperId,d); notifyLecturer(paper.getLecturer(),paper.getTask(),"REVIEW_"+paperId+"_"+paper.getVersion(),"Question paper review completed", "Your "+paper.getTask().getCourse().getCode()+" question paper v"+paper.getVersion()+" was reviewed: "+d+". Feedback: "+notes.trim());
+      paper.setStatus(d);paper.setReviewNotes(notes.trim());paper.setReviewedBy(reviewer);paper.setReviewedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));audit(reviewer,"PAPER_REVIEWED","EXAM_PAPER",paperId,d); notifyLecturer(paper.getLecturer(),paper.getTask(),"REVIEW_"+paperId+"_"+paper.getVersion(),"Question paper review completed", "Your "+paper.getTask().getCourse().getCode()+" question paper v"+paper.getVersion()+" was reviewed: "+d+". Feedback: "+notes.trim());
     }
     public Download download(String username,Long paperId){
       User viewer=user(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
