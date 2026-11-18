@@ -4,6 +4,7 @@ import com.kdu.csdtdas.backend.dto.CaDTOs;
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.CaItem;
 import com.kdu.csdtdas.backend.entity.CaScore;
+import com.kdu.csdtdas.backend.entity.CaSubmission;
 import com.kdu.csdtdas.backend.entity.Course;
 import com.kdu.csdtdas.backend.entity.CourseAllocation;
 import com.kdu.csdtdas.backend.entity.CourseRegistration;
@@ -12,11 +13,13 @@ import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
 import com.kdu.csdtdas.backend.repository.CaItemRepository;
 import com.kdu.csdtdas.backend.repository.CaScoreRepository;
+import com.kdu.csdtdas.backend.repository.CaSubmissionRepository;
 import com.kdu.csdtdas.backend.repository.CourseAllocationRepository;
 import com.kdu.csdtdas.backend.repository.CourseRegistrationRepository;
 import com.kdu.csdtdas.backend.repository.CourseRepository;
 import com.kdu.csdtdas.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -44,6 +47,7 @@ public class ContinuousAssessmentService {
 
     private final CaItemRepository itemRepository;
     private final CaScoreRepository scoreRepository;
+    private final CaSubmissionRepository submissionRepository;
     private final CourseRepository courseRepository;
     private final AcademicSessionRepository sessionRepository;
     private final CourseAllocationRepository allocationRepository;
@@ -54,6 +58,7 @@ public class ContinuousAssessmentService {
     public ContinuousAssessmentService(
             CaItemRepository itemRepository,
             CaScoreRepository scoreRepository,
+            CaSubmissionRepository submissionRepository,
             CourseRepository courseRepository,
             AcademicSessionRepository sessionRepository,
             CourseAllocationRepository allocationRepository,
@@ -63,6 +68,7 @@ public class ContinuousAssessmentService {
     ) {
         this.itemRepository = itemRepository;
         this.scoreRepository = scoreRepository;
+        this.submissionRepository = submissionRepository;
         this.courseRepository = courseRepository;
         this.sessionRepository = sessionRepository;
         this.allocationRepository = allocationRepository;
@@ -110,7 +116,8 @@ public class ContinuousAssessmentService {
 
         List<CaDTOs.ItemRow> itemRows = items.stream()
                 .map(i -> new CaDTOs.ItemRow(i.getId(), i.getCategory(), i.getTitle(), i.getMaxMark().doubleValue(),
-                        i.isReleased(), marked.getOrDefault(i.getId(), 0)))
+                        i.isReleased(), marked.getOrDefault(i.getId(), 0), i.getInstructions(), i.getDueAt(),
+                        submissionRepository.findByItemIdOrderBySubmittedAtAsc(i.getId()).size()))
                 .toList();
 
         List<CaDTOs.StudentRow> rows = new ArrayList<>();
@@ -122,8 +129,12 @@ public class ContinuousAssessmentService {
                 scores.put(e.getKey(), e.getValue().doubleValue());
                 total = total.add(e.getValue());
             }
+            BigDecimal raw = total.setScale(2, RoundingMode.HALF_UP);
+            BigDecimal allocatedMarks = allocated(courseId, sessionId, sem, null);
+            BigDecimal normalized = allocatedMarks.signum() == 0 ? BigDecimal.ZERO
+                    : raw.multiply(CAP).divide(allocatedMarks, 2, RoundingMode.HALF_UP);
             rows.add(new CaDTOs.StudentRow(s.getId(), s.getMatricNumber(), s.getFullName(), scores,
-                    total.setScale(2, RoundingMode.HALF_UP).doubleValue()));
+                    normalized.doubleValue(), raw.doubleValue()));
         }
 
         return new CaDTOs.Sheet(CAP.doubleValue(), allocated(courseId, sessionId, sem, null).doubleValue(), itemRows, rows);
@@ -151,10 +162,13 @@ public class ContinuousAssessmentService {
         item.setCategory(category);
         item.setTitle(title);
         item.setMaxMark(max);
+        item.setInstructions(cleanInstructions(req.instructions()));
+        item.setDueAt(validateDue(req.dueAt()));
         item.setCreatedBy(user.getUsername());
         CaItem saved = itemRepository.save(item);
 
-        return new CaDTOs.ItemRow(saved.getId(), category, title, max.doubleValue(), false, 0);
+        return new CaDTOs.ItemRow(saved.getId(), category, title, max.doubleValue(), false, 0,
+                saved.getInstructions(), saved.getDueAt(), 0);
     }
 
     public CaDTOs.ItemRow updateItem(String username, Long id, CaDTOs.ItemUpdate req) {
@@ -162,6 +176,8 @@ public class ContinuousAssessmentService {
         authorize(staff(username), item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
 
         if (req.title() != null) item.setTitle(title(req.title()));
+        if (req.instructions() != null) item.setInstructions(cleanInstructions(req.instructions()));
+        if (req.dueAt() != null) item.setDueAt(validateDue(req.dueAt()));
 
         if (req.maxMark() != null) {
             BigDecimal max = max(req.maxMark());
@@ -176,7 +192,8 @@ public class ContinuousAssessmentService {
         itemRepository.save(item);
 
         return new CaDTOs.ItemRow(item.getId(), item.getCategory(), item.getTitle(), item.getMaxMark().doubleValue(),
-                item.isReleased(), scoreRepository.findByItemId(id).size());
+                item.isReleased(), scoreRepository.findByItemId(id).size(), item.getInstructions(), item.getDueAt(),
+                submissionRepository.findByItemIdOrderBySubmittedAtAsc(id).size());
     }
 
     public void deleteItem(String username, Long id) {
@@ -230,6 +247,110 @@ public class ContinuousAssessmentService {
         }
     }
 
+    // --------------------------------------------------------- student uploads / lecturer marking
+
+    public CaDTOs.SubmissionReceipt submit(String username, Long itemId, MultipartFile file) {
+        Student student = userRepository.findByUsername(username).map(User::getStudent).orElse(null);
+        if (student == null) throw bad("Your account is not linked to a student record.");
+        CaItem item = item(itemId);
+        if (!item.isReleased()) throw bad("This assessment is not open to students yet.");
+        if (item.getDueAt() != null && LocalDateTime.now().isAfter(item.getDueAt()))
+            throw bad("The submission deadline has passed. Late submissions are closed.");
+        if (file == null || file.isEmpty() || file.getSize() > 20L * 1024 * 1024)
+            throw bad("Choose a file no larger than 20 MB.");
+        String fileName = file.getOriginalFilename() == null ? "submission" : file.getOriginalFilename();
+        String lower = fileName.toLowerCase();
+        if (!(lower.endsWith(".pdf") || lower.endsWith(".doc") || lower.endsWith(".docx")
+                || lower.endsWith(".ppt") || lower.endsWith(".pptx") || lower.endsWith(".xls")
+                || lower.endsWith(".xlsx") || lower.endsWith(".zip") || lower.endsWith(".jpg")
+                || lower.endsWith(".jpeg") || lower.endsWith(".png")))
+            throw bad("Upload PDF, Word, PowerPoint, Excel, ZIP or image files only.");
+        try {
+            CaSubmission sub = submissionRepository.findByItemIdAndStudentId(itemId, student.getId()).orElseGet(CaSubmission::new);
+            sub.setItem(item);
+            sub.setStudent(student);
+            sub.setFileName(fileName);
+            sub.setContentType(file.getContentType() == null ? "application/octet-stream" : file.getContentType());
+            sub.setFileData(file.getBytes());
+            sub.setSubmittedAt(LocalDateTime.now());
+            sub.setFeedback(null);
+            sub.setGradedAt(null);
+            sub.setGradedBy(null);
+            CaSubmission saved = submissionRepository.save(sub);
+            return new CaDTOs.SubmissionReceipt(saved.getId(), saved.getFileName(), saved.getSubmittedAt(),
+                    "SUBMITTED", null, null);
+        } catch (java.io.IOException ex) {
+            throw bad("Could not read the uploaded file.");
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CaDTOs.SubmissionRow> submissions(String username, Long itemId) {
+        CaItem item = item(itemId);
+        authorize(staff(username), item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
+        Map<Long, CaScore> marks = scoreRepository.findByItemId(itemId).stream()
+                .collect(Collectors.toMap(s -> s.getStudent().getId(), s -> s));
+        return submissionRepository.findByItemIdOrderBySubmittedAtAsc(itemId).stream().map(sub -> {
+            CaScore mark = marks.get(sub.getStudent().getId());
+            return new CaDTOs.SubmissionRow(sub.getId(), sub.getStudent().getId(),
+                    sub.getStudent().getMatricNumber(), sub.getStudent().getFullName(), sub.getFileName(),
+                    sub.getSubmittedAt(), mark == null ? null : mark.getScore().doubleValue(),
+                    sub.getFeedback(), sub.getGradedAt());
+        }).toList();
+    }
+
+    public void grade(String username, Long submissionId, CaDTOs.GradeRequest request) {
+        CaSubmission sub = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> bad("Submission not found."));
+        User lecturer = staff(username);
+        CaItem item = sub.getItem();
+        authorize(lecturer, item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
+        if (request == null || request.score() == null || request.score().signum() < 0
+                || request.score().compareTo(item.getMaxMark()) > 0)
+            throw bad("Enter a score between zero and " + item.getMaxMark() + ".");
+        CaScore score = scoreRepository.findByItemId(item.getId()).stream()
+                .filter(s -> s.getStudent().getId().equals(sub.getStudent().getId()))
+                .findFirst().orElseGet(CaScore::new);
+        score.setItem(item);
+        score.setStudent(sub.getStudent());
+        score.setScore(request.score().setScale(2, RoundingMode.HALF_UP));
+        score.setRecordedBy(lecturer.getUsername());
+        score.setRecordedAt(LocalDateTime.now());
+        scoreRepository.save(score);
+        sub.setFeedback(request.feedback() == null ? null : request.feedback().trim());
+        sub.setGradedBy(lecturer.getUsername());
+        sub.setGradedAt(LocalDateTime.now());
+        submissionRepository.save(sub);
+    }
+
+    @Transactional(readOnly = true)
+    public CaSubmission submissionFile(String username, Long submissionId) {
+        CaSubmission sub = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> bad("Submission not found."));
+        Student student = userRepository.findByUsername(username).map(User::getStudent).orElse(null);
+        if (student != null) {
+            if (!student.getId().equals(sub.getStudent().getId())) throw bad("You cannot access another student's submission.");
+        } else {
+            User lecturer = staff(username);
+            authorize(lecturer, sub.getItem().getCourse().getId(),
+                    sub.getItem().getAcademicSession().getId(), sub.getItem().getSemester());
+        }
+        return sub;
+    }
+
+    private String cleanInstructions(String raw) {
+        if (raw == null) return null;
+        String value = raw.trim();
+        if (value.length() > 3000) throw bad("Instructions must be 3,000 characters or fewer.");
+        return value.isEmpty() ? null : value;
+    }
+
+    private LocalDateTime validateDue(LocalDateTime dueAt) {
+        if (dueAt != null && !dueAt.isAfter(LocalDateTime.now()))
+            throw bad("The submission deadline must be in the future.");
+        return dueAt;
+    }
+
     // ---------------------------------------------------------------- student
 
     /** A student sees only their own released assessments. */
@@ -254,13 +375,20 @@ public class ContinuousAssessmentService {
             for (CaItem i : itemRepository.findByCourseIdAndAcademicSessionIdAndSemesterOrderByIdAsc(c.getId(), sessionId, sem)) {
                 if (!i.isReleased()) continue;
                 BigDecimal score = scores.get(i.getId());
+                CaSubmission submission = submissionRepository.findByItemIdAndStudentId(i.getId(), student.getId()).orElse(null);
+                String submissionStatus = submission == null ? "NOT_SUBMITTED"
+                        : submission.getGradedAt() == null ? "SUBMITTED" : "GRADED";
                 items.add(new CaDTOs.MyItem(i.getCategory(), i.getTitle(), i.getMaxMark().doubleValue(),
-                        score == null ? null : score.doubleValue()));
+                        score == null ? null : score.doubleValue(), i.getInstructions(), i.getDueAt(), submissionStatus,
+                        submission == null ? null : submission.getFileName(), submission == null ? null : submission.getSubmittedAt(),
+                        submission == null ? null : submission.getFeedback()));
                 releasedMax = releasedMax.add(i.getMaxMark());
                 if (score != null) earned = earned.add(score);
             }
+            BigDecimal normalizedEarned = releasedMax.signum() == 0 ? BigDecimal.ZERO
+                    : earned.multiply(CAP).divide(releasedMax, 2, RoundingMode.HALF_UP);
             courses.add(new CaDTOs.MyCourse(c.getId(), c.getCode(), c.getTitle(), items,
-                    earned.doubleValue(), releasedMax.doubleValue()));
+                    normalizedEarned.doubleValue(), releasedMax.doubleValue()));
         }
         courses.sort(Comparator.comparing(CaDTOs.MyCourse::code));
         return new CaDTOs.Mine(CAP.doubleValue(), courses);
@@ -277,11 +405,7 @@ public class ContinuousAssessmentService {
     }
 
     private void checkRoom(Long courseId, Long sessionId, String sem, Long exceptItemId, BigDecimal max) {
-        BigDecimal left = CAP.subtract(allocated(courseId, sessionId, sem, exceptItemId));
-        if (max.compareTo(left) > 0) {
-            throw bad("Continuous assessment is out of 30, and only " + left.stripTrailingZeros().toPlainString()
-                    + " mark(s) are left to allocate in this course.");
-        }
+        // Activity marks are raw marks. The final course total is normalised to 30.
     }
 
     private BigDecimal max(BigDecimal v) {
