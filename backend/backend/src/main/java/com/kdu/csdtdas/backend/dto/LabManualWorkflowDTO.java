@@ -7,4 +7,5 @@ public final class LabManualWorkflowDTO {
  public record Review(BigDecimal approvedLevy,String comment){}
  public record Dispatch(String targetLab){}
  public record Message(String message){}
+ public record Buyer(Long orderId,String matricNumber,String studentName,String programme,String level,BigDecimal amount,String status,LocalDateTime paidAt){}
 }
