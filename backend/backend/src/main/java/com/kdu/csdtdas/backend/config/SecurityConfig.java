@@ -1,5 +1,7 @@
 package com.kdu.csdtdas.backend.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,6 +63,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -114,6 +121,12 @@ public class SecurityConfig {
 
                         // Paystack webhooks are public but must pass cryptographic signature validation in the controller.
                         .requestMatchers(HttpMethod.POST, "/api/payments/paystack/webhook").permitAll()
+
+                        // Lecturers need the active course list for manual submissions.
+                        .requestMatchers(HttpMethod.GET, "/api/lab/courses").hasAnyRole("LECTURER", "ADJUNCT", "HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
+
+                        // Lecturer -> HOD -> laboratory manual workflow.
+                        .requestMatchers("/api/lab/manual-workflow/**").hasAnyRole("LECTURER", "ADJUNCT", "HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
 
                         // Student manual catalogue, payments and receipts are isolated from staff APIs.
                         .requestMatchers("/api/lab/student/manuals/**").hasRole("STUDENT")

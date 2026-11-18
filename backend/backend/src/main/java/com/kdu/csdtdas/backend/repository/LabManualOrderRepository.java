@@ -9,6 +9,7 @@ public interface LabManualOrderRepository extends JpaRepository<LabManualOrder, 
     Optional<LabManualOrder> findByPaystackReference(String reference);
     Optional<LabManualOrder> findByIdAndStudentId(Long id, Long studentId);
     List<LabManualOrder> findAllByOrderByCreatedAtDesc();
+    List<LabManualOrder> findAllByManualIdOrderByCreatedAtDesc(Long manualId);
     List<LabManualOrder> findAllByStudentIdAndAcademicSessionIdOrderByCreatedAtDesc(Long studentId, Long sessionId);
     Optional<LabManualOrder> findFirstByManualIdAndStudentIdAndAcademicSessionIdAndStatusIn(Long manualId, Long studentId, Long sessionId, List<String> statuses);
 }

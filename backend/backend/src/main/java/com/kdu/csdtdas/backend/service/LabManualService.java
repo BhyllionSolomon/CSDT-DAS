@@ -86,7 +86,7 @@ public class LabManualService {
 
     @Transactional(readOnly = true)
     public List<LabDTOs.CourseHit> courses(String username) {
-        require(username, LAB);
+        require(username, Set.of("LECTURER", "ADJUNCT", "LAB_OFFICER", "TECHNICAL_STAFF", "HOD", "ADMIN"));
         return courseRepository.findAll().stream()
                 .filter(c -> Boolean.TRUE.equals(c.getActive()))
                 .sorted(Comparator.comparing(Course::getCode))
