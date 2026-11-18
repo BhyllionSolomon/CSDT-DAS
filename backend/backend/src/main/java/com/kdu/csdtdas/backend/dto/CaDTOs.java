@@ -22,7 +22,7 @@ public final class CaDTOs {
     public record SubmissionReceipt(Long id, String fileName, LocalDateTime submittedAt, String status,
                                      Double score, String feedback) {}
     public record GradeRequest(BigDecimal score, String feedback) {}
-    public record MyItem(String category, String title, double max, Double score, String instructions,
+    public record MyItem(Long id, String category, String title, double max, Double score, String instructions,
                          LocalDateTime dueAt, String submissionStatus, String submissionFileName,
                          LocalDateTime submittedAt, String feedback) {}
     public record MyCourse(Long courseId, String code, String title, List<MyItem> items, double earned, double releasedMax) {}
