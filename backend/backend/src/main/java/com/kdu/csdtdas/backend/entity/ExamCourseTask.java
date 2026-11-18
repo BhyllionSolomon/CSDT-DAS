@@ -17,6 +17,7 @@ public class ExamCourseTask {
     @Column(nullable = false) private LocalDateTime submissionDeadline;
     @Column(nullable = false) private LocalDateTime vettingDate;
     @Column(nullable = false) private LocalDateTime correctionDeadline;
+    private LocalDateTime markingDeadline;
     @Column(nullable = false) private int noticeDays = 49;
     @Column(nullable = false) private LocalDateTime createdAt;
     public ExamCourseTask() {}
@@ -34,6 +35,8 @@ public class ExamCourseTask {
     public void setVettingDate(LocalDateTime v){vettingDate=v;}
     public LocalDateTime getCorrectionDeadline(){return correctionDeadline;}
     public void setCorrectionDeadline(LocalDateTime v){correctionDeadline=v;}
+    public LocalDateTime getMarkingDeadline(){return markingDeadline;}
+    public void setMarkingDeadline(LocalDateTime v){markingDeadline=v;}
     public int getNoticeDays(){return noticeDays;}
     public void setNoticeDays(int v){noticeDays=v;}
 }
