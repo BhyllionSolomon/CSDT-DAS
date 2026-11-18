@@ -148,7 +148,7 @@ public class ExamManagementService {
     private boolean assigned(User u,ExamCourseTask t){return allocations.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester()).stream().anyMatch(a->a.getLecturer()!=null&&a.getLecturer().getId().equals(u.getId()));}
     private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}
     private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only HOD or ADMIN can perform this action.");return u;}
-    private boolean isHod(User u){return Set.of("HOD","ADMIN").contains(u.getRole().toUpperCase());}
+    private boolean isHod(User u){return "HOD".equals(u.getRole().toUpperCase());}
     private String semester(String s){String v=s==null?"":s.trim().toUpperCase();if(!Set.of("FIRST","SECOND").contains(v))throw bad("Semester must be FIRST or SECOND.");return v;}
     private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
     public record TaskInput(Long courseId,LocalDate examDate,LocalDateTime deadline,LocalDateTime vettingDate,LocalDateTime correctionDeadline,LocalDateTime markingDeadline,Integer noticeDays){}
