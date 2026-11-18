@@ -25,7 +25,7 @@ public class LabManualSubmission {
  @Column(length=100) private String receivedBy;
  @Column(length=255) private String fileName;
  @Column(nullable=false,length=100) private String contentType="application/pdf";
- @Lob @Basic(fetch=FetchType.LAZY) @Column(nullable=false) private byte[] fileData;
+ @Basic(fetch=FetchType.LAZY) @Column(nullable=false,columnDefinition="bytea") private byte[] fileData;
  @Column(nullable=false) private LocalDateTime submittedAt;
  private LocalDateTime approvedAt;
  private LocalDateTime sentToLabAt;
