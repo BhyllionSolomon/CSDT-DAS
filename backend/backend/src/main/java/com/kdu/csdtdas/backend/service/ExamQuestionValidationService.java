@@ -18,7 +18,6 @@ public class ExamQuestionValidationService{
   p.setCycle(task.getCycle());p.setCourse(task.getCourse());p.setQuestionCount(in.questionCount());p.setAnswerCount(in.answerCount());p.setTotalMarks(in.totalMarks());p.setMarksCsv(in.marksCsv());p.setCompulsoryCsv(in.compulsoryCsv());p.setDuration(in.duration());policies.save(p);
   log(hod,"QUESTION_POLICY_SET",taskId,"Configured marks and choice policy");return Map.of("questionCount",p.getQuestionCount(),"answerCount",p.getAnswerCount(),"totalMarks",p.getTotalMarks());
  }
- @Transactional(readOnly=true)
  public Map<String,Object> validate(String username,Long taskId,Long paperId){
   User viewer=user(username);ExamCourseTask task=tasks.findById(taskId).orElseThrow(()->bad("Exam task not found."));
   if(!isHod(viewer))throw bad("Only HOD/ADMIN may run the formal paper validation.");
@@ -31,6 +30,7 @@ public class ExamQuestionValidationService{
   if(!normalized.contains("KOLA DAISI UNIVERSITY"))errors.add("Institutional heading not detected.");
   if(!normalized.contains(task.getCourse().getCode().toUpperCase(Locale.ROOT)))errors.add("Course code is missing or does not match.");
   if(!normalized.contains(task.getCourse().getTitle().toUpperCase(Locale.ROOT)))errors.add("Course title is missing or does not match.");
+  if(!normalized.contains(task.getCourse().getCreditUnit()+" UNIT")&&!normalized.contains(task.getCourse().getCreditUnit()+" CREDIT"))errors.add("Course credit-unit information is missing.");
   if(policy.getDuration()!=null&&!policy.getDuration().isBlank()&&!normalized.contains(policy.getDuration().toUpperCase(Locale.ROOT)))errors.add("Configured examination duration was not detected.");
   Set<Integer> numbers=new TreeSet<>();Matcher matcher=Pattern.compile("(?im)^\\s*(?:QUESTION\\s*)?(\\d{1,2})\\s*[.) :]").matcher(text);while(matcher.find())numbers.add(Integer.parseInt(matcher.group(1)));
   if(numbers.size()!=policy.getQuestionCount())errors.add("Expected "+policy.getQuestionCount()+" numbered questions; detected "+numbers.size()+".");
@@ -38,10 +38,18 @@ public class ExamQuestionValidationService{
   List<BigDecimal> marks=parse(policy.getMarksCsv());Set<Integer> compulsory=parseSet(policy.getCompulsoryCsv());
   if(!allCombinationsTotal(marks,policy.getAnswerCount(),compulsory,policy.getTotalMarks()))errors.add("Configured answer combinations do not total the required marks.");
   if(!normalized.contains("ANSWER"))warnings.add("Answer-choice instructions were not clearly detected; committee must verify.");
+  List<String> markChecks=checkPrintedMarks(text,marks);errors.addAll(markChecks);
+  if(markChecks.isEmpty())warnings.add("Printed mark notation was not consistently machine-readable; verify the mark allocations manually.");
   warnings.add("Logo presence, visual formatting and scanned content require human verification.");
   if(text.isBlank())warnings.add("No extractable text was found. OCR is required for this scanned document.");
   log(viewer,"PAPER_VALIDATED",taskId,"Paper "+paperId+" validation completed");
   return Map.of("paperId",paperId,"errors",errors,"warnings",warnings,"passed",errors.isEmpty(),"humanReviewRequired",true,"sha256",paper.getContentSha256()==null?"":paper.getContentSha256());
+ }
+ private List<String> checkPrintedMarks(String text,List<BigDecimal> expected){
+  List<String> errors=new ArrayList<>();Matcher q=Pattern.compile("(?im)^\\s*(?:QUESTION\\s*)?(\\d{1,2})\\s*[.) :]").matcher(text);List<Integer> starts=new ArrayList<>();List<Integer> nums=new ArrayList<>();while(q.find()){starts.add(q.start());nums.add(Integer.parseInt(q.group(1)));}
+  Pattern markPattern=Pattern.compile("(?i)(?:\\(|\\[)\\s*(\\d+(?:\\.\\d+)?)\\s*(?:MARKS?|MKS?)\\s*(?:\\)|\\])");
+  int found=0;for(int i=0;i<starts.size();i++){int number=nums.get(i);if(number<1||number>expected.size())continue;int end=i+1<starts.size()?starts.get(i+1):text.length();Matcher m=markPattern.matcher(text.substring(starts.get(i),end));BigDecimal actual=null;while(m.find())actual=new BigDecimal(m.group(1));if(actual!=null){found++;if(actual.subtract(expected.get(number-1)).abs().compareTo(new BigDecimal("0.01"))>0)errors.add("Printed marks for question "+number+" differ from the HOD policy.");}}
+  if(found==0)errors.add("No machine-readable question mark allocations were detected; verify all question marks manually.");return errors;
  }
  private String docx(byte[] b)throws Exception{try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(b))){StringBuilder s=new StringBuilder();for(XWPFParagraph p:d.getParagraphs())s.append(p.getText()).append('\n');for(XWPFTable t:d.getTables())for(XWPFTableRow r:t.getRows())for(XWPFTableCell c:r.getTableCells())s.append(c.getText()).append('\n');return s.toString();}}
  private String pdf(byte[] b)throws Exception{try(PDDocument d=Loader.loadPDF(b)){return new PDFTextStripper().getText(d);}}
