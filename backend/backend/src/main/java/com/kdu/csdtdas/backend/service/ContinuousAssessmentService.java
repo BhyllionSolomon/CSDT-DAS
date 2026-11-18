@@ -3,6 +3,7 @@ package com.kdu.csdtdas.backend.service;
 import com.kdu.csdtdas.backend.dto.CaDTOs;
 import com.kdu.csdtdas.backend.entity.AcademicSession;
 import com.kdu.csdtdas.backend.entity.CaItem;
+import com.kdu.csdtdas.backend.entity.CaFinalScore;
 import com.kdu.csdtdas.backend.entity.CaScore;
 import com.kdu.csdtdas.backend.entity.CaSubmission;
 import com.kdu.csdtdas.backend.entity.Course;
@@ -12,6 +13,7 @@ import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.AcademicSessionRepository;
 import com.kdu.csdtdas.backend.repository.CaItemRepository;
+import com.kdu.csdtdas.backend.repository.CaFinalScoreRepository;
 import com.kdu.csdtdas.backend.repository.CaScoreRepository;
 import com.kdu.csdtdas.backend.repository.CaSubmissionRepository;
 import com.kdu.csdtdas.backend.repository.CourseAllocationRepository;
@@ -48,6 +50,7 @@ public class ContinuousAssessmentService {
     private final CaItemRepository itemRepository;
     private final CaScoreRepository scoreRepository;
     private final CaSubmissionRepository submissionRepository;
+    private final CaFinalScoreRepository finalScoreRepository;
     private final CourseRepository courseRepository;
     private final AcademicSessionRepository sessionRepository;
     private final CourseAllocationRepository allocationRepository;
@@ -59,6 +62,7 @@ public class ContinuousAssessmentService {
             CaItemRepository itemRepository,
             CaScoreRepository scoreRepository,
             CaSubmissionRepository submissionRepository,
+            CaFinalScoreRepository finalScoreRepository,
             CourseRepository courseRepository,
             AcademicSessionRepository sessionRepository,
             CourseAllocationRepository allocationRepository,
@@ -69,6 +73,7 @@ public class ContinuousAssessmentService {
         this.itemRepository = itemRepository;
         this.scoreRepository = scoreRepository;
         this.submissionRepository = submissionRepository;
+        this.finalScoreRepository = finalScoreRepository;
         this.courseRepository = courseRepository;
         this.sessionRepository = sessionRepository;
         this.allocationRepository = allocationRepository;
@@ -248,6 +253,36 @@ public class ContinuousAssessmentService {
         }
     }
 
+    public List<CaDTOs.FinalScoreRow> aggregate(String username, CaDTOs.AggregateRequest request) {
+        User lecturer = staff(username);
+        String sem = clean(request.semester());
+        authorize(lecturer, request.courseId(), request.sessionId(), sem);
+        BigDecimal rawAvailable = allocated(request.courseId(), request.sessionId(), sem, null);
+        if (rawAvailable.signum() <= 0) throw bad("Create at least one CA activity before aggregation.");
+        Course course = courseRepository.findById(request.courseId()).orElseThrow(() -> bad("Course not found."));
+        AcademicSession session = sessionRepository.findById(request.sessionId()).orElseThrow(() -> bad("Academic session not found."));
+        Map<Long, BigDecimal> rawByStudent = new HashMap<>();
+        for (CaScore score : scoreRepository.findForCourse(request.courseId(), request.sessionId(), sem)) {
+            rawByStudent.merge(score.getStudent().getId(), score.getScore(), BigDecimal::add);
+        }
+        LocalDateTime now = LocalDateTime.now();
+        List<CaDTOs.FinalScoreRow> rows = new ArrayList<>();
+        for (Student student : roster(request.courseId(), request.sessionId(), sem)) {
+            BigDecimal raw = rawByStudent.getOrDefault(student.getId(), BigDecimal.ZERO).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal finalMark = raw.multiply(CAP).divide(rawAvailable, 2, RoundingMode.HALF_UP)
+                    .min(CAP).max(BigDecimal.ZERO);
+            CaFinalScore record = finalScoreRepository.findByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
+                    student.getId(), course.getId(), session.getId(), sem).orElseGet(CaFinalScore::new);
+            record.setStudent(student); record.setCourse(course); record.setAcademicSession(session);
+            record.setSemester(sem); record.setRawTotal(raw); record.setFinalScore(finalMark);
+            record.setAggregatedBy(lecturer.getUsername()); record.setAggregatedAt(now);
+            finalScoreRepository.save(record);
+            rows.add(new CaDTOs.FinalScoreRow(student.getId(), student.getMatricNumber(),
+                    student.getFullName(), raw.doubleValue(), finalMark.doubleValue()));
+        }
+        return rows;
+    }
+
     // --------------------------------------------------------- student uploads / lecturer marking
 
     public CaDTOs.SubmissionReceipt submit(String username, Long itemId, MultipartFile file) {
@@ -395,8 +430,12 @@ public class ContinuousAssessmentService {
             }
             BigDecimal normalizedEarned = releasedMax.signum() == 0 ? BigDecimal.ZERO
                     : earned.multiply(CAP).divide(releasedMax, 2, RoundingMode.HALF_UP);
+            CaFinalScore finalRecord = finalScoreRepository.findByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
+                    student.getId(), c.getId(), sessionId, sem).orElse(null);
             courses.add(new CaDTOs.MyCourse(c.getId(), c.getCode(), c.getTitle(), items,
-                    normalizedEarned.doubleValue(), releasedMax.doubleValue()));
+                    normalizedEarned.doubleValue(), releasedMax.doubleValue(), finalRecord != null,
+                    finalRecord == null ? null : finalRecord.getFinalScore().doubleValue(),
+                    finalRecord == null ? null : finalRecord.getAggregatedAt()));
         }
         courses.sort(Comparator.comparing(CaDTOs.MyCourse::code));
         return new CaDTOs.Mine(CAP.doubleValue(), courses);
