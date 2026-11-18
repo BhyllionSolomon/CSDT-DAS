@@ -12,7 +12,7 @@ export async function validateExamPaper(taskId, paperId) { return (await api.pos
 export async function grantPaperAccess(paperId, userId, expiresAt = null) { await api.post(`/exams/papers/${paperId}/access/${userId}`, { expiresAt }) }
 export async function revokePaperAccess(paperId, userId) { await api.delete(`/exams/papers/${paperId}/access/${userId}`) }
 export async function importOfficialTimetable(cycleId, file) { const body = new FormData(); body.append('file', file); return (await api.post(`/exams/timetable-import/${cycleId}`, body, { headers: { 'Content-Type': 'multipart/form-data' } })).data }
-export async function confirmImportedTimetableRow(rowId, venue) { return (await api.post(`/exams/timetable-import/${rowId}/confirm`, { venue })).data }
+export async function confirmImportedTimetableRow(rowId, payload) { return (await api.post(`/exams/timetable-import/${rowId}/confirm`, payload)).data }
 export async function confirmExamSitting(taskId, payload) { return (await api.post(`/exams/tasks/${taskId}/sitting`, payload)).data }
 export async function publishExamSitting(taskId) { return (await api.post(`/exams/tasks/${taskId}/publish`)).data }
 export async function getMyExamTimetable() { return (await api.get('/exams/my-timetable')).data }
