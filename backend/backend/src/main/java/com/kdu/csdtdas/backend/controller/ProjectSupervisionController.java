@@ -3,6 +3,8 @@ package com.kdu.csdtdas.backend.controller;
 import com.kdu.csdtdas.backend.dto.ProjectDTOs;
 import com.kdu.csdtdas.backend.service.ProjectSupervisionService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,6 +72,24 @@ public class ProjectSupervisionController {
     @PostMapping("/projects/drafts/{draftId}/publish")
     public ProjectDTOs.DraftView publishDraft(@PathVariable Long draftId, Authentication a) {
         return service.publishDraft(name(a), draftId);
+    }
+
+    @GetMapping("/projects/export/preview")
+    public ProjectDTOs.AllocationExportPreview allocationPreview(
+            @RequestParam(required = false) Long sessionId, Authentication a) {
+        return service.allocationExportPreview(name(a), sessionId);
+    }
+
+    @GetMapping("/projects/export/word")
+    public ResponseEntity<byte[]> allocationWord(
+            @RequestParam(required = false) Long sessionId, Authentication a) {
+        byte[] file = service.exportAllocationWord(name(a), sessionId);
+        String filename = "supervision-allocation.docx";
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + filename + "\"")
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.wordprocessingml.document"))
+                .contentLength(file.length)
+                .body(file);
     }
 
     @GetMapping("/projects/public-schedule")
