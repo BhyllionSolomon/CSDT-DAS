@@ -16,6 +16,7 @@ public class ExamPaper {
     @Column(nullable = false, length = 100) private String contentType;
     @Column(nullable = false, columnDefinition = "bytea") private byte[] encryptedFile;
     @Column(nullable = false, length = 2000) private String wrappedDataKey;
+    @Column(length = 64) private String contentSha256;
     @Column(nullable = false, length = 30) private String status = "SUBMITTED";
     @Column(nullable = false) private int version = 1;
     @Column(nullable = false) private LocalDateTime submittedAt;
@@ -36,6 +37,8 @@ public class ExamPaper {
     public void setContentType(String v){contentType=v;}
     public byte[] getEncryptedFile(){return encryptedFile;}
     public void setEncryptedFile(byte[] v){encryptedFile=v;}
+    public String getContentSha256(){return contentSha256;}
+    public void setContentSha256(String v){contentSha256=v;}
     public String getWrappedDataKey(){return wrappedDataKey;}
     public void setWrappedDataKey(String v){wrappedDataKey=v;}
     public String getStatus(){return status;}
