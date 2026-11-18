@@ -17,10 +17,10 @@ public class ExamManagementService {
     private final ExamCommitteeMemberRepository committee; private final ExamPaperRepository papers;
     private final AcademicSessionRepository sessions; private final CourseRepository courses;
     private final UserRepository users; private final CourseAllocationRepository allocations;
-    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit;
+    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess;
     public ExamManagementService(ExamCycleRepository c,ExamCourseTaskRepository t,ExamCommitteeMemberRepository m,
       ExamPaperRepository p,AcademicSessionRepository s,CourseRepository co,UserRepository u,
-      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;}
+      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;}
 
     public Map<String,Object> configure(String username,Long sessionId,String semester,List<TaskInput> input){
       User hod=hod(username); AcademicSession session=sessions.findById(sessionId).orElseThrow(()->bad("Academic session not found."));
@@ -84,13 +84,13 @@ public class ExamManagementService {
       if(!privileged&&!member&&!assigned(viewer,task))throw bad("Not authorised to view submissions.");
       audit(viewer,"SUBMISSION_LIST_VIEWED","EXAM_TASK",taskId,"Viewed submission metadata");
       List<ExamPaper> list=papers.findByTaskIdOrderByVersionDesc(taskId);
-      if(!privileged&&!member)list=list.stream().filter(p->p.getLecturer().getId().equals(viewer.getId())).toList();
-      return list.stream().map(p->{Map<String,Object> r=new LinkedHashMap<>();r.put("paperId",p.getId());r.put("lecturer",p.getLecturer().getFullName());r.put("version",p.getVersion());r.put("status",p.getStatus());r.put("submittedAt",p.getSubmittedAt());r.put("reviewNotes",privileged||member?p.getReviewNotes():null);return r;}).toList();
+      if(!privileged)list=list.stream().filter(p->p.getLecturer().getId().equals(viewer.getId()) || (member && hasPaperAccess(p.getId(),viewer.getId()))).toList();
+      return list.stream().map(p->{Map<String,Object> r=new LinkedHashMap<>();r.put("paperId",p.getId());r.put("lecturer",p.getLecturer().getFullName());r.put("version",p.getVersion());r.put("status",p.getStatus());r.put("submittedAt",p.getSubmittedAt());r.put("reviewNotes",privileged||hasPaperAccess(p.getId(),viewer.getId())?p.getReviewNotes():null);return r;}).toList();
     }
     public void review(String username,Long paperId,String decision,String notes){
       User reviewer=user(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
       boolean member=committee.existsByCycleIdAndUserId(paper.getTask().getCycle().getId(),reviewer.getId());
-      if(!isHod(reviewer)&&!member)throw bad("Only HOD or appointed committee members can review.");
+      if(!isHod(reviewer)&&(!member||!hasPaperAccess(paperId,reviewer.getId())))throw bad("HOD must grant you access to this paper before review.");
       String d=decision==null?"":decision.trim().toUpperCase();if(!Set.of("ACCEPTED","CORRECTION_REQUIRED").contains(d))throw bad("Choose ACCEPTED or CORRECTION_REQUIRED.");
       if(notes==null||notes.isBlank())throw bad("Review notes are required.");
       paper.setStatus(d);paper.setReviewNotes(notes.trim());paper.setReviewedBy(reviewer);paper.setReviewedAt(LocalDateTime.now());audit(reviewer,"PAPER_REVIEWED","EXAM_PAPER",paperId,d);
@@ -98,10 +98,24 @@ public class ExamManagementService {
     public Download download(String username,Long paperId){
       User viewer=user(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
       boolean member=committee.existsByCycleIdAndUserId(paper.getTask().getCycle().getId(),viewer.getId()),own=paper.getLecturer().getId().equals(viewer.getId());
-      if(!isHod(viewer)&&!member&&!own)throw bad("Not authorised to access this paper.");
+      if(!isHod(viewer)&&!own&&(!member||!hasPaperAccess(paperId,viewer.getId())))throw bad("HOD has not authorised access to this paper.");
       audit(viewer,"PAPER_DOWNLOADED","EXAM_PAPER",paperId,"Confidential paper decrypted for authorised user");
       return new Download(crypto.decrypt(paper.getEncryptedFile(),paper.getWrappedDataKey()),paper.getFileName(),paper.getContentType());
     }
+    public void grantPaperAccess(String username,Long paperId,Long memberId,LocalDateTime expiresAt){
+      User hod=hod(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
+      User member=users.findById(memberId).orElseThrow(()->bad("Committee member not found."));
+      if(!committee.existsByCycleIdAndUserId(paper.getTask().getCycle().getId(),memberId))throw bad("Only an appointed committee member can receive paper access.");
+      if(expiresAt!=null&&!expiresAt.isAfter(LocalDateTime.now()))throw bad("Access expiry must be in the future.");
+      ExamPaperAccess access=paperAccess.findByPaperIdAndUserId(paperId,memberId).orElseGet(ExamPaperAccess::new);
+      access.setPaper(paper);access.setUser(member);access.setGrantedBy(hod);access.setExpiresAt(expiresAt);access.setRevokedAt(null);paperAccess.save(access);
+      audit(hod,"PAPER_ACCESS_GRANTED","EXAM_PAPER",paperId,"Granted to "+member.getUsername()+" until "+expiresAt);
+    }
+    public void revokePaperAccess(String username,Long paperId,Long memberId){
+      User hod=hod(username);ExamPaperAccess access=paperAccess.findByPaperIdAndUserId(paperId,memberId).orElseThrow(()->bad("Access grant not found."));
+      access.setRevokedAt(LocalDateTime.now());audit(hod,"PAPER_ACCESS_REVOKED","EXAM_PAPER",paperId,"Revoked user ID "+memberId);
+    }
+    private boolean hasPaperAccess(Long paperId,Long userId){return paperAccess.findByPaperIdAndUserId(paperId,userId).filter(a->a.getRevokedAt()==null&&(a.getExpiresAt()==null||a.getExpiresAt().isAfter(LocalDateTime.now()))).isPresent();}
     private void audit(User actor,String action,String type,Long id,String details){ExamAuditEvent e=new ExamAuditEvent();e.setActor(actor);e.setAction(action);e.setTargetType(type);e.setTargetId(id);e.setDetails(details);audit.save(e);}
     private boolean assigned(User u,ExamCourseTask t){return allocations.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester()).stream().anyMatch(a->a.getLecturer()!=null&&a.getLecturer().getId().equals(u.getId()));}
     private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}
