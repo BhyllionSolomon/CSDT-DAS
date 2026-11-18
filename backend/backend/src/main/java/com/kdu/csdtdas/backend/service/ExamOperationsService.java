@@ -53,7 +53,7 @@ public class ExamOperationsService {
  }
  public Map<String,Object> returnMarkedScripts(String actor,Long batchId,Integer quantity,String notes){User lecturer=user(actor);ExamScriptBatch b=batches.findById(batchId).orElseThrow(()->bad("Script batch not found."));
   if(!b.getLecturer().getId().equals(lecturer.getId())&&!isHod(lecturer))throw bad("Only the assigned lecturer can return this batch.");
-  if(quantity==null||quantity<0||quantity>b.getQuantityCollected())throw bad("Returned quantity must be between zero and quantity collected.");
+  if(quantity==null||quantity<1)throw bad("Enter a positive quantity for this return.");
   int already=b.getQuantityReturned()==null?0:b.getQuantityReturned();if(quantity>0){ExamScriptReturn event=new ExamScriptReturn();event.setBatch(b);event.setReturnedBy(lecturer);event.setQuantity(quantity);event.setNotes(notes);returns.save(event);}int total=already+quantity;if(total>b.getQuantityCollected())throw bad("Total returned scripts cannot exceed collected quantity.");b.setQuantityReturned(total);b.setReturnedAt(LocalDateTime.now(LAGOS));b.setReturnedTo(lecturer);b.setNotes(notes);log(lecturer,"MARKED_SCRIPTS_RETURNED","SCRIPT_BATCH",batchId,"Returned "+quantity+"; cumulative "+total);return batchMap(b);
  }
  public List<Map<String,Object>> myScriptBatches(String actor){User u=user(actor);return batches.findByLecturerIdOrderByCollectedAtDesc(u.getId()).stream().map(this::batchMap).toList();}
