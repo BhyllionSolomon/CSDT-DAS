@@ -72,7 +72,7 @@ public class ExamQuestionValidationService{
  private List<BigDecimal> parse(String csv){if(csv==null||csv.isBlank())return List.of();try{return Arrays.stream(csv.split(",")).map(String::trim).map(BigDecimal::new).toList();}catch(Exception e){throw bad("Marks must be comma-separated numbers.");}}
  private Set<Integer> parseSet(String csv){if(csv==null||csv.isBlank())return Set.of();try{Set<Integer>s=new HashSet<>();for(String x:csv.split(","))s.add(Integer.parseInt(x.trim()));return s;}catch(Exception e){throw bad("Compulsory question numbers must be comma-separated whole numbers.");}}
  private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only HOD/ADMIN can configure policy.");return u;}private boolean isHod(User u){return Set.of("HOD","ADMIN").contains(u.getRole().toUpperCase());}
- private void log(User u,String a,Long id,String detail){ExamAuditEvent e=new ExamAuditEvent();e.setActor(u);e.setAction(a);e.setTargetType("EXAM_TASK");e.setTargetId(id);e.setDetails(detail);audit.save(e);}
+ private void log(User u,String a,Long id,String detail){ExamAuditEvent e=new ExamAuditEvent();e.setActor(u);e.setOccurredAt(java.time.LocalDateTime.now(java.time.ZoneId.of("Africa/Lagos")));e.setAction(a);e.setTargetType("EXAM_TASK");e.setTargetId(id);e.setDetails(detail);audit.save(e);}
  private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
  public record PolicyInput(Integer questionCount,Integer answerCount,Integer totalMarks,String marksCsv,String compulsoryCsv,String duration){}
 }
