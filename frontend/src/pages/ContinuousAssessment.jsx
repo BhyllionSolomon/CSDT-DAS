@@ -212,13 +212,13 @@ function ContinuousAssessment() {
                 </div>
                 {submissions.length === 0 ? <p className="text-sm theme-text-muted">No students have submitted this assessment yet.</p> :
                     <div className="overflow-x-auto"><table className="w-full text-sm text-left"><thead><tr><th className="p-2">Student</th><th className="p-2">Submitted</th><th className="p-2">File</th><th className="p-2">Score</th><th className="p-2">Feedback</th><th className="p-2">Action</th></tr></thead>
-                    <tbody className="divide-y theme-border">{submissions.map(s => <tr key={s.id}>
+                    <tbody className="divide-y theme-border">{submissions.map(s => <tr key={s.studentId}>
                         <td className="p-2"><b>{s.fullName}</b><span className="block text-xs theme-text-muted">{s.matricNumber}</span></td>
                         <td className="p-2">{dateText(s.submittedAt)}</td>
-                        <td className="p-2"><button onClick={() => download(s)} className="underline"><FileDown size={13} className="inline"/> {s.fileName}</button></td>
+                        <td className="p-2">{s.id ? <button onClick={() => download(s)} className="underline"><FileDown size={13} className="inline"/> {s.fileName}</button> : <span className="text-amber-700">Not submitted</span>}</td>
                         <td className="p-2"><input type="number" min="0" max={selectedItem.max} step="0.01" value={gradeEdits[s.id]?.score ?? s.score ?? ''} onChange={e => setGradeEdits({...gradeEdits,[s.id]:{...gradeEdits[s.id],score:e.target.value}})} className="w-20 border theme-border rounded px-2 py-1"/></td>
                         <td className="p-2"><input value={gradeEdits[s.id]?.feedback ?? s.feedback ?? ''} onChange={e => setGradeEdits({...gradeEdits,[s.id]:{...gradeEdits[s.id],feedback:e.target.value}})} className="w-40 border theme-border rounded px-2 py-1" placeholder="Feedback"/></td>
-                        <td className="p-2"><button disabled={busy || (gradeEdits[s.id]?.score ?? s.score) == null} onClick={() => grade(s)} className="accent-gradient text-white rounded px-3 py-1 text-xs">Save mark</button></td>
+                        <td className="p-2"><button disabled={busy || !s.id || (gradeEdits[s.id]?.score ?? s.score) == null} onClick={() => grade(s)} className="accent-gradient text-white rounded px-3 py-1 text-xs">Save mark</button></td>
                     </tr>)}</tbody></table></div>}
             </div>}
         </div>
