@@ -77,7 +77,7 @@ public class ExamManagementService {
       if(!crypto.configured())throw bad("Secure examination storage is not configured. Contact the HOD.");
       try{byte[] plain=file.getBytes();ExamCryptoService.Encrypted encrypted=crypto.encrypt(plain);
         int version=papers.findByTaskIdOrderByVersionDesc(taskId).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).mapToInt(ExamPaper::getVersion).max().orElse(0)+1;
-        ExamPaper paper=new ExamPaper();paper.setTask(task);paper.setLecturer(lecturer);paper.setFileName(file.getOriginalFilename().replaceAll("[^a-zA-Z0-9._-]","_"));
+        ExamPaper paper=new ExamPaper();paper.setTask(task);paper.setLecturer(lecturer);paper.setSubmittedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));paper.setFileName(file.getOriginalFilename().replaceAll("[^a-zA-Z0-9._-]","_"));
         paper.setContentType(type.contains("pdf")?"application/pdf":"application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         paper.setEncryptedFile(encrypted.ciphertext());paper.setWrappedDataKey(encrypted.wrappedKey());paper.setContentSha256(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(plain)));paper.setVersion(version);paper.setStatus("SUBMITTED");papers.save(paper);audit(lecturer,"PAPER_SUBMITTED","EXAM_PAPER",paper.getId(),"Task "+taskId+" version "+version);
         return Map.of("paperId",paper.getId(),"version",version,"status",paper.getStatus(),"submittedAt",paper.getSubmittedAt());
@@ -121,7 +121,7 @@ public class ExamManagementService {
     }
     private void notifyLecturer(User recipient,ExamCourseTask task,String key,String title,String message){
       if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(recipient.getId(),task.getId(),key))return;
-      ExamNotification n=new ExamNotification();n.setRecipient(recipient);n.setTask(task);n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);if(recipient.getEmail()!=null&&!recipient.getEmail().isBlank()){try{mail.send(recipient.getEmail(),title,message);}catch(RuntimeException ignored){/* In-app feedback remains available. */}}
+      ExamNotification n=new ExamNotification();n.setRecipient(recipient);n.setTask(task);n.setCreatedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);if(recipient.getEmail()!=null&&!recipient.getEmail().isBlank()){try{mail.send(recipient.getEmail(),title,message);}catch(RuntimeException ignored){/* In-app feedback remains available. */}}
     }
     public void grantPaperAccess(String username,Long paperId,Long memberId,LocalDateTime expiresAt){
       User hod=hod(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
@@ -129,7 +129,7 @@ public class ExamManagementService {
       if(!committee.existsByCycleIdAndUserId(paper.getTask().getCycle().getId(),memberId))throw bad("Only an appointed committee member can receive paper access.");
       if(expiresAt!=null&&!expiresAt.isAfter(LocalDateTime.now()))throw bad("Access expiry must be in the future.");
       ExamPaperAccess access=paperAccess.findByPaperIdAndUserId(paperId,memberId).orElseGet(ExamPaperAccess::new);
-      access.setPaper(paper);access.setUser(member);access.setGrantedBy(hod);access.setExpiresAt(expiresAt);access.setRevokedAt(null);paperAccess.save(access);
+      access.setPaper(paper);access.setUser(member);access.setGrantedBy(hod);access.setGrantedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));access.setExpiresAt(expiresAt);access.setRevokedAt(null);paperAccess.save(access);
       audit(hod,"PAPER_ACCESS_GRANTED","EXAM_PAPER",paperId,"Granted to "+member.getUsername()+" until "+expiresAt);
     }
     public void revokePaperAccess(String username,Long paperId,Long memberId){
@@ -144,7 +144,7 @@ public class ExamManagementService {
       if(!now.isAfter(task.getSubmissionDeadline()))return true;
       return latest!=null&&"CORRECTION_REQUIRED".equals(latest.getStatus())&&task.getCorrectionDeadline()!=null&&!now.isAfter(task.getCorrectionDeadline());
     }
-    private void audit(User actor,String action,String type,Long id,String details){ExamAuditEvent e=new ExamAuditEvent();e.setActor(actor);e.setAction(action);e.setTargetType(type);e.setTargetId(id);e.setDetails(details);audit.save(e);}
+    private void audit(User actor,String action,String type,Long id,String details){ExamAuditEvent e=new ExamAuditEvent();e.setActor(actor);e.setOccurredAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));e.setAction(action);e.setTargetType(type);e.setTargetId(id);e.setDetails(details);audit.save(e);}
     private boolean assigned(User u,ExamCourseTask t){return allocations.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester()).stream().anyMatch(a->a.getLecturer()!=null&&a.getLecturer().getId().equals(u.getId()));}
     private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}
     private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only HOD or ADMIN can perform this action.");return u;}
