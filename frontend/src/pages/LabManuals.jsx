@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import {
-    getManuals, saveManual, addPurchase, searchLabStudents, sellManual, getSales, voidSale, listLabCourses, naira, getManualOrders,
+    getManuals, saveManual, addPurchase, searchLabStudents, sellManual, getSales, voidSale, listLabCourses, naira, getManualOrders, issueLabManualOrder,
 } from '../services/labService'
 
 const msg = (err) => err.response?.data?.message || err.message
@@ -198,12 +198,19 @@ function LabManuals() {
                     {orders.length === 0 ? <p className="p-5 text-sm theme-text-muted">No student requests have been submitted.</p> :
                     <div className="overflow-x-auto"><table className="w-full text-sm text-left min-w-[780px]">
                         <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted text-xs uppercase"><tr>
-                            <th className="px-4 py-2">Student</th><th className="px-4 py-2">Programme / Level</th><th className="px-4 py-2">Course</th><th className="px-4 py-2">Manual</th><th className="px-4 py-2">Amount</th><th className="px-4 py-2">Session</th><th className="px-4 py-2">Status</th>
+                            <th className="px-4 py-2">Student</th><th className="px-4 py-2">Programme / Level</th><th className="px-4 py-2">Course</th><th className="px-4 py-2">Manual</th><th className="px-4 py-2">Amount</th><th className="px-4 py-2">Session</th><th className="px-4 py-2">Status</th><th className="px-4 py-2">Receipt / Action</th>
                         </tr></thead><tbody className="divide-y theme-border">{orders.map(o => <tr key={o.id}>
                             <td className="px-4 py-3">{o.matricNumber}<div className="text-xs theme-text-muted">{o.studentName}</div></td>
                             <td className="px-4 py-3">{o.programme} · {o.level}</td><td className="px-4 py-3">{o.courseCode || '—'}</td>
                             <td className="px-4 py-3">{o.manualTitle}</td><td className="px-4 py-3">{naira(o.amount)}</td>
-                            <td className="px-4 py-3">{o.sessionName}</td><td className="px-4 py-3">{o.status === 'AWAITING_PAYMENT' ? 'Awaiting payment' : o.status}</td>
+                            <td className="px-4 py-3">{o.sessionName}</td><td className="px-4 py-3">
+                                {o.status === 'AWAITING_PAYMENT' ? 'Awaiting payment' : o.status === 'PAID' ? 'Paid — awaiting collection' : o.status}
+                                {o.paidAt && <div className="text-xs theme-text-muted">{new Date(o.paidAt).toLocaleString('en-GB')}</div>}
+                            </td><td className="px-4 py-3">
+                                {o.receiptNumber && <div className="text-xs">{o.receiptNumber}</div>}
+                                {o.status === 'PAID' && <button disabled={busy} onClick={() => act(() => issueLabManualOrder(o.id), 'Manual marked as issued; stock updated.')} className="mt-1 text-xs underline disabled:opacity-50">Mark as issued</button>}
+                                {o.status === 'ISSUED' && <span className="text-xs theme-text-muted">Issued by {o.issuedBy || 'staff'}</span>}
+                            </td>
                         </tr>)}</tbody></table></div>}
                 </div>
             )}
