@@ -157,6 +157,7 @@ export const adviserGroups = [
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
+            { to: '/exam-operations', label: 'My Script Collection & Return' },
         ] },
 ]
 
