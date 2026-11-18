@@ -56,6 +56,11 @@ public class ContinuousAssessmentController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/ca/aggregate")
+    public List<CaDTOs.FinalScoreRow> aggregate(@RequestBody CaDTOs.AggregateRequest body, Authentication a) {
+        return service.aggregate(name(a), body);
+    }
+
     @PostMapping(value = "/ca/items/{id}/submissions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CaDTOs.SubmissionReceipt> submit(@PathVariable Long id,
             @RequestParam("file") MultipartFile file, Authentication a) {
