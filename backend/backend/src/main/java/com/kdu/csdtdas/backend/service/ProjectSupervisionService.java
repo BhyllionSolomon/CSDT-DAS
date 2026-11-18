@@ -25,6 +25,15 @@ import com.kdu.csdtdas.backend.util.DegreeClassUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.LinkedHashMap;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -512,6 +521,101 @@ public class ProjectSupervisionService {
         requireHod(username);
         ProjectSupervision p = repository.findById(id).orElseThrow(() -> bad("Assignment not found."));
         repository.delete(p);
+    }
+
+    // ---------------------------------------------------------- Word allocation export
+
+    public ProjectDTOs.AllocationExportPreview allocationExportPreview(String username, Long sessionId) {
+        requireProjectManager(username);
+        AcademicSession academicSession = session(sessionId);
+        List<ProjectSupervision> records = orderedAssignments(academicSession.getId());
+        List<ProjectDTOs.AllocationExportRow> rows = records.stream().map(p -> {
+            StaffProfile profile = profileFor(p.getSupervisor());
+            return new ProjectDTOs.AllocationExportRow(
+                    displayName(profile, p.getSupervisor()), p.getStudent().getFullName(),
+                    p.getStudent().getMatricNumber(), "Computing Science and Digital Technology");
+        }).toList();
+        return new ProjectDTOs.AllocationExportPreview(academicSession.getName(), rows.size(), rows);
+    }
+
+    public byte[] exportAllocationWord(String username, Long sessionId) {
+        requireProjectManager(username);
+        AcademicSession academicSession = session(sessionId);
+        List<ProjectSupervision> records = orderedAssignments(academicSession.getId());
+        Map<Long, List<ProjectSupervision>> groups = new LinkedHashMap<>();
+        for (ProjectSupervision p : records) groups.computeIfAbsent(p.getSupervisor().getId(), k -> new ArrayList<>()).add(p);
+
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream();
+             XWPFDocument document = new XWPFDocument()) {
+            addCentered(document, "KOLADAISI UNIVERSITY", true, 14);
+            addCentered(document, "DEPARTMENT OF COMPUTING SCIENCE AND DIGITAL TECHNOLOGY", true, 12);
+            addCentered(document, "FINAL-YEAR PROJECT SUPERVISOR–SUPERVISEE ALLOCATION", true, 12);
+            addCentered(document, academicSession.getName() + " ACADEMIC SESSION", true, 11);
+            document.createParagraph();
+
+            for (List<ProjectSupervision> group : groups.values()) {
+                ProjectSupervision first = group.get(0);
+                StaffProfile profile = profileFor(first.getSupervisor());
+                XWPFParagraph heading = document.createParagraph();
+                heading.setSpacingBefore(220);
+                XWPFRun headingRun = heading.createRun();
+                headingRun.setText(displayName(profile, first.getSupervisor()) + "  |  " + group.size() + " student(s)");
+                headingRun.setBold(true);
+                headingRun.setFontSize(11);
+
+                XWPFTable table = document.createTable(group.size() + 1, 4);
+                String[] headers = {"S/N", "Student name", "Matriculation number", "Department"};
+                for (int col = 0; col < headers.length; col++) setWordCell(table.getRow(0).getCell(col), headers[col], true);
+                for (int i = 0; i < group.size(); i++) {
+                    ProjectSupervision assignment = group.get(i);
+                    XWPFTableCell[] cells = new XWPFTableCell[] {
+                            table.getRow(i + 1).getCell(0), table.getRow(i + 1).getCell(1),
+                            table.getRow(i + 1).getCell(2), table.getRow(i + 1).getCell(3)
+                    };
+                    setWordCell(cells[0], String.valueOf(i + 1), false);
+                    setWordCell(cells[1], assignment.getStudent().getFullName(), false);
+                    setWordCell(cells[2], assignment.getStudent().getMatricNumber(), false);
+                    setWordCell(cells[3], "Computing Science and Digital Technology", false);
+                }
+                document.createParagraph();
+            }
+            addCentered(document, "TOTAL: " + records.size() + " STUDENT(S)  |  " + groups.size() + " SUPERVISOR(S)", true, 11);
+            document.write(out);
+            return out.toByteArray();
+        } catch (IOException e) {
+            throw new IllegalStateException("Failed to generate supervisor allocation Word document.", e);
+        }
+    }
+
+    private List<ProjectSupervision> orderedAssignments(Long sessionId) {
+        return repository.findForSession(sessionId).stream().sorted(
+                Comparator.comparingInt((ProjectSupervision p) -> profileFor(p.getSupervisor()).getDisplayOrder())
+                        .thenComparing(p -> p.getSupervisor().getFullName(), String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(p -> p.getStudent().getFullName(), String.CASE_INSENSITIVE_ORDER)
+        ).toList();
+    }
+
+    private String displayName(StaffProfile profile, User supervisor) {
+        String title = profile.getDisplayTitle() == null ? "" : profile.getDisplayTitle().trim();
+        return (title.isBlank() ? "" : title + " ") + supervisor.getFullName();
+    }
+
+    private void addCentered(XWPFDocument document, String value, boolean bold, int size) {
+        XWPFParagraph paragraph = document.createParagraph();
+        paragraph.setAlignment(ParagraphAlignment.CENTER);
+        XWPFRun run = paragraph.createRun();
+        run.setText(value);
+        run.setBold(bold);
+        run.setFontSize(size);
+    }
+
+    private void setWordCell(XWPFTableCell cell, String value, boolean bold) {
+        cell.removeParagraph(0);
+        XWPFParagraph paragraph = cell.addParagraph();
+        XWPFRun run = paragraph.createRun();
+        run.setText(value == null ? "" : value);
+        run.setBold(bold);
+        run.setFontSize(9);
     }
 
     // ------------------------------------------------------------------ views
