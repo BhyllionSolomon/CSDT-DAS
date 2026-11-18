@@ -27,7 +27,7 @@ public class ExamOperationsService {
    Map<String,Object> m=sittingMap(s);m.put("semester",s.getTask().getCycle().getSemester());out.add(m);}return out;
  }
  public Map<String,Object> assignDispatch(String actor,Long taskId,Long dispatchUserId,String venue){User hod=hod(actor);ExamCourseTask t=task(taskId);User assigned=userById(dispatchUserId);
-  if(!Set.of("LECTURER","ADJUNCT","LEVEL_ADVISER","HOD","ADMIN").contains(assigned.getRole().toUpperCase()))throw bad("Dispatch assignee must be a staff account.");
+  if(!Set.of("LECTURER","ADJUNCT","LEVEL_ADVISER","HOD","ADMIN","LAB_OFFICER","TECHNICAL_STAFF").contains(assigned.getRole().toUpperCase()))throw bad("Dispatch assignee must be a staff account.");
   ExamDispatchRecord d=new ExamDispatchRecord();d.setTask(t);d.setDispatchUser(assigned);d.setAssignedBy(hod);d.setVenue(venue);dispatches.save(d);log(hod,"DISPATCH_ASSIGNED","EXAM_TASK",taskId,"Assigned "+assigned.getUsername());return dispatchMap(d);
  }
  public Map<String,Object> custody(String actor,Long dispatchId,String action,Integer scripts,String externalName,String unit,String role,String notes){
