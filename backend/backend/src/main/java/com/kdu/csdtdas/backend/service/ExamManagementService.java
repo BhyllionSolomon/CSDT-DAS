@@ -35,7 +35,7 @@ public class ExamManagementService {
         if(row.deadline().isAfter(row.vettingDate())||row.vettingDate().isAfter(row.correctionDeadline()))throw bad("Dates must follow submission deadline, vetting date, correction deadline.");
         ExamCourseTask task=tasks.findByCycleIdAndCourseId(cycle.getId(),course.getId()).orElseGet(ExamCourseTask::new);
         task.setCycle(cycle);task.setCourse(course);task.setExamDate(row.examDate());task.setSubmissionDeadline(row.deadline());
-        task.setVettingDate(row.vettingDate());task.setCorrectionDeadline(row.correctionDeadline());
+        task.setVettingDate(row.vettingDate());task.setCorrectionDeadline(row.correctionDeadline());task.setMarkingDeadline(row.markingDeadline());
         int days=row.noticeDays()==null?49:row.noticeDays();if(days<1||days>180)throw bad("Notice window must be between 1 and 180 days.");
         task.setNoticeDays(days);tasks.save(task); audit(hod,"SCHEDULE_CONFIGURED","EXAM_TASK",task.getId(),"Course "+course.getCode());
       }
@@ -139,6 +139,6 @@ public class ExamManagementService {
     private boolean isHod(User u){return Set.of("HOD","ADMIN").contains(u.getRole().toUpperCase());}
     private String semester(String s){String v=s==null?"":s.trim().toUpperCase();if(!Set.of("FIRST","SECOND").contains(v))throw bad("Semester must be FIRST or SECOND.");return v;}
     private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
-    public record TaskInput(Long courseId,LocalDate examDate,LocalDateTime deadline,LocalDateTime vettingDate,LocalDateTime correctionDeadline,Integer noticeDays){}
+    public record TaskInput(Long courseId,LocalDate examDate,LocalDateTime deadline,LocalDateTime vettingDate,LocalDateTime correctionDeadline,LocalDateTime markingDeadline,Integer noticeDays){}
     public record Download(byte[] data,String fileName,String contentType){}
 }
