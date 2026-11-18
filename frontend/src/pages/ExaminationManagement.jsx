@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess } from '../services/examService'
+import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess, rotateExamMasterKey, getExamSubmissionReport } from '../services/examService'
 
 const blankTask = () => ({ courseId: '', examDate: '', deadline: '', vettingDate: '', correctionDeadline: '', markingDeadline: '', noticeDays: 49 })
 
@@ -18,6 +18,7 @@ export default function ExaminationManagement() {
     const [accessExpires, setAccessExpires] = useState({})
     const [policies, setPolicies] = useState({})
     const [validationResults, setValidationResults] = useState({})
+    const [submissionReport, setSubmissionReport] = useState([])
 
     const changeTask = (index, key, value) => setTasks(old => old.map((row, i) => i === index ? { ...row, [key]: value } : row))
     const loadBoard = async (id = cycleId) => {
@@ -57,6 +58,8 @@ export default function ExaminationManagement() {
         try { await reviewExamPaper(paperId, { decision: notes[paperId]?.decision || 'CORRECTION_REQUIRED', notes: notes[paperId]?.notes || '' }); setMessage('Review recorded.') }
         catch (e) { setMessage(e.response?.data?.message || 'Review could not be saved.') }
     }
+    const rotateKeys = async () => { if (!window.confirm("Have you set APP_EXAM_PREVIOUS_MASTER_KEY to the old key and APP_EXAM_MASTER_KEY to the new key in Render, then restarted the backend?")) return; try { const r = await rotateExamMasterKey(); setMessage(r.message + " Rewrapped: " + r.rewrappedPapers) } catch(e) { setMessage(e.response?.data?.message || "Key rewrap failed. Keep the previous key configured.") } }
+    const loadSubmissionReport = async () => { try { const r = await getExamSubmissionReport(); setSubmissionReport(r.submissions || []) } catch(e) { setMessage(e.response?.data?.message || "Could not load submission report.") } }
     const savePolicy = async taskId => { try { const p = policies[taskId] || {}; await saveQuestionPolicy(taskId, { questionCount: Number(p.questionCount), answerCount: Number(p.answerCount), totalMarks: Number(p.totalMarks), marksCsv: p.marksCsv || '', compulsoryCsv: p.compulsoryCsv || '', duration: p.duration || '' }); setMessage('Question policy saved.') } catch(e) { setMessage(e.response?.data?.message || 'Could not save policy.') } }
     const validate = async (taskId, paperId) => { try { const result = await validateExamPaper(taskId, paperId); setValidationResults(old => ({ ...old, [paperId]: result })); setMessage(result.passed ? 'Automated checks passed; committee review is still required.' : 'Validation found issues.') } catch(e) { setMessage(e.response?.data?.message || 'Validation failed.') } }
     const grant = async paperId => { try { await grantPaperAccess(paperId, Number(accessUsers[paperId]), accessExpires[paperId] || null); setMessage('Paper access authorised.') } catch(e) { setMessage(e.response?.data?.message || 'Could not grant access.') } }
@@ -84,6 +87,8 @@ export default function ExaminationManagement() {
             </div>)}
             <div className="flex flex-wrap gap-2"><button className="rounded-lg border px-4 py-2" onClick={() => setTasks(old => [...old, blankTask()])}>Add course</button><button disabled={busy || !sessionId} className="rounded-lg bg-blue-700 text-white px-4 py-2 disabled:opacity-50" onClick={saveSchedule}>{busy ? 'Saving…' : 'Save schedule'}</button></div>
             <p className="text-xs opacity-60">Enter course IDs from the department course catalogue. The default lecturer task opening is 49 days before the exam date.</p>
+            <div className="flex flex-wrap gap-2"><button className="rounded border px-3 py-2 text-sm" onClick={loadSubmissionReport}>HOD: Submission and overdue report</button><button className="rounded border px-3 py-2 text-sm" onClick={rotateKeys}>HOD: Rewrap all paper keys</button></div>
+            {submissionReport.length > 0 && <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr><th className="p-2 text-left">Course</th><th className="p-2 text-left">Lecturer</th><th className="p-2 text-left">Status</th><th className="p-2 text-left">Overdue</th></tr></thead><tbody>{submissionReport.map((r,i)=><tr key={i} className="border-t"><td className="p-2">{r.course}</td><td className="p-2">{r.lecturer}</td><td className="p-2">{r.status}</td><td className="p-2">{r.overdue ? "Yes" : "No"}</td></tr>)}</tbody></table></div>}
         </section>
         <section className="rounded-xl border p-4 space-y-3">
             <h2 className="font-semibold">Open an examination cycle</h2>
