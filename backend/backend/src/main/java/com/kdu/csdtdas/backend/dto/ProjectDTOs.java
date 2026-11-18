@@ -9,7 +9,7 @@ public final class ProjectDTOs {
     private ProjectDTOs() {}
 
     public record StaffRow(
-            Long userId, String fullName, String role, String designation, String displayTitle, int displayOrder,
+            Long userId, String username, String fullName, String role, String designation, String displayTitle, int displayOrder,
             boolean eligible, boolean firstClassEligible, boolean coordinator, boolean assistantCoordinator, int currentLoad
     ) {}
 
