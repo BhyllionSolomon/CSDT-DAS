@@ -12,3 +12,4 @@ export async function getFinance() { return (await api.get('/lab/finance')).data
 export async function getImpact(sessionId, manualId) { return (await api.get('/lab/impact', { params: { sessionId, manualId } })).data }
 
 export const naira = (v) => '₦' + Number(v || 0).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+export async function getManualOrders() { return (await api.get('/lab/orders')).data }
