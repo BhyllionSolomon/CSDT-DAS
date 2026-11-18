@@ -25,7 +25,7 @@ public class ExamPaper {
     private User reviewedBy;
     private LocalDateTime reviewedAt;
     public ExamPaper(){}
-    @PrePersist public void prePersist(){submittedAt=LocalDateTime.now();}
+    @PrePersist public void prePersist(){if(submittedAt==null)submittedAt=LocalDateTime.now();}
     public Long getId(){return id;}
     public ExamCourseTask getTask(){return task;}
     public void setTask(ExamCourseTask v){task=v;}
@@ -46,6 +46,7 @@ public class ExamPaper {
     public int getVersion(){return version;}
     public void setVersion(int v){version=v;}
     public LocalDateTime getSubmittedAt(){return submittedAt;}
+    public void setSubmittedAt(LocalDateTime v){submittedAt=v;}
     public String getReviewNotes(){return reviewNotes;}
     public void setReviewNotes(String v){reviewNotes=v;}
     public User getReviewedBy(){return reviewedBy;}
