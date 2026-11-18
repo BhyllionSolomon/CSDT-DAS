@@ -38,7 +38,7 @@ public class AccessControlFilter extends OncePerRequestFilter {
     private static final Pattern STUDENT_OPEN_GET = Pattern.compile(
             "^/api/(courses|academic-sessions|sessions|programmes|levels|departments|unit-limits)(/.*)?$");
     private static final Pattern STUDENT_FIXED_GET = Pattern.compile(
-            "^/api/(advisers/mine|clearance/mine|registration-form/mine|materials/mine|online-classes/mine|feedback/mine|project-suite/mine|project-survey/state|materials/\\d+/download)$");
+            "^/api/(advisers/mine|clearance/mine|registration-form/mine|materials/mine|online-classes/mine|student/lab-manuals|feedback/mine|project-suite/mine|project-survey/state|materials/\\d+/download)$");
     private static final Pattern STUDENT_FIXED_POST = Pattern.compile(
             "^/api/(clearance/submit|self-results/extract|feedback/submit|project-survey/submit|online-classes/\\d+/join)$");
     private static final Pattern STUDENT_OWN_GET = Pattern.compile(

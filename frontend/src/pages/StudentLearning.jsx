@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { listMyMaterials, downloadMaterial, messageFrom } from '../services/materialService'
 import { listMyClasses, joinOnlineClass } from '../services/onlineClassService'
+import { listStudentLabManualOptions } from '../services/studentLabManualCatalogueService'
 
 const STATUS_STYLE = {
     SCHEDULED: 'bg-amber-100 text-amber-700',
@@ -14,6 +15,8 @@ function formatDate(value) {
 
 function StudentLearning() {
     const [tab, setTab] = useState('classes')
+    const [labManuals, setLabManuals] = useState([])
+    const [selectedManual, setSelectedManual] = useState(null)
     const [materials, setMaterials] = useState([])
     const [classes, setClasses] = useState([])
     const [loading, setLoading] = useState(true)
@@ -21,8 +24,8 @@ function StudentLearning() {
     const [busyId, setBusyId] = useState(null)
 
     function load() {
-        return Promise.all([listMyMaterials(), listMyClasses()])
-            .then(([m, c]) => { setMaterials(m); setClasses(c) })
+        return Promise.all([listMyMaterials(), listMyClasses(), listStudentLabManualOptions().catch(() => [])])
+            .then(([m, c, manuals]) => { setMaterials(m); setClasses(c); setLabManuals(manuals) })
             .catch(async (err) => setError(await messageFrom(err)))
     }
 
@@ -91,15 +94,15 @@ function StudentLearning() {
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-2">Class Materials &amp; Online Classes</h2>
+            <h2 className="text-2xl font-bold mb-2">Learning Resources</h2>
             <p className="theme-text-muted text-sm mb-6">
-                Notes, slides and live classes for the courses you have registered this session.
+                Notes, slides, live classes and laboratory manuals for the courses you have registered this session.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
 
             <div className="flex mb-6 p-1 rounded-xl w-fit" style={{ backgroundColor: 'var(--surface-soft)' }}>
-                {[['classes', `Online Classes${liveNow.length ? ` (${liveNow.length} live)` : ''}`], ['materials', 'Class Materials']].map(([key, label]) => (
+                {[['classes', `Online Classes${liveNow.length ? ` (${liveNow.length} live)` : ''}`], ['materials', 'Class Materials'], ['manuals', 'Get Lab Manual']].map(([key, label]) => (
                     <button key={key} onClick={() => setTab(key)}
                             className={`px-5 py-2 text-sm font-medium rounded-lg btn-press ${
                                 tab === key ? 'accent-gradient text-white shadow-sm' : 'theme-text-muted'
@@ -135,6 +138,65 @@ function StudentLearning() {
                             <ul className="divide-y theme-border">{past.map((c) => <ClassRow key={c.id} c={c} />)}</ul>
                         </div>
                     )}
+                </div>
+            )}
+
+            {tab === 'manuals' && (
+                <div className="space-y-4">
+                    <div className="card p-4">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <h3 className="font-semibold">Lab Manual Payment</h3>
+                                <p className="text-sm theme-text-muted mt-1">Select your course manual, review its price and see how payment and collection will work.</p>
+                            </div>
+                            <span className="text-xs font-semibold rounded-full px-3 py-1" style={{ backgroundColor: 'var(--surface-soft)' }}>Payment preview</span>
+                        </div>
+                        <div className="mt-3 rounded-lg border p-3 text-sm" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-soft)' }}>
+                            <b>Online payment is not active yet.</b>
+                            <p className="theme-text-muted mt-1">This is a preview of the student payment feature. You can view available manuals and prices, but no payment will be initiated and no money will be deducted.</p>
+                        </div>
+                    </div>
+                    {labManuals.length === 0 ?
+                        <div className="card p-6 text-sm theme-text-muted">There are no active lab manuals available at the moment. Please check again later or contact the laboratory office.</div> :
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {labManuals.map(manual => <div key={manual.id} className="card p-4 flex flex-col gap-3">
+                                <div className="flex-1">
+                                    <p className="text-xs theme-text-muted">{manual.courseCode || 'Department manual'}</p>
+                                    <h4 className="font-semibold mt-1">{manual.title}</h4>
+                                    {manual.courseTitle && <p className="text-sm theme-text-muted">{manual.courseTitle}</p>}
+                                    <p className="text-lg font-bold mt-3">₦{Number(manual.price || 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}</p>
+                                </div>
+                                <button onClick={() => setSelectedManual(manual)} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm">View payment details</button>
+                            </div>)}
+                        </div>
+                    }
+                    {selectedManual && <div className="card p-5 space-y-4" role="dialog" aria-modal="true" aria-labelledby="student-manual-title">
+                        <div className="flex items-start justify-between gap-3">
+                            <div>
+                                <p className="text-xs theme-text-muted">{selectedManual.courseCode || 'Department manual'}</p>
+                                <h3 id="student-manual-title" className="font-bold text-lg">{selectedManual.title}</h3>
+                                {selectedManual.courseTitle && <p className="text-sm theme-text-muted">{selectedManual.courseTitle}</p>}
+                            </div>
+                            <button onClick={() => setSelectedManual(null)} className="text-sm underline" aria-label="Close details">Close</button>
+                        </div>
+                        <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                            <p className="text-xs theme-text-muted">Manual price</p>
+                            <p className="text-2xl font-bold">₦{Number(selectedManual.price || 0).toLocaleString('en-NG', { minimumFractionDigits: 2 })}</p>
+                        </div>
+                        <h4 className="font-semibold">How the payment process will work</h4>
+                        <ol className="list-decimal pl-5 space-y-2 text-sm">
+                            <li>Select the correct course manual and confirm the displayed price.</li>
+                            <li>When online payment is enabled, select Pay with Paystack.</li>
+                            <li>Complete payment on Paystack's secure checkout page.</li>
+                            <li>Return to CSDT-DAS to view and print your verified receipt.</li>
+                            <li>Present the receipt at the laboratory and collect your manual.</li>
+                        </ol>
+                        <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                            <b>Preview only — payment unavailable</b>
+                            <p className="theme-text-muted mt-1">The payment button will become available after the department completes testing. No transaction can be started from this screen.</p>
+                        </div>
+                        <button disabled className="w-full rounded-lg px-4 py-2 text-sm font-semibold opacity-60" style={{ backgroundColor: 'var(--surface-soft)' }}>Paystack payment coming soon</button>
+                    </div>}
                 </div>
             )}
 
