@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getCases, errorOf, OUTCOME_LABEL, OUTCOME_TONE } from '../services/projectSuiteService'
 import { Donut } from '../components/ProjectCharts'
+import { getAllSessions } from '../services/sessionService'
+import { currentSessionOf } from '../utils/registrationHelpers'
 
 const SEVERITY = {
     HIGH: ['Needs action', 'bg-red-100 text-red-700'],
@@ -11,14 +13,21 @@ const SEVERITY = {
 
 function ProjectCases() {
     const [all, setAll] = useState(false)
+    const [sessions, setSessions] = useState([])
+    const [sessionId, setSessionId] = useState('')
     const [cases, setCases] = useState(null)
     const [query, setQuery] = useState('')
     const [error, setError] = useState(null)
 
     useEffect(() => {
+        getAllSessions().then(rows => { setSessions(rows || []); const current = currentSessionOf(rows || []); if (current) setSessionId(String(current.id)) }).catch(e => setError(errorOf(e)))
+    }, [])
+
+    useEffect(() => {
+        if (!sessionId) return
         setCases(null); setError(null)
-        getCases(null, all).then(setCases).catch((e) => setError(errorOf(e)))
-    }, [all])
+        getCases(Number(sessionId), all).then(setCases).catch((e) => setError(errorOf(e)))
+    }, [all, sessionId])
 
     const counts = useMemo(() => {
         const list = cases || []
@@ -29,7 +38,7 @@ function ProjectCases() {
 
     return (
         <div className="max-w-5xl">
-            <h2 className="text-2xl font-bold mb-2">My Project Students</h2>
+            <h2 className="text-2xl font-bold mb-2">All Project Cases</h2>
             <p className="theme-text-muted text-sm mb-6">
                 The final-year students you supervise: their progress, your meetings with them, and anyone who needs attention.
             </p>
@@ -37,6 +46,7 @@ function ProjectCases() {
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
 
             <div className="card p-4 mb-6 flex gap-4 flex-wrap items-center">
+                <label className="text-sm">Academic session<select value={sessionId} onChange={e => setSessionId(e.target.value)} className="block border theme-border rounded-lg px-3 py-2 mt-1">{sessions.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
                 <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or matric number" className="border theme-border rounded-lg px-3 py-2 text-sm w-64" />
                 <label className="text-sm flex items-center gap-2"><input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Show every student (H.O.D. and coordinators)</label>
             </div>
