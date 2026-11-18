@@ -76,7 +76,7 @@ function MyCaScores() {
                                     </div> : closed ? <div className="mt-3 text-sm text-red-700 bg-red-50 rounded-lg p-3">Deadline passed. Online submission is closed; this activity will not accept a late upload.</div> :
                                         <div className="mt-3 flex flex-wrap items-center gap-2">
                                             <input type="file" onChange={(e) => setFiles({ ...files, [item.id]: e.target.files?.[0] || null })} className="text-sm max-w-full" />
-                                            <button onClick={() => submit(item)} disabled={!!busy[item.id] || !files[item.id]} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50"><Upload size={14} className="inline mr-1"/>{busy[item.title] ? 'Uploading…' : 'Submit assignment'}</button>
+                                            <button onClick={() => submit(item)} disabled={!!busy[item.id] || !files[item.id]} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50"><Upload size={14} className="inline mr-1"/>{busy[item.id] ? 'Uploading…' : 'Submit assignment'}</button>
                                             <span className="text-xs theme-text-muted">Maximum file size: 20 MB</span>
                                         </div>}
                                 </article>
