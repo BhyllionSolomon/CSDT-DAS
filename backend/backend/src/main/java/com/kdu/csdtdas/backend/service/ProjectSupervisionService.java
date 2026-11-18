@@ -407,6 +407,14 @@ public class ProjectSupervisionService {
                 .toList();
     }
 
+    private List<ProjectSupervision> orderedAssignments(Long sessionId) {
+        return repository.findForSession(sessionId).stream().sorted(
+                Comparator.comparingInt((ProjectSupervision p) -> profileFor(p.getSupervisor()).getDisplayOrder())
+                        .thenComparing(p -> p.getSupervisor().getFullName(), String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(p -> p.getStudent().getFullName(), String.CASE_INSENSITIVE_ORDER)
+        ).toList();
+    }
+
     private Map<Long, User> supsById(List<Sup> sups) {
         return sups.stream().collect(Collectors.toMap(s -> s.user.getId(), s -> s.user));
     }
