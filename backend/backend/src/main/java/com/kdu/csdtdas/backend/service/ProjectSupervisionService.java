@@ -128,7 +128,7 @@ public class ProjectSupervisionService {
         for (User u : candidates()) {
             StaffProfile p = profileFor(u);
             rows.add(new ProjectDTOs.StaffRow(
-                    u.getId(), u.getFullName(), u.getRole(), p.getDesignation(),
+                    u.getId(), u.getFullName(), u.getRole(), p.getDesignation(), p.getDisplayTitle(), p.getDisplayOrder(),
                     p.isSupervisionEligible(), p.isFirstClassEligible(), p.isProjectCoordinator(), p.isAssistantCoordinator(),
                     load.getOrDefault(u.getId(), 0)
             ));
@@ -137,7 +137,7 @@ public class ProjectSupervisionService {
     }
 
     public List<ProjectDTOs.StaffRow> saveStaff(String username, List<ProjectDTOs.StaffUpdate> updates) {
-        requireHod(username);
+        requireProjectManager(username);
         if (updates == null) throw bad("Nothing to save.");
 
         if (updates.stream().filter(u -> Boolean.TRUE.equals(u.coordinator())).count() > 1) {
@@ -158,6 +158,11 @@ public class ProjectSupervisionService {
 
             StaffProfile p = profileFor(u);
             p.setDesignation(designation);
+            if (up.displayTitle() != null) p.setDisplayTitle(up.displayTitle());
+            if (up.displayOrder() != null) {
+                if (up.displayOrder() < 1 || up.displayOrder() > 9999) throw bad("Hierarchy order must be between 1 and 9999.");
+                p.setDisplayOrder(up.displayOrder());
+            }
             p.setSupervisionEligible(Boolean.TRUE.equals(up.eligible()));
             p.setFirstClassEligible(Boolean.TRUE.equals(up.firstClassEligible()) && Boolean.TRUE.equals(up.eligible()));
             p.setProjectCoordinator(Boolean.TRUE.equals(up.coordinator()));
