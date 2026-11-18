@@ -61,6 +61,12 @@ public class PaystackLabManualService {
         if (user == null || user.getEmail() == null || user.getEmail().isBlank())
             throw new IllegalArgumentException("Your student account must have a valid email address before payment.");
 
+        if (order.getPaystackReference() != null) {
+            if (order.getPaystackAuthorizationUrl() != null && !order.getPaystackAuthorizationUrl().isBlank())
+                return new LabStudentDTOs.PaymentInit(order.getId(), order.getPaystackReference(), order.getPaystackAuthorizationUrl());
+            throw new IllegalStateException("A payment attempt already exists. Please contact the laboratory office before retrying.");
+        }
+
         long kobo = order.getAmount().multiply(new BigDecimal("100"))
                 .setScale(0, RoundingMode.UNNECESSARY).longValueExact();
         String reference = "LABMAN-" + UUID.randomUUID().toString().replace("-", "");
@@ -82,8 +88,10 @@ public class PaystackLabManualService {
         if (response == null || !response.path("status").asBoolean(false)
                 || response.path("data").path("authorization_url").asText("").isBlank())
             throw new IllegalStateException("Paystack could not initialise this payment. Please try again.");
-        return new LabStudentDTOs.PaymentInit(order.getId(), reference,
-                response.path("data").path("authorization_url").asText());
+        String authorizationUrl=response.path("data").path("authorization_url").asText();
+        order.setPaystackAuthorizationUrl(authorizationUrl);
+        orders.save(order);
+        return new LabStudentDTOs.PaymentInit(order.getId(), reference, authorizationUrl);
     }
 
     @Transactional
