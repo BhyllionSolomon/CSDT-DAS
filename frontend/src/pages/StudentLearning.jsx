@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { listMyMaterials, downloadMaterial, messageFrom } from '../services/materialService'
 import { listMyClasses, joinOnlineClass } from '../services/onlineClassService'
+import { getStudentLabManuals, requestStudentLabManual } from '../services/studentLabManualService'
+import { naira } from '../services/labService'
 
 const STATUS_STYLE = {
     SCHEDULED: 'bg-amber-100 text-amber-700',
@@ -14,6 +16,8 @@ function formatDate(value) {
 
 function StudentLearning() {
     const [tab, setTab] = useState('classes')
+    const [labManuals, setLabManuals] = useState([])
+    const [manualBusy, setManualBusy] = useState(null)
     const [materials, setMaterials] = useState([])
     const [classes, setClasses] = useState([])
     const [loading, setLoading] = useState(true)
@@ -21,8 +25,8 @@ function StudentLearning() {
     const [busyId, setBusyId] = useState(null)
 
     function load() {
-        return Promise.all([listMyMaterials(), listMyClasses()])
-            .then(([m, c]) => { setMaterials(m); setClasses(c) })
+        return Promise.all([listMyMaterials(), listMyClasses(), getStudentLabManuals()])
+            .then(([m, c, lm]) => { setMaterials(m); setClasses(c); setLabManuals(lm) })
             .catch(async (err) => setError(await messageFrom(err)))
     }
 
@@ -135,6 +139,36 @@ function StudentLearning() {
                             <ul className="divide-y theme-border">{past.map((c) => <ClassRow key={c.id} c={c} />)}</ul>
                         </div>
                     )}
+                </div>
+            )}
+
+            {tab === 'manuals' && (
+                <div className="space-y-4">
+                    <div className="card p-4">
+                        <h3 className="font-semibold">Lab Manual Purchase</h3>
+                        <p className="text-sm theme-text-muted mt-1">View manuals made available for your current academic session. Submit an order to begin the payment process.</p>
+                    </div>
+                    {labManuals.length === 0 ? <div className="card p-6 text-sm theme-text-muted">No lab manuals are currently available for purchase.</div> :
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {labManuals.map(m => <div key={m.id} className="card p-4 flex flex-col gap-3">
+                                <div className="flex-1">
+                                    <p className="text-xs theme-text-muted">{m.courseCode || 'Department manual'}</p>
+                                    <h4 className="font-semibold mt-1">{m.title}</h4>
+                                    {m.courseTitle && <p className="text-sm theme-text-muted">{m.courseTitle}</p>}
+                                    <p className="text-lg font-bold mt-3">{naira(m.price)}</p>
+                                </div>
+                                {m.status === 'NOT_ORDERED' ? <button disabled={manualBusy === m.id} onClick={async () => {
+                                    setError(null); setManualBusy(m.id)
+                                    try { await requestStudentLabManual(m.id); await load() }
+                                    catch (err) { setError(await messageFrom(err)) }
+                                    finally { setManualBusy(null) }
+                                }} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50">{manualBusy === m.id ? 'Submitting…' : 'Request to Buy'}</button> :
+                                <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                                    <b>{m.status === 'AWAITING_PAYMENT' ? 'Awaiting payment' : m.status === 'PAID' ? 'Paid — awaiting collection' : 'Issued'}</b>
+                                    <p className="text-xs theme-text-muted mt-1">{m.status === 'AWAITING_PAYMENT' ? 'Your request has been recorded. Payment is not yet enabled.' : m.status === 'PAID' ? 'Your payment has been confirmed. Collect from the laboratory.' : 'This manual has been recorded as issued to you.'}</p>
+                                </div>}
+                            </div>)}
+                        </div>}
                 </div>
             )}
 
