@@ -168,6 +168,7 @@ public class ContinuousAssessmentService {
         item.setTitle(title);
         item.setMaxMark(max);
         item.setInstructions(cleanInstructions(req.instructions()));
+        if (req.dueAt() == null) throw bad("Set a submission deadline date and time.");
         item.setDueAt(validateDue(req.dueAt()));
         item.setCreatedBy(user.getUsername());
         CaItem saved = itemRepository.save(item);
