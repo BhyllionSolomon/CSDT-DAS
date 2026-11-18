@@ -13,6 +13,7 @@ const when = (v) => (v ? new Date(v).toLocaleString('en-GB') : '—')
 export default function FinalYearProjects() {
     const { user } = useAuth()
     const isHod = ['HOD', 'ADMIN'].includes(String(user?.role || '').toUpperCase())
+    const canManageHierarchy = isHod || staff.some(s => s.fullName === (user?.fullName || user?.name) && (s.coordinator || s.assistantCoordinator))
     const [sessions, setSessions] = useState([])
     const [sessionId, setSessionId] = useState('')
     const [staff, setStaff] = useState([])
@@ -74,7 +75,7 @@ export default function FinalYearProjects() {
 
     async function saveSettings() {
         const result = await run(() => saveStaff(staff.map(r => ({
-            userId: r.userId, designation: r.designation, eligible: r.eligible,
+            userId: r.userId, designation: r.designation, displayTitle: r.displayTitle || '', displayOrder: Number(r.displayOrder || 9999), eligible: r.eligible,
             firstClassEligible: r.firstClassEligible, coordinator: r.coordinator,
             assistantCoordinator: r.assistantCoordinator,
         }))), 'Supervisor settings saved.')
@@ -222,6 +223,43 @@ export default function FinalYearProjects() {
                         </div>}
                     </div>
                 </section>
+            )}
+
+
+            {canManageHierarchy && (
+                <div className="card">
+                    <div className="p-4 border-b theme-border">
+                        <h3 className="font-semibold">Official Word document hierarchy</h3>
+                        <p className="text-xs theme-text-muted mt-1">
+                            Set the exact title prefix and display order for each supervisor. Lower numbers appear first in the published Word document.
+                            Example: 1 = Professor, 2 = next supervisor. Enter titles exactly as they should print (Prof., Dr., Mr., Miss.).
+                        </p>
+                    </div>
+                    <div className="p-4 overflow-x-auto">
+                        <table className="w-full text-sm">
+                            <thead className="theme-text-muted text-xs uppercase">
+                                <tr><th className="p-2 text-left">Word order</th><th className="p-2 text-left">Title prefix</th><th className="p-2 text-left">Staff name</th><th className="p-2 text-left">Designation</th></tr>
+                            </thead>
+                            <tbody className="divide-y theme-border">
+                                {[...staff].sort((a,b) => Number(a.displayOrder || 9999) - Number(b.displayOrder || 9999) || a.fullName.localeCompare(b.fullName)).map(r => (
+                                    <tr key={r.userId}>
+                                        <td className="p-2"><input type="number" min="1" max="9999" value={r.displayOrder || 9999}
+                                            onChange={e => patch(r.userId, { displayOrder: Number(e.target.value) })}
+                                            className="border theme-border rounded px-2 py-1 w-24" /></td>
+                                        <td className="p-2"><input value={r.displayTitle || ''} placeholder="e.g. Prof."
+                                            onChange={e => patch(r.userId, { displayTitle: e.target.value })}
+                                            className="border theme-border rounded px-2 py-1 w-28" /></td>
+                                        <td className="p-2 font-medium">{r.fullName}</td>
+                                        <td className="p-2">{designationLabel(r.designation)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <button onClick={saveSettings} disabled={busy} className="mt-4 accent-gradient text-white rounded-lg px-5 py-2 text-sm font-semibold">
+                            {busy ? 'Saving…' : 'Save Word hierarchy'}
+                        </button>
+                    </div>
+                </div>
             )}
 
             {isHod && (
