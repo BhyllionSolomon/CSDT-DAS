@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess, rotateExamMasterKey, getExamSubmissionReport } from '../services/examService'
 
 const blankTask = () => ({ courseId: '', examDate: '', deadline: '', vettingDate: '', correctionDeadline: '', markingDeadline: '', noticeDays: 49 })
+const policyDefaults = task => task.creditUnit === 3 ? { questionCount: 6, answerCount: 4, totalMarks: 70, marksCsv: '17.5,17.5,17.5,17.5,17.5,17.5', compulsoryCsv: '', duration: '' } : task.creditUnit === 2 ? { questionCount: 5, answerCount: 3, totalMarks: 70, marksCsv: '23.333333,23.333333,23.333333,23.333333,23.333333', compulsoryCsv: '', duration: '' } : { questionCount: '', answerCount: '', totalMarks: 70, marksCsv: '', compulsoryCsv: '', duration: '' }
 
 export default function ExaminationManagement() {
     const [sessionId, setSessionId] = useState('')
@@ -24,7 +25,7 @@ export default function ExaminationManagement() {
     const loadBoard = async (id = cycleId) => {
         if (!id) return
         setBusy(true); setMessage('')
-        try { const data = await getExamBoard(id); setBoard(data); setCycleId(String(id)) }
+        try { const data = await getExamBoard(id); setBoard(data); setPolicies(old => ({ ...Object.fromEntries(data.tasks.map(t => [t.taskId, { ...policyDefaults(t), ...old[t.taskId] }])), ...old })); setCycleId(String(id)) }
         catch (e) { setMessage(e.response?.data?.message || 'Unable to load examination cycle.') }
         finally { setBusy(false) }
     }
@@ -37,7 +38,7 @@ export default function ExaminationManagement() {
                 correctionDeadline: t.correctionDeadline, markingDeadline: t.markingDeadline || null, noticeDays: Number(t.noticeDays || 49),
             }))
             const data = await configureExamTasks(Number(sessionId), semester, payload)
-            setBoard(data); setCycleId(String(data.cycleId)); setMessage('Examination schedule saved.')
+            setBoard(data); setPolicies(old => ({ ...Object.fromEntries(data.tasks.map(t => [t.taskId, { ...policyDefaults(t), ...old[t.taskId] }])), ...old })); setCycleId(String(data.cycleId)); setMessage('Examination schedule saved.')
         } catch (e) { setMessage(e.response?.data?.message || e.response?.data?.error || 'Could not save schedule.') }
         finally { setBusy(false) }
     }
@@ -60,7 +61,7 @@ export default function ExaminationManagement() {
     }
     const rotateKeys = async () => { if (!window.confirm("Have you set APP_EXAM_PREVIOUS_MASTER_KEY to the old key and APP_EXAM_MASTER_KEY to the new key in Render, then restarted the backend?")) return; try { const r = await rotateExamMasterKey(); setMessage(r.message + " Rewrapped: " + r.rewrappedPapers) } catch(e) { setMessage(e.response?.data?.message || "Key rewrap failed. Keep the previous key configured.") } }
     const loadSubmissionReport = async () => { try { const r = await getExamSubmissionReport(); setSubmissionReport(r.submissions || []) } catch(e) { setMessage(e.response?.data?.message || "Could not load submission report.") } }
-    const savePolicy = async taskId => { try { const p = policies[taskId] || {}; await saveQuestionPolicy(taskId, { questionCount: Number(p.questionCount), answerCount: Number(p.answerCount), totalMarks: Number(p.totalMarks), marksCsv: p.marksCsv || '', compulsoryCsv: p.compulsoryCsv || '', duration: p.duration || '' }); setMessage('Question policy saved.') } catch(e) { setMessage(e.response?.data?.message || 'Could not save policy.') } }
+    const savePolicy = async taskId => { try { const task = board?.tasks.find(t => t.taskId === taskId); const p = { ...policyDefaults(task || {}), ...(policies[taskId] || {}) }; await saveQuestionPolicy(taskId, { questionCount: Number(p.questionCount), answerCount: Number(p.answerCount), totalMarks: Number(p.totalMarks), marksCsv: p.marksCsv || '', compulsoryCsv: p.compulsoryCsv || '', duration: p.duration || '' }); setMessage('Question policy saved.') } catch(e) { setMessage(e.response?.data?.message || 'Could not save policy.') } }
     const validate = async (taskId, paperId) => { try { const result = await validateExamPaper(taskId, paperId); setValidationResults(old => ({ ...old, [paperId]: result })); setMessage(result.passed ? 'Automated checks passed; committee review is still required.' : 'Validation found issues.') } catch(e) { setMessage(e.response?.data?.message || 'Validation failed.') } }
     const grant = async paperId => { try { await grantPaperAccess(paperId, Number(accessUsers[paperId]), accessExpires[paperId] || null); setMessage('Paper access authorised.') } catch(e) { setMessage(e.response?.data?.message || 'Could not grant access.') } }
     const download = async paper => {
