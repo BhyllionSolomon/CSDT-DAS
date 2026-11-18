@@ -3,7 +3,7 @@ import { Download, Eye, EyeOff, Trash2, FileDown, Users } from 'lucide-react'
 import SessionSemesterBar from '../components/SessionSemesterBar'
 import {
     getCaCourses, getCaSheet, createCaItem, updateCaItem, deleteCaItem, saveCaScores,
-    getCaSubmissions, gradeCaSubmission, downloadCaSubmission, CA_CATEGORIES, caLabel,
+    getCaSubmissions, gradeCaSubmission, downloadCaSubmission, aggregateCa, CA_CATEGORIES, caLabel,
 } from '../services/caService'
 
 const msg = (err) => err.response?.data?.message || err.message
@@ -125,6 +125,16 @@ function ContinuousAssessment() {
         } catch (e) { setError(msg(e)) }
     }
 
+    async function finaliseCa() {
+        if (!window.confirm('Aggregate all recorded marks for this course into final CA scores out of 30? Students with no recorded mark will receive zero for that activity.')) return
+        setBusy(true); setError(null); setNotice(null)
+        try {
+            const rows = await aggregateCa({ courseId: Number(courseId), sessionId: Number(sel.sessionId), semester: sel.semester })
+            setNotice(`CA aggregated for ${rows.length} students. Final scores are now available out of 30.`)
+            await load()
+        } catch (e) { setError(msg(e)) } finally { setBusy(false) }
+    }
+
     function exportCsv() {
         const head = ['Matric number', 'Name', ...sheet.items.map((i) => `${i.title} (/${i.max})`), 'Raw total', 'CA total (/30)']
         const rows = sheet.students.map((s) => [s.matricNumber, s.fullName, ...sheet.items.map((i) => s.scores[i.id] ?? ''), rawTotal(s), total(s)])
@@ -187,7 +197,7 @@ function ContinuousAssessment() {
                 <div className="card overflow-hidden mb-5">
                     <div className="theme-sidebar text-white px-4 py-3 flex justify-between items-center flex-wrap gap-2 text-sm">
                         <b>{sheet.students.length} enrolled students</b>
-                        <button onClick={exportCsv} className="flex items-center gap-1 underline"><Download size={14}/> Export CA scores</button>
+                        <div className="flex gap-3 items-center"><button onClick={exportCsv} className="flex items-center gap-1 underline"><Download size={14}/> Export CA scores</button><button onClick={finaliseCa} disabled={busy || sheet.items.length === 0} className="bg-white text-slate-900 rounded-lg px-3 py-1.5 text-xs font-semibold disabled:opacity-50">Aggregate final CA /30</button></div>
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
