@@ -27,7 +27,7 @@ import java.util.zip.ZipOutputStream;
 @Transactional(readOnly = true)
 public class SupervisionExportService {
 
-    public record Row(String supervisor, String student, String matric, String programme, int displayOrder) {}
+    public record Row(String supervisor, String student, String matric, String programme, int displayOrder, java.math.BigDecimal cgpa) {}
 
     public record Preview(String session, int count, List<Row> rows) {}
 
@@ -86,7 +86,7 @@ public class SupervisionExportService {
                             : prefix + " " + p.getSupervisor().getFullName();
                     return new Row(supervisor, p.getStudent().getFullName(), p.getStudent().getMatricNumber(),
                             "Computing Science and Digital Technology",
-                            profile == null ? 9999 : profile.getDisplayOrder());
+                            profile == null ? 9999 : profile.getDisplayOrder(), p.getCgpa());
                 }).toList();
     }
 
