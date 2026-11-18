@@ -78,7 +78,6 @@ public class ExamManagementService {
         return Map.of("paperId",paper.getId(),"version",version,"status",paper.getStatus(),"submittedAt",paper.getSubmittedAt());
       }catch(IOException e){throw bad("Uploaded file could not be read.");}
     }
-    @Transactional(readOnly=true)
     public List<Map<String,Object>> papers(String username,Long taskId){
       User viewer=user(username);ExamCourseTask task=tasks.findById(taskId).orElseThrow(()->bad("Exam task not found."));
       boolean privileged=isHod(viewer),member=committee.existsByCycleIdAndUserId(task.getCycle().getId(),viewer.getId());
