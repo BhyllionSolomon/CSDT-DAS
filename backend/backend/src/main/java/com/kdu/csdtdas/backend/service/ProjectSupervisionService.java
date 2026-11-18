@@ -348,7 +348,7 @@ public class ProjectSupervisionService {
                 .filter(s -> s.user.getId().equals(request.supervisorId())).findFirst()
                 .orElseThrow(() -> bad("The selected lecturer is not currently eligible to supervise."));
         long selectedDraftLoad = draftItemRepository.findByDraftId(draftId).stream()
-                .filter(i -> !i.getItemId().equals(itemId) && i.getSupervisor().getId().equals(selected.user.getId())).count();
+                .filter(i -> !i.getId().equals(itemId) && i.getSupervisor().getId().equals(selected.user.getId())).count();
         if (selectedDraftLoad >= maxLoad(selected.profile)) {
             throw bad("This supervisor has reached the configured allocation limit of " + maxLoad(selected.profile) + ".");
         }
