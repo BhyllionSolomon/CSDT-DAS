@@ -33,6 +33,12 @@ public class CaItem {
     @Column(nullable = false, precision = 5, scale = 2)
     private BigDecimal maxMark;
 
+    @Column(length = 3000)
+    private String instructions;
+
+    @Column
+    private LocalDateTime dueAt;
+
     /** Students see an assessment only after it is released. */
     @Column(nullable = false)
     private boolean released;
@@ -61,6 +67,10 @@ public class CaItem {
     public void setTitle(String title) { this.title = title; }
     public BigDecimal getMaxMark() { return maxMark; }
     public void setMaxMark(BigDecimal maxMark) { this.maxMark = maxMark; }
+    public String getInstructions() { return instructions; }
+    public void setInstructions(String instructions) { this.instructions = instructions; }
+    public LocalDateTime getDueAt() { return dueAt; }
+    public void setDueAt(LocalDateTime dueAt) { this.dueAt = dueAt; }
     public boolean isReleased() { return released; }
     public void setReleased(boolean released) { this.released = released; }
     public String getCreatedBy() { return createdBy; }
