@@ -58,7 +58,7 @@ public class ExamManagementService {
       for(ExamCourseTask t:visible){Map<String,Object> r=new LinkedHashMap<>();r.put("taskId",t.getId());r.put("courseId",t.getCourse().getId());
         r.put("courseCode",t.getCourse().getCode());r.put("courseTitle",t.getCourse().getTitle());r.put("creditUnit",t.getCourse().getCreditUnit());
         r.put("examDate",t.getExamDate());r.put("submissionDeadline",t.getSubmissionDeadline());r.put("taskOpensOn",t.getExamDate().minusDays(t.getNoticeDays()));
-        r.put("daysUntilExam",ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Africa/Lagos")),t.getExamDate()));r.put("canSubmit",assigned(viewer,t)&&!LocalDateTime.now(ZoneId.of("Africa/Lagos")).isAfter(t.getSubmissionDeadline()));
+        r.put("daysUntilExam",ChronoUnit.DAYS.between(LocalDate.now(ZoneId.of("Africa/Lagos")),t.getExamDate()));r.put("canSubmit",assigned(viewer,t)&&canSubmit(viewer,t));
         if(privileged||member)r.put("vettingDate",t.getVettingDate());rows.add(r);}
       Map<String,Object> out=new LinkedHashMap<>();out.put("cycleId",cycleId);out.put("session",cycle.getAcademicSession().getName());out.put("semester",cycle.getSemester());out.put("tasks",rows);return out;
     }
@@ -90,7 +90,7 @@ public class ExamManagementService {
       audit(viewer,"SUBMISSION_LIST_VIEWED","EXAM_TASK",taskId,"Viewed submission metadata");
       List<ExamPaper> list=papers.findByTaskIdOrderByVersionDesc(taskId);
       if(!privileged)list=list.stream().filter(p->p.getLecturer().getId().equals(viewer.getId()) || (member && hasPaperAccess(p.getId(),viewer.getId()))).toList();
-      return list.stream().map(p->{Map<String,Object> r=new LinkedHashMap<>();r.put("paperId",p.getId());r.put("lecturer",p.getLecturer().getFullName());r.put("version",p.getVersion());r.put("status",p.getStatus());r.put("submittedAt",p.getSubmittedAt());r.put("reviewNotes",privileged||hasPaperAccess(p.getId(),viewer.getId())?p.getReviewNotes():null);return r;}).toList();
+      return list.stream().map(p->{Map<String,Object> r=new LinkedHashMap<>();r.put("paperId",p.getId());r.put("lecturer",p.getLecturer().getFullName());r.put("version",p.getVersion());r.put("status",p.getStatus());r.put("submittedAt",p.getSubmittedAt());r.put("reviewNotes",privileged||p.getLecturer().getId().equals(viewer.getId())||hasPaperAccess(p.getId(),viewer.getId())?p.getReviewNotes():null);return r;}).toList();
     }
     public void review(String username,Long paperId,String decision,String notes){
       User reviewer=user(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
@@ -136,6 +136,13 @@ public class ExamManagementService {
       access.setRevokedAt(LocalDateTime.now());audit(hod,"PAPER_ACCESS_REVOKED","EXAM_PAPER",paperId,"Revoked user ID "+memberId);
     }
     private boolean hasPaperAccess(Long paperId,Long userId){return paperAccess.findByPaperIdAndUserId(paperId,userId).filter(a->a.getRevokedAt()==null&&(a.getExpiresAt()==null||a.getExpiresAt().isAfter(LocalDateTime.now()))).isPresent();}
+    private boolean canSubmit(User lecturer,ExamCourseTask task){
+      LocalDateTime now=LocalDateTime.now(ZoneId.of("Africa/Lagos"));
+      ExamPaper latest=papers.findByTaskIdOrderByVersionDesc(task.getId()).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).max(Comparator.comparingInt(ExamPaper::getVersion)).orElse(null);
+      if(latest!=null&&"ACCEPTED".equals(latest.getStatus()))return false;
+      if(!now.isAfter(task.getSubmissionDeadline()))return true;
+      return latest!=null&&"CORRECTION_REQUIRED".equals(latest.getStatus())&&task.getCorrectionDeadline()!=null&&!now.isAfter(task.getCorrectionDeadline());
+    }
     private void audit(User actor,String action,String type,Long id,String details){ExamAuditEvent e=new ExamAuditEvent();e.setActor(actor);e.setAction(action);e.setTargetType(type);e.setTargetId(id);e.setDetails(details);audit.save(e);}
     private boolean assigned(User u,ExamCourseTask t){return allocations.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester()).stream().anyMatch(a->a.getLecturer()!=null&&a.getLecturer().getId().equals(u.getId()));}
     private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}
