@@ -271,7 +271,7 @@ public class ProjectSupervisionService {
         }
         // Strict round-robin: every selected supervisor receives one before anyone receives a second.
         for (Ranked r : firsts) {
-            Sup chosen = firstEligible.stream().filter(s -> s.total < s.profile.getMaxSupervisionLoad()).min(Comparator
+            Sup chosen = firstEligible.stream().filter(s -> s.total < maxLoad(s.profile)).min(Comparator
                     .comparingInt((Sup s) -> s.byClass.getOrDefault("FIRST", 0))
                     .thenComparing(s -> s.user.getFullName().toLowerCase())).orElseThrow(() -> bad("First Class supervisor capacity is exhausted. Increase the limit for a First Class-eligible supervisor."));
             chosen.take(r, "FIRST");
