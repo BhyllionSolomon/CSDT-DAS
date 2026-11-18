@@ -78,11 +78,11 @@ export default function ExaminationManagement() {
         <section className="rounded-xl border p-4 space-y-3">
             <h2 className="font-semibold">HOD: Configure examination schedule</h2>
             <div className="grid md:grid-cols-2 gap-3">
-                <label className="text-sm">Academic session ID<input className="mt-1 w-full rounded border p-2" type="number" value={sessionId} onChange={e => setSessionId(e.target.value)} /></label>
+                <label className="text-sm">Academic session<select className="mt-1 w-full rounded border p-2" value={sessionId} onChange={e => setSessionId(e.target.value)}><option value="">Select session</option>{sessionOptions.map(x=><option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
                 <label className="text-sm">Semester<select className="mt-1 w-full rounded border p-2" value={semester} onChange={e => setSemester(e.target.value)}><option value="FIRST">First</option><option value="SECOND">Second</option></select></label>
             </div>
             {tasks.map((t, i) => <div key={i} className="grid md:grid-cols-3 gap-2 border-t pt-3">
-                <label className="text-sm">Course ID<input className="mt-1 w-full rounded border p-2" type="number" value={t.courseId} onChange={e => changeTask(i, 'courseId', e.target.value)} /></label>
+                <label className="text-sm">Course<select className="mt-1 w-full rounded border p-2" value={t.courseId} onChange={e => changeTask(i, 'courseId', e.target.value)}><option value="">Select course</option>{courseOptions.map(c=><option key={c.id} value={c.id}>{c.code} — {c.title} ({c.creditUnit} units)</option>)}</select></label>
                 <label className="text-sm">Exam date<input className="mt-1 w-full rounded border p-2" type="date" value={t.examDate} onChange={e => changeTask(i, 'examDate', e.target.value)} /></label>
                 <label className="text-sm">Submission deadline<input className="mt-1 w-full rounded border p-2" type="datetime-local" value={t.deadline} onChange={e => changeTask(i, 'deadline', e.target.value)} /></label>
                 <label className="text-sm">Committee vetting date<input className="mt-1 w-full rounded border p-2" type="datetime-local" value={t.vettingDate} onChange={e => changeTask(i, 'vettingDate', e.target.value)} /></label>
