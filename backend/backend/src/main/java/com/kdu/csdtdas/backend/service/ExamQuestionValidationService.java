@@ -59,11 +59,15 @@ public class ExamQuestionValidationService{
  }
  private String docx(byte[] b)throws Exception{try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(b))){StringBuilder s=new StringBuilder();for(XWPFParagraph p:d.getParagraphs())s.append(p.getText()).append('\n');for(XWPFTable t:d.getTables())for(XWPFTableRow r:t.getRows())for(XWPFTableCell c:r.getTableCells())s.append(c.getText()).append('\n');return s.toString();}}
  private String pdf(byte[] b)throws Exception{try(PDDocument d=Loader.loadPDF(b)){return new PDFTextStripper().getText(d);}}
- private boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,int total){if(marks.size()>30)return false;return combinations(marks,answerCount,compulsory,BigDecimal.valueOf(total),1,new HashSet<>(),BigDecimal.ZERO);}
- private boolean combinations(List<BigDecimal> marks,int need,Set<Integer> compulsory,BigDecimal total,int next,Set<Integer> chosen,BigDecimal sum){
-  if(chosen.size()==need){return !chosen.containsAll(compulsory)||sum.subtract(total).abs().compareTo(new BigDecimal("0.01"))<=0;}
-  if(marks.size()-next+1<need-chosen.size())return true;
-  for(int i=next;i<=marks.size();i++){chosen.add(i);boolean valid=combinations(marks,need,compulsory,total,i+1,chosen,sum.add(marks.get(i-1)));chosen.remove(i);if(!valid)return false;}return true;
+ private boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,int total){
+  if(marks.isEmpty()||answerCount<1||answerCount>marks.size())return false;
+  BigDecimal fixed=BigDecimal.ZERO;List<BigDecimal> optional=new ArrayList<>();
+  for(int i=1;i<=marks.size();i++){if(compulsory.contains(i))fixed=fixed.add(marks.get(i-1));else optional.add(marks.get(i-1));}
+  int choose=answerCount-compulsory.size();if(choose<0||choose>optional.size())return false;
+  BigDecimal actual=fixed;
+  if(choose==optional.size()){for(BigDecimal m:optional)actual=actual.add(m);}
+  else if(choose>0){BigDecimal first=optional.get(0);for(BigDecimal m:optional)if(m.compareTo(first)!=0)return false;actual=actual.add(first.multiply(BigDecimal.valueOf(choose)));}
+  return actual.subtract(BigDecimal.valueOf(total)).abs().compareTo(new BigDecimal("0.01"))<=0;
  }
  private List<BigDecimal> parse(String csv){if(csv==null||csv.isBlank())return List.of();try{return Arrays.stream(csv.split(",")).map(String::trim).map(BigDecimal::new).toList();}catch(Exception e){throw bad("Marks must be comma-separated numbers.");}}
  private Set<Integer> parseSet(String csv){if(csv==null||csv.isBlank())return Set.of();try{Set<Integer>s=new HashSet<>();for(String x:csv.split(","))s.add(Integer.parseInt(x.trim()));return s;}catch(Exception e){throw bad("Compulsory question numbers must be comma-separated whole numbers.");}}
