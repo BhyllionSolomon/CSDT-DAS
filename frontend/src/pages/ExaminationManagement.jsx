@@ -15,6 +15,7 @@ export default function ExaminationManagement() {
     const [message, setMessage] = useState('')
     const [busy, setBusy] = useState(false)
     const [accessUsers, setAccessUsers] = useState({})
+    const [accessExpires, setAccessExpires] = useState({})
     const [policies, setPolicies] = useState({})
     const [validationResults, setValidationResults] = useState({})
 
@@ -58,7 +59,7 @@ export default function ExaminationManagement() {
     }
     const savePolicy = async taskId => { try { const p = policies[taskId] || {}; await saveQuestionPolicy(taskId, { questionCount: Number(p.questionCount), answerCount: Number(p.answerCount), totalMarks: Number(p.totalMarks), marksCsv: p.marksCsv || '', compulsoryCsv: p.compulsoryCsv || '', duration: p.duration || '' }); setMessage('Question policy saved.') } catch(e) { setMessage(e.response?.data?.message || 'Could not save policy.') } }
     const validate = async (taskId, paperId) => { try { const result = await validateExamPaper(taskId, paperId); setValidationResults(old => ({ ...old, [paperId]: result })); setMessage(result.passed ? 'Automated checks passed; committee review is still required.' : 'Validation found issues.') } catch(e) { setMessage(e.response?.data?.message || 'Validation failed.') } }
-    const grant = async paperId => { try { await grantPaperAccess(paperId, Number(accessUsers[paperId])); setMessage('Paper access authorised.') } catch(e) { setMessage(e.response?.data?.message || 'Could not grant access.') } }
+    const grant = async paperId => { try { await grantPaperAccess(paperId, Number(accessUsers[paperId]), accessExpires[paperId] || null); setMessage('Paper access authorised.') } catch(e) { setMessage(e.response?.data?.message || 'Could not grant access.') } }
     const download = async paper => {
         try { const blob = await downloadExamPaper(paper.paperId); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `confidential-paper-${paper.paperId}`; a.click(); URL.revokeObjectURL(url) }
         catch (e) { setMessage(e.response?.data?.message || 'Download denied or failed.') }
@@ -108,7 +109,7 @@ export default function ExaminationManagement() {
                     <button className="rounded border px-3 py-1 text-sm" onClick={() => download(p)}>Open/download securely</button>
                     <button className="rounded border px-3 py-1 text-sm" onClick={() => validate(task.taskId,p.paperId)}>Run document checks</button>
                     {validationResults[p.paperId] && <div className="rounded border p-2 text-xs"><strong>{validationResults[p.paperId].passed ? 'Automated checks passed' : 'Validation issues'}</strong>{validationResults[p.paperId].errors.map((x,i)=><p key={i}>{x}</p>)}{validationResults[p.paperId].warnings.map((x,i)=><p key={'w'+i}>Note: {x}</p>)}</div>}
-                    <div className="flex flex-wrap gap-2"><input className="rounded border p-2 text-sm" type="number" placeholder="Committee member user ID" value={accessUsers[p.paperId] || ''} onChange={e => setAccessUsers(old => ({...old,[p.paperId]:e.target.value}))}/><button className="rounded border px-3 py-1 text-sm" onClick={() => grant(p.paperId)}>HOD: Authorise this paper</button></div>
+                    <div className="flex flex-wrap gap-2"><input className="rounded border p-2 text-sm" type="datetime-local" value={accessExpires[p.paperId] || ""} onChange={e => setAccessExpires(old => ({...old,[p.paperId]:e.target.value}))}/><input className="rounded border p-2 text-sm" type="number" placeholder="Committee member user ID" value={accessUsers[p.paperId] || ''} onChange={e => setAccessUsers(old => ({...old,[p.paperId]:e.target.value}))}/><button className="rounded border px-3 py-1 text-sm" onClick={() => grant(p.paperId)}>HOD: Authorise this paper</button></div>
 
                     {p.reviewNotes && <p className="text-sm opacity-70">Feedback: {p.reviewNotes}</p>}
                     {task.vettingDate && <div className="grid md:grid-cols-3 gap-2">
