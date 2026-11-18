@@ -16,7 +16,7 @@ export default function FinalYearProjects() {
     const [sessions, setSessions] = useState([])
     const [sessionId, setSessionId] = useState('')
     const [staff, setStaff] = useState([])
-    const canManageHierarchy = isHod || staff.some(s => s.fullName === (user?.fullName || user?.name) && (s.coordinator || s.assistantCoordinator))
+    const canManageHierarchy = isHod || staff.some(s => s.username === user?.username && (s.coordinator || s.assistantCoordinator))
     const [assignments, setAssignments] = useState([])
     const [draft, setDraft] = useState(null)
     const [showSettings, setShowSettings] = useState(false)
