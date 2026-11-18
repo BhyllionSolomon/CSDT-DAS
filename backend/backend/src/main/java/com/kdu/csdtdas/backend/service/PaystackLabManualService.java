@@ -7,6 +7,7 @@ import com.kdu.csdtdas.backend.entity.LabManualOrder;
 import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.LabManualOrderRepository;
+import com.kdu.csdtdas.backend.dto.LabDTOs;
 import com.kdu.csdtdas.backend.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -30,6 +31,7 @@ import java.util.UUID;
 public class PaystackLabManualService {
     private final LabManualOrderRepository orders;
     private final StudentRepository students;
+    private final LabManualService manualService;
     private final RestClient http = RestClient.create();
     private final ObjectMapper mapper;
     private final String secretKey;
@@ -37,11 +39,11 @@ public class PaystackLabManualService {
     private final String callbackUrl;
 
     public PaystackLabManualService(LabManualOrderRepository orders, StudentRepository students,
-            ObjectMapper mapper,
+            LabManualService manualService, ObjectMapper mapper,
             @Value("${PAYSTACK_SECRET_KEY:}") String secretKey,
             @Value("${PAYSTACK_WEBHOOK_SECRET:}") String webhookSecret,
             @Value("${PAYSTACK_CALLBACK_URL:}") String callbackUrl) {
-        this.orders=orders; this.students=students; this.mapper=mapper;
+        this.orders=orders; this.students=students; this.manualService=manualService; this.mapper=mapper;
         this.secretKey=secretKey; this.webhookSecret=webhookSecret; this.callbackUrl=callbackUrl;
     }
 
@@ -143,6 +145,9 @@ public class PaystackLabManualService {
                 .orElseThrow(() -> new IllegalArgumentException("Purchase request not found."));
         if (!"PAID".equals(order.getStatus()))
             throw new IllegalArgumentException("Only a verified paid manual can be issued.");
+        // Record the physical issue through the existing stock/sales ledger in the same transaction.
+        manualService.recordSale(staffUsername, new LabDTOs.SaleRequest(
+                order.getManual().getId(), order.getStudent().getId()));
         order.setStatus("ISSUED"); order.setIssuedAt(LocalDateTime.now());
         order.setIssuedBy(staffUsername); order.setUpdatedBy(staffUsername);
         orders.save(order);
