@@ -3,4 +3,5 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 public record LabManualOrderAdminRow(Long id, String matricNumber, String studentName, String programme,
         String level, String courseCode, String manualTitle, BigDecimal amount, String status,
-        String sessionName, LocalDateTime requestedAt) {}
+        String sessionName, LocalDateTime requestedAt, String receiptNumber, String paymentReference,
+        LocalDateTime paidAt, LocalDateTime issuedAt, String issuedBy) {}
