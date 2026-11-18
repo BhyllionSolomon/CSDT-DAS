@@ -71,6 +71,9 @@ import StudentLearning from './pages/StudentLearning'
 import MyLevelAdviser from './pages/MyLevelAdviser'
 import PerformanceAnalytics from './pages/PerformanceAnalytics'
 import NoticeBoard from './pages/NoticeBoard'
+import ExaminationManagement from './pages/ExaminationManagement'
+import ExamOperations from './pages/ExamOperations'
+import MyExamTimetable from './pages/MyExamTimetable'
 
 // Keep the application routes here; routes.jsx is reserved for role-based navigation.
 const protectedRoutes = [
@@ -141,6 +144,9 @@ const protectedRoutes = [
     { path: 'my-adviser', element: <MyLevelAdviser /> },
     { path: 'analytics/performance', element: <PerformanceAnalytics /> },
     { path: 'notices', element: <NoticeBoard /> },
+    { path: 'examination-management', element: <ExaminationManagement /> },
+    { path: 'exam-operations', element: <ExamOperations /> },
+    { path: 'my-exam-timetable', element: <MyExamTimetable /> },
 ]
 
 function App() {

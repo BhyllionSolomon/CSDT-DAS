@@ -71,6 +71,8 @@ export const hodGroups = [
         ] },
     { label: 'Exams', items: [
             { to: '/verification', label: 'Result Verification' },
+            { to: '/examination-management', label: 'Exam Papers & Vetting' },
+            { to: '/exam-operations', label: 'Timetable, Dispatch & Marking' },
         ] },
     { label: 'Laboratory', items: [
             { to: '/lab-staff', label: 'Manage Lab Staff' },
@@ -109,6 +111,8 @@ export const lecturerGroups = [
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
+            { to: '/examination-management', label: 'Question Paper Submission' },
+            { to: '/exam-operations', label: 'My Script Collection & Return' },
         ] },
 ]
 
@@ -153,6 +157,7 @@ export const adviserGroups = [
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
+            { to: '/exam-operations', label: 'My Script Collection & Return' },
         ] },
 ]
 
@@ -162,7 +167,8 @@ export const studentGroups = [
     { label: 'Academics', items: [
             { to: '/register-courses', label: 'Course Registration' },
             { to: '/my-registration', label: 'Registration & Payment' },
-            { to: '/timetable', label: 'Timetable' },
+            { to: '/timetable', label: 'Teaching Timetable' },
+            { to: '/my-exam-timetable', label: 'My Examination Timetable' },
             { to: '/my-carryovers', label: 'Carry-Over Courses' },
             { to: '/my-adviser', label: 'My Level Adviser' },
             { to: '/my-project-supervisor', label: 'My Project Supervisor' },
@@ -190,6 +196,7 @@ export const labGroups = [
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
             { to: '/lab-manual-workflow', label: 'Incoming Course Manuals' },
+            { to: '/exam-operations', label: 'Assigned Exam Dispatch' },
             { to: '/lab-assets', label: 'Equipment & Assets' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
             { to: '/lab-finance', label: 'Manual Finance' },
@@ -202,6 +209,7 @@ export const technicalGroups = [
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
             { to: '/lab-manual-workflow', label: 'Incoming Course Manuals' },
+            { to: '/exam-operations', label: 'Assigned Exam Dispatch' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
         ] },
 ]

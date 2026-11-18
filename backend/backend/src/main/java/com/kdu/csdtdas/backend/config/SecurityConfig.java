@@ -145,6 +145,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/results/**").hasAnyRole(RESULT_WRITERS)
                         .requestMatchers(HttpMethod.PUT, "/api/results/**").hasAnyRole(RESULT_WRITERS)
 
+                        // Examination records are limited to academic staff; fine-grained HOD/lecturer/committee
+                        // authorisation is enforced again inside ExamManagementService.
+                        .requestMatchers("/api/exams/**").hasAnyRole("HOD", "ADMIN", "LECTURER", "ADJUNCT", "LEVEL_ADVISER", "STUDENT", "LAB_OFFICER", "TECHNICAL_STAFF")
+
                         // Everything else academic
                         .requestMatchers("/api/**").hasAnyRole(ACADEMIC)
                         .anyRequest().authenticated()
