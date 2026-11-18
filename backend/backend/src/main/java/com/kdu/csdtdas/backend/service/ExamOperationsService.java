@@ -11,8 +11,8 @@ public class ExamOperationsService {
  private static final ZoneId LAGOS=ZoneId.of("Africa/Lagos");
  private final UserRepository users;private final ExamCourseTaskRepository tasks;private final ExamSittingRepository sittings;
  private final ExamDispatchRecordRepository dispatches;private final ExamScriptBatchRepository batches;
- private final CourseRegistrationRepository registrations;private final ExamAuditEventRepository audit;private final ExamNotificationRepository notifications;
- public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc,ExamScriptReturnRepository returns,ExamNotificationRepository notifications){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;allocationRepository=alloc;this.returns=returns;this.notifications=notifications;}
+ private final CourseRegistrationRepository registrations;private final ExamAuditEventRepository audit;private final ExamNotificationRepository notifications;private final MailService mail;
+ public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc,ExamScriptReturnRepository returns,ExamNotificationRepository notifications,MailService mail){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;allocationRepository=alloc;this.returns=returns;this.notifications=notifications;this.mail=mail;}
 
  public Map<String,Object> confirmSitting(String actor,Long taskId,String venue,LocalTime start,LocalTime end){
   User hod=hod(actor);ExamCourseTask task=task(taskId);if(start==null||end==null||!end.isAfter(start))throw bad("Valid examination start and end times are required.");
@@ -29,7 +29,7 @@ public class ExamOperationsService {
  public Map<String,Object> notifyScriptsReady(String actor,Long taskId){User hod=hod(actor);ExamCourseTask t=task(taskId);int count=0;
   for(CourseAllocation ca:allocationRepository.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester())){User lecturer=ca.getLecturer();if(lecturer==null)continue;String key="SCRIPTS_READY_"+LocalDate.now(LAGOS);
    if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(lecturer.getId(),taskId,key))continue;
-   ExamNotification n=new ExamNotification();n.setRecipient(lecturer);n.setTask(t);n.setNotificationKey(key);n.setTitle("Answer scripts ready for collection");n.setMessage("Answer scripts for "+t.getCourse().getCode()+" are ready for collection from the HOD's office.");notifications.save(n);count++;}
+   ExamNotification n=new ExamNotification();n.setRecipient(lecturer);n.setTask(t);n.setNotificationKey(key);n.setTitle("Answer scripts ready for collection");n.setMessage("Answer scripts for "+t.getCourse().getCode()+" are ready for collection from the HOD's office.");notifications.save(n);if(lecturer.getEmail()!=null&&!lecturer.getEmail().isBlank()){try{mail.send(lecturer.getEmail(),n.getTitle(),n.getMessage());}catch(RuntimeException ignored){/* In-app notice remains available. */}}count++;}
   log(hod,"SCRIPTS_COLLECTION_NOTICE","EXAM_TASK",taskId,"Notified "+count+" allocated lecturers");return Map.of("notifiedLecturers",count);}
  public Map<String,Object> assignDispatch(String actor,Long taskId,Long dispatchUserId,String venue){User hod=hod(actor);ExamCourseTask t=task(taskId);User assigned=userById(dispatchUserId);
   if(!Set.of("LECTURER","ADJUNCT","LEVEL_ADVISER","HOD","ADMIN","LAB_OFFICER","TECHNICAL_STAFF").contains(assigned.getRole().toUpperCase()))throw bad("Dispatch assignee must be a staff account.");
