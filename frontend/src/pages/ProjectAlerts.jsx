@@ -2,11 +2,15 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getAlerts, getCases, schedulePresentation, errorOf, OUTCOME_LABEL, OUTCOME_TONE } from '../services/projectSuiteService'
 import { Donut, HBars } from '../components/ProjectCharts'
+import { getAllSessions } from '../services/sessionService'
+import { currentSessionOf } from '../utils/registrationHelpers'
 
 const field = 'border theme-border rounded-lg px-3 py-2 text-sm'
 
 function ProjectAlerts() {
     const [tab, setTab] = useState('alerts')
+    const [sessions, setSessions] = useState([])
+    const [sessionId, setSessionId] = useState('')
     const [alerts, setAlerts] = useState(null)
     const [cases, setCases] = useState(null)
     const [open, setOpen] = useState(null)
@@ -16,11 +20,12 @@ function ProjectAlerts() {
     const [notice, setNotice] = useState(null)
 
     async function load() {
-        const [a, c] = await Promise.all([getAlerts(), getCases(null, true)])
+        const [a, c] = await Promise.all([getAlerts(Number(sessionId)), getCases(Number(sessionId), true)])
         setAlerts(a); setCases(c)
     }
 
-    useEffect(() => { load().catch((e) => setError(errorOf(e))) }, [])
+    useEffect(() => { getAllSessions().then(rows => { setSessions(rows || []); const current = currentSessionOf(rows || []); if (current) setSessionId(String(current.id)) }).catch(e => setError(errorOf(e))) }, [])
+    useEffect(() => { if (sessionId) load().catch((e) => setError(errorOf(e))) }, [sessionId])
 
     const chart = useMemo(() => {
         const list = cases || []
@@ -52,6 +57,7 @@ function ProjectAlerts() {
             <h2 className="text-2xl font-bold mb-2">Project Alerts</h2>
             <p className="theme-text-muted text-sm mb-6">For the H.O.D. and the Project Coordinators: students who are not showing up or not progressing, and the presentation timetable.</p>
 
+            <div className="card p-3 mb-4"><label className="text-sm">Academic session<select value={sessionId} onChange={e => setSessionId(e.target.value)} className="block border theme-border rounded-lg px-3 py-2 mt-1">{sessions.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}</select></label></div>
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
             {notice && <div className="mb-4 px-4 py-3 rounded-lg bg-green-50 text-green-700 text-sm">{notice}</div>}
 

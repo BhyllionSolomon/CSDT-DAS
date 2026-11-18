@@ -17,6 +17,7 @@ export default function FinalYearProjects() {
     const [sessionId, setSessionId] = useState('')
     const [staff, setStaff] = useState([])
     const canManageHierarchy = isHod || staff.some(s => s.username === user?.username && (s.coordinator || s.assistantCoordinator))
+    const canViewCgpa = canManageHierarchy
     const [assignments, setAssignments] = useState([])
     const [draft, setDraft] = useState(null)
     const [showSettings, setShowSettings] = useState(false)
@@ -77,7 +78,7 @@ export default function FinalYearProjects() {
         const result = await run(() => saveStaff(staff.map(r => ({
             userId: r.userId, designation: r.designation, displayTitle: r.displayTitle || '', displayOrder: Number(r.displayOrder || 9999), eligible: r.eligible,
             firstClassEligible: r.firstClassEligible, coordinator: r.coordinator,
-            assistantCoordinator: r.assistantCoordinator,
+            assistantCoordinator: r.assistantCoordinator, maxLoad: Number(r.maxLoad || 5),
         }))), 'Supervisor settings saved.')
         if (result) setStaff(result)
     }
@@ -178,7 +179,7 @@ export default function FinalYearProjects() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead className="theme-text-muted text-xs uppercase" style={{ background: 'var(--surface-soft)' }}>
-                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th><th className="p-3 text-left">Supervisor</th></tr>
+                                            <tr><th className="p-3 text-left">Student name</th><th className="p-3 text-left">Matric number</th><th className="p-3 text-left">Programme</th>{canViewCgpa && <th className="p-3 text-left">CGPA</th>}<th className="p-3 text-left">Supervisor</th></tr>
                                         </thead>
                                         <tbody className="divide-y theme-border">
                                             {g.items.map(item => (
@@ -186,6 +187,7 @@ export default function FinalYearProjects() {
                                                     <td className="p-3 font-medium">{item.fullName}</td>
                                                     <td className="p-3">{item.matricNumber}</td>
                                                     <td className="p-3">{item.programme}</td>
+                                                    {canViewCgpa && <td className="p-3 tabular-nums">{item.cgpa == null ? "—" : Number(item.cgpa).toFixed(2)}</td>}
                                                     <td className="p-3">
                                                         <select disabled={busy || draft.status !== 'DRAFT'} value={item.supervisorId}
                                                             onChange={e => move(item, e.target.value)}
@@ -273,7 +275,7 @@ export default function FinalYearProjects() {
                             <table className="w-full text-sm">
                                 <thead className="theme-text-muted text-xs uppercase"><tr>
                                     <th className="p-2 text-left">Supervises</th><th className="p-2 text-left">First Class eligible</th>
-                                    <th className="p-2 text-left">Lecturer</th><th className="p-2 text-left">Designation</th>
+                                    <th className="p-2 text-left">Lecturer</th><th className="p-2 text-left">Designation</th><th className="p-2 text-left">Current / Maximum</th><th className="p-2 text-left">Maximum students</th>
                                     <th className="p-2 text-left">Project Coordinator</th><th className="p-2 text-left">Assistant Coordinator</th>
                                 </tr></thead>
                                 <tbody className="divide-y theme-border">{staff.map(r => <tr key={r.userId}>
@@ -281,8 +283,10 @@ export default function FinalYearProjects() {
                                     <td className="p-2"><input type="checkbox" checked={r.firstClassEligible} disabled={!r.eligible}
                                         onChange={e => patch(r.userId, { firstClassEligible: e.target.checked })}/></td>
                                     <td className="p-2 font-medium">{r.fullName}</td>
-                                    <td className="p-2"><select value={r.designation} onChange={e => patch(r.userId, { designation: e.target.value })}
+                                    <td className="p-2"><select value={r.designation} onChange={e => patch(r.userId, { designation: e.target.value, maxLoad: e.target.value === "PROFESSOR" && Number(r.maxLoad) === 5 ? 6 : r.maxLoad })}
                                         className="border theme-border rounded px-2 py-1">{DESIGNATIONS.map(([code, label]) => <option key={code} value={code}>{label}</option>)}</select></td>
+                                    <td className="p-2 tabular-nums">{r.currentLoad} / {r.maxLoad}</td>
+                                    <td className="p-2"><input type="number" min="1" max="30" value={r.maxLoad} onChange={e => patch(r.userId, { maxLoad: Number(e.target.value) })} className="border theme-border rounded px-2 py-1 w-20" /></td>
                                     <td className="p-2"><input type="checkbox" checked={r.coordinator} onChange={e => patch(r.userId, { coordinator: e.target.checked })}/></td>
                                     <td className="p-2"><input type="checkbox" checked={r.assistantCoordinator} onChange={e => patch(r.userId, { assistantCoordinator: e.target.checked })}/></td>
                                 </tr>)}</tbody>

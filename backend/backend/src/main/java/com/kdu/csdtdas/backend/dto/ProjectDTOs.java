@@ -10,11 +10,11 @@ public final class ProjectDTOs {
 
     public record StaffRow(
             Long userId, String username, String fullName, String role, String designation, String displayTitle, int displayOrder,
-            boolean eligible, boolean firstClassEligible, boolean coordinator, boolean assistantCoordinator, int currentLoad
+            boolean eligible, boolean firstClassEligible, boolean coordinator, boolean assistantCoordinator, int currentLoad, int maxLoad
     ) {}
 
     public record StaffUpdate(
-            Long userId, String designation, String displayTitle, Integer displayOrder, Boolean eligible, Boolean firstClassEligible, Boolean coordinator, Boolean assistantCoordinator
+            Long userId, String designation, String displayTitle, Integer displayOrder, Boolean eligible, Boolean firstClassEligible, Boolean coordinator, Boolean assistantCoordinator, Integer maxLoad
     ) {}
 
     public record StudentLine(

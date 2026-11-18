@@ -3,7 +3,7 @@ import api from './api'
 const data = (promise) => promise.then((r) => r.data)
 
 export const getCases = (sessionId, all) => data(api.get('/project-suite/cases', { params: { ...(sessionId ? { sessionId } : {}), all } }))
-export const getAlerts = () => data(api.get('/project-suite/alerts'))
+export const getAlerts = (sessionId) => data(api.get('/project-suite/alerts', { params: sessionId ? { sessionId } : {} }))
 export const getCase = (id) => data(api.get(`/project-suite/cases/${id}`))
 export const saveStage = (id, body) => data(api.put(`/project-suite/cases/${id}/stage`, body))
 export const addMeeting = (id, body) => data(api.post(`/project-suite/cases/${id}/meetings`, body))

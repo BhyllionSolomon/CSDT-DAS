@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Download } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import { getStaff } from '../services/projectService'
 import { getAllSessions } from '../services/sessionService'
 import { currentSessionOf } from '../utils/registrationHelpers'
 import { getAllocationPreview, downloadAllocationWord } from '../services/deployService'
@@ -7,11 +9,17 @@ import { getAllocationPreview, downloadAllocationWord } from '../services/deploy
 const msg = (err) => err.response?.data?.message || err.message
 
 function SupervisorExport() {
+    const { user } = useAuth()
+    const [canViewCgpa, setCanViewCgpa] = useState(['ADMIN', 'HOD'].includes(String(user?.role || '').toUpperCase()))
     const [sessions, setSessions] = useState([])
     const [sessionId, setSessionId] = useState('')
     const [data, setData] = useState(null)
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState(null)
+
+    useEffect(() => {
+        if (!canViewCgpa) getStaff().then(rows => setCanViewCgpa((rows || []).some(r => r.username === user?.username && (r.coordinator || r.assistantCoordinator)))).catch(() => {})
+    }, [user?.username])
 
     useEffect(() => {
         getAllSessions().then((s) => {
@@ -74,13 +82,13 @@ function SupervisorExport() {
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
                             <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted uppercase text-xs">
-                            <tr><th className="px-4 py-2">Supervisor</th><th className="px-4 py-2">Student name</th><th className="px-4 py-2">Matriculation number</th><th className="px-4 py-2">Programme</th></tr>
+                            <tr><th className="px-4 py-2">Supervisor</th><th className="px-4 py-2">Student name</th><th className="px-4 py-2">Matriculation number</th><th className="px-4 py-2">Programme</th>{canViewCgpa && <th className="px-4 py-2">CGPA</th>}</tr>
                             </thead>
                             <tbody className="divide-y theme-border">
                             {data.rows.map((r, i) => (
                                 <tr key={i}>
                                     <td className="px-4 py-2 font-medium">{r.supervisor}</td><td className="px-4 py-2">{r.student}</td>
-                                    <td className="px-4 py-2">{r.matric}</td><td className="px-4 py-2">{r.programme}</td>
+                                    <td className="px-4 py-2">{r.matric}</td><td className="px-4 py-2">{r.programme}</td>{canViewCgpa && <td className="px-4 py-2 tabular-nums">{r.cgpa == null ? "—" : Number(r.cgpa).toFixed(2)}</td>}
                                 </tr>
                             ))}
                             </tbody>
