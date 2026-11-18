@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/lab")
-@CrossOrigin(origins = "*")
 public class LabManualController {
 
     private final LabManualService service;
