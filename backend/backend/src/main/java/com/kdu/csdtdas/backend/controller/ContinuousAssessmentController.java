@@ -76,7 +76,7 @@ public class ContinuousAssessmentController {
     @GetMapping("/ca/submissions/{id}/file")
     public ResponseEntity<ByteArrayResource> submissionFile(@PathVariable Long id, Authentication a) {
         var sub = service.submissionFile(name(a), id);
-        String safeName = sub.getFileName().replaceAll("[\\\\r\\\\n\\\\\\\"]", "_");
+        String safeName = sub.getFileName().replaceAll("[^a-zA-Z0-9._-]", "_");
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + safeName + "\"")
