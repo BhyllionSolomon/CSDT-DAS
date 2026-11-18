@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess } from '../services/examService'
 
-const blankTask = () => ({ courseId: '', examDate: '', deadline: '', vettingDate: '', correctionDeadline: '', noticeDays: 49 })
+const blankTask = () => ({ courseId: '', examDate: '', deadline: '', vettingDate: '', correctionDeadline: '', markingDeadline: '', noticeDays: 49 })
 
 export default function ExaminationManagement() {
     const [sessionId, setSessionId] = useState('')
@@ -32,7 +32,7 @@ export default function ExaminationManagement() {
             const payload = tasks.map(t => ({
                 courseId: Number(t.courseId), examDate: t.examDate,
                 deadline: t.deadline, vettingDate: t.vettingDate,
-                correctionDeadline: t.correctionDeadline, noticeDays: Number(t.noticeDays || 49),
+                correctionDeadline: t.correctionDeadline, markingDeadline: t.markingDeadline || null, noticeDays: Number(t.noticeDays || 49),
             }))
             const data = await configureExamTasks(Number(sessionId), semester, payload)
             setBoard(data); setCycleId(String(data.cycleId)); setMessage('Examination schedule saved.')
