@@ -2,7 +2,7 @@ package com.kdu.csdtdas.backend.service;
 import com.kdu.csdtdas.backend.entity.*;import com.kdu.csdtdas.backend.repository.*;
 import org.apache.poi.xwpf.usermodel.*;import org.apache.pdfbox.Loader;import org.apache.pdfbox.pdmodel.PDDocument;import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
-import java.io.*;import java.util.*;import java.util.regex.*;
+import java.io.*;import java.util.*;import java.util.regex.*;import java.math.BigDecimal;
 
 @Service @Transactional
 public class ExamQuestionValidationService{
@@ -11,7 +11,7 @@ public class ExamQuestionValidationService{
  public Map<String,Object> savePolicy(String username,Long taskId,PolicyInput in){
   User hod=hod(username);ExamCourseTask task=tasks.findById(taskId).orElseThrow(()->bad("Exam task not found."));
   if(in.questionCount()==null||in.answerCount()==null||in.totalMarks()==null||in.questionCount()<1||in.questionCount()>30||in.answerCount()<1||in.answerCount()>in.questionCount()||in.totalMarks()<1)throw bad("Invalid question count, answer count or total marks.");
-  List<Integer> marks=parse(in.marksCsv());if(marks.size()!=in.questionCount()||marks.stream().anyMatch(x->x<=0))throw bad("Provide one positive mark value for each question.");
+  List<BigDecimal> marks=parse(in.marksCsv());if(marks.size()!=in.questionCount()||marks.stream().anyMatch(x->x.signum()<=0))throw bad("Provide one positive mark value for each question.");
   Set<Integer> compulsory=parseSet(in.compulsoryCsv());if(compulsory.stream().anyMatch(x->x<1||x>in.questionCount())||compulsory.size()>in.answerCount())throw bad("Compulsory question numbers must be valid and cannot exceed answer count.");
   if(!allCombinationsTotal(marks,in.answerCount(),compulsory,in.totalMarks()))throw bad("The marks do not total "+in.totalMarks()+" for every permitted answer combination. Adjust marks or compulsory questions.");
   ExamQuestionPolicy p=policies.findByCycleIdAndCourseId(task.getCycle().getId(),task.getCourse().getId()).orElseGet(ExamQuestionPolicy::new);
@@ -35,7 +35,7 @@ public class ExamQuestionValidationService{
   Set<Integer> numbers=new TreeSet<>();Matcher matcher=Pattern.compile("(?im)^\\s*(?:QUESTION\\s*)?(\\d{1,2})\\s*[.) :]").matcher(text);while(matcher.find())numbers.add(Integer.parseInt(matcher.group(1)));
   if(numbers.size()!=policy.getQuestionCount())errors.add("Expected "+policy.getQuestionCount()+" numbered questions; detected "+numbers.size()+".");
   for(int i=1;i<=policy.getQuestionCount();i++)if(!numbers.contains(i))errors.add("Question number "+i+" is missing.");
-  List<Integer> marks=parse(policy.getMarksCsv());Set<Integer> compulsory=parseSet(policy.getCompulsoryCsv());
+  List<BigDecimal> marks=parse(policy.getMarksCsv());Set<Integer> compulsory=parseSet(policy.getCompulsoryCsv());
   if(!allCombinationsTotal(marks,policy.getAnswerCount(),compulsory,policy.getTotalMarks()))errors.add("Configured answer combinations do not total the required marks.");
   if(!normalized.contains("ANSWER"))warnings.add("Answer-choice instructions were not clearly detected; committee must verify.");
   warnings.add("Logo presence, visual formatting and scanned content require human verification.");
@@ -45,13 +45,13 @@ public class ExamQuestionValidationService{
  }
  private String docx(byte[] b)throws Exception{try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(b))){StringBuilder s=new StringBuilder();for(XWPFParagraph p:d.getParagraphs())s.append(p.getText()).append('\n');for(XWPFTable t:d.getTables())for(XWPFTableRow r:t.getRows())for(XWPFTableCell c:r.getTableCells())s.append(c.getText()).append('\n');return s.toString();}}
  private String pdf(byte[] b)throws Exception{try(PDDocument d=Loader.loadPDF(b)){return new PDFTextStripper().getText(d);}}
- private boolean allCombinationsTotal(List<Integer> marks,int answerCount,Set<Integer> compulsory,int total){if(marks.size()>30)return false;return combinations(marks,answerCount,compulsory,total,1,new HashSet<>(),0);}
- private boolean combinations(List<Integer> marks,int need,Set<Integer> compulsory,int total,int next,Set<Integer> chosen,int sum){
-  if(chosen.size()==need){return !chosen.containsAll(compulsory)||sum==total;}
+ private boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,int total){if(marks.size()>30)return false;return combinations(marks,answerCount,compulsory,BigDecimal.valueOf(total),1,new HashSet<>(),BigDecimal.ZERO);}
+ private boolean combinations(List<BigDecimal> marks,int need,Set<Integer> compulsory,BigDecimal total,int next,Set<Integer> chosen,BigDecimal sum){
+  if(chosen.size()==need){return !chosen.containsAll(compulsory)||sum.subtract(total).abs().compareTo(new BigDecimal("0.01"))<=0;}
   if(marks.size()-next+1<need-chosen.size())return true;
-  for(int i=next;i<=marks.size();i++){chosen.add(i);boolean valid=combinations(marks,need,compulsory,total,i+1,chosen,sum+marks.get(i-1));chosen.remove(i);if(!valid)return false;}return true;
+  for(int i=next;i<=marks.size();i++){chosen.add(i);boolean valid=combinations(marks,need,compulsory,total,i+1,chosen,sum.add(marks.get(i-1)));chosen.remove(i);if(!valid)return false;}return true;
  }
- private List<Integer> parse(String csv){if(csv==null||csv.isBlank())return List.of();try{return Arrays.stream(csv.split(",")).map(String::trim).map(Integer::parseInt).toList();}catch(Exception e){throw bad("Marks must be comma-separated whole numbers.");}}
+ private List<BigDecimal> parse(String csv){if(csv==null||csv.isBlank())return List.of();try{return Arrays.stream(csv.split(",")).map(String::trim).map(BigDecimal::new).toList();}catch(Exception e){throw bad("Marks must be comma-separated numbers.");}}
  private Set<Integer> parseSet(String csv){if(csv==null||csv.isBlank())return Set.of();try{Set<Integer>s=new HashSet<>();for(String x:csv.split(","))s.add(Integer.parseInt(x.trim()));return s;}catch(Exception e){throw bad("Compulsory question numbers must be comma-separated whole numbers.");}}
  private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only HOD/ADMIN can configure policy.");return u;}private boolean isHod(User u){return Set.of("HOD","ADMIN").contains(u.getRole().toUpperCase());}
  private void log(User u,String a,Long id,String detail){ExamAuditEvent e=new ExamAuditEvent();e.setActor(u);e.setAction(a);e.setTargetType("EXAM_TASK");e.setTargetId(id);e.setDetails(detail);audit.save(e);}
