@@ -4,7 +4,144 @@ import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './components/ProtectedRoute'
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import { protectedRoutes } from './routes'
+import RoleDashboard from './pages/RoleDashboard'
+import LecturerDashboard from './pages/LecturerDashboard'
+import MyAccount from './pages/MyAccount'
+import Students from './pages/Students'
+import StudentResults from './pages/StudentResults'
+import StudentsPerSession from './pages/StudentsPerSession'
+import BulkUploadStudents from './pages/BulkUploadStudents'
+import Courses from './pages/Courses'
+import CourseCurriculum from './pages/CurriculumPlanner'
+import CreateCourse from './pages/CreateCourse'
+import BulkUploadCourses from './pages/BulkUploadCourses'
+import Sessions from './pages/Sessions'
+import StartNewSession from './pages/StartNewSession'
+import CohortGuide from './pages/CohortGuide'
+import CarryOverMonitor from './pages/CarryOverMonitor'
+import SystemCheck from './pages/SystemCheck'
+import SupervisorExport from './pages/SupervisorExport'
+import TimetableAdmin from './pages/TimetableAdmin'
+import LecturerTimetable from './pages/LecturerTimetable'
+import TimetableView from './pages/TimetableView'
+import FinalYearProjects from './pages/FinalYearProjects'
+import ProjectAllocationSchedule from './pages/ProjectAllocationSchedule'
+import MyProjectStudents from './pages/MyProjectStudents'
+import MyProjectSupervisor from './pages/MyProjectSupervisor'
+import RateLecturers from './pages/RateLecturers'
+import FeedbackAdmin from './pages/FeedbackAdmin'
+import MyFeedback from './pages/MyFeedback'
+import LecturerPerformance from './pages/LecturerPerformance'
+import LabManuals from './pages/LabManuals'
+import LabManualWorkflow from './pages/LabManualWorkflow'
+import LabFinance from './pages/LabFinance'
+import LabAssets from './pages/LabAssets'
+import MyProgress from './pages/MyProgress'
+import HomeSlidesAdmin from './pages/HomeSlidesAdmin'
+import Attendance from './pages/Attendance'
+import MyAttendance from './pages/MyAttendance'
+import ContinuousAssessment from './pages/ContinuousAssessment'
+import MyCaScores from './pages/MyCaScores'
+import Graduates from './pages/Graduates'
+import SecurityLog from './pages/SecurityLog'
+import EnterResult from './pages/EnterResult'
+import BulkEnterResults from './pages/BulkEnterResults'
+import UploadResultsCsv from './pages/UploadResultsCsv'
+import ResultVerification from './pages/ResultVerification'
+import RegistrationEntry from './pages/RegistrationEntry'
+import MyRegistration from './pages/MyRegistration'
+import RegistrationApprovals from './pages/RegistrationApprovals'
+import RegistrationStatus from './pages/RegistrationStatus'
+import ProgrammeOverview from './pages/ProgrammeOverview'
+import CourseAllocations from './pages/CourseAllocations'
+import BulkUploadAllocation from './pages/BulkUploadAllocation'
+import ClaimCourses from './pages/ClaimCourses'
+import SetUnitRequirements from './pages/SetUnitRequirements'
+import LecturerStudents from './pages/LecturerStudents'
+import ManageLecturers from './pages/ManageLecturers'
+import ManageAdvisers from './pages/ManageAdvisers'
+import ManageLabStaff from './pages/ManageLabStaff'
+import ExamScoresheet from './pages/ExamScoresheet'
+import StudentCarryOvers from './pages/StudentCarryOvers'
+import UploadMyResults from './pages/UploadMyResults'
+import Reports from './pages/Reports'
+import StudentReport from './pages/StudentReport'
+import LecturerTeaching from './pages/LecturerTeaching'
+import StudentLearning from './pages/StudentLearning'
+import MyLevelAdviser from './pages/MyLevelAdviser'
+import PerformanceAnalytics from './pages/PerformanceAnalytics'
+import NoticeBoard from './pages/NoticeBoard'
+
+// Keep the application routes here; routes.jsx is reserved for role-based navigation.
+const protectedRoutes = [
+    { index: true, element: <RoleDashboard /> },
+    { path: 'my-courses', element: <LecturerDashboard /> },
+    { path: 'my-account', element: <MyAccount /> },
+    { path: 'students', element: <Students /> },
+    { path: 'students/:studentId/results', element: <StudentResults /> },
+    { path: 'students-per-session', element: <StudentsPerSession /> },
+    { path: 'bulk-upload-students', element: <BulkUploadStudents /> },
+    { path: 'courses', element: <Courses /> },
+    { path: 'curriculum', element: <CourseCurriculum /> },
+    { path: 'create-course', element: <CreateCourse /> },
+    { path: 'bulk-upload-courses', element: <BulkUploadCourses /> },
+    { path: 'sessions', element: <Sessions /> },
+    { path: 'start-session', element: <StartNewSession /> },
+    { path: 'cohort-guide', element: <CohortGuide /> },
+    { path: 'carryover-monitor', element: <CarryOverMonitor /> },
+    { path: 'system-check', element: <SystemCheck /> },
+    { path: 'supervisor-export', element: <SupervisorExport /> },
+    { path: 'timetable-admin', element: <TimetableAdmin /> },
+    { path: 'my-timetable', element: <LecturerTimetable /> },
+    { path: 'timetable', element: <TimetableView /> },
+    { path: 'final-year-projects', element: <FinalYearProjects /> },
+    { path: 'project-allocation-schedule', element: <ProjectAllocationSchedule /> },
+    { path: 'my-project-students', element: <MyProjectStudents /> },
+    { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
+    { path: 'rate-lecturers', element: <RateLecturers /> },
+    { path: 'feedback-admin', element: <FeedbackAdmin /> },
+    { path: 'my-feedback', element: <MyFeedback /> },
+    { path: 'lecturer-performance', element: <LecturerPerformance /> },
+    { path: 'lab-manuals', element: <LabManuals /> },
+    { path: 'lab-manual-workflow', element: <LabManualWorkflow /> },
+    { path: 'lab-assets', element: <LabAssets /> },
+    { path: 'lab-finance', element: <LabFinance /> },
+    { path: 'my-progress', element: <MyProgress /> },
+    { path: 'home-slides', element: <HomeSlidesAdmin /> },
+    { path: 'attendance', element: <Attendance /> },
+    { path: 'my-attendance', element: <MyAttendance /> },
+    { path: 'continuous-assessment', element: <ContinuousAssessment /> },
+    { path: 'my-ca', element: <MyCaScores /> },
+    { path: 'graduates', element: <Graduates /> },
+    { path: 'security-log', element: <SecurityLog /> },
+    { path: 'enter-result', element: <EnterResult /> },
+    { path: 'bulk-enter-results', element: <BulkEnterResults /> },
+    { path: 'upload-results-csv', element: <UploadResultsCsv /> },
+    { path: 'verification', element: <ResultVerification /> },
+    { path: 'register-courses', element: <RegistrationEntry /> },
+    { path: 'my-registration', element: <MyRegistration /> },
+    { path: 'registration-approvals', element: <RegistrationApprovals /> },
+    { path: 'registration-status', element: <RegistrationStatus /> },
+    { path: 'programme-overview', element: <ProgrammeOverview /> },
+    { path: 'course-allocations', element: <CourseAllocations /> },
+    { path: 'bulk-upload-allocation', element: <BulkUploadAllocation /> },
+    { path: 'claim-courses', element: <ClaimCourses /> },
+    { path: 'set-unit-requirements', element: <SetUnitRequirements /> },
+    { path: 'lecturer-students', element: <LecturerStudents /> },
+    { path: 'users', element: <ManageLecturers /> },
+    { path: 'advisers', element: <ManageAdvisers /> },
+    { path: 'lab-staff', element: <ManageLabStaff /> },
+    { path: 'exam-scoresheet', element: <ExamScoresheet /> },
+    { path: 'my-carryovers', element: <StudentCarryOvers /> },
+    { path: 'upload-my-results', element: <UploadMyResults /> },
+    { path: 'reports', element: <Reports /> },
+    { path: 'student-report', element: <StudentReport /> },
+    { path: 'teaching', element: <LecturerTeaching /> },
+    { path: 'my-learning', element: <StudentLearning /> },
+    { path: 'my-adviser', element: <MyLevelAdviser /> },
+    { path: 'analytics/performance', element: <PerformanceAnalytics /> },
+    { path: 'notices', element: <NoticeBoard /> },
+]
 
 function App() {
     return (
@@ -13,7 +150,6 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/login" element={<Home />} />
-
                         <Route
                             path="/"
                             element={

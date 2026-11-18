@@ -3,6 +3,10 @@ package com.kdu.csdtdas.backend.controller;
 import com.kdu.csdtdas.backend.dto.CaDTOs;
 import com.kdu.csdtdas.backend.service.ContinuousAssessmentService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +54,39 @@ public class ContinuousAssessmentController {
     public ResponseEntity<Void> saveScores(@PathVariable Long id, @RequestBody List<CaDTOs.ScoreEntry> body, Authentication a) {
         service.saveScores(name(a), id, body);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/ca/aggregate")
+    public List<CaDTOs.FinalScoreRow> aggregate(@RequestBody CaDTOs.AggregateRequest body, Authentication a) {
+        return service.aggregate(name(a), body);
+    }
+
+    @PostMapping(value = "/ca/items/{id}/submissions", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<CaDTOs.SubmissionReceipt> submit(@PathVariable Long id,
+            @RequestParam("file") MultipartFile file, Authentication a) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.submit(name(a), id, file));
+    }
+
+    @GetMapping("/ca/items/{id}/submissions")
+    public List<CaDTOs.SubmissionRow> submissions(@PathVariable Long id, Authentication a) {
+        return service.submissions(name(a), id);
+    }
+
+    @PutMapping("/ca/submissions/{id}/grade")
+    public ResponseEntity<Void> grade(@PathVariable Long id, @RequestBody CaDTOs.GradeRequest body, Authentication a) {
+        service.grade(name(a), id, body);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/ca/submissions/{id}/file")
+    public ResponseEntity<ByteArrayResource> submissionFile(@PathVariable Long id, Authentication a) {
+        var sub = service.submissionFile(name(a), id);
+        String safeName = sub.getFileName().replaceAll("[^a-zA-Z0-9._-]", "_");
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + safeName + "\"")
+                .contentLength(sub.getFileData().length)
+                .body(new ByteArrayResource(sub.getFileData()));
     }
 
     // Students: kept under /academic-sessions, a path students are already allowed to read.

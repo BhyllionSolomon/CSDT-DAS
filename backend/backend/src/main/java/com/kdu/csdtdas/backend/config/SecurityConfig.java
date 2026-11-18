@@ -1,7 +1,14 @@
 package com.kdu.csdtdas.backend.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.Arrays;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
@@ -38,6 +45,26 @@ public class SecurityConfig {
         this.authRateLimitFilter = authRateLimitFilter;
         this.accessControlFilter = accessControlFilter;
         this.registrationGateFilter = registrationGateFilter;
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(
+            @Value("${app.cors.allowed-origin:http://localhost:5173}") String allowedOrigins) {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Arrays.stream(allowedOrigins.split(",")).map(String::trim)
+                .filter(origin -> !origin.isBlank()).toList());
+        config.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(java.util.List.of("Authorization", "Content-Type", "Accept", "Origin"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
     @Bean
@@ -92,8 +119,22 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/allocations/**").hasAnyRole("HOD", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/allocations/claim").hasAnyRole("LECTURER", "ADJUNCT", "LEVEL_ADVISER")
 
-                        // Laboratory area (separate from academics)
+                        // Paystack webhooks are public but must pass cryptographic signature validation in the controller.
+                        .requestMatchers(HttpMethod.POST, "/api/payments/paystack/webhook").permitAll()
 
+                        // Lecturers need the active course list for manual submissions.
+                        .requestMatchers(HttpMethod.GET, "/api/lab/courses").hasAnyRole("LECTURER", "ADJUNCT", "HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
+
+                        // Lecturer -> HOD -> laboratory manual workflow.
+                        .requestMatchers("/api/lab/manual-workflow/**").hasAnyRole("LECTURER", "ADJUNCT", "HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
+
+                        // Student manual catalogue, payments and receipts are isolated from staff APIs.
+                        .requestMatchers("/api/lab/student/manuals/**").hasRole("STUDENT")
+
+                        // Purchase request details are limited to finance-capable laboratory roles.
+                        .requestMatchers("/api/lab/orders/**").hasAnyRole("HOD", "ADMIN", "LAB_OFFICER")
+
+                        // Laboratory management area (separate from academics).
                         .requestMatchers("/api/lab/**").hasAnyRole("HOD", "ADMIN", "LAB_OFFICER", "TECHNICAL_STAFF")
 
                         // Results: only the H.O.D verifies; staff enter scores; students cannot write.

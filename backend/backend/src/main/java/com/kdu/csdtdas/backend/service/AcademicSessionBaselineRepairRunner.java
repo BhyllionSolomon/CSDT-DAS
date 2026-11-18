@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -16,6 +17,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * Future promotion remains an explicit administrator action.
  */
 @Component
+@ConditionalOnProperty(name = "app.baseline-repair.enabled", havingValue = "true", matchIfMissing = true)
 public class AcademicSessionBaselineRepairRunner implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(AcademicSessionBaselineRepairRunner.class);
