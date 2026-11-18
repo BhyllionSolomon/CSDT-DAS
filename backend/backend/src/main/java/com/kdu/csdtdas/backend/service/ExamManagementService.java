@@ -125,7 +125,10 @@ public class ExamManagementService {
         for(CourseAllocation allocation:allocations.findForCourse(task.getCourse().getId(),task.getCycle().getAcademicSession().getId(),task.getCycle().getSemester())){
           User lecturer=allocation.getLecturer();if(lecturer==null)continue;
           ExamPaper latest=papers.findByTaskIdOrderByVersionDesc(task.getId()).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).max(Comparator.comparingInt(ExamPaper::getVersion)).orElse(null);
-          Map<String,Object> row=new LinkedHashMap<>();row.put("course",task.getCourse().getCode());row.put("lecturer",lecturer.getFullName());row.put("examDate",task.getExamDate());row.put("deadline",task.getSubmissionDeadline());row.put("submitted",latest!=null);row.put("status",latest==null?"NOT_SUBMITTED":latest.getStatus());row.put("latestVersion",latest==null?0:latest.getVersion());row.put("overdue",latest==null&&LocalDateTime.now().isAfter(task.getSubmissionDeadline()));result.add(row);
+          Map<String,Object> row=new LinkedHashMap<>();row.put("course",task.getCourse().getCode());row.put("lecturer",lecturer.getFullName());row.put("examDate",task.getExamDate());row.put("deadline",task.getSubmissionDeadline());row.put("submitted",latest!=null);row.put("status",latest==null?"NOT_SUBMITTED":latest.getStatus());row.put("latestVersion",latest==null?0:latest.getVersion());
+          row.put("submittedAt",latest==null?null:latest.getSubmittedAt());
+          row.put("late",latest!=null&&latest.getSubmittedAt()!=null&&latest.getSubmittedAt().isAfter(task.getSubmissionDeadline()));
+          row.put("overdue",latest==null&&LocalDateTime.now(ZoneId.of("Africa/Lagos")).isAfter(task.getSubmissionDeadline()));result.add(row);
         }
       }
       return Map.of("submissions",result);
