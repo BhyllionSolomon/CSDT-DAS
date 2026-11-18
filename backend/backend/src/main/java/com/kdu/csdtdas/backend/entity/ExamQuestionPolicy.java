@@ -1,0 +1,7 @@
+package com.kdu.csdtdas.backend.entity;import jakarta.persistence.*;
+@Entity @Table(name="exam_question_policies",uniqueConstraints=@UniqueConstraint(columnNames={"cycle_id","course_id"}))
+public class ExamQuestionPolicy{@Id @GeneratedValue(strategy=GenerationType.IDENTITY) private Long id;
+@ManyToOne(optional=false,fetch=FetchType.LAZY) @JoinColumn(name="cycle_id") private ExamCycle cycle;
+@ManyToOne(optional=false,fetch=FetchType.LAZY) @JoinColumn(name="course_id") private Course course;
+private Integer questionCount,answerCount,totalMarks;@Column(length=2000) private String marksCsv;@Column(length=500) private String compulsoryCsv;@Column(length=200) private String duration;
+public ExamQuestionPolicy(){}public Long getId(){return id;}public ExamCycle getCycle(){return cycle;}public void setCycle(ExamCycle v){cycle=v;}public Course getCourse(){return course;}public void setCourse(Course v){course=v;}public Integer getQuestionCount(){return questionCount;}public void setQuestionCount(Integer v){questionCount=v;}public Integer getAnswerCount(){return answerCount;}public void setAnswerCount(Integer v){answerCount=v;}public Integer getTotalMarks(){return totalMarks;}public void setTotalMarks(Integer v){totalMarks=v;}public String getMarksCsv(){return marksCsv;}public void setMarksCsv(String v){marksCsv=v;}public String getCompulsoryCsv(){return compulsoryCsv;}public void setCompulsoryCsv(String v){compulsoryCsv=v;}public String getDuration(){return duration;}public void setDuration(String v){duration=v;}}
