@@ -19,13 +19,15 @@ public class LabManualWorkflowService {
     private final CourseRepository courses;
     private final LabManualRepository manuals;
     private final LabManualOrderRepository orders;
+    private final LabManualSaleRepository sales;
 
     public LabManualWorkflowService(LabManualSubmissionRepository submissions, CourseRepository courses,
-            LabManualRepository manuals, LabManualOrderRepository orders) {
+            LabManualRepository manuals, LabManualOrderRepository orders, LabManualSaleRepository sales) {
         this.submissions = submissions;
         this.courses = courses;
         this.manuals = manuals;
         this.orders = orders;
+        this.sales = sales;
     }
 
     public LabManualWorkflowDTO.Row upload(String username, String role, String title, Long courseId,
@@ -144,13 +146,25 @@ public class LabManualWorkflowService {
                         && m.getTitle().equals(submission.getTitle()))
                 .findFirst().orElse(null);
         if (manual == null) return List.of();
-        return orders.findAllByManualIdOrderByCreatedAtDesc(manual.getId()).stream()
-                .map(order -> new LabManualWorkflowDTO.Buyer(order.getId(),
-                        order.getStudent().getMatricNumber(), order.getStudent().getFullName(),
-                        order.getStudent().getProgramme() == null ? "" : order.getStudent().getProgramme().getName(),
-                        order.getStudent().getLevel() == null ? "" : order.getStudent().getLevel().getName(),
-                        order.getAmount(), order.getStatus(), order.getPaidAt()))
-                .toList();
+        List<LabManualWorkflowDTO.Buyer> result = new java.util.ArrayList<>();
+        java.util.Set<Long> onlineIssuedStudents = new java.util.HashSet<>();
+        orders.findAllByManualIdOrderByCreatedAtDesc(manual.getId()).forEach(order -> {
+            result.add(new LabManualWorkflowDTO.Buyer(order.getId(),
+                    order.getStudent().getMatricNumber(), order.getStudent().getFullName(),
+                    order.getStudent().getProgramme() == null ? "" : order.getStudent().getProgramme().getName(),
+                    order.getStudent().getLevel() == null ? "" : order.getStudent().getLevel().getName(),
+                    order.getAmount(), order.getStatus(), order.getPaidAt()));
+            if ("ISSUED".equals(order.getStatus())) onlineIssuedStudents.add(order.getStudent().getId());
+        });
+        sales.findAllWithDetails().stream()
+                .filter(sale -> sale.getManual().getId().equals(manual.getId()) && !sale.isVoided())
+                .filter(sale -> !onlineIssuedStudents.contains(sale.getStudent().getId()))
+                .forEach(sale -> result.add(new LabManualWorkflowDTO.Buyer(sale.getId(),
+                        sale.getStudent().getMatricNumber(), sale.getStudent().getFullName(),
+                        sale.getStudent().getProgramme() == null ? "" : sale.getStudent().getProgramme().getName(),
+                        sale.getStudent().getLevel() == null ? "" : sale.getStudent().getLevel().getName(),
+                        sale.getUnitPrice(), "PAID_AND_ISSUED", sale.getSoldAt())));
+        return result;
     }
 
     @Transactional(readOnly = true)
