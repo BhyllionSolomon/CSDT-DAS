@@ -6,14 +6,22 @@ import java.time.*;import java.util.*;import org.slf4j.Logger;import org.slf4j.L
 public class ExamReminderScheduler{
  private static final Logger log=LoggerFactory.getLogger(ExamReminderScheduler.class);
  private static final ZoneId LAGOS=ZoneId.of("Africa/Lagos");
- private final ExamCourseTaskRepository tasks;private final CourseAllocationRepository allocations;private final ExamNotificationRepository notifications;private final ExamScriptBatchRepository batches;private final ExamPaperRepository papers;private final UserRepository users;private final MailService mail;
- public ExamReminderScheduler(ExamCourseTaskRepository t,CourseAllocationRepository a,ExamNotificationRepository n,ExamScriptBatchRepository b,ExamPaperRepository p,UserRepository u,MailService mail){tasks=t;allocations=a;notifications=n;batches=b;papers=p;users=u;this.mail=mail;}
+ private final ExamCourseTaskRepository tasks;private final CourseAllocationRepository allocations;private final ExamNotificationRepository notifications;private final ExamScriptBatchRepository batches;private final ExamPaperRepository papers;private final UserRepository users;private final MailService mail;private final CourseRegistrationRepository registrations;
+ public ExamReminderScheduler(ExamCourseTaskRepository t,CourseAllocationRepository a,ExamNotificationRepository n,ExamScriptBatchRepository b,ExamPaperRepository p,UserRepository u,MailService mail,CourseRegistrationRepository registrations){tasks=t;allocations=a;notifications=n;batches=b;papers=p;users=u;this.mail=mail;this.registrations=registrations;}
  @Scheduled(cron="0 0 8 * * *",zone="Africa/Lagos") @Transactional
  public void sendDailyReminders(){LocalDate today=LocalDate.now(LAGOS);
   for(ExamCourseTask task:tasks.findAll()){
    long examDays=Duration.between(today.atStartOfDay(),task.getExamDate().atStartOfDay()).toDays();
    long deadlineDays=Duration.between(today.atStartOfDay(),task.getSubmissionDeadline().toLocalDate().atStartOfDay()).toDays();
    List<CourseAllocation> assigned=allocations.findForCourse(task.getCourse().getId(),task.getCycle().getAcademicSession().getId(),task.getCycle().getSemester());
+   // Notify only students with an active registration in this course/session/semester.
+   if(Set.of(14L,7L,3L,1L,0L).contains(examDays)){
+    for(CourseRegistration registration:registrations.findByCourseIdAndAcademicSessionIdAndSemester(task.getCourse().getId(),task.getCycle().getAcademicSession().getId(),task.getCycle().getSemester())){
+     if(!"REGISTERED".equalsIgnoreCase(registration.getStatus()))continue;
+     User studentUser=registration.getStudent().getUser();
+     if(studentUser!=null)create(studentUser,task,"STUDENT_EXAM_D"+examDays,"Examination approaching","Your registered course "+task.getCourse().getCode()+" has an examination in "+examDays+" day(s).");
+    }
+   }
    boolean overdue=false;
    for(CourseAllocation ca:assigned){User recipient=ca.getLecturer();if(recipient==null)continue;
     boolean hasPaper=papers.findByTaskIdOrderByVersionDesc(task.getId()).stream().anyMatch(p->p.getLecturer().getId().equals(recipient.getId()));
