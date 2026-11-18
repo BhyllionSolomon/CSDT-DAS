@@ -18,10 +18,10 @@ public class ExamManagementService {
     private final ExamCommitteeMemberRepository committee; private final ExamPaperRepository papers;
     private final AcademicSessionRepository sessions; private final CourseRepository courses;
     private final UserRepository users; private final CourseAllocationRepository allocations;
-    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess; private final ExamNotificationRepository notifications;
+    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess; private final ExamNotificationRepository notifications; private final ExamWatermarkService watermark;
     public ExamManagementService(ExamCycleRepository c,ExamCourseTaskRepository t,ExamCommitteeMemberRepository m,
       ExamPaperRepository p,AcademicSessionRepository s,CourseRepository co,UserRepository u,
-      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess,ExamNotificationRepository notifications){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;this.notifications=notifications;}
+      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess,ExamNotificationRepository notifications,ExamWatermarkService watermark){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;this.notifications=notifications;this.watermark=watermark;}
 
     public Map<String,Object> configure(String username,Long sessionId,String semester,List<TaskInput> input){
       User hod=hod(username); AcademicSession session=sessions.findById(sessionId).orElseThrow(()->bad("Academic session not found."));
@@ -105,7 +105,8 @@ public class ExamManagementService {
       boolean member=committee.existsByCycleIdAndUserId(paper.getTask().getCycle().getId(),viewer.getId()),own=paper.getLecturer().getId().equals(viewer.getId());
       if(!isHod(viewer)&&!own&&(!member||!hasPaperAccess(paperId,viewer.getId())))throw bad("HOD has not authorised access to this paper.");
       audit(viewer,"PAPER_DOWNLOADED","EXAM_PAPER",paperId,"Confidential paper decrypted for authorised user");
-      return new Download(crypto.decrypt(paper.getEncryptedFile(),paper.getWrappedDataKey()),paper.getFileName(),paper.getContentType());
+      byte[] plain=crypto.decrypt(paper.getEncryptedFile(),paper.getWrappedDataKey());byte[] stamped=watermark.watermark(plain,paper.getContentType(),viewer.getUsername());
+      return new Download(stamped,paper.getFileName(),paper.getContentType());
     }
     public Map<String,Object> submissionReport(String username){
       hod(username);List<Map<String,Object>> result=new ArrayList<>();
