@@ -77,7 +77,7 @@ function ContinuousAssessment() {
             })
             if (form.assignmentFile) await uploadAssignmentBrief(created.id, form.assignmentFile)
             if (form.publish) await updateCaItem(created.id, { released: true })
-            setForm({ ...form, title: '', maxMark: '', instructions: '', dueAt: '' })
+            setForm({ ...form, title: '', maxMark: '', instructions: '', dueAt: '', assignmentFile: null })
         }, form.publish ? 'Assessment created and posted to students.' : 'Assessment saved as a draft.')
     }
 
