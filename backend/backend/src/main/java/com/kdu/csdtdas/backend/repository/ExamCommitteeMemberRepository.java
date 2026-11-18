@@ -5,4 +5,5 @@ import java.util.List;
 public interface ExamCommitteeMemberRepository extends JpaRepository<ExamCommitteeMember, Long> {
     boolean existsByCycleIdAndUserId(Long cycleId, Long userId);
     List<ExamCommitteeMember> findByCycleId(Long cycleId);
+    long deleteByCycleIdAndUserId(Long cycleId, Long userId);
 }
