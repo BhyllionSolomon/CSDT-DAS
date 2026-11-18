@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess, rotateExamMasterKey, getExamSubmissionReport } from '../services/examService'
+import { useEffect, useState } from 'react'
+import { configureExamTasks, getExamBoard, appointExamCommittee, uploadExamPaper, getExamPapers, reviewExamPaper, downloadExamPaper, saveQuestionPolicy, validateExamPaper, grantPaperAccess, rotateExamMasterKey, getExamSubmissionReport, getExamSetupData } from '../services/examService'
 
 const blankTask = () => ({ courseId: '', examDate: '', deadline: '', vettingDate: '', correctionDeadline: '', markingDeadline: '', noticeDays: 49 })
 const policyDefaults = task => task.creditUnit === 3 ? { questionCount: 6, answerCount: 4, totalMarks: 70, marksCsv: '17.5,17.5,17.5,17.5,17.5,17.5', compulsoryCsv: '', duration: '' } : task.creditUnit === 2 ? { questionCount: 5, answerCount: 3, totalMarks: 70, marksCsv: '23.333333,23.333333,23.333333,23.333333,23.333333', compulsoryCsv: '', duration: '' } : { questionCount: '', answerCount: '', totalMarks: 70, marksCsv: '', compulsoryCsv: '', duration: '' }
@@ -20,7 +20,10 @@ export default function ExaminationManagement() {
     const [policies, setPolicies] = useState({})
     const [validationResults, setValidationResults] = useState({})
     const [submissionReport, setSubmissionReport] = useState([])
+    const [courseOptions, setCourseOptions] = useState([])
+    const [sessionOptions, setSessionOptions] = useState([])
 
+    useEffect(() => { getExamSetupData().then(data => { setCourseOptions(data.courses || []); setSessionOptions(data.sessions || []) }).catch(() => setMessage('Could not load course and session lists.')) }, [])
     const changeTask = (index, key, value) => setTasks(old => old.map((row, i) => i === index ? { ...row, [key]: value } : row))
     const loadBoard = async (id = cycleId) => {
         if (!id) return
