@@ -71,6 +71,7 @@ export const hodGroups = [
         ] },
     { label: 'Exams', items: [
             { to: '/verification', label: 'Result Verification' },
+            { to: '/examination-management', label: 'Exam Papers & Vetting' },
         ] },
     { label: 'Laboratory', items: [
             { to: '/lab-staff', label: 'Manage Lab Staff' },
@@ -109,6 +110,7 @@ export const lecturerGroups = [
         ] },
     { label: 'Exam Scoresheet', items: [
             { to: '/exam-scoresheet', label: 'Enter Exam Scores' },
+            { to: '/examination-management', label: 'Question Paper Submission' },
         ] },
 ]
 
