@@ -13,9 +13,9 @@ public class ExamQuestionValidationService{
   if(in.questionCount()==null||in.answerCount()==null||in.totalMarks()==null||in.questionCount()<1||in.questionCount()>30||in.answerCount()<1||in.answerCount()>in.questionCount()||in.totalMarks()<1)throw bad("Invalid question count, answer count or total marks.");
   List<BigDecimal> marks=parse(in.marksCsv());if(marks.size()!=in.questionCount()||marks.stream().anyMatch(x->x.signum()<=0))throw bad("Provide one positive mark value for each question.");
   Set<Integer> compulsory=parseSet(in.compulsoryCsv());if(compulsory.stream().anyMatch(x->x<1||x>in.questionCount())||compulsory.size()>in.answerCount())throw bad("Compulsory question numbers must be valid and cannot exceed answer count.");
-  if(!allCombinationsTotal(marks,in.answerCount(),compulsory,in.totalMarks()))throw bad("The marks do not total "+in.totalMarks()+" for every permitted answer combination. Adjust marks or compulsory questions.");
+  if(!allCombinationsTotal(marks,in.answerCount(),compulsory,in.choiceGroupsCsv(),in.totalMarks()))throw bad("The marks do not total "+in.totalMarks()+" for every permitted answer combination. Adjust marks or compulsory questions.");
   ExamQuestionPolicy p=policies.findByCycleIdAndCourseId(task.getCycle().getId(),task.getCourse().getId()).orElseGet(ExamQuestionPolicy::new);
-  p.setCycle(task.getCycle());p.setCourse(task.getCourse());p.setQuestionCount(in.questionCount());p.setAnswerCount(in.answerCount());p.setTotalMarks(in.totalMarks());p.setMarksCsv(in.marksCsv());p.setCompulsoryCsv(in.compulsoryCsv());p.setDuration(in.duration());policies.save(p);
+  p.setCycle(task.getCycle());p.setCourse(task.getCourse());p.setQuestionCount(in.questionCount());p.setAnswerCount(in.answerCount());p.setTotalMarks(in.totalMarks());p.setMarksCsv(in.marksCsv());p.setCompulsoryCsv(in.compulsoryCsv());p.setChoiceGroupsCsv(in.choiceGroupsCsv());p.setDuration(in.duration());policies.save(p);
   log(hod,"QUESTION_POLICY_SET",taskId,"Configured marks and choice policy");return Map.of("questionCount",p.getQuestionCount(),"answerCount",p.getAnswerCount(),"totalMarks",p.getTotalMarks());
  }
  public Map<String,Object> validate(String username,Long taskId,Long paperId){
@@ -36,7 +36,7 @@ public class ExamQuestionValidationService{
   if(numbers.size()!=policy.getQuestionCount())errors.add("Expected "+policy.getQuestionCount()+" numbered questions; detected "+numbers.size()+".");
   for(int i=1;i<=policy.getQuestionCount();i++)if(!numbers.contains(i))errors.add("Question number "+i+" is missing.");
   List<BigDecimal> marks=parse(policy.getMarksCsv());Set<Integer> compulsory=parseSet(policy.getCompulsoryCsv());
-  if(!allCombinationsTotal(marks,policy.getAnswerCount(),compulsory,policy.getTotalMarks()))errors.add("Configured answer combinations do not total the required marks.");
+  if(!allCombinationsTotal(marks,policy.getAnswerCount(),compulsory,policy.getChoiceGroupsCsv(),policy.getTotalMarks()))errors.add("Configured answer combinations do not total the required marks.");
   if(!normalized.contains("ANSWER"))warnings.add("Answer-choice instructions were not clearly detected; committee must verify.");
   List<String> markChecks=checkPrintedMarks(text,marks);errors.addAll(markChecks);
   if(markChecks.isEmpty())warnings.add("Printed mark notation was not consistently machine-readable; verify the mark allocations manually.");
@@ -59,20 +59,28 @@ public class ExamQuestionValidationService{
  }
  private String docx(byte[] b)throws Exception{try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(b))){StringBuilder s=new StringBuilder();for(XWPFParagraph p:d.getParagraphs())s.append(p.getText()).append('\n');for(XWPFTable t:d.getTables())for(XWPFTableRow r:t.getRows())for(XWPFTableCell c:r.getTableCells())s.append(c.getText()).append('\n');return s.toString();}}
  private String pdf(byte[] b)throws Exception{try(PDDocument d=Loader.loadPDF(b)){return new PDFTextStripper().getText(d);}}
- private boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,int total){
+ private boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,String groupsCsv,int total){
   if(marks.isEmpty()||answerCount<1||answerCount>marks.size())return false;
-  BigDecimal fixed=BigDecimal.ZERO;List<BigDecimal> optional=new ArrayList<>();
-  for(int i=1;i<=marks.size();i++){if(compulsory.contains(i))fixed=fixed.add(marks.get(i-1));else optional.add(marks.get(i-1));}
-  int choose=answerCount-compulsory.size();if(choose<0||choose>optional.size())return false;
-  BigDecimal actual=fixed;
-  if(choose==optional.size()){for(BigDecimal m:optional)actual=actual.add(m);}
-  else if(choose>0){BigDecimal first=optional.get(0);for(BigDecimal m:optional)if(m.compareTo(first)!=0)return false;actual=actual.add(first.multiply(BigDecimal.valueOf(choose)));}
-  return actual.subtract(BigDecimal.valueOf(total)).abs().compareTo(new BigDecimal("0.01"))<=0;
+  Set<Integer> grouped=new HashSet<>();List<Set<Integer>> groups=new ArrayList<>();
+  if(groupsCsv!=null&&!groupsCsv.isBlank()){
+   try{for(String groupText:groupsCsv.split("\\|")){Set<Integer> group=new LinkedHashSet<>();for(String part:groupText.split(",")){int q=Integer.parseInt(part.trim());if(q<1||q>marks.size()||!group.add(q)||compulsory.contains(q)||!grouped.add(q))return false;}if(group.isEmpty())return false;groups.add(group);}}catch(Exception ex){return false;}
+  }
+  int mandatoryCount=compulsory.size()+groups.size();if(mandatoryCount>answerCount)return false;
+  List<Integer> free=new ArrayList<>();for(int q=1;q<=marks.size();q++)if(!compulsory.contains(q)&&!grouped.contains(q))free.add(q);
+  int freeChoose=answerCount-mandatoryCount;if(freeChoose<0||freeChoose>free.size())return false;
+  Set<BigDecimal> sums=new HashSet<>();BigDecimal fixed=BigDecimal.ZERO;
+  for(int q:compulsory)fixed=fixed.add(marks.get(q-1));
+  sums.add(fixed.stripTrailingZeros());
+  for(Set<Integer> group:groups){Set<BigDecimal> next=new HashSet<>();for(BigDecimal sum:sums)for(int q:group)next.add(sum.add(marks.get(q-1)).stripTrailingZeros());sums=next;}
+  List<Set<BigDecimal>> dp=new ArrayList<>();for(int i=0;i<=freeChoose;i++)dp.add(new HashSet<>());dp.get(0).add(BigDecimal.ZERO);
+  for(int q:free){BigDecimal mark=marks.get(q-1);for(int k=freeChoose;k>=1;k--)for(BigDecimal sum:new ArrayList<>(dp.get(k-1)))dp.get(k).add(sum.add(mark).stripTrailingZeros());}
+  Set<BigDecimal> permitted=new HashSet<>();for(BigDecimal base:sums)for(BigDecimal extra:dp.get(freeChoose))permitted.add(base.add(extra).stripTrailingZeros());
+  return !permitted.isEmpty()&&permitted.stream().allMatch(x->x.compareTo(BigDecimal.valueOf(total))==0);
  }
  private List<BigDecimal> parse(String csv){if(csv==null||csv.isBlank())return List.of();try{return Arrays.stream(csv.split(",")).map(String::trim).map(BigDecimal::new).toList();}catch(Exception e){throw bad("Marks must be comma-separated numbers.");}}
  private Set<Integer> parseSet(String csv){if(csv==null||csv.isBlank())return Set.of();try{Set<Integer>s=new HashSet<>();for(String x:csv.split(","))s.add(Integer.parseInt(x.trim()));return s;}catch(Exception e){throw bad("Compulsory question numbers must be comma-separated whole numbers.");}}
  private User user(String n){return users.findByUsername(n).orElseThrow(()->bad("Account not found."));}private User hod(String n){User u=user(n);if(!isHod(u))throw bad("Only the HOD can configure policy.");return u;}private boolean isHod(User u){return "HOD".equals(u.getRole().toUpperCase());}
  private void log(User u,String a,Long id,String detail){ExamAuditEvent e=new ExamAuditEvent();e.setActor(u);e.setOccurredAt(java.time.LocalDateTime.now(java.time.ZoneId.of("Africa/Lagos")));e.setAction(a);e.setTargetType("EXAM_TASK");e.setTargetId(id);e.setDetails(detail);audit.save(e);}
  private IllegalArgumentException bad(String m){return new IllegalArgumentException(m);}
- public record PolicyInput(Integer questionCount,Integer answerCount,Integer totalMarks,String marksCsv,String compulsoryCsv,String duration){}
+ public record PolicyInput(Integer questionCount,Integer answerCount,Integer totalMarks,String marksCsv,String compulsoryCsv,String choiceGroupsCsv,String duration){}
 }
