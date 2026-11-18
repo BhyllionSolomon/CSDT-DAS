@@ -12,7 +12,7 @@ const SEVERITY = {
 }
 
 function ProjectCases() {
-    const [all, setAll] = useState(false)
+    const [all, setAll] = useState(true)
     const [sessions, setSessions] = useState([])
     const [sessionId, setSessionId] = useState('')
     const [cases, setCases] = useState(null)
@@ -48,7 +48,7 @@ function ProjectCases() {
             <div className="card p-4 mb-6 flex gap-4 flex-wrap items-center">
                 <label className="text-sm">Academic session<select value={sessionId} onChange={e => setSessionId(e.target.value)} className="block border theme-border rounded-lg px-3 py-2 mt-1">{sessions.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
                 <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or matric number" className="border theme-border rounded-lg px-3 py-2 text-sm w-64" />
-                <label className="text-sm flex items-center gap-2"><input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Show every student (H.O.D. and coordinators)</label>
+                <label className="text-sm flex items-center gap-2"><input type="checkbox" checked={all} onChange={(e) => setAll(e.target.checked)} /> Show only my students</label>
             </div>
 
             {!cases && !error && <p className="theme-text-muted">Loading…</p>}
