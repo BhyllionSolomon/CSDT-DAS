@@ -10,8 +10,8 @@ public class ExamNotification{
  @Column(nullable=false,length=2000) private String message;
  @Column(nullable=false) private LocalDateTime createdAt;
  private LocalDateTime readAt;
- public ExamNotification(){} @PrePersist void init(){createdAt=LocalDateTime.now();}
+ public ExamNotification(){} @PrePersist void init(){if(createdAt==null)createdAt=LocalDateTime.now();}
  public Long getId(){return id;} public User getRecipient(){return recipient;} public void setRecipient(User v){recipient=v;} public ExamCourseTask getTask(){return task;} public void setTask(ExamCourseTask v){task=v;}
  public String getNotificationKey(){return notificationKey;} public void setNotificationKey(String v){notificationKey=v;} public String getTitle(){return title;} public void setTitle(String v){title=v;}
- public String getMessage(){return message;} public void setMessage(String v){message=v;} public LocalDateTime getCreatedAt(){return createdAt;} public LocalDateTime getReadAt(){return readAt;} public void setReadAt(LocalDateTime v){readAt=v;}
+ public String getMessage(){return message;} public void setMessage(String v){message=v;} public LocalDateTime getCreatedAt(){return createdAt;}public void setCreatedAt(LocalDateTime v){createdAt=v;} public LocalDateTime getReadAt(){return readAt;} public void setReadAt(LocalDateTime v){readAt=v;}
 }
