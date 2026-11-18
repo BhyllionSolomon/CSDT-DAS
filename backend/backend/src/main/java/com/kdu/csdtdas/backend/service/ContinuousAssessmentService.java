@@ -122,7 +122,7 @@ public class ContinuousAssessmentService {
         List<CaDTOs.ItemRow> itemRows = items.stream()
                 .map(i -> new CaDTOs.ItemRow(i.getId(), i.getCategory(), i.getTitle(), i.getMaxMark().doubleValue(),
                         i.isReleased(), marked.getOrDefault(i.getId(), 0), i.getInstructions(), i.getDueAt(),
-                        submissionRepository.findByItemIdOrderBySubmittedAtAsc(i.getId()).size()))
+                        submissionRepository.findByItemIdOrderBySubmittedAtAsc(i.getId()).size(), i.getAssignmentFileName()))
                 .toList();
 
         List<CaDTOs.StudentRow> rows = new ArrayList<>();
@@ -174,7 +174,45 @@ public class ContinuousAssessmentService {
         CaItem saved = itemRepository.save(item);
 
         return new CaDTOs.ItemRow(saved.getId(), category, title, max.doubleValue(), false, 0,
-                saved.getInstructions(), saved.getDueAt(), 0);
+                saved.getInstructions(), saved.getDueAt(), 0, saved.getAssignmentFileName());
+    }
+
+
+    public String uploadAssignmentBrief(String username, Long itemId, MultipartFile file) {
+        CaItem item = item(itemId);
+        authorize(staff(username), item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
+        if (!"ASSIGNMENT".equals(item.getCategory())) throw bad("Only assignments can have an assignment brief.");
+        if (file == null || file.isEmpty() || file.getSize() > 15L * 1024 * 1024) throw bad("Choose a PDF or Word file no larger than 15 MB.");
+        String name = file.getOriginalFilename() == null ? "assignment" : file.getOriginalFilename();
+        String lower = name.toLowerCase();
+        if (!(lower.endsWith(".pdf") || lower.endsWith(".doc") || lower.endsWith(".docx"))) throw bad("Assignment brief must be a PDF, DOC or DOCX file.");
+        try {
+            item.setAssignmentFileName(name);
+            item.setAssignmentContentType(file.getContentType() == null ? "application/octet-stream" : file.getContentType());
+            item.setAssignmentFileData(file.getBytes());
+            return name;
+        } catch (java.io.IOException e) { throw bad("Could not read the assignment brief."); }
+    }
+
+    @Transactional(readOnly = true)
+    public CaItem assignmentBriefForStaff(String username, Long itemId) {
+        CaItem item = item(itemId);
+        authorize(staff(username), item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
+        if (item.getAssignmentFileData() == null) throw bad("No assignment brief has been attached.");
+        return item;
+    }
+
+    @Transactional(readOnly = true)
+    public CaItem assignmentBriefForStudent(String username, Long itemId) {
+        Student student = userRepository.findByUsername(username).map(User::getStudent).orElse(null);
+        if (student == null) throw bad("Your account is not linked to a student record.");
+        CaItem item = item(itemId);
+        boolean registered = registrationRepository.findByCourseIdAndAcademicSessionIdAndSemester(
+                item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester()).stream()
+                .anyMatch(r -> r.getStudent().getId().equals(student.getId()) && "REGISTERED".equalsIgnoreCase(r.getStatus()));
+        if (!registered || !item.isReleased()) throw bad("This assignment is not available to your account.");
+        if (item.getAssignmentFileData() == null) throw bad("No assignment brief has been attached.");
+        return item;
     }
 
     public CaDTOs.ItemRow updateItem(String username, Long id, CaDTOs.ItemUpdate req) {
@@ -199,7 +237,7 @@ public class ContinuousAssessmentService {
 
         return new CaDTOs.ItemRow(item.getId(), item.getCategory(), item.getTitle(), item.getMaxMark().doubleValue(),
                 item.isReleased(), scoreRepository.findByItemId(id).size(), item.getInstructions(), item.getDueAt(),
-                submissionRepository.findByItemIdOrderBySubmittedAtAsc(id).size());
+                submissionRepository.findByItemIdOrderBySubmittedAtAsc(id).size(), item.getAssignmentFileName());
     }
 
     public void deleteItem(String username, Long id) {
@@ -423,7 +461,7 @@ public class ContinuousAssessmentService {
                 String submissionStatus = submission == null ? "NOT_SUBMITTED"
                         : submission.getGradedAt() == null ? "SUBMITTED" : "GRADED";
                 items.add(new CaDTOs.MyItem(i.getId(), i.getCategory(), i.getTitle(), i.getMaxMark().doubleValue(),
-                        score == null ? null : score.doubleValue(), i.getInstructions(), i.getDueAt(), submissionStatus,
+                        score == null ? null : score.doubleValue(), i.getInstructions(), i.getDueAt(), i.getAssignmentFileName(), submissionStatus,
                         submission == null ? null : submission.getFileName(), submission == null ? null : submission.getSubmittedAt(),
                         submission == null ? null : submission.getFeedback()));
                 releasedMax = releasedMax.add(i.getMaxMark());
