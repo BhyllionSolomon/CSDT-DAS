@@ -14,12 +14,15 @@ function formatDate(value) {
     return value ? new Date(value).toLocaleString() : '—'
 }
 
+const LAB_MANUAL_PAYMENTS_ENABLED = import.meta.env.VITE_LAB_MANUAL_PAYMENTS_ENABLED === 'true'
+
 function StudentLearning() {
     const [tab, setTab] = useState('classes')
     const [labManuals, setLabManuals] = useState([])
     const [manualBusy, setManualBusy] = useState(null)
     const [paymentNotice, setPaymentNotice] = useState('')
     const [receipt, setReceipt] = useState(null)
+    const [selectedManual, setSelectedManual] = useState(null)
     const [materials, setMaterials] = useState([])
     const [classes, setClasses] = useState([])
     const [loading, setLoading] = useState(true)
@@ -27,9 +30,11 @@ function StudentLearning() {
     const [busyId, setBusyId] = useState(null)
 
     function load() {
-        return Promise.all([listMyMaterials(), listMyClasses(), getStudentLabManuals()])
-            .then(([m, c, lm]) => { setMaterials(m); setClasses(c); setLabManuals(lm) })
-            .catch(async (err) => setError(await messageFrom(err)))
+        return Promise.all([
+            listMyMaterials().catch(() => []),
+            listMyClasses().catch(() => []),
+            getStudentLabManuals().catch(() => [])
+        ]).then(([m, c, lm]) => { setMaterials(m); setClasses(c); setLabManuals(lm) })
     }
 
     useEffect(() => {
@@ -106,7 +111,7 @@ function StudentLearning() {
         <div>
             <h2 className="text-2xl font-bold mb-2">Class Materials &amp; Online Classes</h2>
             <p className="theme-text-muted text-sm mb-6">
-                Notes, slides and live classes for the courses you have registered this session.
+                Notes, slides, live classes and laboratory manuals for the courses you have registered this session.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
@@ -164,9 +169,42 @@ function StudentLearning() {
                         <button onClick={() => setReceipt(null)} className="ml-2 underline text-sm print:hidden">Close</button>
                     </div>}
                     <div className="card p-4">
-                        <h3 className="font-semibold">Lab Manual Purchase</h3>
-                        <p className="text-sm theme-text-muted mt-1">View manuals made available for your current academic session. Submit an order to begin the payment process.</p>
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div><h3 className="font-semibold">Lab Manual Payment</h3>
+                                <p className="text-sm theme-text-muted mt-1">Select the laboratory manual for your course, check the price and follow the payment instructions.</p></div>
+                            <span className="text-xs font-semibold rounded-full px-3 py-1" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                                {LAB_MANUAL_PAYMENTS_ENABLED ? 'Online payment enabled' : 'Payment preview'}
+                            </span>
+                        </div>
+                        {!LAB_MANUAL_PAYMENTS_ENABLED && <div className="mt-3 rounded-lg border p-3 text-sm" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-soft)' }}>
+                            <b>Online payment is not yet active.</b>
+                            <p className="mt-1 theme-text-muted">You can view available manuals and their prices now. Paystack payment will be activated after testing is completed. You will not be charged during this preview.</p>
+                        </div>}
                     </div>
+                    {selectedManual && <div className="card p-5 space-y-4" role="dialog" aria-modal="true" aria-labelledby="manual-payment-title">
+                        <div className="flex items-start justify-between gap-3">
+                            <div><p className="text-xs theme-text-muted">{selectedManual.courseCode || 'Department manual'}</p>
+                                <h3 id="manual-payment-title" className="font-bold text-lg">Get {selectedManual.title}</h3>
+                                {selectedManual.courseTitle && <p className="text-sm theme-text-muted">{selectedManual.courseTitle}</p>}</div>
+                            <button onClick={() => setSelectedManual(null)} aria-label="Close payment details" className="text-sm underline">Close</button>
+                        </div>
+                        <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                            <p className="text-xs theme-text-muted">Manual price</p><p className="text-2xl font-bold">{naira(selectedManual.price)}</p>
+                        </div>
+                        <h4 className="font-semibold">How to pay when online payment is activated</h4>
+                        <ol className="list-decimal pl-5 space-y-2 text-sm">
+                            <li>Confirm that the course code and laboratory manual are correct.</li>
+                            <li>Proceed to the secure Paystack checkout.</li>
+                            <li>Complete payment using an available Paystack payment method.</li>
+                            <li>Return to CSDT-DAS to view and print your verified receipt.</li>
+                            <li>Present your receipt at the laboratory and collect your manual.</li>
+                        </ol>
+                        <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                            <b>Payment preview only</b>
+                            <p className="theme-text-muted mt-1">Paystack checkout is temporarily disabled while payment testing is completed. No payment will be initiated and no money will be deducted.</p>
+                        </div>
+                        <button disabled className="w-full rounded-lg px-4 py-2 text-sm font-semibold opacity-60" style={{ backgroundColor: 'var(--surface-soft)' }}>Online payment coming soon</button>
+                    </div>}
                     {labManuals.length === 0 ? <div className="card p-6 text-sm theme-text-muted">No lab manuals are currently available for purchase.</div> :
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {labManuals.map(m => <div key={m.id} className="card p-4 flex flex-col gap-3">
@@ -176,15 +214,18 @@ function StudentLearning() {
                                     {m.courseTitle && <p className="text-sm theme-text-muted">{m.courseTitle}</p>}
                                     <p className="text-lg font-bold mt-3">{naira(m.price)}</p>
                                 </div>
-                                {(m.status === 'NOT_ORDERED' || m.status === 'AWAITING_PAYMENT') && <button disabled={manualBusy === m.id} onClick={async () => {
-                                    setError(null); setManualBusy(m.id)
-                                    try {
-                                        let orderId = m.orderId
-                                        if (!orderId) orderId = (await requestStudentLabManual(m.id)).id
-                                        const checkout = await initiateStudentLabManualPayment(orderId)
-                                        window.location.assign(checkout.authorizationUrl)
-                                    } catch (err) { setError(await messageFrom(err)); setManualBusy(null) }
-                                }} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50">{manualBusy === m.id ? 'Connecting to Paystack…' : m.status === 'NOT_ORDERED' ? 'Buy with Paystack' : 'Pay Now'}</button>}
+                                {(m.status === 'NOT_ORDERED' || m.status === 'AWAITING_PAYMENT') && (LAB_MANUAL_PAYMENTS_ENABLED ?
+                                    <button disabled={manualBusy === m.id} onClick={async () => {
+                                        setError(null); setManualBusy(m.id)
+                                        try {
+                                            let orderId = m.orderId
+                                            if (!orderId) orderId = (await requestStudentLabManual(m.id)).id
+                                            const checkout = await initiateStudentLabManualPayment(orderId)
+                                            window.location.assign(checkout.authorizationUrl)
+                                        } catch (err) { setError(await messageFrom(err)); setManualBusy(null) }
+                                    }} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50">{manualBusy === m.id ? 'Connecting to Paystack…' : m.status === 'NOT_ORDERED' ? 'Buy with Paystack' : 'Pay Now'}</button> :
+                                    <button onClick={() => setSelectedManual(m)} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm">View payment details</button>
+                                )}
                                 {(m.status === 'PAID' || m.status === 'ISSUED') && <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
                                     <b>{m.status === 'PAID' ? 'Payment confirmed — awaiting collection' : 'Manual issued'}</b>
                                     <p className="text-xs theme-text-muted mt-1">{m.status === 'PAID' ? 'Your payment has been verified. Collect your manual from the laboratory.' : 'The laboratory has recorded this manual as issued to you.'}</p>
