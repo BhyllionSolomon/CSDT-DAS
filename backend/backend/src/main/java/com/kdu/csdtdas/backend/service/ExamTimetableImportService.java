@@ -26,11 +26,11 @@ public class ExamTimetableImportService{
    Map<String,Object> out=new LinkedHashMap<>();out.put("matchedRows",matched);out.put("unmatchedRows",unmatched);out.put("message","Extraction is provisional. Confirm each row before publication.");return out;
   }catch(Exception e){if(e instanceof IllegalArgumentException)throw (IllegalArgumentException)e;throw bad("Could not read timetable. Check that the PDF/DOCX file is valid.");}
  }
- public Map<String,Object> confirm(String username,Long rowId,String venue){
+ public Map<String,Object> confirm(String username,Long rowId,String venue,LocalDate correctedDate,LocalTime correctedStart,LocalTime correctedEnd){
   User hod=hod(username);ExamTimetableImportRow row=rows.findById(rowId).orElseThrow(()->bad("Imported row not found."));
-  if(row.getProposedDate()==null)throw bad("This row has no detected date. It must be corrected manually before confirmation.");
-  ExamCourseTask task=row.getTask();task.setExamDate(row.getProposedDate());
-  ExamSitting sitting=sittings.findByTaskId(task.getId()).orElseGet(ExamSitting::new);sitting.setTask(task);sitting.setVenue(venue);sitting.setStartTime(row.getProposedStart());sitting.setEndTime(row.getProposedEnd());sitting.setConfirmed(true);sitting.setPublished(false);sitting.setConfirmedBy(hod);sitting.setConfirmedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));sittings.save(sitting);
+  LocalDate confirmedDate=correctedDate==null?row.getProposedDate():correctedDate;if(confirmedDate==null)throw bad("Enter or correct the examination date before confirmation.");
+  ExamCourseTask task=row.getTask();task.setExamDate(confirmedDate);
+  ExamSitting sitting=sittings.findByTaskId(task.getId()).orElseGet(ExamSitting::new);sitting.setTask(task);sitting.setVenue(venue);sitting.setStartTime(correctedStart==null?row.getProposedStart():correctedStart);sitting.setEndTime(correctedEnd==null?row.getProposedEnd():correctedEnd);sitting.setConfirmed(true);sitting.setPublished(false);sitting.setConfirmedBy(hod);sitting.setConfirmedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));sittings.save(sitting);
   row.setConfirmed(true);row.setConfirmedBy(hod);row.setConfirmedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));audit(hod,"TIMETABLE_ROW_CONFIRMED","EXAM_TIMETABLE_ROW",rowId,"Course "+task.getCourse().getCode());return Map.of("rowId",rowId,"courseCode",task.getCourse().getCode(),"examDate",task.getExamDate(),"confirmed",true);
  }
  private String docx(byte[] b)throws Exception{try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(b))){StringBuilder s=new StringBuilder();for(XWPFParagraph p:d.getParagraphs())s.append(p.getText()).append('\n');for(XWPFTable t:d.getTables())for(XWPFTableRow r:t.getRows()){for(XWPFTableCell c:r.getTableCells())s.append(c.getText()).append(" | ");s.append('\n');}return s.toString();}}
