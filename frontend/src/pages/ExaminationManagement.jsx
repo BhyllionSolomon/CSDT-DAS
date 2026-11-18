@@ -25,7 +25,7 @@ export default function ExaminationManagement() {
     const loadBoard = async (id = cycleId) => {
         if (!id) return
         setBusy(true); setMessage('')
-        try { const data = await getExamBoard(id); setBoard(data); setPolicies(old => ({ ...Object.fromEntries(data.tasks.map(t => [t.taskId, { ...policyDefaults(t), ...old[t.taskId] }])), ...old })); setCycleId(String(id)) }
+        try { const data = await getExamBoard(id); setBoard(data); setPolicies(old => Object.fromEntries(data.tasks.map(t => [t.taskId, { ...policyDefaults(t), ...old[t.taskId] }]))); setCycleId(String(id)) }
         catch (e) { setMessage(e.response?.data?.message || 'Unable to load examination cycle.') }
         finally { setBusy(false) }
     }
