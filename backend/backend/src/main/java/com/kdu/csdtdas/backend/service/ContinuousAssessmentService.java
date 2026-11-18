@@ -378,7 +378,7 @@ public class ContinuousAssessmentService {
                 CaSubmission submission = submissionRepository.findByItemIdAndStudentId(i.getId(), student.getId()).orElse(null);
                 String submissionStatus = submission == null ? "NOT_SUBMITTED"
                         : submission.getGradedAt() == null ? "SUBMITTED" : "GRADED";
-                items.add(new CaDTOs.MyItem(i.getCategory(), i.getTitle(), i.getMaxMark().doubleValue(),
+                items.add(new CaDTOs.MyItem(i.getId(), i.getCategory(), i.getTitle(), i.getMaxMark().doubleValue(),
                         score == null ? null : score.doubleValue(), i.getInstructions(), i.getDueAt(), submissionStatus,
                         submission == null ? null : submission.getFileName(), submission == null ? null : submission.getSubmittedAt(),
                         submission == null ? null : submission.getFeedback()));
