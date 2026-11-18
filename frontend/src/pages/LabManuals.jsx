@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import {
-    getManuals, saveManual, addPurchase, searchLabStudents, sellManual, getSales, voidSale, listLabCourses, naira,
+    getManuals, saveManual, addPurchase, searchLabStudents, sellManual, getSales, voidSale, listLabCourses, naira, getManualOrders,
 } from '../services/labService'
 
 const msg = (err) => err.response?.data?.message || err.message
@@ -15,6 +15,7 @@ function LabManuals() {
     const [tab, setTab] = useState('sell')
     const [manuals, setManuals] = useState([])
     const [sales, setSales] = useState([])
+    const [orders, setOrders] = useState([])
     const [courses, setCourses] = useState([])
     const [query, setQuery] = useState('')
     const [hits, setHits] = useState([])
@@ -27,8 +28,8 @@ function LabManuals() {
     const [notice, setNotice] = useState(null)
 
     async function refresh() {
-        const [m, s] = await Promise.all([getManuals(), getSales()])
-        setManuals(m); setSales(s)
+        const [m, s, o] = await Promise.all([getManuals(), getSales(), getManualOrders()])
+        setManuals(m); setSales(s); setOrders(o)
     }
 
     useEffect(() => {
@@ -92,7 +93,7 @@ function LabManuals() {
         })
     }
 
-    const tabs = [['sell', 'Sell a manual'], ['stock', 'Stock & manuals']]
+    const tabs = [['sell', 'Sell a manual'], ['stock', 'Stock & manuals'], ...(canFinance ? [['orders', 'Student requests']] : [])]
 
     return (
         <div className="max-w-4xl">
@@ -188,6 +189,23 @@ function LabManuals() {
                         )}
                     </div>
                 </>
+            )}
+
+            {tab === 'orders' && canFinance && (
+                <div className="card overflow-hidden">
+                    <div className="theme-sidebar text-white px-4 py-3 text-sm font-semibold">Student lab manual requests</div>
+                    <p className="p-4 text-sm theme-text-muted">These are requests, not confirmed payments. Payment confirmation will only be recorded after secure gateway verification. Do not issue a manual based on this request alone.</p>
+                    {orders.length === 0 ? <p className="p-5 text-sm theme-text-muted">No student requests have been submitted.</p> :
+                    <div className="overflow-x-auto"><table className="w-full text-sm text-left min-w-[780px]">
+                        <thead style={{ backgroundColor: 'var(--surface-soft)' }} className="theme-text-muted text-xs uppercase"><tr>
+                            <th className="px-4 py-2">Student</th><th className="px-4 py-2">Programme / Level</th><th className="px-4 py-2">Course</th><th className="px-4 py-2">Manual</th><th className="px-4 py-2">Amount</th><th className="px-4 py-2">Session</th><th className="px-4 py-2">Status</th>
+                        </tr></thead><tbody className="divide-y theme-border">{orders.map(o => <tr key={o.id}>
+                            <td className="px-4 py-3">{o.matricNumber}<div className="text-xs theme-text-muted">{o.studentName}</div></td>
+                            <td className="px-4 py-3">{o.programme} · {o.level}</td><td className="px-4 py-3">{o.courseCode || '—'}</td>
+                            <td className="px-4 py-3">{o.manualTitle}</td><td className="px-4 py-3">{naira(o.amount)}</td>
+                            <td className="px-4 py-3">{o.sessionName}</td><td className="px-4 py-3">{o.status === 'AWAITING_PAYMENT' ? 'Awaiting payment' : o.status}</td>
+                        </tr>)}</tbody></table></div>}
+                </div>
             )}
 
             {tab === 'stock' && (
