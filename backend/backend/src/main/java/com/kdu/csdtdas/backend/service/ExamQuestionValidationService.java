@@ -1,6 +1,6 @@
 package com.kdu.csdtdas.backend.service;
 import com.kdu.csdtdas.backend.entity.*;import com.kdu.csdtdas.backend.repository.*;
-import org.apache.poi.xwpf.usermodel.*;import org.apache.pdfbox.Loader;import org.apache.pdfbox.pdmodel.PDDocument;import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.xwpf.usermodel.*;import org.apache.pdfbox.Loader;import org.apache.pdfbox.cos.COSName;import org.apache.pdfbox.pdmodel.PDDocument;import org.apache.pdfbox.pdmodel.PDPage;import org.apache.pdfbox.pdmodel.PDResources;import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
 import java.io.*;import java.util.*;import java.util.regex.*;import java.math.BigDecimal;
 
@@ -40,10 +40,16 @@ public class ExamQuestionValidationService{
   if(!normalized.contains("ANSWER"))warnings.add("Answer-choice instructions were not clearly detected; committee must verify.");
   List<String> markChecks=checkPrintedMarks(text,marks);errors.addAll(markChecks);
   if(markChecks.isEmpty())warnings.add("Printed mark notation was not consistently machine-readable; verify the mark allocations manually.");
-  warnings.add("Logo presence, visual formatting and scanned content require human verification.");
+  if(!hasEmbeddedImage(bytes,name))warnings.add("No embedded image was detected; verify that the approved school logo is present.");
+  warnings.add("Logo identity, visual formatting and scanned content require human verification.");
   if(text.isBlank())warnings.add("No extractable text was found. OCR is required for this scanned document.");
   log(viewer,"PAPER_VALIDATED",taskId,"Paper "+paperId+" validation completed");
   return Map.of("paperId",paperId,"errors",errors,"warnings",warnings,"passed",errors.isEmpty(),"humanReviewRequired",true,"sha256",paper.getContentSha256()==null?"":paper.getContentSha256());
+ }
+ private boolean hasEmbeddedImage(byte[] bytes,String name){
+  try{if(name.endsWith(".docx")){try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(bytes))){return !d.getAllPictures().isEmpty();}}
+   try(PDDocument d=Loader.loadPDF(bytes)){for(PDPage page:d.getPages()){PDResources r=page.getResources();if(r!=null)for(COSName n:r.getXObjectNames())if(r.getXObject(n) instanceof PDImageXObject)return true;}return false;}
+  }catch(Exception e){return false;}
  }
  private List<String> checkPrintedMarks(String text,List<BigDecimal> expected){
   List<String> errors=new ArrayList<>();Matcher q=Pattern.compile("(?im)^\\s*(?:QUESTION\\s*)?(\\d{1,2})\\s*[.) :]").matcher(text);List<Integer> starts=new ArrayList<>();List<Integer> nums=new ArrayList<>();while(q.find()){starts.add(q.start());nums.add(Integer.parseInt(q.group(1)));}
