@@ -72,6 +72,26 @@ public class LabManualWorkflowService {
   // Publish the HOD-priced manual into the existing student catalogue, without allowing a lecturer to set its price.
   if(manuals.findAllWithCourse().stream().noneMatch(m->m.getCourse()!=null&&m.getCourse().getId().equals(s.getCourse().getId())&&m.getTitle().equals(s.getTitle()))){
    LabManual m=new LabManual();m.setTitle(s.getTitle());m.setCourse(s.getCourse());m.setUnitPrice(s.getApprovedLevy());m.setActive(true);manuals.save(m);
+  } else {
+   LabManual m=manuals.findAllWithCourse().stream().filter(x->x.getCourse()!=null&&x.getCourse().getId().equals(s.getCourse().getId())&&x.getTitle().equals(s.getTitle())).findFirst().orElseThrow();
+   m.setUnitPrice(s.getApprovedLevy());m.setActive(true);
+  }
+  return row(s);
+ }
+ @Transactional(readOnly=true) public byte[] download(String username,String role,Long id){
+  LabManualSubmission s=get(id);
+  boolean allowed=Set.of("HOD","ADMIN","LAB_OFFICER","TECHNICAL_STAFF").contains(role)|| (Set.of("LECTURER","ADJUNCT").contains(role)&&s.getUploadedBy().equals(username));
+  if(!allowed)throw denied();return s.getFileData();
+ }
+ private LabManualSubmission get(Long id){return submissions.findById(id).orElseThrow(()->bad("Manual submission not found."));
+ }
+ private LabManualWorkflowDTO.Row row(LabManualSubmission s){return new LabManualWorkflowDTO.Row(s.getId(),s.getTitle(),s.getCourse().getCode(),s.getCourse().getTitle(),s.getPageCount(),s.getSuggestedLevy(),s.getApprovedLevy(),s.getStatus(),s.getTargetLab(),s.getUploadedBy(),s.getHodReviewedBy(),s.getHodComment(),s.getReceivedBy(),s.getSubmittedAt(),s.getApprovedAt(),s.getReceivedAt());
+ }
+ private RuntimeException denied(){return new org.springframework.security.access.AccessDeniedException("You are not authorised to perform this action.");
+ }
+ private RuntimeException bad(String m){return new IllegalArgumentException(m);
+ }
+}
   }
   return row(s);
  }
