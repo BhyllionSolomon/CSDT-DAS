@@ -59,7 +59,7 @@ public class ExamQuestionValidationService{
  }
  private String docx(byte[] b)throws Exception{try(XWPFDocument d=new XWPFDocument(new ByteArrayInputStream(b))){StringBuilder s=new StringBuilder();for(XWPFParagraph p:d.getParagraphs())s.append(p.getText()).append('\n');for(XWPFTable t:d.getTables())for(XWPFTableRow r:t.getRows())for(XWPFTableCell c:r.getTableCells())s.append(c.getText()).append('\n');return s.toString();}}
  private String pdf(byte[] b)throws Exception{try(PDDocument d=Loader.loadPDF(b)){return new PDFTextStripper().getText(d);}}
- private boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,String groupsCsv,int total){
+ boolean allCombinationsTotal(List<BigDecimal> marks,int answerCount,Set<Integer> compulsory,String groupsCsv,int total){
   if(marks.isEmpty()||answerCount<1||answerCount>marks.size())return false;
   Set<Integer> grouped=new HashSet<>();List<Set<Integer>> groups=new ArrayList<>();
   if(groupsCsv!=null&&!groupsCsv.isBlank()){
