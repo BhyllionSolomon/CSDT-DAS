@@ -36,6 +36,15 @@ public class CaItem {
     @Column(length = 3000)
     private String instructions;
 
+    @Column(length = 255)
+    private String assignmentFileName;
+
+    @Column(length = 100)
+    private String assignmentContentType;
+
+    @Column(columnDefinition = "bytea")
+    private byte[] assignmentFileData;
+
     @Column
     private LocalDateTime dueAt;
 
@@ -69,6 +78,12 @@ public class CaItem {
     public void setMaxMark(BigDecimal maxMark) { this.maxMark = maxMark; }
     public String getInstructions() { return instructions; }
     public void setInstructions(String instructions) { this.instructions = instructions; }
+    public String getAssignmentFileName() { return assignmentFileName; }
+    public void setAssignmentFileName(String assignmentFileName) { this.assignmentFileName = assignmentFileName; }
+    public String getAssignmentContentType() { return assignmentContentType; }
+    public void setAssignmentContentType(String assignmentContentType) { this.assignmentContentType = assignmentContentType; }
+    public byte[] getAssignmentFileData() { return assignmentFileData; }
+    public void setAssignmentFileData(byte[] assignmentFileData) { this.assignmentFileData = assignmentFileData; }
     public LocalDateTime getDueAt() { return dueAt; }
     public void setDueAt(LocalDateTime dueAt) { this.dueAt = dueAt; }
     public boolean isReleased() { return released; }
