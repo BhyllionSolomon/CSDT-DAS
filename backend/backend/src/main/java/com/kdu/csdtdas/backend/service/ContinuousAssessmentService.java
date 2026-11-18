@@ -253,6 +253,10 @@ public class ContinuousAssessmentService {
         Student student = userRepository.findByUsername(username).map(User::getStudent).orElse(null);
         if (student == null) throw bad("Your account is not linked to a student record.");
         CaItem item = item(itemId);
+        boolean registered = registrationRepository.findByCourseIdAndAcademicSessionIdAndSemester(
+                item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester()).stream()
+                .anyMatch(r -> r.getStudent().getId().equals(student.getId()) && "REGISTERED".equalsIgnoreCase(r.getStatus()));
+        if (!registered) throw bad("You are not registered for this course.");
         if (!item.isReleased()) throw bad("This assessment is not open to students yet.");
         if (item.getDueAt() != null && LocalDateTime.now().isAfter(item.getDueAt()))
             throw bad("The submission deadline has passed. Late submissions are closed.");
@@ -413,7 +417,6 @@ public class ContinuousAssessmentService {
 
     private BigDecimal max(BigDecimal v) {
         if (v == null || v.signum() <= 0) throw bad("Enter the maximum mark, greater than zero.");
-        if (v.compareTo(CAP) > 0) throw bad("An assessment cannot be worth more than 30 marks.");
         return v.setScale(2, RoundingMode.HALF_UP);
     }
 
