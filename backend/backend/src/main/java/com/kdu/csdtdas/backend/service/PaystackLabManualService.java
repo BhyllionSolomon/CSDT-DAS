@@ -40,9 +40,9 @@ public class PaystackLabManualService {
 
     public PaystackLabManualService(LabManualOrderRepository orders, StudentRepository students,
             LabManualService manualService, ObjectMapper mapper,
-            @Value("${PAYSTACK_SECRET_KEY:}") String secretKey,
-            @Value("${PAYSTACK_WEBHOOK_SECRET:}") String webhookSecret,
-            @Value("${PAYSTACK_CALLBACK_URL:}") String callbackUrl) {
+            @Value("${paystack.secret-key:}") String secretKey,
+            @Value("${paystack.webhook-secret:}") String webhookSecret,
+            @Value("${paystack.callback-url:}") String callbackUrl) {
         this.orders=orders; this.students=students; this.manualService=manualService; this.mapper=mapper;
         this.secretKey=secretKey; this.webhookSecret=webhookSecret; this.callbackUrl=callbackUrl;
     }
