@@ -22,8 +22,8 @@ public class ExamOperationsService {
   if(!s.isConfirmed())throw bad("Confirm timetable entry before publication.");s.setPublished(true);log(hod,"SITTING_PUBLISHED","EXAM_TASK",taskId,"Published confirmed exam sitting");return sittingMap(s);}
  public List<Map<String,Object>> studentTimetable(String username){User u=user(username);if(u.getStudent()==null)throw bad("Student account is not linked to a student record.");
   Student st=u.getStudent();List<CourseRegistration> regs=registrations.findByStudentIdAndAcademicSessionId(st.getId(),st.getAcademicSession().getId());
-  Set<Long> courseIds=new HashSet<>();for(CourseRegistration cr:regs)if("REGISTERED".equalsIgnoreCase(cr.getStatus()))courseIds.add(cr.getCourse().getId());
-  List<Map<String,Object>> out=new ArrayList<>();for(ExamSitting s:sittings.findByPublishedTrue())if(courseIds.contains(s.getTask().getCourse().getId())&&s.getTask().getCycle().getAcademicSession().getId().equals(st.getAcademicSession().getId())){
+  Set<String> registered=new HashSet<>();for(CourseRegistration cr:regs)if("REGISTERED".equalsIgnoreCase(cr.getStatus()))registered.add(cr.getCourse().getId()+"|"+cr.getSemester().toUpperCase());
+  List<Map<String,Object>> out=new ArrayList<>();for(ExamSitting s:sittings.findByPublishedTrue())if(registered.contains(s.getTask().getCourse().getId()+"|"+s.getTask().getCycle().getSemester().toUpperCase())&&s.getTask().getCycle().getAcademicSession().getId().equals(st.getAcademicSession().getId())){
    Map<String,Object> m=sittingMap(s);m.put("semester",s.getTask().getCycle().getSemester());out.add(m);}return out;
  }
  public Map<String,Object> assignDispatch(String actor,Long taskId,Long dispatchUserId,String venue){User hod=hod(actor);ExamCourseTask t=task(taskId);User assigned=userById(dispatchUserId);
