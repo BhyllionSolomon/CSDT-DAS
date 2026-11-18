@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "exam_papers", uniqueConstraints = @UniqueConstraint(columnNames = {"task_id", "lecturer_id"}))
+@Table(name = "exam_papers")
 public class ExamPaper {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
