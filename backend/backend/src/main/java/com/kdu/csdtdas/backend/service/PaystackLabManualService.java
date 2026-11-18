@@ -7,7 +7,6 @@ import com.kdu.csdtdas.backend.entity.LabManualOrder;
 import com.kdu.csdtdas.backend.entity.Student;
 import com.kdu.csdtdas.backend.entity.User;
 import com.kdu.csdtdas.backend.repository.LabManualOrderRepository;
-import com.kdu.csdtdas.backend.dto.LabDTOs;
 import com.kdu.csdtdas.backend.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -154,8 +153,7 @@ public class PaystackLabManualService {
         if (!"PAID".equals(order.getStatus()))
             throw new IllegalArgumentException("Only a verified paid manual can be issued.");
         // Record the physical issue through the existing stock/sales ledger in the same transaction.
-        manualService.recordSale(staffUsername, new LabDTOs.SaleRequest(
-                order.getManual().getId(), order.getStudent().getId()));
+        manualService.recordPaidSale(staffUsername, order.getManual().getId(), order.getStudent().getId(), order.getAcademicSession().getId());
         order.setStatus("ISSUED"); order.setIssuedAt(LocalDateTime.now());
         order.setIssuedBy(staffUsername); order.setUpdatedBy(staffUsername);
         orders.save(order);
