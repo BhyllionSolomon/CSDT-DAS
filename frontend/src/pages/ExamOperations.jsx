@@ -4,7 +4,7 @@ import {
  assignExamDispatch, updateExamCustody, getExamDispatchBoard,
  collectExamScripts, returnMarkedScripts, getMyExamScripts,
  getExamMarkingReport, getExamDispatchReport, getExamNotifications, markExamNotificationRead,
- confirmExamSitting, publishExamSitting,
+ confirmExamSitting, publishExamSitting, notifyScriptsReady,
 } from '../services/examService'
 
 export default function ExamOperations() {
@@ -22,6 +22,7 @@ export default function ExamOperations() {
  const confirmRow=async row=>{try{await confirmImportedTimetableRow(row.rowId,venueByRow[row.rowId]||'');setMessage(`${row.courseCode} confirmed. Publish it separately when ready.`)}catch(e){fail(e)}}
  const assign=async()=>{try{await assignExamDispatch(Number(taskId),Number(dispatchUser),dispatchVenue);setMessage('Dispatch assignment saved.');await refresh()}catch(e){fail(e)}}
  const action=async(id,kind)=>{const extra=custody[id]||{};try{await updateExamCustody(id,{action:kind,scriptsCount:Number(extra.scriptsCount||0),returnedByName:extra.name||'',returnedByUnit:extra.unit||'',returnedByRole:extra.role||'',notes:extra.notes||''});setMessage('Custody event recorded.');await refresh()}catch(e){fail(e)}}
+ const notifyReady=async()=>{try{const r=await notifyScriptsReady(Number(taskId));setMessage("Notified "+r.notifiedLecturers+" allocated lecturers.");await refresh()}catch(e){fail(e)}}
  const collect=async()=>{try{await collectExamScripts(Number(taskId),Number(lecturerId),Number(quantity), 'HOD recorded script collection');setMessage('Script collection recorded.');await refresh()}catch(e){fail(e)}}
  const returnBatch=async b=>{const q=window.prompt(`How many marked scripts are being returned? Maximum ${b.quantityCollected}`);if(q===null)return;try{await returnMarkedScripts(b.id,Number(q),'Lecturer recorded return');setMessage('Marked-script return recorded.');await refresh()}catch(e){fail(e)}}
  const loadReports=async()=>{try{setMarkingReport(await getExamMarkingReport());setDispatchReport(await getExamDispatchReport())}catch(e){fail(e)}}
@@ -58,7 +59,7 @@ export default function ExamOperations() {
   <section className="space-y-3 rounded-xl border p-4">
    <h2 className="font-semibold">Lecturer script collection and marking return</h2>
    <div className="grid gap-2 md:grid-cols-3"><input className="rounded border p-2" type="number" placeholder="Course task ID" value={taskId} onChange={e=>setTaskId(e.target.value)}/><input className="rounded border p-2" type="number" placeholder="Lecturer user ID" value={lecturerId} onChange={e=>setLecturerId(e.target.value)}/><input className="rounded border p-2" type="number" placeholder="Scripts collected" value={quantity} onChange={e=>setQuantity(e.target.value)}/></div>
-   <button className="rounded bg-slate-800 px-4 py-2 text-white" onClick={collect}>Record script collection</button>
+   <div className="flex flex-wrap gap-2"><button className="rounded border px-4 py-2" onClick={notifyReady}>HOD: Notify lecturers to collect scripts</button><button className="rounded bg-slate-800 px-4 py-2 text-white" onClick={collect}>Record script collection</button></div>
    <h3 className="font-medium">My script batches</h3>{myBatches.map(b=><div key={b.id} className="flex flex-wrap items-center justify-between gap-2 border-t py-2 text-sm"><span>{b.course}: {b.quantityCollected} collected · {b.quantityReturned??0} returned · {b.outstanding} outstanding</span><button disabled={b.returnedAt!=null} className="rounded border px-3 py-1" onClick={()=>returnBatch(b)}>Return marked scripts</button></div>)}
   </section>
   <section className="space-y-3 rounded-xl border p-4">
