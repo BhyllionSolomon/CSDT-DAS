@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -287,7 +288,7 @@ public class ContinuousAssessmentService {
             s.setStudent(student);
             s.setScore(value);
             s.setRecordedBy(user.getUsername());
-            s.setRecordedAt(LocalDateTime.now());
+            s.setRecordedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));
             scoreRepository.save(s);
         }
     }
