@@ -37,6 +37,10 @@ public class ExamManagementService {
         Course course=courses.findById(row.courseId()).orElseThrow(()->bad("Course not found."));
         if(row.examDate()==null||row.deadline()==null||row.vettingDate()==null||row.correctionDeadline()==null)throw bad("Exam date, submission deadline, vetting date and correction deadline are required.");
         if(row.deadline().isAfter(row.vettingDate())||row.vettingDate().isAfter(row.correctionDeadline()))throw bad("Dates must follow submission deadline, vetting date, correction deadline.");
+        if(!row.deadline().toLocalDate().isBefore(row.examDate())||!row.vettingDate().toLocalDate().isBefore(row.examDate())||!row.correctionDeadline().toLocalDate().isBefore(row.examDate()))
+          throw bad("Submission, vetting and correction deadlines must all fall before the examination date.");
+        if(row.markingDeadline()!=null&&row.markingDeadline().toLocalDate().isBefore(row.examDate()))
+          throw bad("The marking deadline cannot be before the examination date.");
         ExamCourseTask task=tasks.findByCycleIdAndCourseId(cycle.getId(),course.getId()).orElseGet(ExamCourseTask::new);
         task.setCycle(cycle);task.setCourse(course);task.setExamDate(row.examDate());task.setSubmissionDeadline(row.deadline());
         task.setVettingDate(row.vettingDate());task.setCorrectionDeadline(row.correctionDeadline());task.setMarkingDeadline(row.markingDeadline());
