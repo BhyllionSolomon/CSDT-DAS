@@ -21,8 +21,8 @@ All access must be checked on the server, not merely hidden in the frontend.
 
 ## Workflow A — Examination calendar and question submission
 
-1. HOD creates an examination cycle for academic session and semester and sets the first exam date, question submission deadline, vetting date, final correction deadline and any other milestones.
-2. The system opens the lecturer task list seven weeks before the first examination date. Seven weeks is a configurable lead time, defaulting to 49 days.
+1. HOD creates an examination cycle for academic session and semester and sets each course's examination date (from the approved school timetable), question submission deadline, committee vetting date, final correction deadline and any other milestones.
+2. The system reveals each lecturer's course task seven weeks (49 days) before that course's own examination date. The question-submission deadline and committee vetting date are separately set by the HOD. Seven weeks is a configurable lead time, defaulting to 49 days.
 3. Each allocated lecturer sees only their assigned courses, exact deadline and countdown. Reminders are sent in-app and by email where email is configured. Escalations and late status are visible to HOD.
 4. Lecturer uploads the question paper. The system encrypts the original file before persistence, records its digest, uploader and timestamp, and blocks unauthorised retrieval.
 5. Committee access is limited to HOD-appointed members and only after submission. Committee date and membership are visible only to HOD and committee members.
@@ -97,7 +97,7 @@ Every status change is timestamped and attributable. Corrections are appended as
 - Committee member cannot see papers outside assigned committee scope.
 - No plaintext paper in database, logs, API metadata or backups.
 - Tampered ciphertext fails authentication.
-- Seven-week opening and all reminder/escalation dates use Africa/Lagos time.
+- Each course task opens exactly 49 days before its own exam date; all reminders/escalation dates use Africa/Lagos time.
 - Validation covers compulsory and unrestricted-choice combinations and confirms marks total correctly.
 - DOCX/PDF timetable parsing is reviewed before publication; unmatched rows cannot silently become dispatch tasks.
 - Student sees only registered courses matching programme/level/session/semester.
