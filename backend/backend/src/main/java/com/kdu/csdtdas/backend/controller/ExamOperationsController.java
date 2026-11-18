@@ -13,6 +13,7 @@ public class ExamOperationsController{
  @PostMapping("/dispatch/{id}/custody") public Object custody(@PathVariable Long id,@RequestBody CustodyRequest r,Authentication a){return service.custody(name(a),id,r.action(),r.scriptsCount(),r.returnedByName(),r.returnedByUnit(),r.returnedByRole(),r.notes());}
  @GetMapping("/dispatch") public Object dispatchBoard(Authentication a){return service.dispatchBoard(name(a));}
  @GetMapping("/reports/dispatch") public Object dispatchSummary(Authentication a){return service.dispatchSummary(name(a));}
+ @PostMapping("/tasks/{taskId}/scripts-ready") public Object scriptsReady(@PathVariable Long taskId,Authentication a){return service.notifyScriptsReady(name(a),taskId);}
  @PostMapping("/tasks/{taskId}/script-batches") public Object collect(@PathVariable Long taskId,@RequestBody CollectRequest r,Authentication a){return service.collectScripts(name(a),taskId,r.lecturerId(),r.quantity(),r.notes());}
  @PostMapping("/script-batches/{id}/return") public Object returnScripts(@PathVariable Long id,@RequestBody ReturnRequest r,Authentication a){return service.returnMarkedScripts(name(a),id,r.quantity(),r.notes());}
  @GetMapping("/my-script-batches") public Object myBatches(Authentication a){return service.myScriptBatches(name(a));}
