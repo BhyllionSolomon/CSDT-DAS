@@ -1,12 +1,13 @@
 package com.kdu.csdtdas.backend.service;
 import com.kdu.csdtdas.backend.entity.*;import com.kdu.csdtdas.backend.repository.*;
 import org.springframework.scheduling.annotation.Scheduled;import org.springframework.stereotype.Component;import org.springframework.transaction.annotation.Transactional;
-import java.time.*;import java.util.*;
+import java.time.*;import java.util.*;import org.slf4j.Logger;import org.slf4j.LoggerFactory;
 @Component
 public class ExamReminderScheduler{
+ private static final Logger log=LoggerFactory.getLogger(ExamReminderScheduler.class);
  private static final ZoneId LAGOS=ZoneId.of("Africa/Lagos");
- private final ExamCourseTaskRepository tasks;private final CourseAllocationRepository allocations;private final ExamNotificationRepository notifications;private final ExamScriptBatchRepository batches;private final ExamPaperRepository papers;private final UserRepository users;
- public ExamReminderScheduler(ExamCourseTaskRepository t,CourseAllocationRepository a,ExamNotificationRepository n,ExamScriptBatchRepository b,ExamPaperRepository p,UserRepository u){tasks=t;allocations=a;notifications=n;batches=b;papers=p;users=u;}
+ private final ExamCourseTaskRepository tasks;private final CourseAllocationRepository allocations;private final ExamNotificationRepository notifications;private final ExamScriptBatchRepository batches;private final ExamPaperRepository papers;private final UserRepository users;private final MailService mail;
+ public ExamReminderScheduler(ExamCourseTaskRepository t,CourseAllocationRepository a,ExamNotificationRepository n,ExamScriptBatchRepository b,ExamPaperRepository p,UserRepository u,MailService mail){tasks=t;allocations=a;notifications=n;batches=b;papers=p;users=u;this.mail=mail;}
  @Scheduled(cron="0 0 8 * * *",zone="Africa/Lagos") @Transactional
  public void sendDailyReminders(){LocalDate today=LocalDate.now(LAGOS);
   for(ExamCourseTask task:tasks.findAll()){
@@ -31,5 +32,5 @@ public class ExamReminderScheduler{
    if(today.isAfter(deadline.toLocalDate()))create(batch.getLecturer(),batch.getTask(),"MARKING_OVERDUE_B"+batch.getId()+"_"+today,"Marked scripts overdue","You have "+outstanding+" outstanding scripts for "+batch.getTask().getCourse().getCode()+". Return them immediately.");
   }
  }
- private void create(User user,ExamCourseTask task,String key,String title,String message){if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(user.getId(),task.getId(),key))return;ExamNotification n=new ExamNotification();n.setRecipient(user);n.setTask(task);n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);}
+ private void create(User user,ExamCourseTask task,String key,String title,String message){if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(user.getId(),task.getId(),key))return;ExamNotification n=new ExamNotification();n.setRecipient(user);n.setTask(task);n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);if(user.getEmail()!=null&&!user.getEmail().isBlank()){try{mail.send(user.getEmail(),title,message);}catch(RuntimeException e){log.warn("Examination email reminder failed for user {}: {}",user.getId(),e.getMessage());}}}
 }
