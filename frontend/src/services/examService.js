@@ -33,3 +33,5 @@ export async function getExamSubmissionReport() { return (await api.get('/exams/
 export async function notifyScriptsReady(taskId) { return (await api.post(`/exams/tasks/${taskId}/scripts-ready`)).data }
 
 export async function getExamSetupData() { const [courses, sessions] = await Promise.all([api.get('/courses'), api.get('/academic-sessions')]); return { courses: courses.data, sessions: sessions.data } }
+
+export async function getExamAuditHistory() { return (await api.get('/exams/audit')).data }
