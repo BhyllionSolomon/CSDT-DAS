@@ -53,7 +53,7 @@ function MyCaScores() {
                     <section key={course.courseId} className="card p-4">
                         <div className="flex justify-between items-center gap-3 flex-wrap mb-3">
                             <div><h3 className="font-bold">{course.code} · {course.title}</h3><p className="text-xs theme-text-muted">Continuous assessment activities</p></div>
-                            <div className="text-right"><p className="text-xl font-bold">{course.earned} / 30</p><p className="text-xs theme-text-muted">Current CA score</p></div>
+                            <div className="text-right"><p className="text-xl font-bold">{course.aggregated ? course.finalScore : course.earned} / 30</p><p className="text-xs theme-text-muted">{course.aggregated ? 'Final aggregated CA score' : 'Provisional CA score'}</p></div>
                         </div>
                         {course.items.length === 0 ? <p className="text-sm theme-text-muted">No assessment has been posted yet.</p> :
                             <div className="space-y-3">{course.items.map((item, index) => {
