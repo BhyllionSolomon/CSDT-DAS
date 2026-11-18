@@ -52,12 +52,12 @@ public class ExamManagementService {
       User viewer=user(username);ExamCycle cycle=cycles.findById(cycleId).orElseThrow(()->bad("Exam cycle not found."));
       boolean privileged=isHod(viewer),member=committee.existsByCycleIdAndUserId(cycleId,viewer.getId());
       List<ExamCourseTask> visible=tasks.findByCycleIdOrderByExamDateAsc(cycleId);
-      if(!privileged&&!member)visible=visible.stream().filter(t->assigned(viewer,t)&&!LocalDate.now().isBefore(t.getExamDate().minusDays(t.getNoticeDays()))).toList();
+      if(!privileged&&!member)visible=visible.stream().filter(t->assigned(viewer,t)&&!LocalDate.now(ZoneId.of("Africa/Lagos")).isBefore(t.getExamDate().minusDays(t.getNoticeDays()))).toList();
       List<Map<String,Object>> rows=new ArrayList<>();
       for(ExamCourseTask t:visible){Map<String,Object> r=new LinkedHashMap<>();r.put("taskId",t.getId());r.put("courseId",t.getCourse().getId());
         r.put("courseCode",t.getCourse().getCode());r.put("courseTitle",t.getCourse().getTitle());r.put("creditUnit",t.getCourse().getCreditUnit());
         r.put("examDate",t.getExamDate());r.put("submissionDeadline",t.getSubmissionDeadline());r.put("taskOpensOn",t.getExamDate().minusDays(t.getNoticeDays()));
-        r.put("daysUntilExam",ChronoUnit.DAYS.between(LocalDate.now(),t.getExamDate()));r.put("canSubmit",assigned(viewer,t)&&!LocalDateTime.now().isAfter(t.getSubmissionDeadline()));
+        r.put("daysUntilExam",ChronoUnit.DAYS.between(LocalDate.now(),t.getExamDate()));r.put("canSubmit",assigned(viewer,t)&&!LocalDateTime.now(ZoneId.of("Africa/Lagos")).isAfter(t.getSubmissionDeadline()));
         if(privileged||member)r.put("vettingDate",t.getVettingDate());rows.add(r);}
       Map<String,Object> out=new LinkedHashMap<>();out.put("cycleId",cycleId);out.put("session",cycle.getAcademicSession().getName());out.put("semester",cycle.getSemester());out.put("tasks",rows);return out;
     }
