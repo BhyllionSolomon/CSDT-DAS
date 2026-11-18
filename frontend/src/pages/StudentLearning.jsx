@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { listMyMaterials, downloadMaterial, messageFrom } from '../services/materialService'
 import { listMyClasses, joinOnlineClass } from '../services/onlineClassService'
-import { getStudentLabManuals, requestStudentLabManual } from '../services/studentLabManualService'
+import { getStudentLabManuals, requestStudentLabManual, initiateStudentLabManualPayment, verifyStudentLabManualPayment, getStudentLabManualReceipt } from '../services/studentLabManualService'
 import { naira } from '../services/labService'
 
 const STATUS_STYLE = {
@@ -18,6 +18,8 @@ function StudentLearning() {
     const [tab, setTab] = useState('classes')
     const [labManuals, setLabManuals] = useState([])
     const [manualBusy, setManualBusy] = useState(null)
+    const [paymentNotice, setPaymentNotice] = useState('')
+    const [receipt, setReceipt] = useState(null)
     const [materials, setMaterials] = useState([])
     const [classes, setClasses] = useState([])
     const [loading, setLoading] = useState(true)
@@ -31,7 +33,14 @@ function StudentLearning() {
     }
 
     useEffect(() => {
-        load().finally(() => setLoading(false))
+        const reference = new URLSearchParams(window.location.search).get('reference')
+        if (reference) {
+            setTab('manuals')
+            verifyStudentLabManualPayment(reference)
+                .then(async () => { setPaymentNotice('Payment confirmed. Your receipt is ready.'); await load() })
+                .catch(async err => setError(await messageFrom(err)))
+                .finally(() => { window.history.replaceState({}, document.title, window.location.pathname); setLoading(false) })
+        } else { load().finally(() => setLoading(false)) }
     }, [])
 
     async function handleJoin(id) {
@@ -103,7 +112,7 @@ function StudentLearning() {
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
 
             <div className="flex mb-6 p-1 rounded-xl w-fit" style={{ backgroundColor: 'var(--surface-soft)' }}>
-                {[['classes', `Online Classes${liveNow.length ? ` (${liveNow.length} live)` : ''}`], ['materials', 'Class Materials']].map(([key, label]) => (
+                {[['classes', `Online Classes${liveNow.length ? ` (${liveNow.length} live)` : ''}`], ['materials', 'Class Materials'], ['manuals', 'Get Lab Manual']].map(([key, label]) => (
                     <button key={key} onClick={() => setTab(key)}
                             className={`px-5 py-2 text-sm font-medium rounded-lg btn-press ${
                                 tab === key ? 'accent-gradient text-white shadow-sm' : 'theme-text-muted'
@@ -144,6 +153,16 @@ function StudentLearning() {
 
             {tab === 'manuals' && (
                 <div className="space-y-4">
+                    {paymentNotice && <div role="status" className="card p-3 text-sm">{paymentNotice}</div>}
+                    {receipt && <div className="card p-5 space-y-2" id="lab-manual-receipt">
+                        <h3 className="font-bold text-lg">Kola Daisi University — CSDT Lab Manual Receipt</h3>
+                        <p><b>Receipt:</b> {receipt.receiptNumber}</p><p><b>Student:</b> {receipt.studentName} ({receipt.matricNumber})</p>
+                        <p><b>Course:</b> {receipt.courseCode || '—'}</p><p><b>Manual:</b> {receipt.manualTitle}</p>
+                        <p><b>Amount:</b> {naira(receipt.amount)}</p><p><b>Payment reference:</b> {receipt.paymentReference}</p>
+                        <p><b>Paid:</b> {formatDate(receipt.paidAt)}</p><p><b>Status:</b> {receipt.status === 'ISSUED' ? 'Issued' : 'Paid — not yet issued'}</p>
+                        <button onClick={() => window.print()} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm print:hidden">Print Receipt</button>
+                        <button onClick={() => setReceipt(null)} className="ml-2 underline text-sm print:hidden">Close</button>
+                    </div>}
                     <div className="card p-4">
                         <h3 className="font-semibold">Lab Manual Purchase</h3>
                         <p className="text-sm theme-text-muted mt-1">View manuals made available for your current academic session. Submit an order to begin the payment process.</p>
@@ -157,15 +176,19 @@ function StudentLearning() {
                                     {m.courseTitle && <p className="text-sm theme-text-muted">{m.courseTitle}</p>}
                                     <p className="text-lg font-bold mt-3">{naira(m.price)}</p>
                                 </div>
-                                {m.status === 'NOT_ORDERED' ? <button disabled={manualBusy === m.id} onClick={async () => {
+                                {(m.status === 'NOT_ORDERED' || m.status === 'AWAITING_PAYMENT') && <button disabled={manualBusy === m.id} onClick={async () => {
                                     setError(null); setManualBusy(m.id)
-                                    try { await requestStudentLabManual(m.id); await load() }
-                                    catch (err) { setError(await messageFrom(err)) }
-                                    finally { setManualBusy(null) }
-                                }} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50">{manualBusy === m.id ? 'Submitting…' : 'Request to Buy'}</button> :
-                                <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
-                                    <b>{m.status === 'AWAITING_PAYMENT' ? 'Awaiting payment' : m.status === 'PAID' ? 'Paid — awaiting collection' : 'Issued'}</b>
-                                    <p className="text-xs theme-text-muted mt-1">{m.status === 'AWAITING_PAYMENT' ? 'Your request has been recorded. Payment is not yet enabled.' : m.status === 'PAID' ? 'Your payment has been confirmed. Collect from the laboratory.' : 'This manual has been recorded as issued to you.'}</p>
+                                    try {
+                                        let orderId = m.orderId
+                                        if (!orderId) orderId = (await requestStudentLabManual(m.id)).id
+                                        const checkout = await initiateStudentLabManualPayment(orderId)
+                                        window.location.assign(checkout.authorizationUrl)
+                                    } catch (err) { setError(await messageFrom(err)); setManualBusy(null) }
+                                }} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50">{manualBusy === m.id ? 'Connecting to Paystack…' : m.status === 'NOT_ORDERED' ? 'Buy with Paystack' : 'Pay Now'}</button>}
+                                {(m.status === 'PAID' || m.status === 'ISSUED') && <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                                    <b>{m.status === 'PAID' ? 'Payment confirmed — awaiting collection' : 'Manual issued'}</b>
+                                    <p className="text-xs theme-text-muted mt-1">{m.status === 'PAID' ? 'Your payment has been verified. Collect your manual from the laboratory.' : 'The laboratory has recorded this manual as issued to you.'}</p>
+                                    <button onClick={async () => { try { setReceipt(await getStudentLabManualReceipt(m.orderId)) } catch (err) { setError(await messageFrom(err)) } }} className="mt-2 underline text-sm">View / Print Receipt</button>
                                 </div>}
                             </div>)}
                         </div>}
