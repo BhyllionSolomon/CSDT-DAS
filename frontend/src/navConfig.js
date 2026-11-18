@@ -71,6 +71,7 @@ export const hodGroups = [
         ] },
     { label: 'Laboratory', items: [
             { to: '/lab-staff', label: 'Manage Lab Staff' },
+            { to: '/lab-manual-workflow', label: 'Manual Approval & Dispatch' },
             { to: '/lab-assets', label: 'Equipment & Assets' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
             { to: '/lab-finance', label: 'Manual Finance' },
@@ -85,6 +86,7 @@ export const lecturerGroups = [
         ] },
     { label: 'Teaching', items: [
             { to: '/teaching', label: 'Materials & Online Classes' },
+            { to: '/lab-manual-workflow', label: 'Upload Lab Manual' },
             { to: '/my-timetable', label: 'My Timetable Choices' },
             { to: '/timetable', label: 'Department Timetable' },
             { to: '/my-project-students', label: 'My Project Students' },
@@ -180,6 +182,7 @@ export const labGroups = [
     notices,
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
+            { to: '/lab-manual-workflow', label: 'Incoming Course Manuals' },
             { to: '/lab-assets', label: 'Equipment & Assets' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
             { to: '/lab-finance', label: 'Manual Finance' },
@@ -191,6 +194,7 @@ export const technicalGroups = [
     notices,
     { label: 'Laboratory', items: [
             { to: '/', label: 'Lab Home' },
+            { to: '/lab-manual-workflow', label: 'Incoming Course Manuals' },
             { to: '/lab-manuals', label: 'Manual Sales & Stock' },
         ] },
 ]
