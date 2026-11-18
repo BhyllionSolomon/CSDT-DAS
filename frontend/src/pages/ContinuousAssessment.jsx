@@ -3,7 +3,7 @@ import { Download, Eye, EyeOff, Trash2, FileDown, Users } from 'lucide-react'
 import SessionSemesterBar from '../components/SessionSemesterBar'
 import {
     getCaCourses, getCaSheet, createCaItem, updateCaItem, deleteCaItem, saveCaScores,
-    getCaSubmissions, gradeCaSubmission, downloadCaSubmission, aggregateCa, CA_CATEGORIES, caLabel,
+    getCaSubmissions, gradeCaSubmission, downloadCaSubmission, aggregateCa, CA_CATEGORIES, caLabel, uploadAssignmentBrief, downloadAssignmentBrief,
 } from '../services/caService'
 
 const msg = (err) => err.response?.data?.message || err.message
@@ -17,7 +17,7 @@ function ContinuousAssessment() {
     const [courseId, setCourseId] = useState('')
     const [sheet, setSheet] = useState(null)
     const [edits, setEdits] = useState({})
-    const [form, setForm] = useState({ category: 'ASSIGNMENT', title: '', maxMark: '', instructions: '', dueAt: '', publish: true })
+    const [form, setForm] = useState({ category: 'ASSIGNMENT', title: '', maxMark: '', instructions: '', dueAt: '', publish: true, assignmentFile: null })
     const [busy, setBusy] = useState(false)
     const [error, setError] = useState(null)
     const [notice, setNotice] = useState(null)
@@ -75,6 +75,7 @@ function ContinuousAssessment() {
                 category: form.category, title: form.title, maxMark: Number(form.maxMark),
                 instructions: form.instructions, dueAt: form.dueAt || null,
             })
+            if (form.assignmentFile) await uploadAssignmentBrief(created.id, form.assignmentFile)
             if (form.publish) await updateCaItem(created.id, { released: true })
             setForm({ ...form, title: '', maxMark: '', instructions: '', dueAt: '' })
         }, form.publish ? 'Assessment created and posted to students.' : 'Assessment saved as a draft.')
@@ -114,6 +115,15 @@ function ContinuousAssessment() {
             await load()
             setNotice(`Marked ${submission.fullName}.`)
         } catch (e) { setError(msg(e)) } finally { setBusy(false) }
+    }
+
+    async function downloadBrief(item) {
+        try {
+            const blob = await downloadAssignmentBrief(item.id)
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a'); a.href = url; a.download = item.assignmentFileName || 'assignment-brief'; a.click()
+            URL.revokeObjectURL(url)
+        } catch (e) { setError(msg(e)) }
     }
 
     async function download(submission) {
@@ -186,6 +196,7 @@ function ContinuousAssessment() {
                         <label className="text-sm">Submission deadline (date and time)
                             <input type="datetime-local" value={form.dueAt} onChange={(e) => setForm({ ...form, dueAt: e.target.value })} className="block w-full border theme-border rounded-lg px-3 py-2 mt-1" />
                         </label>
+                        <label className="text-sm md:col-span-2">Attach assignment brief (PDF or Word, max 15 MB)<input type="file" accept=".pdf,.doc,.docx" onChange={(e) => setForm({ ...form, assignmentFile: e.target.files?.[0] || null })} className="block w-full mt-1" /></label>
                         <label className="text-sm md:col-span-2">Instructions / assignment details
                             <textarea rows="3" maxLength="3000" value={form.instructions} onChange={(e) => setForm({ ...form, instructions: e.target.value })} placeholder="Describe the task, format, practical requirements and submission instructions." className="block w-full border theme-border rounded-lg px-3 py-2 mt-1" />
                         </label>
@@ -205,7 +216,7 @@ function ContinuousAssessment() {
                                 <th className="px-3 py-2">Student</th>
                                 {sheet.items.map((i) => <th key={i.id} className="px-2 py-2 min-w-[135px] align-top">
                                     <b className="block">{i.title}</b><span className="block text-xs theme-text-muted">{caLabel(i.category)} · /{i.max}</span>
-                                    {i.dueAt && <span className="block text-[11px] theme-text-muted">Due {dateText(i.dueAt)}</span>}
+                                    {i.dueAt && <span className="block text-[11px] theme-text-muted">Due {dateText(i.dueAt)}</span>}{i.assignmentFileName && <span className="block text-[11px] theme-text-muted">Brief: {i.assignmentFileName}</span>}
                                     <div className="flex gap-2 mt-1 flex-wrap">
                                         <button onClick={() => act(() => updateCaItem(i.id, { released: !i.released }), i.released ? 'Hidden from students.' : 'Posted to students.')} disabled={busy} className="text-xs underline">{i.released ? <><Eye size={12} className="inline"/> Posted</> : <><EyeOff size={12} className="inline"/> Draft</>}</button>
                                         <button onClick={() => openSubmissions(i)} className="text-xs underline"><Users size={12} className="inline"/> Submissions ({i.submissionCount})</button>
