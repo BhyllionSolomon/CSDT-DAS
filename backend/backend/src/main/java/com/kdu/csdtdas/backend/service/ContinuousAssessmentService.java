@@ -305,7 +305,7 @@ public class ContinuousAssessmentService {
         for (CaScore score : scoreRepository.findForCourse(request.courseId(), request.sessionId(), sem)) {
             rawByStudent.merge(score.getStudent().getId(), score.getScore(), BigDecimal::add);
         }
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("Africa/Lagos"));
         List<CaDTOs.FinalScoreRow> rows = new ArrayList<>();
         for (Student student : roster(request.courseId(), request.sessionId(), sem)) {
             BigDecimal raw = rawByStudent.getOrDefault(student.getId(), BigDecimal.ZERO).setScale(2, RoundingMode.HALF_UP);
@@ -334,7 +334,7 @@ public class ContinuousAssessmentService {
                 .anyMatch(r -> r.getStudent().getId().equals(student.getId()) && "REGISTERED".equalsIgnoreCase(r.getStatus()));
         if (!registered) throw bad("You are not registered for this course.");
         if (!item.isReleased()) throw bad("This assessment is not open to students yet.");
-        if (item.getDueAt() != null && LocalDateTime.now().isAfter(item.getDueAt()))
+        if (item.getDueAt() != null && LocalDateTime.now(ZoneId.of("Africa/Lagos")).isAfter(item.getDueAt()))
             throw bad("The submission deadline has passed. Late submissions are closed.");
         if (file == null || file.isEmpty() || file.getSize() > 20L * 1024 * 1024)
             throw bad("Choose a file no larger than 20 MB.");
@@ -352,7 +352,7 @@ public class ContinuousAssessmentService {
             sub.setFileName(fileName);
             sub.setContentType(file.getContentType() == null ? "application/octet-stream" : file.getContentType());
             sub.setFileData(file.getBytes());
-            sub.setSubmittedAt(LocalDateTime.now());
+            sub.setSubmittedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));
             sub.setFeedback(null);
             sub.setGradedAt(null);
             sub.setGradedBy(null);
@@ -398,11 +398,11 @@ public class ContinuousAssessmentService {
         score.setStudent(sub.getStudent());
         score.setScore(request.score().setScale(2, RoundingMode.HALF_UP));
         score.setRecordedBy(lecturer.getUsername());
-        score.setRecordedAt(LocalDateTime.now());
+        score.setRecordedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));
         scoreRepository.save(score);
         sub.setFeedback(request.feedback() == null ? null : request.feedback().trim());
         sub.setGradedBy(lecturer.getUsername());
-        sub.setGradedAt(LocalDateTime.now());
+        sub.setGradedAt(LocalDateTime.now(ZoneId.of("Africa/Lagos")));
         submissionRepository.save(sub);
     }
 
@@ -429,7 +429,7 @@ public class ContinuousAssessmentService {
     }
 
     private LocalDateTime validateDue(LocalDateTime dueAt) {
-        if (dueAt != null && !dueAt.isAfter(LocalDateTime.now()))
+        if (dueAt != null && !dueAt.isAfter(LocalDateTime.now(ZoneId.of("Africa/Lagos"))))
             throw bad("The submission deadline must be in the future.");
         return dueAt;
     }
