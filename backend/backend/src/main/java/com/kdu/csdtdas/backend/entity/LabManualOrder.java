@@ -24,7 +24,7 @@ public class LabManualOrder {
     private String status = "AWAITING_PAYMENT";
     @Column(name = "paystack_reference", unique = true, length = 100)
     private String paystackReference;
-    @Column(name = "gateway_transaction_id", length = 80)
+    @Column(name = "paystack_authorization_url", length = 600)\n    private String paystackAuthorizationUrl;\n    @Column(name = "gateway_transaction_id", length = 80)
     private String gatewayTransactionId;
     @Column(name = "payment_channel", length = 40)
     private String paymentChannel;
@@ -51,7 +51,7 @@ public class LabManualOrder {
     public BigDecimal getAmount(){return amount;} public void setAmount(BigDecimal v){amount=v;}
     public String getStatus(){return status;} public void setStatus(String v){status=v;}
     public String getPaystackReference(){return paystackReference;} public void setPaystackReference(String v){paystackReference=v;}
-    public String getGatewayTransactionId(){return gatewayTransactionId;} public void setGatewayTransactionId(String v){gatewayTransactionId=v;}
+    public String getPaystackAuthorizationUrl(){return paystackAuthorizationUrl;} public void setPaystackAuthorizationUrl(String v){paystackAuthorizationUrl=v;}\n    public String getGatewayTransactionId(){return gatewayTransactionId;} public void setGatewayTransactionId(String v){gatewayTransactionId=v;}
     public String getPaymentChannel(){return paymentChannel;} public void setPaymentChannel(String v){paymentChannel=v;}
     public String getReceiptNumber(){return receiptNumber;} public void setReceiptNumber(String v){receiptNumber=v;}
     public LocalDateTime getPaidAt(){return paidAt;} public void setPaidAt(LocalDateTime v){paidAt=v;}
