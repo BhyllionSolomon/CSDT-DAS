@@ -47,7 +47,7 @@ public class ExamQuestionValidationService{
  private String pdf(byte[] b)throws Exception{try(PDDocument d=Loader.loadPDF(b)){return new PDFTextStripper().getText(d);}}
  private boolean allCombinationsTotal(List<Integer> marks,int answerCount,Set<Integer> compulsory,int total){if(marks.size()>30)return false;return combinations(marks,answerCount,compulsory,total,1,new HashSet<>(),0);}
  private boolean combinations(List<Integer> marks,int need,Set<Integer> compulsory,int total,int next,Set<Integer> chosen,int sum){
-  if(chosen.size()==need){return chosen.containsAll(compulsory)&&sum==total;}
+  if(chosen.size()==need){return !chosen.containsAll(compulsory)||sum==total;}
   if(marks.size()-next+1<need-chosen.size())return true;
   for(int i=next;i<=marks.size();i++){chosen.add(i);boolean valid=combinations(marks,need,compulsory,total,i+1,chosen,sum+marks.get(i-1));chosen.remove(i);if(!valid)return false;}return true;
  }
