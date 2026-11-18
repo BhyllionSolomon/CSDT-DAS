@@ -137,7 +137,7 @@ public class ProjectSupervisionService {
         for (User u : candidates()) {
             StaffProfile p = profileFor(u);
             rows.add(new ProjectDTOs.StaffRow(
-                    u.getId(), u.getFullName(), u.getRole(), p.getDesignation(), p.getDisplayTitle(), p.getDisplayOrder(),
+                    u.getId(), u.getUsername(), u.getFullName(), u.getRole(), p.getDesignation(), p.getDisplayTitle(), p.getDisplayOrder(),
                     p.isSupervisionEligible(), p.isFirstClassEligible(), p.isProjectCoordinator(), p.isAssistantCoordinator(),
                     load.getOrDefault(u.getId(), 0)
             ));
