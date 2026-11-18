@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface CaSubmissionRepository extends JpaRepository<CaSubmission, Long> {
     Optional<CaSubmission> findByItemIdAndStudentId(Long itemId, Long studentId);
     List<CaSubmission> findByItemIdOrderBySubmittedAtAsc(Long itemId);
+    void deleteByItemId(Long itemId);
 }
