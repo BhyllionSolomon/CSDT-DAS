@@ -11,8 +11,8 @@ public class ExamOperationsService {
  private static final ZoneId LAGOS=ZoneId.of("Africa/Lagos");
  private final UserRepository users;private final ExamCourseTaskRepository tasks;private final ExamSittingRepository sittings;
  private final ExamDispatchRecordRepository dispatches;private final ExamScriptBatchRepository batches;
- private final CourseRegistrationRepository registrations;private final ExamAuditEventRepository audit;
- public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc,ExamScriptReturnRepository returns){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;allocationRepository=alloc;this.returns=returns;}
+ private final CourseRegistrationRepository registrations;private final ExamAuditEventRepository audit;private final ExamNotificationRepository notifications;
+ public ExamOperationsService(UserRepository u,ExamCourseTaskRepository t,ExamSittingRepository s,ExamDispatchRecordRepository d,ExamScriptBatchRepository b,CourseRegistrationRepository r,ExamAuditEventRepository a,CourseAllocationRepository alloc,ExamScriptReturnRepository returns,ExamNotificationRepository notifications){users=u;tasks=t;sittings=s;dispatches=d;batches=b;registrations=r;audit=a;allocationRepository=alloc;this.returns=returns;this.notifications=notifications;}
 
  public Map<String,Object> confirmSitting(String actor,Long taskId,String venue,LocalTime start,LocalTime end){
   User hod=hod(actor);ExamCourseTask task=task(taskId);if(start==null||end==null||!end.isAfter(start))throw bad("Valid examination start and end times are required.");
@@ -26,6 +26,11 @@ public class ExamOperationsService {
   List<Map<String,Object>> out=new ArrayList<>();for(ExamSitting s:sittings.findByPublishedTrue())if(registered.contains(s.getTask().getCourse().getId()+"|"+s.getTask().getCycle().getSemester().toUpperCase())&&s.getTask().getCycle().getAcademicSession().getId().equals(st.getAcademicSession().getId())){
    Map<String,Object> m=sittingMap(s);m.put("semester",s.getTask().getCycle().getSemester());out.add(m);}return out;
  }
+ public Map<String,Object> notifyScriptsReady(String actor,Long taskId){User hod=hod(actor);ExamCourseTask t=task(taskId);int count=0;
+  for(CourseAllocation ca:allocationRepository.findForCourse(t.getCourse().getId(),t.getCycle().getAcademicSession().getId(),t.getCycle().getSemester())){User lecturer=ca.getLecturer();if(lecturer==null)continue;String key="SCRIPTS_READY_"+LocalDate.now(LAGOS);
+   if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(lecturer.getId(),taskId,key))continue;
+   ExamNotification n=new ExamNotification();n.setRecipient(lecturer);n.setTask(t);n.setNotificationKey(key);n.setTitle("Answer scripts ready for collection");n.setMessage("Answer scripts for "+t.getCourse().getCode()+" are ready for collection from the HOD's office.");notifications.save(n);count++;}
+  log(hod,"SCRIPTS_COLLECTION_NOTICE","EXAM_TASK",taskId,"Notified "+count+" allocated lecturers");return Map.of("notifiedLecturers",count);}
  public Map<String,Object> assignDispatch(String actor,Long taskId,Long dispatchUserId,String venue){User hod=hod(actor);ExamCourseTask t=task(taskId);User assigned=userById(dispatchUserId);
   if(!Set.of("LECTURER","ADJUNCT","LEVEL_ADVISER","HOD","ADMIN","LAB_OFFICER","TECHNICAL_STAFF").contains(assigned.getRole().toUpperCase()))throw bad("Dispatch assignee must be a staff account.");
   ExamDispatchRecord d=new ExamDispatchRecord();d.setTask(t);d.setDispatchUser(assigned);d.setAssignedBy(hod);d.setVenue(venue);dispatches.save(d);log(hod,"DISPATCH_ASSIGNED","EXAM_TASK",taskId,"Assigned "+assigned.getUsername());return dispatchMap(d);
