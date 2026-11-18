@@ -3,7 +3,7 @@ name: Validate CSDT-DAS
 on:
   push:
     branches:
-      - feature/lab-management-foundation
+      - feature/lecturer-manual-approval-workflow
   pull_request:
     branches:
       - render-deployment
