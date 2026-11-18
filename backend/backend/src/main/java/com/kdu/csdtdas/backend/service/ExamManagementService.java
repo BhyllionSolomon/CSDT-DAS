@@ -18,10 +18,10 @@ public class ExamManagementService {
     private final ExamCommitteeMemberRepository committee; private final ExamPaperRepository papers;
     private final AcademicSessionRepository sessions; private final CourseRepository courses;
     private final UserRepository users; private final CourseAllocationRepository allocations;
-    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess;
+    private final ExamCryptoService crypto; private final ExamAuditEventRepository audit; private final ExamPaperAccessRepository paperAccess; private final ExamNotificationRepository notifications;
     public ExamManagementService(ExamCycleRepository c,ExamCourseTaskRepository t,ExamCommitteeMemberRepository m,
       ExamPaperRepository p,AcademicSessionRepository s,CourseRepository co,UserRepository u,
-      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;}
+      CourseAllocationRepository a,ExamCryptoService x,ExamAuditEventRepository audit,ExamPaperAccessRepository paperAccess,ExamNotificationRepository notifications){cycles=c;tasks=t;committee=m;papers=p;sessions=s;courses=co;users=u;allocations=a;crypto=x;this.audit=audit;this.paperAccess=paperAccess;this.notifications=notifications;}
 
     public Map<String,Object> configure(String username,Long sessionId,String semester,List<TaskInput> input){
       User hod=hod(username); AcademicSession session=sessions.findById(sessionId).orElseThrow(()->bad("Academic session not found."));
@@ -94,7 +94,7 @@ public class ExamManagementService {
       if(!isHod(reviewer)&&(!member||!hasPaperAccess(paperId,reviewer.getId())))throw bad("HOD must grant you access to this paper before review.");
       String d=decision==null?"":decision.trim().toUpperCase();if(!Set.of("ACCEPTED","CORRECTION_REQUIRED").contains(d))throw bad("Choose ACCEPTED or CORRECTION_REQUIRED.");
       if(notes==null||notes.isBlank())throw bad("Review notes are required.");
-      paper.setStatus(d);paper.setReviewNotes(notes.trim());paper.setReviewedBy(reviewer);paper.setReviewedAt(LocalDateTime.now());audit(reviewer,"PAPER_REVIEWED","EXAM_PAPER",paperId,d);
+      paper.setStatus(d);paper.setReviewNotes(notes.trim());paper.setReviewedBy(reviewer);paper.setReviewedAt(LocalDateTime.now());audit(reviewer,"PAPER_REVIEWED","EXAM_PAPER",paperId,d); notifyLecturer(paper.getLecturer(),paper.getTask(),"REVIEW_"+paperId+"_"+paper.getVersion(),"Question paper review completed", "Your "+paper.getTask().getCourse().getCode()+" question paper v"+paper.getVersion()+" was reviewed: "+d+". Feedback: "+notes.trim());
     }
     public Download download(String username,Long paperId){
       User viewer=user(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
@@ -102,6 +102,21 @@ public class ExamManagementService {
       if(!isHod(viewer)&&!own&&(!member||!hasPaperAccess(paperId,viewer.getId())))throw bad("HOD has not authorised access to this paper.");
       audit(viewer,"PAPER_DOWNLOADED","EXAM_PAPER",paperId,"Confidential paper decrypted for authorised user");
       return new Download(crypto.decrypt(paper.getEncryptedFile(),paper.getWrappedDataKey()),paper.getFileName(),paper.getContentType());
+    }
+    public Map<String,Object> submissionReport(String username){
+      hod(username);List<Map<String,Object>> result=new ArrayList<>();
+      for(ExamCourseTask task:tasks.findAll()){
+        for(CourseAllocation allocation:allocations.findForCourse(task.getCourse().getId(),task.getCycle().getAcademicSession().getId(),task.getCycle().getSemester())){
+          User lecturer=allocation.getLecturer();if(lecturer==null)continue;
+          ExamPaper latest=papers.findByTaskIdOrderByVersionDesc(task.getId()).stream().filter(p->p.getLecturer().getId().equals(lecturer.getId())).max(Comparator.comparingInt(ExamPaper::getVersion)).orElse(null);
+          Map<String,Object> row=new LinkedHashMap<>();row.put("course",task.getCourse().getCode());row.put("lecturer",lecturer.getFullName());row.put("examDate",task.getExamDate());row.put("deadline",task.getSubmissionDeadline());row.put("submitted",latest!=null);row.put("status",latest==null?"NOT_SUBMITTED":latest.getStatus());row.put("latestVersion",latest==null?0:latest.getVersion());row.put("overdue",latest==null&&LocalDateTime.now().isAfter(task.getSubmissionDeadline()));result.add(row);
+        }
+      }
+      return Map.of("submissions",result);
+    }
+    private void notifyLecturer(User recipient,ExamCourseTask task,String key,String title,String message){
+      if(notifications.existsByRecipientIdAndTaskIdAndNotificationKey(recipient.getId(),task.getId(),key))return;
+      ExamNotification n=new ExamNotification();n.setRecipient(recipient);n.setTask(task);n.setNotificationKey(key);n.setTitle(title);n.setMessage(message);notifications.save(n);
     }
     public void grantPaperAccess(String username,Long paperId,Long memberId,LocalDateTime expiresAt){
       User hod=hod(username);ExamPaper paper=papers.findById(paperId).orElseThrow(()->bad("Paper not found."));
