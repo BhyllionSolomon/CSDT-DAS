@@ -200,6 +200,7 @@ public class ContinuousAssessmentService {
         CaItem item = item(id);
         authorize(staff(username), item.getCourse().getId(), item.getAcademicSession().getId(), item.getSemester());
         scoreRepository.deleteByItemId(id);
+        submissionRepository.deleteByItemId(id);
         itemRepository.delete(item);
     }
 
