@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Download, Eye, EyeOff, Trash2, FileDown, Users } from 'lucide-react'
 import SessionSemesterBar from '../components/SessionSemesterBar'
 import {
@@ -24,6 +24,7 @@ function ContinuousAssessment() {
     const [selectedItem, setSelectedItem] = useState(null)
     const [submissions, setSubmissions] = useState([])
     const [gradeEdits, setGradeEdits] = useState({})
+    const lastSubmissionCount = useRef(0)
 
     useEffect(() => {
         if (!sel) return
@@ -85,10 +86,24 @@ function ContinuousAssessment() {
     }
 
     async function openSubmissions(item) {
-        setSelectedItem(item); setSubmissions([]); setError(null)
-        try { setSubmissions(await getCaSubmissions(item.id)) }
+        setSelectedItem(item); setSubmissions([]); setError(null); lastSubmissionCount.current = 0
+        try { const rows = await getCaSubmissions(item.id); setSubmissions(rows); lastSubmissionCount.current = rows.filter(x => x.id).length }
         catch (e) { setError(msg(e)) }
     }
+
+    useEffect(() => {
+        if (!selectedItem) return
+        const timer = window.setInterval(async () => {
+            try {
+                const rows = await getCaSubmissions(selectedItem.id)
+                const count = rows.filter(x => x.id).length
+                if (count > lastSubmissionCount.current) setNotice(`New student submission received for ${selectedItem.title}.`)
+                lastSubmissionCount.current = count
+                setSubmissions(rows)
+            } catch { /* The next refresh will retry. */ }
+        }, 30000)
+        return () => window.clearInterval(timer)
+    }, [selectedItem])
 
     async function grade(submission) {
         const value = gradeEdits[submission.id] || {}
