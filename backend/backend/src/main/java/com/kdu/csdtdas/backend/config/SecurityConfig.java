@@ -92,7 +92,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/allocations/**").hasAnyRole("HOD", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/allocations/claim").hasAnyRole("LECTURER", "ADJUNCT", "LEVEL_ADVISER")
 
-                        // Student manual catalogue and order requests are isolated from laboratory staff APIs.
+                        // Paystack webhooks are public but must pass cryptographic signature validation in the controller.
+                        .requestMatchers(HttpMethod.POST, "/api/payments/paystack/webhook").permitAll()
+
+                        // Student manual catalogue, payments and receipts are isolated from staff APIs.
                         .requestMatchers("/api/lab/student/manuals/**").hasRole("STUDENT")
 
                         // Purchase request details are limited to finance-capable laboratory roles.
