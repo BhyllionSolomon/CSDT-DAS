@@ -25,6 +25,12 @@ import TimetableAdmin from './pages/TimetableAdmin'
 import LecturerTimetable from './pages/LecturerTimetable'
 import TimetableView from './pages/TimetableView'
 import FinalYearProjects from './pages/FinalYearProjects'
+import ProjectCases from './pages/ProjectCases'
+import ProjectCase from './pages/ProjectCase'
+import ProjectAlerts from './pages/ProjectAlerts'
+import MyProject from './pages/MyProject'
+import ProjectSurveyForm from './pages/ProjectSurveyForm'
+import ProjectSurveyAdmin from './pages/ProjectSurveyAdmin'
 import ProjectAllocationSchedule from './pages/ProjectAllocationSchedule'
 import MyProjectStudents from './pages/MyProjectStudents'
 import MyProjectSupervisor from './pages/MyProjectSupervisor'
@@ -98,6 +104,12 @@ const protectedRoutes = [
     { path: 'my-timetable', element: <LecturerTimetable /> },
     { path: 'timetable', element: <TimetableView /> },
     { path: 'final-year-projects', element: <FinalYearProjects /> },
+    { path: 'project-cases', element: <ProjectCases /> },
+    { path: 'project-cases/:id', element: <ProjectCase /> },
+    { path: 'project-alerts', element: <ProjectAlerts /> },
+    { path: 'my-project', element: <MyProject /> },
+    { path: 'project-survey', element: <ProjectSurveyForm /> },
+    { path: 'project-survey-admin', element: <ProjectSurveyAdmin /> },
     { path: 'project-allocation-schedule', element: <ProjectAllocationSchedule /> },
     { path: 'my-project-students', element: <MyProjectStudents /> },
     { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
