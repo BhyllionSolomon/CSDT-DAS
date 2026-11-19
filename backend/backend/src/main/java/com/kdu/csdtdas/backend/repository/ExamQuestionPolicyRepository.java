@@ -1,0 +1,1 @@
+package com.kdu.csdtdas.backend.repository;import com.kdu.csdtdas.backend.entity.ExamQuestionPolicy;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface ExamQuestionPolicyRepository extends JpaRepository<ExamQuestionPolicy,Long>{Optional<ExamQuestionPolicy> findByCycleIdAndCourseId(Long cycleId,Long courseId);}

@@ -1,0 +1,12 @@
+import { useEffect, useState } from 'react'
+import { getMyExamTimetable, getExamNotifications, markExamNotificationRead } from '../services/examService'
+export default function MyExamTimetable(){
+ const [rows,setRows]=useState([]),[notices,setNotices]=useState([]),[error,setError]=useState('')
+ const load=async()=>{try{setRows(await getMyExamTimetable());setNotices(await getExamNotifications());setError('')}catch(e){setError(e.response?.data?.message||'Unable to load your examination information.')}}
+ useEffect(()=>{load()},[])
+ return <main className="mx-auto max-w-4xl space-y-5 p-4"><header><h1 className="text-2xl font-bold">My Examination Timetable</h1><p className="text-sm opacity-70">Only examinations for your registered courses are displayed.</p></header>
+ {error&&<p role="alert" className="rounded border p-3 text-sm">{error}</p>}
+ <section className="rounded-xl border p-4"><div className="mb-3 flex items-center justify-between"><h2 className="font-semibold">Published examinations</h2><button className="rounded border px-3 py-1" onClick={load}>Refresh</button></div>
+ {rows.length===0?<p className="text-sm opacity-70">No published examinations are currently available for your registered courses.</p>:rows.sort((a,b)=>String(a.examDate).localeCompare(String(b.examDate))).map((r,i)=><article key={i} className="border-t py-3"><h3 className="font-semibold">{r.courseCode} — {r.courseTitle}</h3><p className="text-sm">{r.examDate} · {r.startTime||'Time to be announced'}{r.endTime?' – '+r.endTime:''}</p><p className="text-sm opacity-70">{r.venue||'Venue to be announced'} · {r.semester} Semester</p></article>)}</section>
+ <section className="rounded-xl border p-4"><h2 className="mb-3 font-semibold">Examination reminders</h2>{notices.length===0?<p className="text-sm opacity-70">No examination notifications.</p>:notices.map(n=><article key={n.id} className="flex justify-between gap-3 border-t py-3"><div><strong className="text-sm">{n.title}</strong><p className="text-sm">{n.message}</p><p className="text-xs opacity-60">{new Date(n.createdAt).toLocaleString()}</p></div>{!n.read&&<button className="h-fit rounded border px-2 py-1 text-xs" onClick={async()=>{await markExamNotificationRead(n.id);await load()}}>Mark read</button>}</article>)}</section></main>
+}
