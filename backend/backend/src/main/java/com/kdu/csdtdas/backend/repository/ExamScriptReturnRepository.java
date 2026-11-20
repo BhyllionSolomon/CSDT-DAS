@@ -1,0 +1,1 @@
+package com.kdu.csdtdas.backend.repository;import com.kdu.csdtdas.backend.entity.ExamScriptReturn;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface ExamScriptReturnRepository extends JpaRepository<ExamScriptReturn,Long>{List<ExamScriptReturn> findByBatchIdOrderByReturnedAtAsc(Long batchId);}

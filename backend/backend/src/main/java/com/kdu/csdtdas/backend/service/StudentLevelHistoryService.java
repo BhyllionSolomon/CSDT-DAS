@@ -48,6 +48,10 @@ public class StudentLevelHistoryService {
         history.setAcademicSession(student.getAcademicSession());
         history.setLevel(student.getLevel());
         history.setProgramme(student.getProgramme());
+        history.setStatus(student.getStatus());
+        if (history.getSource() == null || "ESTIMATED".equalsIgnoreCase(history.getSource())) {
+            history.setSource("SYNCED");
+        }
 
         historyRepository.save(history);
     }

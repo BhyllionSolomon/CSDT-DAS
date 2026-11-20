@@ -9,12 +9,12 @@ public final class ProjectDTOs {
     private ProjectDTOs() {}
 
     public record StaffRow(
-            Long userId, String fullName, String role, String designation,
-            boolean eligible, boolean coordinator, boolean assistantCoordinator, int currentLoad
+            Long userId, String username, String fullName, String role, String designation, String displayTitle, int displayOrder,
+            boolean eligible, boolean firstClassEligible, boolean coordinator, boolean assistantCoordinator, int currentLoad, int maxLoad
     ) {}
 
     public record StaffUpdate(
-            Long userId, String designation, Boolean eligible, Boolean coordinator, Boolean assistantCoordinator
+            Long userId, String designation, String displayTitle, Integer displayOrder, Boolean eligible, Boolean firstClassEligible, Boolean coordinator, Boolean assistantCoordinator, Integer maxLoad
     ) {}
 
     public record StudentLine(
@@ -55,6 +55,33 @@ public final class ProjectDTOs {
 
     public record MyStudent(
             Long studentId, String matricNumber, String fullName, String programme,
-            String classification, String sessionName, LocalDateTime assignedAt
+            String sessionName, LocalDateTime assignedAt
     ) {}
+
+    public record DraftItemRow(
+            Long itemId, Long studentId, String matricNumber, String fullName, String programme,
+            String classification, BigDecimal cgpa, Long supervisorId, String supervisorName
+    ) {}
+
+    public record AllocationEventRow(
+            String action, String matricNumber, String previousSupervisor, String newSupervisor,
+            String changedBy, LocalDateTime changedAt, String note
+    ) {}
+
+    public record DraftView(
+            Long draftId, Long sessionId, String sessionName, String status,
+            LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime publishedAt,
+            List<DraftItemRow> items, List<AllocationEventRow> history
+    ) {}
+
+    public record MoveRequest(Long supervisorId, String note) {}
+
+    /** Deliberately excludes CGPA and degree classification. */
+    public record PublicScheduleRow(
+            String sessionName, String matricNumber, String fullName, String programme,
+            String supervisorName, String designation, String displayTitle, int displayOrder
+    ) {}
+
+    public record AllocationExportRow(String supervisor, String student, String matric, String programme) {}
+    public record AllocationExportPreview(String session, int count, List<AllocationExportRow> rows) {}
 }

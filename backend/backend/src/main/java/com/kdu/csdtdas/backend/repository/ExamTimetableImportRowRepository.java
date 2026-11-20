@@ -1,0 +1,1 @@
+package com.kdu.csdtdas.backend.repository;import com.kdu.csdtdas.backend.entity.ExamTimetableImportRow;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface ExamTimetableImportRowRepository extends JpaRepository<ExamTimetableImportRow,Long>{List<ExamTimetableImportRow> findByTaskCycleId(Long cycleId);}

@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { login as loginRequest, signup as signupRequest, getCurrentUser } from '../services/authService'
+import {
+    login as loginRequest, signup as signupRequest, verifySignup as verifySignupRequest,
+    resendSignupCode as resendSignupRequest, getCurrentUser,
+} from '../services/authService'
 
 const AuthContext = createContext(null)
 
@@ -20,11 +23,21 @@ export function AuthProvider({ children }) {
         await afterAuth(await loginRequest(username, password))
     }
 
-    // Staff accounts wait for the H.O.D, so sign-up may not log the person in.
-    async function signup(idNumber, fullName, email, username, password) {
-        const result = await signupRequest(idNumber, fullName, email, username, password)
-        if (!result.pendingApproval) await afterAuth(result.login)
+    // Staff accounts wait for the H.O.D, and students must still confirm the emailed code,
+    // so sign-up does not always log the person in.
+    async function signup(idNumber, fullName, email, username, password, activationCode) {
+        const result = await signupRequest(idNumber, fullName, email, username, password, activationCode)
+        if (result.verificationRequired || result.pendingApproval) return result
+        await afterAuth(result.login)
         return result
+    }
+
+    async function verifySignup(idNumber, code) {
+        await afterAuth(await verifySignupRequest(idNumber, code))
+    }
+
+    async function resendSignupCode(idNumber) {
+        return resendSignupRequest(idNumber)
     }
 
     // Reloads the signed-in person's details. A new token is passed when the username changed.
@@ -68,7 +81,7 @@ export function AuthProvider({ children }) {
     }, [user?.username])
 
     return (
-        <AuthContext.Provider value={{ user, login, signup, logout, refreshUser }}>
+        <AuthContext.Provider value={{ user, login, signup, verifySignup, resendSignupCode, logout, refreshUser }}>
             {children}
         </AuthContext.Provider>
     )

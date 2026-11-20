@@ -14,6 +14,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     Optional<Student> findByMatricNumber(String matricNumber);
 
+    Optional<Student> findByUserUsername(String username);
+
     boolean existsByMatricNumber(String matricNumber);
 
 

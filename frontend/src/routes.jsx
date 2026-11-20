@@ -11,12 +11,37 @@ import CreateCourse from './pages/CreateCourse'
 import BulkUploadCourses from './pages/BulkUploadCourses'
 import Sessions from './pages/Sessions'
 import StartNewSession from './pages/StartNewSession'
+import CohortGuide from './pages/CohortGuide'
+import CarryOverMonitor from './pages/CarryOverMonitor'
+import SystemCheck from './pages/SystemCheck'
+import SupervisorExport from './pages/SupervisorExport'
+import NoticeBoard from './pages/NoticeBoard'
+import ProjectCases from './pages/ProjectCases'
+import ProjectCase from './pages/ProjectCase'
+import ProjectAlerts from './pages/ProjectAlerts'
+import MyProject from './pages/MyProject'
+import ProjectSurveyForm from './pages/ProjectSurveyForm'
+import ProjectSurveyAdmin from './pages/ProjectSurveyAdmin'
 import TimetableAdmin from './pages/TimetableAdmin'
 import LecturerTimetable from './pages/LecturerTimetable'
 import TimetableView from './pages/TimetableView'
 import FinalYearProjects from './pages/FinalYearProjects'
 import MyProjectStudents from './pages/MyProjectStudents'
 import MyProjectSupervisor from './pages/MyProjectSupervisor'
+import RateLecturers from './pages/RateLecturers'
+import FeedbackAdmin from './pages/FeedbackAdmin'
+import MyFeedback from './pages/MyFeedback'
+import LecturerPerformance from './pages/LecturerPerformance'
+import LabManuals from './pages/LabManuals'
+import LabFinance from './pages/LabFinance'
+import MyProgress from './pages/MyProgress'
+import HomeSlidesAdmin from './pages/HomeSlidesAdmin'
+import Attendance from './pages/Attendance'
+import MyAttendance from './pages/MyAttendance'
+import ContinuousAssessment from './pages/ContinuousAssessment'
+import MyCaScores from './pages/MyCaScores'
+import Graduates from './pages/Graduates'
+import SecurityLog from './pages/SecurityLog'
 import EnterResult from './pages/EnterResult'
 import BulkEnterResults from './pages/BulkEnterResults'
 import UploadResultsCsv from './pages/UploadResultsCsv'
@@ -47,6 +72,7 @@ import PerformanceAnalytics from './pages/PerformanceAnalytics'
 // Every page behind the sign-in is registered here. A new page = one new line.
 export const protectedRoutes = [
     { index: true, element: <RoleDashboard /> },
+    { path: 'notices', element: <NoticeBoard /> },
     { path: 'my-courses', element: <LecturerDashboard /> },
     { path: 'my-account', element: <MyAccount /> },
     { path: 'students', element: <Students /> },
@@ -59,12 +85,36 @@ export const protectedRoutes = [
     { path: 'bulk-upload-courses', element: <BulkUploadCourses /> },
     { path: 'sessions', element: <Sessions /> },
     { path: 'start-session', element: <StartNewSession /> },
+    { path: 'cohort-guide', element: <CohortGuide /> },
+    { path: 'carryover-monitor', element: <CarryOverMonitor /> },
+    { path: 'system-check', element: <SystemCheck /> },
+    { path: 'supervisor-export', element: <SupervisorExport /> },
+    { path: 'project-cases', element: <ProjectCases /> },
+    { path: 'project-cases/:id', element: <ProjectCase /> },
+    { path: 'project-alerts', element: <ProjectAlerts /> },
+    { path: 'my-project', element: <MyProject /> },
+    { path: 'project-survey', element: <ProjectSurveyForm /> },
+    { path: 'project-survey-admin', element: <ProjectSurveyAdmin /> },
     { path: 'timetable-admin', element: <TimetableAdmin /> },
     { path: 'my-timetable', element: <LecturerTimetable /> },
     { path: 'timetable', element: <TimetableView /> },
     { path: 'final-year-projects', element: <FinalYearProjects /> },
     { path: 'my-project-students', element: <MyProjectStudents /> },
     { path: 'my-project-supervisor', element: <MyProjectSupervisor /> },
+    { path: 'rate-lecturers', element: <RateLecturers /> },
+    { path: 'feedback-admin', element: <FeedbackAdmin /> },
+    { path: 'my-feedback', element: <MyFeedback /> },
+    { path: 'lecturer-performance', element: <LecturerPerformance /> },
+    { path: 'lab-manuals', element: <LabManuals /> },
+    { path: 'lab-finance', element: <LabFinance /> },
+    { path: 'my-progress', element: <MyProgress /> },
+    { path: 'home-slides', element: <HomeSlidesAdmin /> },
+    { path: 'attendance', element: <Attendance /> },
+    { path: 'my-attendance', element: <MyAttendance /> },
+    { path: 'continuous-assessment', element: <ContinuousAssessment /> },
+    { path: 'my-ca', element: <MyCaScores /> },
+    { path: 'graduates', element: <Graduates /> },
+    { path: 'security-log', element: <SecurityLog /> },
     { path: 'enter-result', element: <EnterResult /> },
     { path: 'bulk-enter-results', element: <BulkEnterResults /> },
     { path: 'upload-results-csv', element: <UploadResultsCsv /> },

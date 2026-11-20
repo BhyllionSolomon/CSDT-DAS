@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { listMyMaterials, downloadMaterial, messageFrom } from '../services/materialService'
 import { listMyClasses, joinOnlineClass } from '../services/onlineClassService'
+import { getStudentLabManuals, requestStudentLabManual, initiateStudentLabManualPayment, verifyStudentLabManualPayment, getStudentLabManualReceipt } from '../services/studentLabManualService'
+import { naira } from '../services/labService'
 
 const STATUS_STYLE = {
     SCHEDULED: 'bg-amber-100 text-amber-700',
@@ -12,8 +14,15 @@ function formatDate(value) {
     return value ? new Date(value).toLocaleString() : '—'
 }
 
+const LAB_MANUAL_PAYMENTS_ENABLED = import.meta.env.VITE_LAB_MANUAL_PAYMENTS_ENABLED === 'true'
+
 function StudentLearning() {
     const [tab, setTab] = useState('classes')
+    const [labManuals, setLabManuals] = useState([])
+    const [manualBusy, setManualBusy] = useState(null)
+    const [paymentNotice, setPaymentNotice] = useState('')
+    const [receipt, setReceipt] = useState(null)
+    const [selectedManual, setSelectedManual] = useState(null)
     const [materials, setMaterials] = useState([])
     const [classes, setClasses] = useState([])
     const [loading, setLoading] = useState(true)
@@ -21,13 +30,22 @@ function StudentLearning() {
     const [busyId, setBusyId] = useState(null)
 
     function load() {
-        return Promise.all([listMyMaterials(), listMyClasses()])
-            .then(([m, c]) => { setMaterials(m); setClasses(c) })
-            .catch(async (err) => setError(await messageFrom(err)))
+        return Promise.all([
+            listMyMaterials().catch(() => []),
+            listMyClasses().catch(() => []),
+            getStudentLabManuals().catch(() => [])
+        ]).then(([m, c, lm]) => { setMaterials(m); setClasses(c); setLabManuals(lm) })
     }
 
     useEffect(() => {
-        load().finally(() => setLoading(false))
+        const reference = new URLSearchParams(window.location.search).get('reference')
+        if (reference) {
+            setTab('manuals')
+            verifyStudentLabManualPayment(reference)
+                .then(async verified => { setPaymentNotice('Payment confirmed. Your receipt is ready.'); setReceipt(verified); await load() })
+                .catch(async err => { setError(await messageFrom(err)); await load() })
+                .finally(() => { window.history.replaceState({}, document.title, window.location.pathname); setLoading(false) })
+        } else { load().finally(() => setLoading(false)) }
     }, [])
 
     async function handleJoin(id) {
@@ -93,13 +111,13 @@ function StudentLearning() {
         <div>
             <h2 className="text-2xl font-bold mb-2">Class Materials &amp; Online Classes</h2>
             <p className="theme-text-muted text-sm mb-6">
-                Notes, slides and live classes for the courses you have registered this session.
+                Notes, slides, live classes and laboratory manuals for the courses you have registered this session.
             </p>
 
             {error && <div className="mb-4 px-4 py-3 rounded-lg bg-red-50 text-red-700 text-sm">{error}</div>}
 
             <div className="flex mb-6 p-1 rounded-xl w-fit" style={{ backgroundColor: 'var(--surface-soft)' }}>
-                {[['classes', `Online Classes${liveNow.length ? ` (${liveNow.length} live)` : ''}`], ['materials', 'Class Materials']].map(([key, label]) => (
+                {[['classes', `Online Classes${liveNow.length ? ` (${liveNow.length} live)` : ''}`], ['materials', 'Class Materials'], ['manuals', 'Get Lab Manual']].map(([key, label]) => (
                     <button key={key} onClick={() => setTab(key)}
                             className={`px-5 py-2 text-sm font-medium rounded-lg btn-press ${
                                 tab === key ? 'accent-gradient text-white shadow-sm' : 'theme-text-muted'
@@ -135,6 +153,86 @@ function StudentLearning() {
                             <ul className="divide-y theme-border">{past.map((c) => <ClassRow key={c.id} c={c} />)}</ul>
                         </div>
                     )}
+                </div>
+            )}
+
+            {tab === 'manuals' && (
+                <div className="space-y-4">
+                    {paymentNotice && <div role="status" className="card p-3 text-sm">{paymentNotice}</div>}
+                    {receipt && <div className="card p-5 space-y-2" id="lab-manual-receipt">
+                        <h3 className="font-bold text-lg">Kola Daisi University — CSDT Lab Manual Receipt</h3>
+                        <p><b>Receipt:</b> {receipt.receiptNumber}</p><p><b>Student:</b> {receipt.studentName} ({receipt.matricNumber})</p>
+                        <p><b>Course:</b> {receipt.courseCode || '—'}</p><p><b>Manual:</b> {receipt.manualTitle}</p>
+                        <p><b>Amount:</b> {naira(receipt.amount)}</p><p><b>Payment reference:</b> {receipt.paymentReference}</p>
+                        <p><b>Paid:</b> {formatDate(receipt.paidAt)}</p><p><b>Status:</b> {receipt.status === 'ISSUED' ? 'Issued' : 'Paid — not yet issued'}</p>
+                        <button onClick={() => window.print()} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm print:hidden">Print Receipt</button>
+                        <button onClick={() => setReceipt(null)} className="ml-2 underline text-sm print:hidden">Close</button>
+                    </div>}
+                    <div className="card p-4">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div><h3 className="font-semibold">Lab Manual Payment</h3>
+                                <p className="text-sm theme-text-muted mt-1">Select the laboratory manual for your course, check the price and follow the payment instructions.</p></div>
+                            <span className="text-xs font-semibold rounded-full px-3 py-1" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                                {LAB_MANUAL_PAYMENTS_ENABLED ? 'Online payment enabled' : 'Payment preview'}
+                            </span>
+                        </div>
+                        {!LAB_MANUAL_PAYMENTS_ENABLED && <div className="mt-3 rounded-lg border p-3 text-sm" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface-soft)' }}>
+                            <b>Online payment is not yet active.</b>
+                            <p className="mt-1 theme-text-muted">You can view available manuals and their prices now. Paystack payment will be activated after testing is completed. You will not be charged during this preview.</p>
+                        </div>}
+                    </div>
+                    {selectedManual && <div className="card p-5 space-y-4" role="dialog" aria-modal="true" aria-labelledby="manual-payment-title">
+                        <div className="flex items-start justify-between gap-3">
+                            <div><p className="text-xs theme-text-muted">{selectedManual.courseCode || 'Department manual'}</p>
+                                <h3 id="manual-payment-title" className="font-bold text-lg">Get {selectedManual.title}</h3>
+                                {selectedManual.courseTitle && <p className="text-sm theme-text-muted">{selectedManual.courseTitle}</p>}</div>
+                            <button onClick={() => setSelectedManual(null)} aria-label="Close payment details" className="text-sm underline">Close</button>
+                        </div>
+                        <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                            <p className="text-xs theme-text-muted">Manual price</p><p className="text-2xl font-bold">{naira(selectedManual.price)}</p>
+                        </div>
+                        <h4 className="font-semibold">How to pay when online payment is activated</h4>
+                        <ol className="list-decimal pl-5 space-y-2 text-sm">
+                            <li>Confirm that the course code and laboratory manual are correct.</li>
+                            <li>Proceed to the secure Paystack checkout.</li>
+                            <li>Complete payment using an available Paystack payment method.</li>
+                            <li>Return to CSDT-DAS to view and print your verified receipt.</li>
+                            <li>Present your receipt at the laboratory and collect your manual.</li>
+                        </ol>
+                        <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                            <b>Payment preview only</b>
+                            <p className="theme-text-muted mt-1">Paystack checkout is temporarily disabled while payment testing is completed. No payment will be initiated and no money will be deducted.</p>
+                        </div>
+                        <button disabled className="w-full rounded-lg px-4 py-2 text-sm font-semibold opacity-60" style={{ backgroundColor: 'var(--surface-soft)' }}>Online payment coming soon</button>
+                    </div>}
+                    {labManuals.length === 0 ? <div className="card p-6 text-sm theme-text-muted">No lab manuals are currently available for purchase.</div> :
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {labManuals.map(m => <div key={m.id} className="card p-4 flex flex-col gap-3">
+                                <div className="flex-1">
+                                    <p className="text-xs theme-text-muted">{m.courseCode || 'Department manual'}</p>
+                                    <h4 className="font-semibold mt-1">{m.title}</h4>
+                                    {m.courseTitle && <p className="text-sm theme-text-muted">{m.courseTitle}</p>}
+                                    <p className="text-lg font-bold mt-3">{naira(m.price)}</p>
+                                </div>
+                                {(m.status === 'NOT_ORDERED' || m.status === 'AWAITING_PAYMENT') && (LAB_MANUAL_PAYMENTS_ENABLED ?
+                                    <button disabled={manualBusy === m.id} onClick={async () => {
+                                        setError(null); setManualBusy(m.id)
+                                        try {
+                                            let orderId = m.orderId
+                                            if (!orderId) orderId = (await requestStudentLabManual(m.id)).id
+                                            const checkout = await initiateStudentLabManualPayment(orderId)
+                                            window.location.assign(checkout.authorizationUrl)
+                                        } catch (err) { setError(await messageFrom(err)); setManualBusy(null) }
+                                    }} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm disabled:opacity-50">{manualBusy === m.id ? 'Connecting to Paystack…' : m.status === 'NOT_ORDERED' ? 'Buy with Paystack' : 'Pay Now'}</button> :
+                                    <button onClick={() => setSelectedManual(m)} className="accent-gradient text-white rounded-lg px-4 py-2 text-sm">View payment details</button>
+                                )}
+                                {(m.status === 'PAID' || m.status === 'ISSUED') && <div className="rounded-lg p-3 text-sm" style={{ backgroundColor: 'var(--surface-soft)' }}>
+                                    <b>{m.status === 'PAID' ? 'Payment confirmed — awaiting collection' : 'Manual issued'}</b>
+                                    <p className="text-xs theme-text-muted mt-1">{m.status === 'PAID' ? 'Your payment has been verified. Collect your manual from the laboratory.' : 'The laboratory has recorded this manual as issued to you.'}</p>
+                                    <button onClick={async () => { try { setReceipt(await getStudentLabManualReceipt(m.orderId)) } catch (err) { setError(await messageFrom(err)) } }} className="mt-2 underline text-sm">View / Print Receipt</button>
+                                </div>}
+                            </div>)}
+                        </div>}
                 </div>
             )}
 

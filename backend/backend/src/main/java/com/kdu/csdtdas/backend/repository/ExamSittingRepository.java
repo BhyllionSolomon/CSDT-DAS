@@ -1,0 +1,1 @@
+package com.kdu.csdtdas.backend.repository;import com.kdu.csdtdas.backend.entity.ExamSitting;import org.springframework.data.jpa.repository.JpaRepository;import java.util.*;public interface ExamSittingRepository extends JpaRepository<ExamSitting,Long>{Optional<ExamSitting> findByTaskId(Long taskId);List<ExamSitting> findByPublishedTrue();}

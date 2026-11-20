@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,23 +25,20 @@ public class CourseRegistrationService {
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
     private final AcademicSessionRepository academicSessionRepository;
-    private final ResultCalculationService resultCalculationService;
-    private final SemesterUnitLimitService unitLimitService;
+    private final RegistrationRulesService rulesService;
 
     public CourseRegistrationService(
             CourseRegistrationRepository courseRegistrationRepository,
             StudentRepository studentRepository,
             CourseRepository courseRepository,
             AcademicSessionRepository academicSessionRepository,
-            ResultCalculationService resultCalculationService,
-            SemesterUnitLimitService unitLimitService
+            RegistrationRulesService rulesService
     ) {
         this.courseRegistrationRepository = courseRegistrationRepository;
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
         this.academicSessionRepository = academicSessionRepository;
-        this.resultCalculationService = resultCalculationService;
-        this.unitLimitService = unitLimitService;
+        this.rulesService = rulesService;
     }
 
     public CourseRegistration registerCourse(
@@ -58,69 +53,45 @@ public class CourseRegistrationService {
         }
 
         Student student = studentRepository.findById(studentId)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Student not found.")
-                );
+                .orElseThrow(() -> new IllegalArgumentException("Student not found."));
 
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Course not found.")
-                );
+                .orElseThrow(() -> new IllegalArgumentException("Course not found."));
 
         AcademicSession academicSession = academicSessionRepository.findById(academicSessionId)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("Academic session not found.")
-                );
+                .orElseThrow(() -> new IllegalArgumentException("Academic session not found."));
 
         if (!student.getStatus().equalsIgnoreCase("ACTIVE")) {
-            throw new IllegalArgumentException(
-                    "Student is not active and cannot register courses."
-            );
+            throw new IllegalArgumentException("Student is not active and cannot register courses.");
         }
 
         if (!course.getActive()) {
-            throw new IllegalArgumentException(
-                    "Course is not active and cannot be registered."
-            );
+            throw new IllegalArgumentException("Course is not active and cannot be registered.");
         }
 
         if (!academicSession.getActive()) {
-            throw new IllegalArgumentException(
-                    "Academic session is not active."
-            );
+            throw new IllegalArgumentException("Academic session is not active.");
         }
 
-        boolean alreadyRegistered =
-                courseRegistrationRepository
-                        .existsByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
-                                studentId,
-                                courseId,
-                                academicSessionId,
-                                semester
-                        );
+        boolean alreadyRegistered = courseRegistrationRepository
+                .existsByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
+                        studentId, courseId, academicSessionId, semester
+                );
 
         if (alreadyRegistered) {
-            throw new IllegalArgumentException(
-                    "Student has already registered this course for this semester."
-            );
+            throw new IllegalArgumentException("Student has already registered this course for this semester.");
         }
 
         if (!course.getSemester().equalsIgnoreCase(semester)) {
-            throw new IllegalArgumentException(
-                    "This course is not offered in the selected semester."
-            );
+            throw new IllegalArgumentException("This course is not offered in the selected semester.");
         }
 
         if (!course.getDepartment().getId().equals(student.getDepartment().getId())) {
-            throw new IllegalArgumentException(
-                    "This course does not belong to the student's department."
-            );
+            throw new IllegalArgumentException("This course does not belong to the student's department.");
         }
 
         if (!course.getLevel().getId().equals(student.getLevel().getId())) {
-            throw new IllegalArgumentException(
-                    "This course is not assigned to the student's level."
-            );
+            throw new IllegalArgumentException("This course is not assigned to the student's level.");
         }
 
         CourseRegistration registration = new CourseRegistration();
@@ -159,21 +130,13 @@ public class CourseRegistrationService {
         }
 
         return courseRegistrationRepository
-                .findByStudentIdAndAcademicSessionId(
-                        studentId,
-                        academicSessionId
-                );
+                .findByStudentIdAndAcademicSessionId(studentId, academicSessionId);
     }
 
     public void cancelRegistration(Long registrationId) {
 
-        CourseRegistration registration =
-                courseRegistrationRepository.findById(registrationId)
-                        .orElseThrow(() ->
-                                new IllegalArgumentException(
-                                        "Course registration not found."
-                                )
-                        );
+        CourseRegistration registration = courseRegistrationRepository.findById(registrationId)
+                .orElseThrow(() -> new IllegalArgumentException("Course registration not found."));
 
         registration.setStatus("CANCELLED");
 
@@ -197,12 +160,11 @@ public class CourseRegistrationService {
 
         return courseRegistrationRepository
                 .findByCourseIdAndAcademicSessionIdAndSemester(
-                        courseId,
-                        academicSessionId,
-                        semester.trim().toUpperCase()
+                        courseId, academicSessionId, semester.trim().toUpperCase()
                 );
     }
 
+    /** Every rule (carry-overs, level, units, direct-entry backlog) is checked by RegistrationRulesService. */
     public com.kdu.csdtdas.backend.dto.BulkRegistrationResult registerMultiple(
             Long studentId,
             Long academicSessionId,
@@ -226,62 +188,15 @@ public class CourseRegistrationService {
 
         String cleanSemester = semester.trim().toUpperCase();
 
-        // A course failed in a semester is registered first in the same semester of the next session.
-        List<Course> outstanding = resultCalculationService.getOutstandingCourses(studentId).stream()
-                .filter(c -> c.getSemester() != null && c.getSemester().equalsIgnoreCase(cleanSemester))
-                .toList();
-
-        // Carry-overs already registered for this session and semester need not be sent again.
-        Set<Long> alreadyRegisteredIds = courseRegistrationRepository
-                .findByStudentIdAndAcademicSessionId(studentId, academicSessionId).stream()
-                .filter(r -> "REGISTERED".equalsIgnoreCase(r.getStatus())
-                        && cleanSemester.equalsIgnoreCase(r.getSemester()))
-                .map(r -> r.getCourse().getId())
-                .collect(Collectors.toSet());
-
-        List<Long> missing = outstanding.stream()
-                .map(Course::getId)
-                .filter(id -> !ids.contains(id) && !alreadyRegisteredIds.contains(id))
-                .toList();
-
-        if (!missing.isEmpty()) {
-            List<String> codes = outstanding.stream()
-                    .filter(c -> missing.contains(c.getId()))
-                    .map(Course::getCode)
-                    .toList();
-            throw new IllegalArgumentException(
-                    "Courses you failed in the " + cleanSemester.toLowerCase()
-                            + " semester must be registered first: " + String.join(", ", codes)
-            );
-        }
-
-        int requiredUnits = unitLimitService.getRequiredUnits(
-                student.getProgramme().getId(), student.getLevel().getId(), cleanSemester
-        );
-
-        int totalUnits = 0;
-        List<Course> coursesToRegister = new ArrayList<>();
-        for (Long courseId : ids) {
-            Course course = courseRepository.findById(courseId)
-                    .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseId));
-            totalUnits += course.getCreditUnit();
-            coursesToRegister.add(course);
-        }
-
-        if (totalUnits != requiredUnits) {
-            String direction = totalUnits > requiredUnits ? "exceeds" : "is below";
-            throw new IllegalArgumentException(
-                    "Total selected units (" + totalUnits + ") " + direction
-                            + " the required total of " + requiredUnits
-                            + " for this level and semester. Please adjust your selection to match "
-                            + "exactly, or print this notice and contact your Level Adviser for approval."
-            );
-        }
+        RegistrationRulesService.Checked checked = rulesService.validate(student, session, cleanSemester, ids);
 
         int registered = 0;
         int skipped = 0;
 
-        for (Course course : coursesToRegister) {
+        for (Long courseId : ids) {
+            Course course = courseRepository.findById(courseId)
+                    .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseId));
+
             boolean already = courseRegistrationRepository
                     .existsByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
                             studentId, course.getId(), academicSessionId, cleanSemester
@@ -299,7 +214,7 @@ public class CourseRegistrationService {
         }
 
         return new com.kdu.csdtdas.backend.dto.BulkRegistrationResult(
-                registered, skipped, totalUnits, requiredUnits
+                registered, skipped, checked.totalUnits(), checked.requiredUnits()
         );
     }
 
@@ -329,11 +244,10 @@ public class CourseRegistrationService {
 
         for (Student student : candidates) {
 
-            boolean alreadyRegistered =
-                    courseRegistrationRepository
-                            .existsByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
-                                    student.getId(), courseId, academicSessionId, cleanSemester
-                            );
+            boolean alreadyRegistered = courseRegistrationRepository
+                    .existsByStudentIdAndCourseIdAndAcademicSessionIdAndSemester(
+                            student.getId(), courseId, academicSessionId, cleanSemester
+                    );
 
             if (alreadyRegistered) {
                 continue;

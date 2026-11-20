@@ -355,6 +355,20 @@ public class StudentRosterUploadService {
                     studentRepository.save(student);
                     created++;
                 } else {
+                    // A roster upload represents the student's selected programme,
+                    // level and academic session. Refresh existing records instead
+                    // of leaving stale level/programme values from an earlier session.
+                    Student student = studentRepository.findByMatricNumber(row.getMatricNumber())
+                            .orElseThrow(() -> new IllegalStateException("Existing student record could not be loaded."));
+                    if (row.getFullName() != null && !row.getFullName().isBlank()) {
+                        student.setFullName(row.getFullName().trim());
+                    }
+                    student.setDepartment(department);
+                    student.setProgramme(programme);
+                    student.setLevel(level);
+                    student.setAcademicSession(session);
+                    student.setStatus("ACTIVE");
+                    studentRepository.save(student);
                     skipped++;
                 }
 

@@ -12,8 +12,6 @@ async function getAllLevels() {
     return response.data
 }
 
-const LEVEL_CODES = ['100', '200', '300', '400']
-
 function BulkUploadStudents() {
     const [programmes, setProgrammes] = useState([])
     const [levels, setLevels] = useState([])
@@ -133,17 +131,23 @@ function BulkUploadStudents() {
             {selectedProgramme && !selectedLevel && (
                 <div className="grid grid-cols-4 gap-4">
                     {levels
-                        .filter((l) => LEVEL_CODES.includes(l.code))
+                        .filter((l) => l.active !== false)
+                        .sort((a, b) => Number(a.levelNumber ?? 0) - Number(b.levelNumber ?? 0))
                         .map((l) => (
                             <button
                                 key={l.id}
                                 onClick={() => setSelectedLevel(l)}
                                 className="bg-white rounded-lg shadow p-6 text-center hover:shadow-md transition-shadow"
                             >
-                                <p className="text-2xl font-bold text-slate-800">{l.code}</p>
-                                <p className="text-sm text-slate-500">Level</p>
+                                <p className="text-2xl font-bold text-slate-800">{l.name || `${l.levelNumber ?? l.code} Level`}</p>
+                                <p className="text-sm text-slate-500">{l.code}</p>
                             </button>
                         ))}
+                    {levels.filter((l) => l.active !== false).length === 0 && (
+                        <p className="col-span-full rounded-lg bg-amber-50 p-4 text-sm text-amber-800">
+                            No active levels are configured. Ask an administrator to activate or create the required levels.
+                        </p>
+                    )}
                 </div>
             )}
 

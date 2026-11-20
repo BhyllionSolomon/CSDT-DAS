@@ -21,11 +21,26 @@ public class StaffProfile {
     @Column(nullable = false)
     private boolean supervisionEligible;
 
+    /** Exact prefix printed before the staff name in the official Word allocation. */
+    @Column(length = 20)
+    private String displayTitle = "";
+
+    /** Lower values appear earlier in the official supervisor allocation document. */
+    @Column(nullable = false, columnDefinition = "integer default 9999")
+    private int displayOrder = 9999;
+
+    /** HOD-selected subset eligible to receive First Class students. */
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean firstClassEligible;
+
     @Column(nullable = false)
     private boolean projectCoordinator;
 
     @Column(nullable = false)
     private boolean assistantCoordinator;
+
+    @Column(name = "max_supervision_load")
+    private Integer maxSupervisionLoad;
 
     public StaffProfile() {}
 
@@ -34,10 +49,18 @@ public class StaffProfile {
     public void setUser(User user) { this.user = user; }
     public String getDesignation() { return designation; }
     public void setDesignation(String designation) { this.designation = designation; }
+    public String getDisplayTitle() { return displayTitle; }
+    public void setDisplayTitle(String displayTitle) { this.displayTitle = displayTitle == null ? "" : displayTitle.trim(); }
+    public int getDisplayOrder() { return displayOrder; }
+    public void setDisplayOrder(int displayOrder) { this.displayOrder = displayOrder; }
     public boolean isSupervisionEligible() { return supervisionEligible; }
     public void setSupervisionEligible(boolean supervisionEligible) { this.supervisionEligible = supervisionEligible; }
+    public boolean isFirstClassEligible() { return firstClassEligible; }
+    public void setFirstClassEligible(boolean firstClassEligible) { this.firstClassEligible = firstClassEligible; }
     public boolean isProjectCoordinator() { return projectCoordinator; }
     public void setProjectCoordinator(boolean projectCoordinator) { this.projectCoordinator = projectCoordinator; }
     public boolean isAssistantCoordinator() { return assistantCoordinator; }
+    public Integer getMaxSupervisionLoad() { return maxSupervisionLoad; }
+    public void setMaxSupervisionLoad(int maxSupervisionLoad) { this.maxSupervisionLoad = maxSupervisionLoad; }
     public void setAssistantCoordinator(boolean assistantCoordinator) { this.assistantCoordinator = assistantCoordinator; }
 }
