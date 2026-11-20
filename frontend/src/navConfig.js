@@ -40,6 +40,7 @@ export const hodGroups = [
             { to: '/registration-approvals', label: 'Registration Approvals' },
             { to: '/register-courses', label: 'Register in Person' },
             { to: '/registration-status', label: 'Registration Status' },
+            { to: '/activation-codes', label: 'Activation Codes' },
         ] },
     { label: 'Courses', items: [
             { to: '/curriculum', label: 'Curriculum by Level' },
@@ -133,6 +134,7 @@ export const adviserGroups = [
             { to: '/register-courses', label: 'Register in Person' },
             { to: '/registration-status', label: 'Registration Status' },
             { to: '/lecturer-students', label: 'My Students' },
+            { to: '/activation-codes', label: 'Activation Codes' },
         ] },
     { label: 'Results', items: [{ to: '/verification', label: 'Result Verification' }] },
     { label: 'Courses', items: [

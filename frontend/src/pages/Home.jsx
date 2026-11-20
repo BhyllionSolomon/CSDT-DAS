@@ -84,7 +84,7 @@ function explain(err) {
 }
 
 function Home() {
-    const { login, signup } = useAuth()
+    const { login, signup, verifySignup, resendSignupCode } = useAuth()
     const navigate = useNavigate()
     const compact = useCompact()
 
@@ -135,9 +135,17 @@ function Home() {
                 await login(f.username, f.password)
                 navigate('/')
             } else if (view === 'signup') {
-                const result = await signup(f.idNumber, f.fullName, f.email, f.username, f.password)
-                if (result.pendingApproval) go('signin', result.message)
+                const result = await signup(f.idNumber, f.fullName, f.email, f.username, f.password, f.activationCode)
+                if (result.verificationRequired) {
+                    // Students: the account is created only after the emailed code is confirmed.
+                    setView('verify'); setStep(1); setPart(1)
+                    setF({ idNumber: f.idNumber })
+                    setNotice(result.message)
+                } else if (result.pendingApproval) go('signin', result.message)
                 else navigate('/')
+            } else if (view === 'verify') {
+                await verifySignup(f.idNumber, f.code)
+                navigate('/')
             } else if (step === 1) {
                 const result = await requestPasswordReset(f.identifier)
                 setStep(2)
@@ -155,7 +163,7 @@ function Home() {
     async function resend() {
         setError(null); setNotice(null); setBusy(true)
         try {
-            const result = await requestPasswordReset(f.identifier)
+            const result = view === 'verify' ? await resendSignupCode(f.idNumber) : await requestPasswordReset(f.identifier)
             setNotice(result.message)
         } catch (err) {
             setError(explain(err))
@@ -164,7 +172,8 @@ function Home() {
 
     const titles = {
         signin: ['Welcome back', 'Sign in to your department workspace.'],
-        signup: ['Create your account', 'Students use a matric number already on the roster.'],
+        signup: ['Create your account', 'Students need their matric number and the activation code from the department.'],
+        verify: ['Verify your email', 'Type the 6-digit code we emailed you to finish creating your account.'],
         forgot: step === 1
             ? ['Reset your password', 'We will email a 6-digit code to the address on your account.']
             : ['Enter your code', 'Type the code we emailed you, then choose a new password.'],
@@ -174,7 +183,8 @@ function Home() {
     const lastPart = !(view === 'signup' && compact && part === 1)
     const buttonLabel = view === 'signin' ? 'Sign In'
         : view === 'signup' ? (lastPart ? 'Create Account' : 'Next')
-            : step === 1 ? 'Send Code' : 'Reset Password'
+            : view === 'verify' ? 'Verify & Create Account'
+                : step === 1 ? 'Send Code' : 'Reset Password'
 
     const cur = slides[index]
     const previous = () => setIndex((index - 1 + slides.length) % slides.length)
@@ -275,13 +285,23 @@ function Home() {
                                     <>
                                         <Field label="Matric number or Staff ID" placeholder="KDUCSC25086" {...bind('idNumber')} />
                                         <Field label="Full name" {...bind('fullName')} />
+                                        {/^KDU/i.test(f.idNumber || '') && (
+                                            <div className="sm:col-span-2">
+                                                <Field label="Activation code" placeholder="ABCD-EFGH" autoComplete="off"
+                                                       hint="Given to you privately by your Level Adviser or the H.O.D. It proves the matric number is yours."
+                                                       {...bind('activationCode')} />
+                                            </div>
+                                        )}
                                     </>
                                 )}
                                 {(!compact || part === 2) && (
                                     <>
-                                        <Field label="Email" type="email" {...bind('email')} />
+                                        <Field label="Email" type="email" hint="A code will be sent here." {...bind('email')} />
                                         <Field label="Username" {...bind('username')} />
-                                        <div className="sm:col-span-2"><Field label="Password" type="password" autoComplete="new-password" {...bind('password')} /></div>
+                                        <div className="sm:col-span-2">
+                                            <Field label="Password" type="password" autoComplete="new-password"
+                                                   hint="At least 8 characters, with a letter and a number." {...bind('password')} />
+                                        </div>
                                     </>
                                 )}
                                 {(!compact || part === 1) && (
@@ -290,6 +310,10 @@ function Home() {
                                     </p>
                                 )}
                             </div>
+                        )}
+
+                        {view === 'verify' && (
+                            <Field label="6-digit code" inputMode="numeric" maxLength={6} autoComplete="one-time-code" {...bind('code')} />
                         )}
 
                         {view === 'forgot' && step === 1 && <Field label="Matric number or username" {...bind('identifier')} />}
@@ -312,6 +336,12 @@ function Home() {
                             <>
                                 {compact && part === 2 ? <button onClick={() => setPart(1)}>← Back</button> : <span />}
                                 <button onClick={() => go('signin')}>Already registered? Sign in</button>
+                            </>
+                        )}
+                        {view === 'verify' && (
+                            <>
+                                <button onClick={resend} disabled={busy}>Resend code</button>
+                                <button onClick={() => go('signin')}>Back to sign in</button>
                             </>
                         )}
                         {view === 'forgot' && (

@@ -149,6 +149,19 @@ public class SecurityConfig {
                         // authorisation is enforced again inside ExamManagementService.
                         .requestMatchers("/api/exams/**").hasAnyRole("HOD", "ADMIN", "LECTURER", "ADJUNCT", "LEVEL_ADVISER", "STUDENT", "LAB_OFFICER", "TECHNICAL_STAFF")
 
+                        // Department set-up and records: only the H.O.D or an admin may change these.
+                        .requestMatchers(HttpMethod.POST, "/api/academic-sessions", "/api/programmes", "/api/levels", "/api/departments").hasAnyRole("HOD", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/academic-sessions/**", "/api/programmes/**", "/api/levels/**", "/api/departments/**").hasAnyRole("HOD", "ADMIN")
+                        .requestMatchers("/api/roles/**", "/api/permissions/**", "/api/role-permissions/**", "/api/audit-logs/**").hasAnyRole("HOD", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/courses", "/api/courses/roster/**").hasAnyRole("HOD", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/courses/**").hasAnyRole("HOD", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/students", "/api/students/csv/**", "/api/students/roster/**",
+                                "/api/students/advance-levels/**", "/api/students/advance-one-level/**", "/api/students/history/**").hasAnyRole("HOD", "ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/students/**").hasAnyRole("HOD", "ADMIN")
+
+                        // Activation codes for student sign-up. The service limits a Level Adviser to their own group.
+                        .requestMatchers("/api/activation-codes/**").hasAnyRole("HOD", "ADMIN", "LEVEL_ADVISER")
+
                         // Everything else academic
                         .requestMatchers("/api/**").hasAnyRole(ACADEMIC)
                         .anyRequest().authenticated()

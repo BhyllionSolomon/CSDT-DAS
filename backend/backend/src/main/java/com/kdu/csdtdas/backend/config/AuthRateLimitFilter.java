@@ -16,7 +16,11 @@ import java.util.Deque;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/** Slows down password guessing, sign-up floods and reset-code emails. Counts are kept per address. */
+/**
+ * Slows down password guessing, sign-up floods and code emails. Counts are kept per address.
+ * Limits are generous because a whole class may share one campus internet address; the
+ * per-student locks inside the sign-up itself are what stop code guessing.
+ */
 @Component
 public class AuthRateLimitFilter extends OncePerRequestFilter {
 
@@ -76,6 +80,7 @@ public class AuthRateLimitFilter extends OncePerRequestFilter {
     private String kindOf(String path) {
         if (path.equals("/api/auth/login")) return "login";
         if (path.equals("/api/auth/signup")) return "signup";
+        if (path.startsWith("/api/auth/signup/")) return "verify";
         if (path.startsWith("/api/auth/forgot-password/")) return "forgot";
         return null;
     }
@@ -83,8 +88,9 @@ public class AuthRateLimitFilter extends OncePerRequestFilter {
     private int limitOf(String kind) {
         return switch (kind) {
             case "login" -> 30;
-            case "signup" -> 20;
-            default -> 10;
+            case "signup" -> 60;
+            case "verify" -> 120;
+            default -> 30;
         };
     }
 }

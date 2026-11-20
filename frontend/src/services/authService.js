@@ -4,8 +4,17 @@ export async function login(username, password) {
     return (await api.post('/auth/login', { username, password })).data
 }
 
-export async function signup(idNumber, fullName, email, username, password) {
-    return (await api.post('/auth/signup', { idNumber, fullName, email, username, password })).data
+export async function signup(idNumber, fullName, email, username, password, activationCode) {
+    return (await api.post('/auth/signup', { idNumber, fullName, email, username, password, activationCode })).data
+}
+
+// Students: the 6-digit code emailed during sign-up.
+export async function verifySignup(idNumber, code) {
+    return (await api.post('/auth/signup/verify', { idNumber, code })).data
+}
+
+export async function resendSignupCode(idNumber) {
+    return (await api.post('/auth/signup/resend', { idNumber })).data
 }
 
 export async function getCurrentUser() {
